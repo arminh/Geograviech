@@ -33,22 +33,7 @@ namespace Assets.Scripts
             throw new NotImplementedException();
         }
 
-        public override void heal(int amount)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void levelUp()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void applyEffect()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void cureEffect(Consumable item)
         {
             throw new NotImplementedException();
         }

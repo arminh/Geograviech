@@ -22,22 +22,7 @@ namespace Assets.Scripts
 
         }
 
-        public override void heal(int amount)
-        {
-
-        }
-
         public override void levelUp()
-        {
-
-        }
-
-        public override void applyEffect()
-        {
-
-        }
-
-        public override void cureEffect(Consumable item)
         {
 
         }
@@ -52,9 +37,9 @@ namespace Assets.Scripts
 
         }
 
-        public void useConsumable()
+        public void useConsumable(IConsumable consumable)
         {
-
+            consumable.use(this);
         }
 
         public void useWeapon()

@@ -22,22 +22,7 @@ namespace Assets.Scripts
 
         }
 
-        public override void heal(int amount)
-        {
-
-        }
-
         public override void levelUp()
-        {
-
-        }
-
-        public override void applyEffect()
-        {
-
-        }
-
-        public override void cureEffect(Consumable item)
         {
 
         }
