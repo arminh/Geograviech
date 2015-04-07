@@ -11,9 +11,9 @@ namespace Assets.Scripts.Consumables
         {
             this.name = "Pfefferminz-Tee";
         }
-        public void use(Character character)
+        public bool use(Character character)
         {
-            character.cureEffect(Effect.EffectType.POISON);
+            return character.cureEffect(Effect.EffectType.POISON);
         }
     }
 }

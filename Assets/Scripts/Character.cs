@@ -13,6 +13,8 @@ public abstract class Character : MonoBehaviour {
     protected int strength;
     protected List<Attack> attacks;
     protected Effect.EffectType effect;
+    protected bool dead;
+    int xp;
 
 
 	// Use this for initialization
@@ -27,17 +29,53 @@ public abstract class Character : MonoBehaviour {
 
     public abstract void executeTurn();
 
-    protected abstract void die();
+    protected void die()
+    {
+        dead = true;
+        health = 0;
+        //TODO notify AnimationHandler 
+    }
 
-    public abstract void heal(int amount);
+    public bool heal(int amount)
+    {
+        if(health < maxHealth)
+        {
+            health = Mathf.Min(health + amount, maxHealth);
+            return true;
+        }
+        return false;
+    }
 
     public abstract void levelUp();
 
-    public abstract void revive(int healAmount);
+    public bool revive(int healAmount)
+    {
+        if(dead)
+        {
+            dead = false;
+            health = healAmount;
+            //TODO notify AnimationHandler
+            return true;
+        }
+        return false;
+    }
 
-    public abstract void applyEffect();
+    public bool applyEffect(Effect.EffectType effectToApply)
+    {
+        effect = effectToApply;
+        return true;
+    }
 
-    public abstract void cureEffect(Effect.EffectType effect);
+    public bool cureEffect(Effect.EffectType effectToCure)
+    {
+        if(effectToCure.Equals(effect))
+        {
+            effect = Effect.EffectType.NONE;
+            //TODO notify AnimationHandler
+            return true;
+        }
+        return false;
+    }
 
 
 }

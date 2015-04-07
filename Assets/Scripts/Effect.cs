@@ -21,6 +21,6 @@ namespace Assets.Scripts
 
         }
 
-        public enum EffectType { FIRE, POISON, SLEEP, STUN, FREEZE };
+        public enum EffectType { FIRE, POISON, SLEEP, STUN, FREEZE, NONE };
     }
 }

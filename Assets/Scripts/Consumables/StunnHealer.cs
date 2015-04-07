@@ -11,9 +11,9 @@ namespace Assets.Scripts.Consumables
         {
             this.name = "Eiseimer";
         }
-        public void use(Character character)
+        public bool use(Character character)
         {
-            character.cureEffect(Effect.EffectType.STUN);
+            return character.cureEffect(Effect.EffectType.STUN);
         }
     }
 }

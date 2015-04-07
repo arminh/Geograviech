@@ -7,6 +7,6 @@ namespace Assets.Scripts
 {
     interface IConsumable: Item
     {
-        public void use(Character character);
+        public bool use(Character character);
     }
 }

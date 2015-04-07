@@ -11,9 +11,9 @@ namespace Assets.Scripts.Consumables
         {
             this.name = "Heizdecke";
         }
-        public void use(Character character)
+        public bool use(Character character)
         {
-            character.cureEffect(Effect.EffectType.FREEZE);
+            return character.cureEffect(Effect.EffectType.FREEZE);
         }
     }
 }
