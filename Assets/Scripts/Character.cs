@@ -12,7 +12,7 @@ public abstract class Character : MonoBehaviour {
     protected int speed;
     protected int strength;
     protected List<Attack> attacks;
-    protected Effect effect;
+    protected Effect.EffectType effect;
 
 
 	// Use this for initialization
@@ -33,7 +33,11 @@ public abstract class Character : MonoBehaviour {
 
     public abstract void levelUp();
 
+    public abstract void revive(int healAmount);
+
     public abstract void applyEffect();
 
-    public abstract void cureEffect(Consumable item);
+    public abstract void cureEffect(Effect.EffectType effect);
+
+
 }

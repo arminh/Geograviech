@@ -10,6 +10,6 @@ namespace Assets
         protected string name;
         protected float dropChance;
 
-        protected abstract void use();
+        
     }
 }

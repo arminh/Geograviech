@@ -10,7 +10,7 @@ namespace Assets.Scripts
         private List<Weapon> weapons;
         private Weapon activeWeapon;
 
-        private List<Consumable> consumables;
+        private List<IConsumable> consumables;
 
         public override void executeTurn()
         {

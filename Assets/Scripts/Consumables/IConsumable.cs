@@ -5,12 +5,8 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Consumable: Item
+    interface IConsumable: Item
     {
-
-        protected override void use()
-        {
-            throw new NotImplementedException();
-        }
+        public void use(Character character);
     }
 }
