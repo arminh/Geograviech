@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 using Assets.Scripts;
 using System.Collections.Generic;
@@ -79,3 +79,4 @@ public abstract class Character : MonoBehaviour {
 
 
 }
+*/
