@@ -9,7 +9,7 @@ namespace Assets.Scripts
     {
         private Attack attack;
 
-        protected override void use()
+        protected void use()
         {
             throw new NotImplementedException();
         }

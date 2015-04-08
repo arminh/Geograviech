@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public abstract class Character : MonoBehaviour {
 
-    protected string name;
+    protected new string name;
     protected int level;
     protected int health;
     protected int maxHealth;
@@ -29,7 +29,7 @@ public abstract class Character : MonoBehaviour {
 
     public abstract void executeTurn();
 
-    protected void die()
+    protected virtual void die()
     {
         dead = true;
         health = 0;

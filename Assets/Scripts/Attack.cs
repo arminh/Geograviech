@@ -6,7 +6,7 @@ using System.Text;
 namespace Assets.Scripts
 {
 
-    class Attack
+    public class Attack
     {
         private string name;
         private ElementType type;
