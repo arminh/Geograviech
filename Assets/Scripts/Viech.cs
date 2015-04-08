@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Viech: Character
+    public class Viech: Character
     {
         private ElementType type;
         private float catchChance;
@@ -17,7 +17,7 @@ namespace Assets.Scripts
 
         }
 
-        private override void die()
+        protected override void die()
         {
 
         }

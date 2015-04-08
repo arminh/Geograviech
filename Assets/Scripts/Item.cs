@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Assets
 {
-    abstract class Item : IConsumable
+    public abstract class Item
     {
         protected string name;
         protected float dropChance;

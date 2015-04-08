@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Effect
+    public class Effect
     {
         private string name;
         private EffectType type;
