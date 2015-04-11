@@ -77,5 +77,12 @@ public abstract class Character : MonoBehaviour {
         return false;
     }
 
+    public abstract int getAttacked(Attack attack); // returns the inflickted damage
 
+    public abstract bool isElite();
+
+    public int getSpeed()
+    {
+        return speed;
+    }
 }

@@ -10,7 +10,9 @@ namespace Assets.Scripts
         private List<Character> fighters;
         private static FightManager fightManager;
 
-        private List<Character> player;
+        private Hero player;
+
+        private Character enemy;
 
         private FightManager() 
         { 
@@ -19,17 +21,50 @@ namespace Assets.Scripts
 
         private void orderFighters()
         {
-
+            fighters.Sort(
+                delegate(Character c1, Character c2)
+                {
+                    return c1.getSpeed().CompareTo(c2.getSpeed());
+                }
+            );
         }
 
-        public void startFight()
+        public void startFight(Hero player,Character enemy)
         {
+            this.player = player;
+            this.enemy = enemy;
 
+            fighters = new List<Character>();
+            fighters.Add(player);
+            foreach (Character viech in player.getActiveViecher())
+            {
+                fighters.Add(viech);
+            }
+
+            fighters.Add(enemy);
+            if(enemy.isElite())
+            {
+                foreach (Character viech in ((Elite)enemy).getActiveViecher())
+                {
+                    fighters.Add(viech);
+                }
+            }
+            orderFighters();
+
+            executeTurn();
+        }
+
+        private void executeTurn()
+        {
+            Character fighter = fighters.FirstOrDefault();
+            fighters.RemoveAt(0);
+            fighters.Add(fighter);
+            fighter.executeTurn();
         }
 
         public void addFighter(Character character)
         {
-
+            fighters.Add(character);
         }
 
         public static FightManager instance()
@@ -40,6 +75,20 @@ namespace Assets.Scripts
             }
 
             return fightManager;
+        }
+
+        public void attackEnemy(Attack attack)
+        {
+            int damage = enemy.getAttacked(attack);
+        }
+        public void attackPlayer(Attack attack)
+        {
+            int damage = player.getAttacked(attack);
+        }
+
+        public void turnFinished()
+        {
+            executeTurn();
         }
     }
 }
