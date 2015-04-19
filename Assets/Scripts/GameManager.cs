@@ -1,36 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
-public class GameManager : MonoBehaviour {
-
-    private static GameManager gameManager = null;
-
-    private GameManager()
+namespace Assets.Scripts
+{
+    public class GameManager : MonoBehaviour
     {
 
-    }
-    
-    public static GameManager instance()
-    {
-        if (gameManager == null)
+        private static GameManager gameManager = null;
+
+        private GameManager()
         {
-            gameManager = new GameManager();
+
         }
 
-        return gameManager;
+        public static GameManager instance()
+        {
+            if (gameManager == null)
+            {
+                gameManager = new GameManager();
+            }
+
+            return gameManager;
+        }
+
+        public void createCatchViechUI()
+        {
+
+        }
+
+        // Use this for initialization
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
-
-    public void createCatchViechUI()
-    {
-
-    }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
