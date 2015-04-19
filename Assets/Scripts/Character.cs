@@ -14,16 +14,23 @@ public abstract class Character : MonoBehaviour {
     protected List<Attack> attacks;
     protected Effect.EffectType effect;
     protected bool dead;
-    int xp;
+    protected int xp;
+    protected int levelUpXp;
 
 
 	// Use this for initialization
 	void Start () {
-	
+	    
 	}
 
     public void addXP(int amount)
     {
+        xp = xp + amount;
+
+        if (xp >= levelUpXp)
+        {
+            this.levelUp();
+        }
 
     }
 
