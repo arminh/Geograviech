@@ -12,6 +12,7 @@ namespace Assets.Scripts
 
         protected abstract void chooseViech();
 
+
         protected abstract void switchViech();
 
         public List<Viech> getActiveViecher()
