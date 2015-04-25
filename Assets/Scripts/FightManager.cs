@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class FightManager
+    class FightManager : MonoBehaviour
     {
         private List<Character> fighters;
-        private static FightManager fightManager;
-
         private Hero player;
 
         private Character enemy;
 
-        private FightManager() 
+        public List<GameObject> prefabs;
+
+        List<Vector3> enemyPositions;
+        List<Vector3> playerPositions;
+
+
+        public FightManager() 
         { 
 
         }
@@ -34,11 +39,14 @@ namespace Assets.Scripts
             this.player = player;
             this.enemy = enemy;
 
+            //TODO set EnemyPosition
+            //TODO set PlayerPosition
+
             fighters = new List<Character>();
             fighters.Add(player);
             foreach (Character viech in player.getActiveViecher())
             {
-                fighters.Add(viech);
+                addFighter(viech,false);
             }
 
             fighters.Add(enemy);
@@ -46,7 +54,7 @@ namespace Assets.Scripts
             {
                 foreach (Character viech in ((Elite)enemy).getActiveViecher())
                 {
-                    fighters.Add(viech);
+                    addFighter(viech,true);
                 }
             }
             orderFighters();
@@ -54,27 +62,53 @@ namespace Assets.Scripts
             executeTurn();
         }
 
+        private void setPositions()
+        {
+            int playerCount = 0;
+            int enemyCount = 0;
+            foreach (Character character in fighters)
+            {
+                GameObject sprite = character.getSprite();
+                if(character.isEnemy())
+                {                   
+                   sprite.transform.position = enemyPositions.ElementAt(enemyCount);
+                   enemyCount++;
+                }else
+                {
+                    sprite.transform.position = playerPositions.ElementAt(playerCount);
+                    playerCount++;
+                }
+            }
+        }
+
         private void executeTurn()
         {
+            setPositions();
             Character fighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
-            fighters.Add(fighter);
+            fighters.Add(fighter);  
             fighter.executeTurn();
         }
 
-        public void addFighter(Character character)
+        private void addFighter(Character character, bool isEnemy)
         {
+            character.setIsEnemy(isEnemy);
             fighters.Add(character);
-        }
-
-        public static FightManager instance()
-        {
-            if (fightManager == null)
-            {
-                fightManager = new FightManager();
-            }
-
-            return fightManager;
+            foreach (GameObject sprite in prefabs)
+	        {
+                if (sprite.name.Equals(character.getName()))
+                {
+                    GameObject spriteInitialisation = Instantiate(sprite, Vector3.zero, Quaternion.identity) as GameObject;
+                    if(isEnemy)
+                    {
+                        Vector3 scale = spriteInitialisation.transform.localScale;
+                        scale.x *= -1;
+                        spriteInitialisation.transform.localScale = scale;
+                    }
+                    character.setSprite(spriteInitialisation);
+                    return;
+                }
+	        }
         }
 
         public void attackEnemy(Attack attack)

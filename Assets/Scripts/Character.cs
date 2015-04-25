@@ -92,4 +92,9 @@ public abstract class Character : MonoBehaviour {
     {
         return speed;
     }
+
+    public string getName()
+    {
+        return name;
+    }
 }
