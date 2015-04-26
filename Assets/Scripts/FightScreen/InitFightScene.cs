@@ -17,45 +17,22 @@ public class InitFightScene : MonoBehaviour
 
         if (background != null)
         {
-            initBackgroundPosition();
+            Utils.InitBackground(background,mainCam);
         }
 
-    }
+        Hero hero = fightManager.getHero();
+        Character enemy = fightManager.getEnemy();
 
-    private void initBackgroundPosition()
-    {
-        Vector3 pos = mainCam.transform.position;
-        pos.z = 0.0f;
-        background.position = pos;
-
-        SpriteRenderer spriteRenderer = background.GetComponent<SpriteRenderer>();
-
-        if (spriteRenderer == null)
+        if (hero == null || enemy == null)
         {
             return;
         }
 
-        float width = spriteRenderer.sprite.bounds.size.x;
-        float height = spriteRenderer.sprite.bounds.size.y;
+        Vector3 heroPos = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 0));
 
-        float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
-        float worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
 
-        if (height - worldScreenHeight > width - worldScreenWidth)
-        {
-            Vector3 scale = background.localScale;
-            scale.x = worldScreenWidth / width;
-            scale.y = scale.x;
-            background.localScale = scale;
-        }
-        else
-        {
-            Vector3 scale = background.localScale;
-            scale.x = worldScreenHeight / height;
-            scale.y = scale.x;
-            background.localScale = scale;
-        }
-        
+
+        //hero.getTransform().position = new Vector3(1,1,1);
     }
 
     // Update is called once per frame

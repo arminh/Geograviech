@@ -91,5 +91,15 @@ namespace Assets.Scripts
         {
             executeTurn();
         }
+
+        public Hero getHero()
+        {
+            return player;
+        }
+
+        public Character getEnemy()
+        {
+            return enemy;
+        }
     }
 }
