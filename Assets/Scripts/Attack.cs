@@ -13,9 +13,39 @@ namespace Assets.Scripts
         private int damage;
         private Effect effect;
 
-        public void execute()
+        public void execute(Character character)
         {
 
+        }
+
+        public int getDamage()
+        {
+            return damage;
+        }
+
+        public void setDamage(int value)
+        {
+            damage = value;
+        }
+
+        public ElementType getType()
+        {
+            return type;
+        }
+
+        public void setType(ElementType value)
+        {
+            type = value;
+        }
+
+        public Effect getEffect()
+        {
+            return effect;
+        }
+
+        public void setEffect(Effect value)
+        {
+            effect = value;
         }
 
     }

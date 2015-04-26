@@ -11,9 +11,9 @@ namespace Assets.Scripts
         private EffectType type;
         private float inflictChance;
 
-        public void inflict()
+        public Effect.EffectType inflict(Character character)
         {
-
+            return character.applyEffect(type);
         }
 
         public void execute(Character character)
