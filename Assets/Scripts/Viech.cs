@@ -47,7 +47,7 @@ namespace Assets.Scripts
 
         }
 
-        public override int getAttacked(Attack attack)
+        public override AttackDto getAttacked(Attack attack)
         {
             throw new NotImplementedException();
         }

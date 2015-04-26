@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Assets.Scripts
 {
-    public class NewBehaviourScript : MonoBehaviour
+    public class AttackDto : MonoBehaviour
     {
 
         private Character attackedChar;
@@ -11,41 +11,42 @@ namespace Assets.Scripts
         private Effect.EffectType inflictEfect;
         private int inflictedDamage;
 
-        private Character getAttackedChar() {
+        public Character getAttackedChar()
+        {
             return attackedChar;
         }
 
-        private void setAttackedChar(Character attackedChar)
+        public void setAttackedChar(Character attackedChar)
         {
             this.attackedChar = attackedChar;
         }
 
-        private Effect.EffectType getCurrentEffect()
+        public Effect.EffectType getCurrentEffect()
         {
             return currentEffect;
         }
 
-        private void setCurrentEffect(Effect.EffectType currentEffect)
+        public void setCurrentEffect(Effect.EffectType currentEffect)
         {
             this.currentEffect = currentEffect;
         }
 
-        private Effect.EffectType getInflictEffect()
+        public Effect.EffectType getInflictEffect()
         {
             return inflictEfect;
         }
 
-        private void setInflictEffect(Effect.EffectType inflictEfect)
+        public void setInflictEffect(Effect.EffectType inflictEfect)
         {
             this.inflictEfect = inflictEfect;
         }
 
-        private int getInflictedDamage()
+        public int getInflictedDamage()
         {
             return inflictedDamage;
         }
 
-        private void setInflictedDamage(int inflictedDamage)
+        public void setInflictedDamage(int inflictedDamage)
         {
             this.inflictedDamage = inflictedDamage;
         }
