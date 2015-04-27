@@ -47,11 +47,6 @@ namespace Assets.Scripts
 
         }
 
-        public override AttackDto getAttacked(Attack attack)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool isElite()
         {
             return false;

@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Assets.Scripts
 {
+
+    public delegate void UseItemDelegate();
+    public delegate void AttackDelegate();
+
     class Hero: Elite
     {
         private List<Weapon> weapons;
@@ -13,6 +17,23 @@ namespace Assets.Scripts
         private List<IConsumable> consumables;
 
         public override void executeTurn()
+        {
+            //FightManager.instance().showChooseActionGui(useItem);
+            showChooseActionGui(useItem, attack);
+
+        }
+
+        public void showChooseActionGui(UseItemDelegate useItem, AttackDelegate attack)
+        {
+
+        }
+
+        private void useItem()
+        {
+
+        }
+
+         private void attack()
         {
 
         }

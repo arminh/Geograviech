@@ -6,6 +6,7 @@ using Assets.Scripts.Utils;
 
 namespace Assets.Scripts
 {
+
     public abstract class Character : MonoBehaviour {
 
         public Enums.MonsterStatus Status;
@@ -22,7 +23,7 @@ namespace Assets.Scripts
         protected int xp;
         protected int levelUpXp;
 
-        private bool isEnemy = false;
+        private bool enemy = false;
 
         GameObject sprite = null;
 
@@ -85,14 +86,8 @@ namespace Assets.Scripts
             return false;
         }
 
-        public Effect.EffectType applyEffect(Effect.EffectType effectToApply)
+        public void applyEffect(Effect.EffectType effectToApply)
         {
-
-            if (effect != Effect.EffectType.NONE)
-            {
-                return effect;
-            }
-
             switch (effectToApply)
             {
                 case Effect.EffectType.FIRE:
@@ -111,8 +106,6 @@ namespace Assets.Scripts
                     sprite.GetComponent<AnimationStatus>().SetStunned = true;
                     break;
             }
-
-            return effectToApply;
         }
 
         public bool cureEffect(Effect.EffectType effectToCure)
@@ -126,7 +119,16 @@ namespace Assets.Scripts
             return false;
         }
 
-        public abstract AttackDto getAttacked(Attack attack); // returns the inflickted damage
+        public AttackDto getAttacked(Attack attack)
+        {
+            AttackDto attackResult = new AttackDto();
+            attackResult.setAttackedChar(this);
+            attackResult.setInflictedDamage(applyDamage(attack.getDamage()));
+            attackResult.setCurrentEffect(effect);
+            attackResult.setInflictEffect(attack.getEffect().inflict(this));
+
+            return attackResult;
+        }
 
         public abstract bool isElite();
 
@@ -140,14 +142,14 @@ namespace Assets.Scripts
             return name;
         }
 
-        public void setIsEnemy()
+        public void setIsEnemy(bool value)
         {
-            isEnemy = true;
+            enemy = value;
         }
 
-        public bool getIsEnemy()
+        public bool isEnemy()
         {
-            return isEnemy;
+            return enemy;
         }
 
         public void setSprite(GameObject sprite)

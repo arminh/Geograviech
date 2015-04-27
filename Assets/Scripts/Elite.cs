@@ -20,24 +20,6 @@ namespace Assets.Scripts
             return activeViecher;
         }
 
-        public override AttackDto getAttacked(Attack attack)
-        {
-
-            if (!activeViecher.Any())
-            {
-                attackResult = new AttackDto();
-                attackResult.setAttackedChar(this);
-                attackResult.setInflictedDamage(applyDamage(attack.getDamage()));
-              //  attackResult.setCurrentEffect(applyEffect(attack.getEffect()));
-            }
-            else
-            {
-                //Choose which Viech gets attacked
-            }
-
-            return attackResult;
-        }
-
 
 
         public override bool isElite()
