@@ -668,7 +668,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 8377fd8af6e61d341afe78b10ed3781d, type: 2}
   m_Tag: 
 --- !u!1102 &110218096
 AnimatorState:
@@ -686,7 +686,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 1517f5eb10920f74fad433cffedbf163, type: 2}
   m_Tag: 
 --- !u!1102 &110218742
 AnimatorState:
@@ -704,7 +704,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 8377fd8af6e61d341afe78b10ed3781d, type: 2}
   m_Tag: 
 --- !u!1102 &110221262
 AnimatorState:
@@ -722,7 +722,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 99cfd2b30ae98d844b2044e7a58edc99, type: 2}
   m_Tag: 
 --- !u!1102 &110224840
 AnimatorState:
@@ -740,7 +740,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 95357950974e05b4f9162f9c8c479d9e, type: 2}
   m_Tag: 
 --- !u!1102 &110226008
 AnimatorState:
@@ -758,7 +758,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 99cfd2b30ae98d844b2044e7a58edc99, type: 2}
   m_Tag: 
 --- !u!1102 &110230738
 AnimatorState:
@@ -794,7 +794,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 79f1124ab03a2ba4a9097db29a0722d8, type: 2}
   m_Tag: 
 --- !u!1102 &110235638
 AnimatorState:
@@ -829,7 +829,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 76456897d258848459471f3e3e71c8ed, type: 2}
   m_Tag: 
 --- !u!1102 &110257786
 AnimatorState:
@@ -847,7 +847,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: ac6ad38fb335a8f408b0efcd6e626527, type: 2}
   m_Tag: 
 --- !u!1102 &110259638
 AnimatorState:
@@ -890,7 +890,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: dcd1aedefaf5ff848beb0cac91375210, type: 2}
   m_Tag: 
 --- !u!1102 &110261760
 AnimatorState:
@@ -927,7 +927,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 79f1124ab03a2ba4a9097db29a0722d8, type: 2}
   m_Tag: 
 --- !u!1102 &110284838
 AnimatorState:
@@ -945,7 +945,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: c372a50de98c8934f8e18566f886b164, type: 2}
   m_Tag: 
 --- !u!1102 &110288794
 AnimatorState:
@@ -963,7 +963,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 19ea53d381eb93f4cbee0979bcc63239, type: 2}
   m_Tag: 
 --- !u!1102 &110298720
 AnimatorState:
@@ -981,7 +981,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: c372a50de98c8934f8e18566f886b164, type: 2}
   m_Tag: 
 --- !u!1102 &110299498
 AnimatorState:
@@ -999,7 +999,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 19ea53d381eb93f4cbee0979bcc63239, type: 2}
   m_Tag: 
 --- !u!1107 &110713116
 AnimatorStateMachine:
