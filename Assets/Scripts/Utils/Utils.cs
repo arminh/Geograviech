@@ -45,7 +45,14 @@ public static class Utils
 
     }
 
-
+    /// <summary>
+    /// Calculates the positions of friend and foe.
+    /// The length of the List is friendCount + enemyCount, so the first number (friendCount) of Vectors are the positions of the friendly characters, and the rest are enemy positions.
+    /// The positions are calculated from BOTTOM TO TOP!! (change possible)
+    /// </summary>
+    /// <param name="friendCount"></param>
+    /// <param name="enemyCount"></param>
+    /// <returns></returns>
     public static List<Vector3> getFightScreenPostitions(int friendCount, int enemyCount)
     {
         float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
@@ -58,14 +65,32 @@ public static class Utils
         Vector3 rightDown = leftDown;
         leftDown.x += worldScreenWidth;
 
-        float spaceBetweenCharactersAndScreen = 10;
+        float spaceBetweenCharactersAndScreen = 5;
 
-        float spacePartOfFriends = worldScreenHeight / (float)friendCount;
-        float spacePartOfEnemy = worldScreenHeight / (float)enemyCount;
+        float spaceBetweenFriends = worldScreenHeight / (float)(friendCount + 1);
+        float spaceBetweenEnemies = worldScreenHeight / (float)(enemyCount + 1);
 
 
+        List<Vector3> positions = new List<Vector3>();
 
-        return null;
+        float posX = leftDown.x + spaceBetweenCharactersAndScreen;
+        float posY;
+
+        for (int index = 0; index < friendCount; index++)
+        {
+            posY = leftDown.y + spaceBetweenFriends * (index + 1);
+            positions.Add(new Vector3(posX, posY, 0));
+        }
+
+        posX = rightDown.x - spaceBetweenCharactersAndScreen;
+
+        for (int index = 0; index < enemyCount; index++)
+        {
+            posY = rightDown.y + spaceBetweenEnemies * (index + 1);
+            positions.Add(new Vector3(posX, posY, 0));
+        }
+
+        return positions;
     }
 	
 }
