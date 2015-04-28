@@ -99,6 +99,12 @@ public class AnimationStatus : MonoBehaviour
         }
     }
 
+    public Enums.MonsterStatus GetStatus()
+    {
+        return Status;
+    }
+
+
     private void SetAnimationBool(Enums.MonsterStatus stat, bool value)
     {
         switch (stat)
