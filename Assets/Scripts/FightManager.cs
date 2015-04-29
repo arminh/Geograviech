@@ -30,6 +30,7 @@ namespace Assets.Scripts
 
         private void orderFighters()
         {
+            //fighters.Sort((c1, c2) => c1.getSpeed().CompareTo(c2.getSpeed())); so sollte das auch funktioniern (lambda expression)
             fighters.Sort(
                 delegate(Character c1, Character c2)
                 {
@@ -219,6 +220,16 @@ namespace Assets.Scripts
                 viecher.Add(enemy);
             }
             return viecher;
+        }
+
+        public Hero getHero()
+        {
+            return player;
+        }
+
+        public Character getEnemy()
+        {
+            return enemy;
         }
     }
 }
