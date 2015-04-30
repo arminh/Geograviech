@@ -34,10 +34,7 @@ using System.Collections.Generic;
 public class TestMap : MonoBehaviour
 {
 	private Map		map;
-	
-	public Texture	LocationTexture;
-	public Texture	MarkerTexture;
-	
+
 	private float	guiXScale;
 	private float	guiYScale;
 	private Rect	guiRect;
@@ -51,7 +48,9 @@ public class TestMap : MonoBehaviour
 	
 	private List<Layer> layers;
 	private int     currentLayerIndex = 0;
-	
+	public GameObject marker;
+	public Vector3 markerPos = new Vector3(0,0,0);
+
 	bool Toolbar(Map map)
 	{
 		GUI.matrix = Matrix4x4.Scale(new Vector3(guiXScale, guiXScale, 1.0f));
@@ -168,7 +167,7 @@ public class TestMap : MonoBehaviour
 		map = Map.Instance;
 		map.CurrentCamera = Camera.main;
 		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard;
-		map.CurrentZoom = 15.0f;
+		map.CurrentZoom = 17.0f;
 		// 9 rue Gentil, Lyon
 		map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
 		map.UseLocation = true;
@@ -178,7 +177,12 @@ public class TestMap : MonoBehaviour
 		map.GUIDelegate += Toolbar;
 		
 		layers = new List<Layer>();
-		
+
+		//marker = Instantiate (Resources.Load ("Prefabs/Misc/Marker")) as GameObject;
+
+		//Vector3 pos = Vector3 (0, 0, 0);
+		//Instantiate(testmarker, pos, Quaternion.identity); // The Instantiate command takes a GameObject, a Vector3 for position and a Quaternion for rotation.
+
 		// create an OSM tile layer
 		OSMTileLayer osmLayer = map.CreateLayer<OSMTileLayer>("OSM");
 		osmLayer.BaseURL = "http://a.tile.openstreetmap.org/";
@@ -310,34 +314,28 @@ public class TestMap : MonoBehaviour
 		
 		// create some test 2D markers
 		/*GameObject go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
-		go.renderer.material.mainTexture = MarkerTexture;
-		go.renderer.material.renderQueue = 4001;
+		gameObject.GetComponent<Renderer>().material.mainTexture = MarkerTexture;
+		gameObject.GetComponent<Renderer>().material.renderQueue = 4001;
 		go.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
 		go.transform.localScale /= 7.0f;
         go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
 		
 		GameObject markerGO;
 		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 9 rue Gentil, Lyon", new double[2] { 4.83527, 45.76487 }, markerGO);
-
-		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 31 rue de la Bourse, Lyon", new double[2] { 4.83699, 45.76535 }, markerGO);
-		
-		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - 1 place St Nizier, Lyon", new double[2] { 4.83295, 45.76468 }, markerGO);
-
+		map.CreateMarker<Marker>("test marker", new double[2] { 15.442552, 47.067243 }, markerGO);
 		DestroyImmediate(go);
-		
+
+
 		// create the location marker
 		go = Tile.CreateTileTemplate().gameObject;
-		go.renderer.material.mainTexture = LocationTexture;
-		go.renderer.material.renderQueue = 4000;
+		gameObject.GetComponent<Renderer>().material.mainTexture = LocationTexture;
+		gameObject.GetComponent<Renderer>().material.renderQueue = 4000;
 		go.transform.localScale /= 27.0f;
 		
 		markerGO = Instantiate(go) as GameObject;
 		map.SetLocationMarker<LocationMarker>(markerGO);
-
 		DestroyImmediate(go);*/
+
 	}
 	
 	void OnApplicationQuit()
