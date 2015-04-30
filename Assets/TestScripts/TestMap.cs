@@ -157,6 +157,46 @@ public class TestMap : MonoBehaviour
 			#endif
 			Start()
 	{
+
+		//gps localization from: https://northrush.wordpress.com/2014/01/13/access-gps-data-on-unity-3d/
+
+		// First, check if user has location service enabled
+		if (!Input.location.isEnabledByUser)
+		{
+			// remind user to enable GPS
+			// As far as I know, there is no way to forward user to GPS setting menu in Unity
+		}
+		
+		// Start service before querying location
+		Input.location.Start();
+		
+		// Wait until service initializes
+		int maxWait = 20;
+		while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0) {
+			yield return new WaitForSeconds(1);
+			maxWait--;
+		}
+		
+		// Service didn't initialize in 20 seconds
+		if (maxWait < 1) {
+			print("Timed out");
+		}
+		
+		// Connection has failed
+		if (Input.location.status == LocationServiceStatus.Failed) {
+			print("Unable to determine device location");
+		}
+		
+		// Access granted and location value could be retrieved
+		else
+			print("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " +       Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " +  Input.location.lastData.timestamp);
+		
+		// Stop service if there is no need to query location updates continuously
+		Input.location.Stop();
+
+		//----------------------
+
+
 		// setup the gui scale according to the screen resolution
 		guiXScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
 		guiYScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.height : Screen.width) / 640.0f;
@@ -204,7 +244,7 @@ public class TestMap : MonoBehaviour
 		layers.Add(wmsLayer);
 		
 		// create a VirtualEarth tile layer
-		VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer>("VirtualEarth");
+		/*VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer>("VirtualEarth");
 		// Note: this is the key UnitySlippyMap, DO NOT use it for any other purpose than testing
 		virtualEarthLayer.Key = "ArgkafZs0o_PGBuyg468RaapkeIQce996gkyCe8JN30MjY92zC_2hcgBU_rHVUwT";
 		#if UNITY_WEBPLAYER
@@ -216,7 +256,7 @@ public class TestMap : MonoBehaviour
 		virtualEarthLayer.gameObject.SetActive(false);
 		#endif
 		
-		layers.Add(virtualEarthLayer);
+		layers.Add(virtualEarthLayer);*/
 
 
 /*		if (GUILayout.Button(((layers != null && currentLayerIndex < layers.Count) ? layers[currentLayerIndex].name + layerMessage : "Layer"), GUILayout.ExpandHeight(true)))
@@ -237,14 +277,14 @@ public class TestMap : MonoBehaviour
 			map.IsDirty = true;
 		}*/
 
-		layers[currentLayerIndex].gameObject.SetActive(false);
+		/*layers[currentLayerIndex].gameObject.SetActive(false);
 		++currentLayerIndex;
-		layers[currentLayerIndex].gameObject.SetActive(true);
+		layers[currentLayerIndex].gameObject.SetActive(true);*/
 
-		layers[currentLayerIndex].gameObject.SetActive(false);
+		/*layers[currentLayerIndex].gameObject.SetActive(false);
 		++currentLayerIndex;
 		layers[currentLayerIndex].gameObject.SetActive(true);
-		map.IsDirty = true;
+		map.IsDirty = true;*/
 
 
 
