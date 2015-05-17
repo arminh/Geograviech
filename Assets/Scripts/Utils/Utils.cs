@@ -92,5 +92,15 @@ public static class Utils
 
         return positions;
     }
+
+    /// <summary>
+    /// Creates the button panel for the FightScreen.
+    /// </summary>
+    /// <returns>GameObject</returns>
+    public static GameObject getButtonPanel()
+    {
+        //TODO gebnerate Panel for buttons;
+        return null;
+    }
 	
 }
