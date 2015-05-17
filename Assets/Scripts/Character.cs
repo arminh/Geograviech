@@ -20,10 +20,8 @@ namespace Assets.Scripts
         protected List<Attack> attacks;
         protected Effect.EffectType effect;
         protected bool dead;
-        protected int xp;
-        protected int levelUpXp;
 
-        private bool isEnemy = false;
+        private bool enemy = false;
 
         GameObject sprite = null;
 
@@ -33,18 +31,6 @@ namespace Assets.Scripts
         void Start()
         {
             effect = Effect.EffectType.NONE;
-
-        }
-
-
-        public void addXP(int amount)
-        {
-            xp = xp + amount;
-
-            if (xp >= levelUpXp)
-            {
-                this.levelUp();
-            }
 
         }
 
@@ -87,14 +73,8 @@ namespace Assets.Scripts
             return false;
         }
 
-        public Effect.EffectType applyEffect(Effect.EffectType effectToApply)
+        public void applyEffect(Effect.EffectType effectToApply)
         {
-
-            if (effect != Effect.EffectType.NONE)
-            {
-                return effect;
-            }
-
             switch (effectToApply)
             {
                 case Effect.EffectType.FIRE:
@@ -113,8 +93,6 @@ namespace Assets.Scripts
                     sprite.GetComponent<AnimationStatus>().SetStunned = true;
                     break;
             }
-
-            return effectToApply;
         }
 
         public bool cureEffect(Effect.EffectType effectToCure)
@@ -128,7 +106,16 @@ namespace Assets.Scripts
             return false;
         }
 
-        public abstract AttackDto getAttacked(Attack attack); // returns the inflickted damage
+        public AttackDto getAttacked(Attack attack)
+        {
+            AttackDto attackResult = new AttackDto();
+            attackResult.setAttackedChar(this);
+            attackResult.setInflictedDamage(applyDamage(attack.getDamage()));
+            attackResult.setCurrentEffect(effect);
+            attackResult.setInflictEffect(attack.getEffect().inflict(this));
+
+            return attackResult;
+        }
 
         public abstract bool isElite();
 
@@ -142,14 +129,15 @@ namespace Assets.Scripts
             return name;
         }
 
+
         public void setIsEnemy(bool isEnemy)
         {
-            this.isEnemy = isEnemy;
+            enemy = isEnemy;
         }
 
         public bool getIsEnemy()
         {
-            return isEnemy;
+            return enemy;
         }
 
         public void setSprite(GameObject sprite)
@@ -173,5 +161,3 @@ namespace Assets.Scripts
         }
     }
 }
-
-
