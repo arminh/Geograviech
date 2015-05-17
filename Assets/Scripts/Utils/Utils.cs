@@ -93,7 +93,7 @@ namespace Assets.Scripts.Utils
 
             return positions;
         }
-
+        
         public static GameObject getButtonPanel()
         {
             //TODO gebnerate Panel for buttons;

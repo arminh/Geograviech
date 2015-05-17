@@ -24,12 +24,6 @@ namespace Assets.Scripts
 
         private bool isTurnFinished;
 
-
-        public FightManager() 
-        { 
-            
-        }
-
         private void orderFighters()
         {
             //fighters.Sort((c1, c2) => c1.getSpeed().CompareTo(c2.getSpeed())); so sollte das auch funktioniern (lambda expression)
