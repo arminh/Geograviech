@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 namespace Assets.Scripts
 {
     public class GameManager: MonoBehaviour
@@ -14,7 +15,7 @@ namespace Assets.Scripts
         public void init()
         {
             //TODO: Read Savefile
-            player = new Player(50, 1, 10, "Armin", "Player", 0, 0, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IItem>(), new  List<Attack>());
+            player = new Player(50, 1, 10, "Armin", "Player", 0, 1, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IItem>(), new  List<Attack>());
         }
 
         public void showMenu()
@@ -22,7 +23,7 @@ namespace Assets.Scripts
             Application.LoadLevel("PlayerMenue");
         }
 
-        public void startFight(FightCharacter enemy)
+        public void executeFight(FightViech enemy)
         {
             Application.LoadLevel("Fightscreen");
 
@@ -36,7 +37,24 @@ namespace Assets.Scripts
             }
             else if(enemy.isDead())
             {
-               // player.gainXp(enemy.xp)
+                int gainXp = enemy.XpAmount;
+                int numChars = player.ActiveViecher.Count + 1;
+
+                int xpPerChar = (int)Mathf.Round((float)gainXp / (float)numChars);
+                player.gainXp(xpPerChar);
+
+                foreach(Viech viech in player.ActiveViecher) {
+                    viech.gainXp(xpPerChar);
+                }
+
+
+                if(enemy.decideJoin()) {
+
+                    //TODO: Give Viech a name
+                    Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Identifier, enemy.Level, enemy.Level * 1000, enemy.Attacks, enemy.Type);
+                    player.addViech(viech);
+                }
+
             }
             else
             {

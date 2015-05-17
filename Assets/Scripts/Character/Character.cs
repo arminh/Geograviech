@@ -32,6 +32,12 @@ namespace Assets.Scripts
             this.attacks = attacks;
         }
 
+
+        public void gainXp(int amount)
+        {
+
+        }
+
         public string Name
         {
             get { return name; }

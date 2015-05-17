@@ -39,9 +39,11 @@ namespace Assets.Scripts
             return new FightPlayer(maxHealth, speed, strength, fightViecher, activeWeapon, attacks, items);
         }
 
-        public void gainXp(int amount)
+        public void addViech(Viech viech)
         {
 
+            //TODO Give Viech a name
+            viecher.Add(viech);
         }
 
         public List<Viech> Viecher

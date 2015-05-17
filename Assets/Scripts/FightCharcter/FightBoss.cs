@@ -9,7 +9,7 @@ namespace Assets.Scripts
     {
        private List<FightViech> activeViecher;
 
-        public FightBoss(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
+       public FightBoss(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount, List<FightViech> activeViecher)
             : base(identifier, maxHealth, speed, strength, attacks, type, catchChance, dropItems, xpAmount)
         {
             this.activeViecher = activeViecher;
