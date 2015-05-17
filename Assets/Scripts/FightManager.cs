@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using System.Threading;
 using UnityEngine.UI;
+using Assets.Scripts.Utils;
 
 namespace Assets.Scripts
 {
@@ -25,7 +26,7 @@ namespace Assets.Scripts
 
         public FightManager() 
         { 
-
+            
         }
 
         private void orderFighters()
@@ -47,11 +48,15 @@ namespace Assets.Scripts
             //TODO set EnemyPosition
             //TODO set PlayerPosition
 
+            int friendCount = 1;
+            int enemyCount = 1;
+
             fighters = new List<Character>();
             fighters.Add(player);
             foreach (Character viech in player.getActiveViecher())
             {
                 addFighter(viech,false);
+                friendCount++;
             }
 
             fighters.Add(enemy);
@@ -60,9 +65,13 @@ namespace Assets.Scripts
                 foreach (Character viech in ((Elite)enemy).getActiveViecher())
                 {
                     addFighter(viech,true);
+                    enemyCount++;
                 }
             }
             orderFighters();
+
+           List<Vector3> positions = Utils.Utils.getFightScreenPostitions(friendCount, enemyCount);
+
 
             bool fightFinished = false;
 
