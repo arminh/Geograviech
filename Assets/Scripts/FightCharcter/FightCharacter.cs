@@ -1,52 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
 using System.Collections.Generic;
-using Assets.Scripts.Utils;
 
 namespace Assets.Scripts
 {
-    public abstract class Character : MonoBehaviour
+    public abstract class FightCharacter
     {
 
-        public Enums.MonsterStatus Status;
+        public string identifier;
 
-        protected new string name;
-        protected int level;
         protected int health;
         protected int maxHealth;
         protected int speed;
         protected int strength;
+
         protected List<Attack> attacks;
-        protected Effect.EffectType effect;
+        protected Effect.EffectType currentEffect;
+
+        GameObject sprite = null;
+       
         protected bool dead;
-        protected int xp;
-        protected int levelUpXp;
 
         private bool isEnemy = false;
 
-        GameObject sprite = null;
-
         protected AttackDto attackResult;
 
-        // Use this for initialization
-        void Start()
+        public FightCharacter(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks)
         {
-            effect = Effect.EffectType.NONE;
-
+            this.identifier = identifier;
+            this.maxHealth = maxHealth;
+            this.health = maxHealth;
+            this.speed = speed;
+            this.strength = strength;
+            this.attacks = attacks;
         }
-
-
-        public void addXP(int amount)
-        {
-            xp = xp + amount;
-
-            if (xp >= levelUpXp)
-            {
-                this.levelUp();
-            }
-
-        }
+         
 
         public abstract void executeTurn();
 
@@ -73,8 +61,6 @@ namespace Assets.Scripts
             return false;
         }
 
-        public abstract void levelUp();
-
         public bool revive(int healAmount)
         {
             if (dead)
@@ -87,14 +73,8 @@ namespace Assets.Scripts
             return false;
         }
 
-        public Effect.EffectType applyEffect(Effect.EffectType effectToApply)
+        public void applyEffect(Effect.EffectType effectToApply)
         {
-
-            if (effect != Effect.EffectType.NONE)
-            {
-                return effect;
-            }
-
             switch (effectToApply)
             {
                 case Effect.EffectType.FIRE:
@@ -113,58 +93,78 @@ namespace Assets.Scripts
                     sprite.GetComponent<AnimationStatus>().SetStunned = true;
                     break;
             }
-
-            return effectToApply;
         }
 
         public bool cureEffect(Effect.EffectType effectToCure)
         {
-            if (effectToCure.Equals(effect))
+            if (effectToCure.Equals(currentEffect))
             {
-                effect = Effect.EffectType.NONE;
+                currentEffect = Effect.EffectType.NONE;
                 //TODO notify AnimationHandler
                 return true;
             }
             return false;
         }
 
-        public abstract AttackDto getAttacked(Attack attack); // returns the inflickted damage
-
-        public abstract bool isElite();
-
-        public int getSpeed()
+        public AttackDto getAttacked(Attack attack)
         {
-            return speed;
+            AttackDto attackResult = new AttackDto();
+            attackResult.setAttackedChar(this);
+            attackResult.setInflictedDamage(applyDamage(attack.getDamage()));
+            attackResult.setCurrentEffect(currentEffect);
+            attackResult.setInflictEffect(attack.getEffect().inflict(this));
+
+            return attackResult;
         }
 
-        public string getName()
+
+        public string Identifier
         {
-            return name;
+            get { return identifier; }
         }
 
-        public void setIsEnemy(bool isEnemy)
+        public int Health
         {
-            this.isEnemy = isEnemy;
+            get { return health; }
+            set { health = value; }
         }
 
-        public bool getIsEnemy()
+        public int MaxHealth
         {
-            return isEnemy;
+            get { return maxHealth; }
         }
 
-        public void setSprite(GameObject sprite)
+        public int Speed
         {
-            this.sprite = sprite;
+            get { return speed; }
         }
 
-        public GameObject getSprite()
+        public int Strength
         {
-            return sprite;
+            get { return strength; }
         }
 
-        public Effect.EffectType getEffect()
+        
+        public List<Attack> Attacks
         {
-            return effect;
+            get { return attacks; }
+        }
+
+        public Effect.EffectType CurrentEffect
+        {
+            get { return currentEffect; }
+        }
+
+        public GameObject Sprite
+        {
+            get { return sprite; }
+            set { sprite = value; }
+        }
+
+        public bool IsEnemy
+        {
+            get { return isEnemy; }
+            set { isEnemy = value; }
         }
 
         public bool isDead()
@@ -173,5 +173,3 @@ namespace Assets.Scripts
         }
     }
 }
-
-

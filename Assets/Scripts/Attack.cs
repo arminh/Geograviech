@@ -13,7 +13,7 @@ namespace Assets.Scripts
         private int damage;
         private Effect effect;
 
-        public void execute(Character character)
+        public void execute(FightCharacter character)
         {
 
         }

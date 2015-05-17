@@ -6,17 +6,17 @@ namespace Assets.Scripts
     public class AttackDto : MonoBehaviour
     {
 
-        private Character attackedChar;
+        private FightCharacter attackedChar;
         private Effect.EffectType currentEffect;
         private Effect.EffectType inflictEfect;
         private int inflictedDamage;
 
-        public Character getAttackedChar()
+        public FightCharacter getAttackedChar()
         {
             return attackedChar;
         }
 
-        public void setAttackedChar(Character attackedChar)
+        public void setAttackedChar(FightCharacter attackedChar)
         {
             this.attackedChar = attackedChar;
         }

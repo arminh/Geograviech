@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    interface IConsumable
+    public interface IConsumable
     {
-        bool use(Character character);
+        bool use(FightCharacter character);
     }
 }

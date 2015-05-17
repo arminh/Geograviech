@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
+using Assets.Scripts.Utils;
 
-public class InitFightScene : MonoBehaviour
+namespace Assets.Scripts.FightScreen
 {
-    private Camera mainCam;
-    public Transform background;
-
-
-    // Use this for initialization
-    void Start()
+    public class InitFightScene : MonoBehaviour
     {
-        mainCam = Camera.main;
+        private Camera mainCam;
+        public Transform background;
 
-        if (background != null)
+
+        // Use this for initialization
+        void Start()
         {
-            Utils.InitBackground(background,mainCam);
+            mainCam = Camera.main;
+
+            if (background != null)
+            {
+                Utils.Utils.InitBackground(background, mainCam);
+            }
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
 
+        }
     }
 }
