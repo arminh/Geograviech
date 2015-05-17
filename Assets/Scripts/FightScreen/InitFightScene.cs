@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
+using Assets.Scripts.Utils;
 
-namespace Assets.Scripts.Utils
+namespace Assets.Scripts.FightScreen
 {
     public class InitFightScene : MonoBehaviour
     {
@@ -17,7 +17,7 @@ namespace Assets.Scripts.Utils
 
             if (background != null)
             {
-                Utils.InitBackground(background, mainCam);
+                Utils.Utils.InitBackground(background, mainCam);
             }
         }
 
