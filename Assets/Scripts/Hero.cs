@@ -7,8 +7,8 @@ namespace Assets.Scripts
 {
     class Hero: Elite
     {
-        private List<Weapon> weapons;
-        private Weapon activeWeapon;
+        public List<Weapon> Weapons { get; set; }
+        public Weapon ActiveWeapon { get; set; }
 
         private List<IConsumable> consumables;
 

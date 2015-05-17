@@ -12,6 +12,12 @@ namespace Assets.Scripts
 
         protected abstract void chooseViech();
 
+	protected List<Item> items;
+
+        public List<Item> getItems()
+        {
+            return items;
+        }
 
         protected abstract void switchViech();
 
