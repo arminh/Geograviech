@@ -11,10 +11,10 @@ namespace Assets.Scripts
 {
     class FightManager : MonoBehaviour
     {
-        private List<Character> fighters;
-        private Hero player;
+        private List<FightCharacter> fighters;
+        private FightPlayer player;
 
-        private Character enemy;
+        private FightCharacter enemy;
 
         public List<GameObject> allViecherPefabs;
         public GameObject buttonPrefab;
@@ -28,14 +28,14 @@ namespace Assets.Scripts
         {
             //fighters.Sort((c1, c2) => c1.getSpeed().CompareTo(c2.getSpeed())); so sollte das auch funktioniern (lambda expression)
             fighters.Sort(
-                delegate(Character c1, Character c2)
+                delegate(FightCharacter c1, FightCharacter c2)
                 {
-                    return c1.getSpeed().CompareTo(c2.getSpeed());
+                    return c1.Speed.CompareTo(c2.Speed);
                 }
             );
         }
 
-        public void fight(Hero player,Character enemy)
+        public void fight(FightPlayer player, FightCharacter enemy)
         {
             this.player = player;
             this.enemy = enemy;
@@ -45,24 +45,26 @@ namespace Assets.Scripts
 
             int friendCount = 1;
             int enemyCount = 1;
-
-            fighters = new List<Character>();
+            
+            fighters = new List<FightCharacter>();
             fighters.Add(player);
-            foreach (Character viech in player.getActiveViecher())
+            foreach (FightViech viech in player.ActiveViecher)
             {
                 addFighter(viech,false);
                 friendCount++;
             }
 
             fighters.Add(enemy);
-            if(enemy.isElite())
+
+            //TODO: Rudi
+           /* if(enemy.isElite())
             {
                 foreach (Character viech in ((Elite)enemy).getActiveViecher())
                 {
                     addFighter(viech,true);
                     enemyCount++;
                 }
-            }
+            }*/
             orderFighters();
 
            List<Vector3> positions = Utils.Utils.getFightScreenPostitions(friendCount, enemyCount);
@@ -84,10 +86,10 @@ namespace Assets.Scripts
         {
             int playerCount = 0;
             int enemyCount = 0;
-            foreach (Character character in fighters)
+            foreach (FightCharacter character in fighters)
             {
-                GameObject sprite = character.getSprite();
-                if(character.getIsEnemy())
+                GameObject sprite = character.Sprite;
+                if(character.IsEnemy)
                 {                   
                    sprite.transform.position = enemyPositions.ElementAt(enemyCount);
                    enemyCount++;
@@ -102,12 +104,12 @@ namespace Assets.Scripts
         private void executeTurn()
         {
             setPositions();
-            Character fighter = fighters.FirstOrDefault();
+            FightCharacter fighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
             fighters.Add(fighter);  
             fighter.executeTurn();
 
-            if(!fighter.getIsEnemy())
+            if(!fighter.IsEnemy)
             {
                 isTurnFinished = false;
                 while(!isTurnFinished)
@@ -118,13 +120,13 @@ namespace Assets.Scripts
             
         }
 
-        private void addFighter(Character character, bool isEnemy)
+        private void addFighter(FightCharacter character, bool isEnemy)
         {
-            character.setIsEnemy(isEnemy);
+            character.IsEnemy = isEnemy;
             fighters.Add(character);
             foreach (GameObject sprite in allViecherPefabs)
 	        {
-                if (sprite.name.Equals(character.getName()))
+                if (sprite.name.Equals(character.Identifier))
                 {
                     GameObject spriteInitialisation = Instantiate(sprite, Vector3.zero, Quaternion.identity) as GameObject;
                     if(isEnemy)
@@ -133,7 +135,7 @@ namespace Assets.Scripts
                         scale.x *= -1;
                         spriteInitialisation.transform.localScale = scale;
                     }
-                    character.setSprite(spriteInitialisation);
+                    character.Sprite = spriteInitialisation;
                     return;
                 }
 	        }
@@ -141,7 +143,7 @@ namespace Assets.Scripts
 
         public void attackEnemy(Attack attack)
         {
-            List<Character> availableEnemies = getAttackableEnemies();
+            List<FightCharacter> availableEnemies = getAttackableEnemies();
 
             GameObject buttonPanel = Utils.Utils.getButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
@@ -159,15 +161,15 @@ namespace Assets.Scripts
                 buttonRectTransForm.sizeDelta = buttonSize;
 
                 go.transform.parent = buttonPanel.transform;
-                go.GetComponentInChildren<Text>().text = availableEnemies[i].getName();
+                go.GetComponentInChildren<Text>().text = availableEnemies[i].Identifier;
 
                 Button b = go.GetComponent<Button>();
-                Character captured = availableEnemies[i];
+                FightCharacter captured = availableEnemies[i];
                 b.onClick.AddListener(() => attackViech(attack,captured));
             }
         }
 
-        public void attackViech(Attack attack, Character viech)
+        public void attackViech(Attack attack, FightCharacter viech)
         {
             AttackDto attackResult = viech.getAttacked(attack);
             //TODO log result
@@ -177,11 +179,12 @@ namespace Assets.Scripts
         {
             isTurnFinished = true;
         }
-         
-        public List<Character> getAttackableEnemies()
+
+        public List<FightCharacter> getAttackableEnemies()
         {
-            List<Character> enemies = new List<Character>();
-            if (enemy.isElite())
+            List<FightCharacter> enemies = new List<FightCharacter>();
+            //TODO: Rudi
+            /* if (enemy.isElite())
             {
                 foreach (Character viech in ((Elite)enemy).getActiveViecher())
                 {
@@ -190,7 +193,7 @@ namespace Assets.Scripts
                         enemies.Add(viech);
                     }
                 }
-            }
+            }*/
             if(enemies.Count == 0)
             {
                 enemies.Add(enemy);
@@ -223,11 +226,11 @@ namespace Assets.Scripts
             }
         }
 
-        public List<Character> getAttackablePlayerViecher()
+        public List<FightCharacter> getAttackablePlayerViecher()
         {
-            List<Character> viecher = new List<Character>();
-          
-            foreach (Character viech in player.getActiveViecher())
+            List<FightCharacter> viecher = new List<FightCharacter>();
+
+            foreach (FightViech viech in player.ActiveViecher)
             {
                 if (!viech.isDead())
                 {
@@ -242,12 +245,12 @@ namespace Assets.Scripts
             return viecher;
         }
 
-        public Hero getHero()
+        public FightPlayer getHero()
         {
             return player;
         }
 
-        public Character getEnemy()
+        public FightCharacter getEnemy()
         {
             return enemy;
         }

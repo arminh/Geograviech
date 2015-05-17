@@ -14,9 +14,9 @@ namespace Assets.Scripts
 
         Random rand = new Random();
 
-        public Effect.EffectType inflict(Character character)
+        public Effect.EffectType inflict(FightCharacter character)
         {
-            EffectType effect = character.getEffect();
+            EffectType effect = character.CurrentEffect;
 
             if (effect != EffectType.NONE)
             {
@@ -38,7 +38,7 @@ namespace Assets.Scripts
             }
         }
 
-        public void execute(Character character)
+        public void execute(FightCharacter character)
         {
             switch (type)
             {
