@@ -11,20 +11,22 @@ namespace Assets.Scripts
 
     public class Hero: Elite
     {
-        public Hero(List<Viech> activeViecher, Weapon activeWeapon, List<IConsumable> items, int health, int speed, int strength)
+        private Weapon activeWeapon;
+
+        private List<IConsumable> consumables;
+
+        public Hero(List<Viech> activeViecher, Weapon activeWeapon, List<IConsumable> consumables, int health, int speed, int strength)
         {
             this.activeViecher = activeViecher;
             this.activeWeapon = activeWeapon;
-            //this.items = items;
+            this.consumables = consumables;
             this.health = health;
             this.maxHealth = health;
             this.speed = speed;
             this.strength = strength;
         }
 
-        private Weapon activeWeapon;
 
-        private List<IConsumable> consumables;
 
         public override void executeTurn()
         {
@@ -53,20 +55,6 @@ namespace Assets.Scripts
 
         }
 
-        public override void levelUp()
-        {
-
-        }
-
-        protected override void chooseViech()
-        {
-
-        }
-
-        protected override void switchViech()
-        {
-
-        }
 
         public void useConsumable(IConsumable consumable)
         {
@@ -74,11 +62,6 @@ namespace Assets.Scripts
         }
 
         public void useWeapon()
-        {
-
-        }
-
-        public void chooseWeapon()
         {
 
         }

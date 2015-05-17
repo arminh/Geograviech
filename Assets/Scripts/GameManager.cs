@@ -30,6 +30,19 @@ namespace Assets.Scripts
             Hero hero = player.createHero();
             FightManager fightmanager = FindObjectsOfType(typeof(FightManager))[0] as FightManager;
             fightmanager.fight(hero, enemy);
+
+            if (hero.isDead())
+            {
+
+            }
+            else if(enemy.isDead())
+            {
+               // player.gainXp(enemy.xp)
+            }
+            else
+            {
+                //Error: Either hero or enemy should be dead after fight
+            }
         }
 
         public static GameManager Instance

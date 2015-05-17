@@ -59,8 +59,6 @@ namespace Assets.Scripts
             return false;
         }
 
-        public abstract void levelUp();
-
         public bool revive(int healAmount)
         {
             if (dead)

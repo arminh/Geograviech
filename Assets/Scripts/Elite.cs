@@ -9,10 +9,6 @@ namespace Assets.Scripts
     {
         protected List<Viech> activeViecher;
 
-        protected abstract void chooseViech();
-
-
-        protected abstract void switchViech();
 
         public List<Viech> getActiveViecher()
         {
