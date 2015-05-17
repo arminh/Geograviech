@@ -16,7 +16,8 @@ namespace Assets.Scripts
 
         private Character enemy;
 
-        public List<GameObject> prefabs;
+        public List<GameObject> allViecherPefabs;
+        public GameObject buttonPrefab;
 
         List<Vector3> enemyPositions;
         List<Vector3> playerPositions;
@@ -81,8 +82,8 @@ namespace Assets.Scripts
 
                 fightFinished = player.isDead() || enemy.isDead();
             }
-           
-            
+
+
         }
 
         private void setPositions()
@@ -127,7 +128,7 @@ namespace Assets.Scripts
         {
             character.setIsEnemy(isEnemy);
             fighters.Add(character);
-            foreach (GameObject sprite in prefabs)
+            foreach (GameObject sprite in allViecherPefabs)
 	        {
                 if (sprite.name.Equals(character.getName()))
                 {
@@ -146,23 +147,30 @@ namespace Assets.Scripts
 
         public void attackEnemy(Attack attack)
         {
-            // TODO ask player which enemy should be attacked
             List<Character> availableEnemies = getAttackableEnemies();
-            foreach (Character enemyViech in availableEnemies)
-            {
-                GameObject go = null;//(GameObject)Instantiate(buttons);
-                
-          //      go.transform.parent = panel.transform;
-                go.GetComponentInChildren<Text>().text = enemyViech.getName();
 
-                
-                go.transform.localScale = new Vector3(1, 1, 1);
+            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+            RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
+            Vector2 panelPosition = panelRectTransform.anchoredPosition;
+            Vector2 panelSize = panelRectTransform.sizeDelta;
+
+            Vector2 buttonSize = calculateButtonSize(panelSize, availableEnemies.Count);
+            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, availableEnemies.Count);
+
+            for (int i = 0; i < availableEnemies.Count; i++)
+            {
+                GameObject go = (GameObject)Instantiate(buttonPrefab);
+                RectTransform buttonRectTransForm = go.transform as RectTransform;
+                buttonRectTransForm.anchoredPosition = buttonPositions[i];
+                buttonRectTransForm.sizeDelta = buttonSize;
+
+                go.transform.parent = buttonPanel.transform;
+                go.GetComponentInChildren<Text>().text = availableEnemies[i].getName();
+
                 Button b = go.GetComponent<Button>();
-                Character captured = enemyViech;
+                Character captured = availableEnemies[i];
                 b.onClick.AddListener(() => attackViech(attack,captured));
             }
-
-            AttackDto attackResult = enemy.getAttacked(attack);
         }
 
         public void attackViech(Attack attack, Character viech)
@@ -198,15 +206,24 @@ namespace Assets.Scripts
 
         public void showMenu(List<String> labels, List<Action> functions)
         {
+            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+            RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
+            Vector2 panelPosition = panelRectTransform.anchoredPosition;
+            Vector2 panelSize = panelRectTransform.sizeDelta;
+
+            Vector2 buttonSize = calculateButtonSize(panelSize, labels.Count);
+            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, labels.Count);
+            
             for (int i = 0; i < labels.Count; i++)
             {
-                GameObject go = null;//(GameObject)Instantiate(buttons);
+                GameObject go = (GameObject)Instantiate(buttonPrefab);
+                RectTransform buttonRectTransForm = go.transform as RectTransform;
+                buttonRectTransForm.anchoredPosition = buttonPositions[i];
+                buttonRectTransForm.sizeDelta = buttonSize;
 
-                //      go.transform.parent = panel.transform;
+                go.transform.parent = buttonPanel.transform;
                 go.GetComponentInChildren<Text>().text = labels[i];
 
-
-                go.transform.localScale = new Vector3(1, 1, 1);
                 Button b = go.GetComponent<Button>();
                 b.onClick.AddListener(() => functions[i].Invoke());
             }
@@ -226,7 +243,7 @@ namespace Assets.Scripts
             
             if (viecher.Count == 0)
             {
-                viecher.Add(enemy);
+                viecher.Add(player);
             }
             return viecher;
         }
@@ -239,6 +256,92 @@ namespace Assets.Scripts
         public Character getEnemy()
         {
             return enemy;
+        }
+
+        private Vector2 calculateButtonSize(Vector2 panelSize, int buttonCount)
+        {
+            Vector2 buttonSize = Vector2.zero;
+            buttonSize.x = panelSize.x / 2 - panelSize.x *0.05f;
+            switch (buttonCount)
+            {
+                case 2:
+                    {
+
+                        buttonSize.y = panelSize.y;
+                        break;
+                    }
+                case 3:
+                case 4:
+                    {
+                        buttonSize.y = panelSize.y / 2 - panelSize.y * 0.05f;
+                        break;
+                    }
+                default:
+                    {
+                        buttonSize.x = panelSize.x;
+                        buttonSize.y = panelSize.y/3;
+                        break;
+                    }                
+            }
+            return buttonSize;
+        }
+
+        private List<Vector2> calculateButtonPositions(Vector2 panelPosition, Vector2 panelSize, int buttonCount)
+        {
+            List<Vector2> buttonPositions = new List<Vector2>();
+            switch (buttonCount)
+            {
+                case 2:
+                    {
+                        buttonPositions.Add(panelPosition);
+
+                        float x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
+                        float y = panelPosition.y;
+                        buttonPositions.Add(new Vector2(x, y));
+                        break;
+                    }
+                case 3:
+                    {
+                        float x = panelPosition.x;
+                        float y = panelPosition.y + panelSize.y / 2 + panelSize.y * 0.05f;
+                        buttonPositions.Add(new Vector2(x, y));
+
+                        x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
+                        buttonPositions.Add(new Vector2(x, y));
+
+                        x = (panelSize.x - calculateButtonSize(panelSize,3).x) / 2;
+                        y = panelPosition.y;
+                        buttonPositions.Add(new Vector2(x, y));
+                        break;
+                    }
+                case 4:
+                    {
+                        float x = panelPosition.x;
+                        float y = panelPosition.y;
+                        buttonPositions.Add(new Vector2(x, y));
+
+                        x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
+                        buttonPositions.Add(new Vector2(x, y));
+
+                        y = panelPosition.y + panelSize.y / 2 + panelSize.y * 0.05f;
+                        buttonPositions.Add(new Vector2(x, y));
+
+                        x = panelPosition.x;
+                        buttonPositions.Add(new Vector2(x, y));
+                        break;
+                    }
+                default:
+                    {
+                        float firstY = panelPosition.y + 2*panelSize.y/3;
+
+                        for (int i = 0; i < buttonCount; i++)
+                        {
+                            buttonPositions.Add(new Vector2(panelPosition.x,firstY - (i * panelSize.y/3)));
+                        }
+                        break;
+                    }
+            }
+            return buttonPositions;
         }
     }
 }
