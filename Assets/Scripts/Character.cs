@@ -6,8 +6,8 @@ using Assets.Scripts.Utils;
 
 namespace Assets.Scripts
 {
-
-    public abstract class Character : MonoBehaviour {
+    public abstract class Character : MonoBehaviour
+    {
 
         public Enums.MonsterStatus Status;
 
@@ -29,11 +29,12 @@ namespace Assets.Scripts
 
         protected AttackDto attackResult;
 
-	    // Use this for initialization
-	    void Start () {
+        // Use this for initialization
+        void Start()
+        {
             effect = Effect.EffectType.NONE;
-	    
-	    }
+
+        }
 
 
         public void addXP(int amount)
@@ -64,7 +65,7 @@ namespace Assets.Scripts
 
         public bool heal(int amount)
         {
-            if(health < maxHealth)
+            if (health < maxHealth)
             {
                 health = Mathf.Min(health + amount, maxHealth);
                 return true;
@@ -76,7 +77,7 @@ namespace Assets.Scripts
 
         public bool revive(int healAmount)
         {
-            if(dead)
+            if (dead)
             {
                 dead = false;
                 health = healAmount;
@@ -110,7 +111,7 @@ namespace Assets.Scripts
 
         public bool cureEffect(Effect.EffectType effectToCure)
         {
-            if(effectToCure.Equals(effect))
+            if (effectToCure.Equals(effect))
             {
                 effect = Effect.EffectType.NONE;
                 //TODO notify AnimationHandler
@@ -136,15 +137,16 @@ namespace Assets.Scripts
         {
             return speed;
         }
-    
+
         public string getName()
         {
             return name;
         }
 
-        public void setIsEnemy(bool value)
+
+        public void setIsEnemy(bool isEnemy)
         {
-            enemy = value;
+            enemy = isEnemy;
         }
 
         public bool isEnemy()
@@ -166,6 +168,10 @@ namespace Assets.Scripts
         {
             return effect;
         }
+
+        public bool isDead()
+        {
+            return dead;
+        }
     }
 }
-

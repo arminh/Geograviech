@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using System.Threading;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -18,6 +20,8 @@ namespace Assets.Scripts
         List<Vector3> enemyPositions;
         List<Vector3> playerPositions;
 
+        private bool isTurnFinished;
+
 
         public FightManager() 
         { 
@@ -26,6 +30,7 @@ namespace Assets.Scripts
 
         private void orderFighters()
         {
+            //fighters.Sort((c1, c2) => c1.getSpeed().CompareTo(c2.getSpeed())); so sollte das auch funktioniern (lambda expression)
             fighters.Sort(
                 delegate(Character c1, Character c2)
                 {
@@ -34,7 +39,7 @@ namespace Assets.Scripts
             );
         }
 
-        public void startFight(Hero player,Character enemy)
+        public void fight(Hero player,Character enemy)
         {
             this.player = player;
             this.enemy = enemy;
@@ -59,7 +64,16 @@ namespace Assets.Scripts
             }
             orderFighters();
 
-            executeTurn();
+            bool fightFinished = false;
+
+            while (!fightFinished)
+            {
+                executeTurn();
+
+                fightFinished = player.isDead() || enemy.isDead();
+            }
+           
+            
         }
 
         private void setPositions()
@@ -69,7 +83,7 @@ namespace Assets.Scripts
             foreach (Character character in fighters)
             {
                 GameObject sprite = character.getSprite();
-                if(character.isEnemy())
+                if(character.getIsEnemy())
                 {                   
                    sprite.transform.position = enemyPositions.ElementAt(enemyCount);
                    enemyCount++;
@@ -88,6 +102,16 @@ namespace Assets.Scripts
             fighters.RemoveAt(0);
             fighters.Add(fighter);  
             fighter.executeTurn();
+
+            if(!fighter.getIsEnemy())
+            {
+                isTurnFinished = false;
+                while(!isTurnFinished)
+                {
+                    Thread.Sleep(100);
+                }
+            }
+            
         }
 
         private void addFighter(Character character, bool isEnemy)
@@ -113,16 +137,99 @@ namespace Assets.Scripts
 
         public void attackEnemy(Attack attack)
         {
-            int damage = enemy.getAttacked(attack);
+            // TODO ask player which enemy should be attacked
+            List<Character> availableEnemies = getAttackableEnemies();
+            foreach (Character enemyViech in availableEnemies)
+            {
+                GameObject go = null;//(GameObject)Instantiate(buttons);
+                
+          //      go.transform.parent = panel.transform;
+                go.GetComponentInChildren<Text>().text = enemyViech.getName();
+
+                
+                go.transform.localScale = new Vector3(1, 1, 1);
+                Button b = go.GetComponent<Button>();
+                Character captured = enemyViech;
+                b.onClick.AddListener(() => attackViech(attack,captured));
+            }
+
+            AttackDto attackResult = enemy.getAttacked(attack);
         }
-        public void attackPlayer(Attack attack)
+
+        public void attackViech(Attack attack, Character viech)
         {
-            int damage = player.getAttacked(attack);
+            AttackDto attackResult = viech.getAttacked(attack);
+            //TODO log result
         }
 
         public void turnFinished()
         {
-            executeTurn();
+            isTurnFinished = true;
+        }
+         
+        public List<Character> getAttackableEnemies()
+        {
+            List<Character> enemies = new List<Character>();
+            if (enemy.isElite())
+            {
+                foreach (Character viech in ((Elite)enemy).getActiveViecher())
+                {
+                    if(!viech.isDead())
+                    {
+                        enemies.Add(viech);
+                    }
+                }
+            }
+            if(enemies.Count == 0)
+            {
+                enemies.Add(enemy);
+            }
+            return enemies;
+        }
+
+        public void showMenu(List<String> labels, List<Action> functions)
+        {
+            for (int i = 0; i < labels.Count; i++)
+            {
+                GameObject go = null;//(GameObject)Instantiate(buttons);
+
+                //      go.transform.parent = panel.transform;
+                go.GetComponentInChildren<Text>().text = labels[i];
+
+
+                go.transform.localScale = new Vector3(1, 1, 1);
+                Button b = go.GetComponent<Button>();
+                b.onClick.AddListener(() => functions[i].Invoke());
+            }
+        }
+
+        public List<Character> getAttackablePlayerViecher()
+        {
+            List<Character> viecher = new List<Character>();
+          
+            foreach (Character viech in player.getActiveViecher())
+            {
+                if (!viech.isDead())
+                {
+                    viecher.Add(viech);
+                }
+            }
+            
+            if (viecher.Count == 0)
+            {
+                viecher.Add(enemy);
+            }
+            return viecher;
+        }
+
+        public Hero getHero()
+        {
+            return player;
+        }
+
+        public Character getEnemy()
+        {
+            return enemy;
         }
     }
 }
