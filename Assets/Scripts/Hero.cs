@@ -9,9 +9,19 @@ namespace Assets.Scripts
     public delegate void UseItemDelegate();
     public delegate void AttackDelegate();
 
-    class Hero: Elite
+    public class Hero: Elite
     {
-        private List<Weapon> weapons;
+        public Hero(List<Viech> activeViecher, Weapon activeWeapon, List<IConsumable> items, int health, int speed, int strength)
+        {
+            this.activeViecher = activeViecher;
+            this.activeWeapon = activeWeapon;
+            //this.items = items;
+            this.health = health;
+            this.maxHealth = health;
+            this.speed = speed;
+            this.strength = strength;
+        }
+
         private Weapon activeWeapon;
 
         private List<IConsumable> consumables;

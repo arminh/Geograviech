@@ -10,7 +10,20 @@ namespace Assets.Scripts
         private ElementType type;
         private float catchChance;
         private List<Item> dropItems;
-        private int xpAmount;
+
+        protected int xp;
+        protected int levelUpXp;
+
+        public void addXP(int amount)
+        {
+            xp = xp + amount;
+
+            if (xp >= levelUpXp)
+            {
+                this.levelUp();
+            }
+
+        }
 
         public override void executeTurn()
         {

@@ -7,7 +7,6 @@ namespace Assets.Scripts
 {
     public abstract class Elite: Character
     {
-        protected List<Viech> viecher;
         protected List<Viech> activeViecher;
 
         protected abstract void chooseViech();
@@ -19,8 +18,6 @@ namespace Assets.Scripts
         {
             return activeViecher;
         }
-
-
 
         public override bool isElite()
         {

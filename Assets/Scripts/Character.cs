@@ -20,8 +20,6 @@ namespace Assets.Scripts
         protected List<Attack> attacks;
         protected Effect.EffectType effect;
         protected bool dead;
-        protected int xp;
-        protected int levelUpXp;
 
         private bool enemy = false;
 
@@ -33,18 +31,6 @@ namespace Assets.Scripts
         void Start()
         {
             effect = Effect.EffectType.NONE;
-
-        }
-
-
-        public void addXP(int amount)
-        {
-            xp = xp + amount;
-
-            if (xp >= levelUpXp)
-            {
-                this.levelUp();
-            }
 
         }
 
@@ -149,7 +135,7 @@ namespace Assets.Scripts
             enemy = isEnemy;
         }
 
-        public bool isEnemy()
+        public bool getIsEnemy()
         {
             return enemy;
         }
