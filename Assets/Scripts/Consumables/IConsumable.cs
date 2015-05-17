@@ -7,6 +7,6 @@ namespace Assets.Scripts
 {
     public interface IConsumable
     {
-        bool use(Character character);
+        bool use(FightCharacter character);
     }
 }

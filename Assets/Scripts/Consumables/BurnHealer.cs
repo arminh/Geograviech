@@ -11,7 +11,7 @@ namespace Assets.Scripts.Consumables
         {
             this.name = "Bepanthen Wund und Heilsalbe";
         }
-        public bool use(Character character)
+        public bool use(FightCharacter character)
         {
             return character.cureEffect(Effect.EffectType.FIRE);
         }

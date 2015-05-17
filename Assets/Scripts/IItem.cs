@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-interface IItem
+public interface IItem
 {
 
 }

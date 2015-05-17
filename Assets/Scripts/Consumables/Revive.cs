@@ -14,7 +14,7 @@ namespace Assets.Scripts
             this.healAmount = healAmount;
         }
 
-        public bool use(Character character)
+        public bool use(FightCharacter character)
         {
             return character.revive(healAmount);
         }

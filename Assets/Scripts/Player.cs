@@ -39,6 +39,11 @@ namespace Assets.Scripts
             return new Hero(activeViecher, activeWeapon, items, health, speed, strength);
         }
 
+        public void gainXp(int amount)
+        {
+
+        }
+
         public List<Viech> getViecher() {
             return viecher;
         }

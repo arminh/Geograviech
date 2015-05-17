@@ -5,28 +5,23 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-
     public delegate void UseItemDelegate();
     public delegate void AttackDelegate();
 
-    public class Hero: Elite
+    public class FightPlayer: FightCharacter
     {
         private Weapon activeWeapon;
+        private List<FightViech> activeViecher;
 
-        private List<IConsumable> consumables;
+        private List<IItem> items;
 
-        public Hero(List<Viech> activeViecher, Weapon activeWeapon, List<IConsumable> consumables, int health, int speed, int strength)
+        public FightPlayer(int maxHealth, int speed, int strength, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IItem> items)
+            : base("Player", maxHealth, speed, strength, attacks)
         {
             this.activeViecher = activeViecher;
             this.activeWeapon = activeWeapon;
-            this.consumables = consumables;
-            this.health = health;
-            this.maxHealth = health;
-            this.speed = speed;
-            this.strength = strength;
+            this.items = items;
         }
-
-
 
         public override void executeTurn()
         {
@@ -64,6 +59,21 @@ namespace Assets.Scripts
         public void useWeapon()
         {
 
+        }
+
+        public Weapon ActiveWeapon
+        {
+            get { return activeWeapon; }
+        }
+
+        public List<FightViech> ActiveViecher
+        {
+            get { return activeViecher; }
+        }
+
+        public List<IItem> Items
+        {
+            get { return items; }
         }
     }
 }

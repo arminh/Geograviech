@@ -1,38 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
 using System.Collections.Generic;
-using Assets.Scripts.Utils;
 
 namespace Assets.Scripts
 {
-    public abstract class Character : MonoBehaviour
+    public abstract class FightCharacter
     {
 
-        public Enums.MonsterStatus Status;
+        public string identifier;
 
-        protected new string name;
-        protected int level;
         protected int health;
         protected int maxHealth;
         protected int speed;
         protected int strength;
-        protected List<Attack> attacks;
-        protected Effect.EffectType effect;
-        protected bool dead;
 
-        private bool enemy = false;
+        protected List<Attack> attacks;
+        protected Effect.EffectType currentEffect;
 
         GameObject sprite = null;
+       
+        protected bool dead;
+
+        private bool isEnemy = false;
 
         protected AttackDto attackResult;
 
-        // Use this for initialization
-        void Start()
+        public FightCharacter(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks)
         {
-            effect = Effect.EffectType.NONE;
-
+            this.identifier = identifier;
+            this.maxHealth = maxHealth;
+            this.health = maxHealth;
+            this.speed = speed;
+            this.strength = strength;
+            this.attacks = attacks;
         }
+         
 
         public abstract void executeTurn();
 
@@ -95,9 +97,9 @@ namespace Assets.Scripts
 
         public bool cureEffect(Effect.EffectType effectToCure)
         {
-            if (effectToCure.Equals(effect))
+            if (effectToCure.Equals(currentEffect))
             {
-                effect = Effect.EffectType.NONE;
+                currentEffect = Effect.EffectType.NONE;
                 //TODO notify AnimationHandler
                 return true;
             }
@@ -109,48 +111,60 @@ namespace Assets.Scripts
             AttackDto attackResult = new AttackDto();
             attackResult.setAttackedChar(this);
             attackResult.setInflictedDamage(applyDamage(attack.getDamage()));
-            attackResult.setCurrentEffect(effect);
+            attackResult.setCurrentEffect(currentEffect);
             attackResult.setInflictEffect(attack.getEffect().inflict(this));
 
             return attackResult;
         }
 
-        public abstract bool isElite();
 
-        public int getSpeed()
+        public string Identifier
         {
-            return speed;
+            get { return identifier; }
         }
 
-        public string getName()
+        public int Health
         {
-            return name;
+            get { return health; }
+            set { health = value; }
         }
 
-
-        public void setIsEnemy(bool isEnemy)
+        public int MaxHealth
         {
-            enemy = isEnemy;
+            get { return maxHealth; }
         }
 
-        public bool getIsEnemy()
+        public int Speed
         {
-            return enemy;
+            get { return speed; }
         }
 
-        public void setSprite(GameObject sprite)
+        public int Strength
         {
-            this.sprite = sprite;
+            get { return strength; }
         }
 
-        public GameObject getSprite()
+        
+        public List<Attack> Attacks
         {
-            return sprite;
+            get { return attacks; }
         }
 
-        public Effect.EffectType getEffect()
+        public Effect.EffectType CurrentEffect
         {
-            return effect;
+            get { return currentEffect; }
+        }
+
+        public GameObject Sprite
+        {
+            get { return sprite; }
+            set { sprite = value; }
+        }
+
+        public bool IsEnemy
+        {
+            get { return isEnemy; }
+            set { isEnemy = value; }
         }
 
         public bool isDead()

@@ -14,27 +14,8 @@ namespace Assets.Scripts
         protected int xp;
         protected int levelUpXp;
 
-        public void addXP(int amount)
-        {
-            xp = xp + amount;
+        protected int GainXp {get; private set; }
 
-            if (xp >= levelUpXp)
-            {
-                this.levelUp();
-            }
-
-        }
-
-
-        protected override void chooseViech()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void switchViech()
-        {
-            throw new NotImplementedException();
-        }
 
         public override void executeTurn()
         {
@@ -42,11 +23,6 @@ namespace Assets.Scripts
         }
 
         protected override void die()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void levelUp()
         {
             throw new NotImplementedException();
         }
