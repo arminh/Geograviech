@@ -17,7 +17,7 @@ namespace Assets.Scripts
         public FightViech createFightViech()
         {
             //public FightViech(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
-            return new FightViech(identifier, maxHealth, speed, strength, attacks, type, -1 , null, -1);
+            return new FightViech(identifier, maxHealth, speed, strength, name, attacks, type, -1 , null, -1);
         }
 
         public ElementType Type

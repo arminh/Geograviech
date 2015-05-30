@@ -75,10 +75,10 @@ namespace Assets.Scripts
             List<Attack> attacks = new List<Attack>();
             attacks.Add(new Attack("TestAttack",ElementType.EARTH,15,new Effect("TestEffect",Effect.EffectType.POISON,50,50)));
 
-            activeViecher.Add(new FightViech("Gargoyles", 10, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
-            FightPlayer player_ = new FightPlayer(15, 15, 5, activeViecher, weapon, new List<Attack>(), new List<IConsumable>());
+            activeViecher.Add(new FightViech("Gargoyles", 10, 20, 4, "Franz", attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
+            FightPlayer player_ = new FightPlayer(15, 15, 5, "Jürgen", activeViecher, weapon, new List<Attack>(), new List<IConsumable>());
 
-            FightViech enemy_ = new FightViech("Zerberwelpe", 17, 20, 3, attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
+            FightViech enemy_ = new FightViech("Zerberwelpe", 17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
             Debug.Log("Start Fight");
             this.fight(player_, enemy_);
             Debug.Log("Done");
@@ -185,7 +185,7 @@ namespace Assets.Scripts
         {
             Debug.Log("Execute Turn");
             setPositions();
-            FightCharacter fighter = fighters.FirstOrDefault();
+            activeFighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
 
             fighters.Add(activeFighter);
@@ -234,10 +234,8 @@ namespace Assets.Scripts
 
         public void attackEnemy(Attack attack)
         {
+            clearButtonPanel();
             List<FightCharacter> availableEnemies = getAttackableEnemies();
-
-           
-            
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
@@ -252,7 +250,7 @@ namespace Assets.Scripts
                 buttonRectTransForm.anchoredPosition = buttonPositions[i];
                 buttonRectTransForm.sizeDelta = buttonSize;
 
-                go.transform.parent = buttonPanel.transform;
+                go.transform.SetParent(buttonPanel.transform,false);
                 go.GetComponentInChildren<Text>().text = availableEnemies[i].Identifier;
 
                 Button b = go.GetComponent<Button>();
@@ -295,7 +293,7 @@ namespace Assets.Scripts
 
         public void showActionMenu(Dictionary<String, Action> actions)
         {
-            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+            clearButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
@@ -321,10 +319,20 @@ namespace Assets.Scripts
             }
         }
 
+<<<<<<< HEAD
+        public void showSelectionMenu(Action<String> function, Dictionary<String,int> items)
+=======
+        private void clearButtonPanel()
+>>>>>>> 4a82473f4284b20744560375ae331c59b84b60dc
+        {
+            foreach (Transform child in buttonPanel.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
         public void showSelectionMenu(Action<String> function, Dictionary<String,int> items)
         {
-            
-            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+            clearButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;

@@ -37,7 +37,7 @@ namespace Assets.Scripts
             }
 
 
-            return new FightPlayer(maxHealth, speed, strength, fightViecher, activeWeapon, attacks, items);
+            return new FightPlayer(maxHealth, speed, strength, name, fightViecher, activeWeapon, attacks, items);
         }
 
         public void addViech(Viech viech)
