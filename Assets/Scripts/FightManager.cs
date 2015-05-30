@@ -236,6 +236,11 @@ namespace Assets.Scripts
         {
             clearButtonPanel();
             List<FightCharacter> availableEnemies = getAttackableEnemies();
+            if(availableEnemies.Count == 1)
+            {
+                attackViech(attack, availableEnemies.FirstOrDefault());
+            }
+
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
@@ -412,6 +417,8 @@ namespace Assets.Scripts
 
         private List<Vector2> calculateButtonPositions(Vector2 panelPosition, Vector2 panelSize, int buttonCount)
         {
+            panelPosition.x = panelPosition.x - panelSize.x / 2;
+            panelPosition.y = panelPosition.y - panelSize.y / 2;
             List<Vector2> buttonPositions = new List<Vector2>();
             switch (buttonCount)
             {
