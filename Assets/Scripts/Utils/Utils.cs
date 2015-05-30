@@ -10,7 +10,7 @@ namespace Assets.Scripts.Utils
         public static void InitBackground(Transform background, Camera mainCam)
         {
             Vector3 pos = mainCam.transform.position;
-            pos.z = 0.0f;
+            pos.z = 10.0f;
             background.position = pos;
 
             SpriteRenderer spriteRenderer = background.GetComponent<SpriteRenderer>();
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Utils
             leftDown.y -= worldScreenHeight / 2.0f;
 
             Vector3 rightDown = leftDown;
-            leftDown.x += worldScreenWidth;
+            rightDown.x += worldScreenWidth;
 
             float spaceBetweenCharactersAndScreen = 5;
 
