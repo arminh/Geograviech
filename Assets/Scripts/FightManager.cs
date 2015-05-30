@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Threading;
 using UnityEngine.UI;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Consumables;
 
 namespace Assets.Scripts
 {
