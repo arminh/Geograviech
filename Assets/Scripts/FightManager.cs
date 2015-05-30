@@ -13,7 +13,7 @@ namespace Assets.Scripts
     {
         private List<FightCharacter> fighters;
         private FightPlayer player;
-        private FightCharacter activeViech;
+        private FightCharacter activeFighter;
 
         private FightCharacter enemy;
         public GameObject canvas;
@@ -74,13 +74,9 @@ namespace Assets.Scripts
             List<FightViech> activeViecher = new List<FightViech>();
             List<Attack> attacks = new List<Attack>();
             attacks.Add(new Attack("TestAttack",ElementType.EARTH,15,new Effect("TestEffect",Effect.EffectType.POISON,50,50)));
-<<<<<<< HEAD
+
             activeViecher.Add(new FightViech("Gargoyles", 10, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
             FightPlayer player_ = new FightPlayer(15, 15, 5, activeViecher, weapon, new List<Attack>(), new List<IConsumable>());
-=======
-            activeViecher.Add(new FightViech("Gargoyles", 15, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
-            FightPlayer player_ = new FightPlayer(15, 10, 5, activeViecher, weapon, new List<Attack>(), new List<IConsumable>());
->>>>>>> Armin
 
             FightViech enemy_ = new FightViech("Zerberwelpe", 17, 20, 3, attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
             Debug.Log("Start Fight");
@@ -191,18 +187,12 @@ namespace Assets.Scripts
             setPositions();
             FightCharacter fighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
-<<<<<<< HEAD
+
             fighters.Add(activeFighter);
             Debug.Log("Active fighter: " + activeFighter.identifier);
             activeFighter.executeTurn();
 
           /*  if (!activeFighter.IsEnemy)
-=======
-            fighters.Add(fighter);  
-            fighter.executeTurn();
-
-    /*        if(!fighter.IsEnemy)
->>>>>>> Armin
             {
                 isTurnFinished = false;
                 while(!isTurnFinished)
@@ -303,7 +293,7 @@ namespace Assets.Scripts
             return enemies;
         }
 
-        public void showActionMenu(Dictionary<String, Action> items)
+        public void showActionMenu(Dictionary<String, Action> actions)
         {
             GameObject buttonPanel = Utils.Utils.getButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
