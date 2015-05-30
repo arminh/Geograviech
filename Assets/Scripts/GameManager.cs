@@ -15,7 +15,7 @@ namespace Assets.Scripts
         public void init()
         {
             //TODO: Read Savefile
-            player = new Player(50, 1, 10, "Armin", "Player", 0, 1, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IItem>(), new  List<Attack>());
+            player = new Player(50, 1, 10, "Armin", "Player", 0, 1, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new  List<Attack>());
         }
 
         public void showMenu()
@@ -28,8 +28,7 @@ namespace Assets.Scripts
             Application.LoadLevel("Fightscreen");
 
             FightPlayer hero = player.createHero();
-            FightManager fightmanager = FindObjectsOfType(typeof(FightManager))[0] as FightManager;
-            fightmanager.fight(hero, enemy);
+            FightManager.Instance.fight(hero, enemy);
 
             if (hero.isDead())
             {

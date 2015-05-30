@@ -64,9 +64,9 @@ namespace Assets.Scripts
             List<Attack> attacks = new List<Attack>();
             attacks.Add(new Attack("TestAttack",ElementType.EARTH,15,new Effect("TestEffect",Effect.EffectType.POISON,50,50)));
             activeViecher.Add(new FightViech("Gargoyles", 10, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
-            FightPlayer player_ = new FightPlayer(15, 15, 5, activeViecher, weapon, new List<Attack>(), new List<IItem>());
+            FightPlayer player_ = new FightPlayer(15, 15, 5, activeViecher, weapon, new List<Attack>(), new List<IConsumable>());
 
-            FightViech enemy_ = new FightViech("Zerberwelpe", 17, 15, 3, attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
+            FightViech enemy_ = new FightViech("Zerberwelpe", 17, 20, 3, attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
             Debug.Log("Start Fight");
             this.fight(player_, enemy_);
             Debug.Log("Done");
@@ -168,10 +168,12 @@ namespace Assets.Scripts
 
         private void executeTurn()
         {
+            Debug.Log("Execute Turn");
             setPositions();
             activeFighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
             fighters.Add(activeFighter);
+            Debug.Log("Active fighter: " + activeFighter.identifier);
             activeFighter.executeTurn();
 
           /*  if (!activeFighter.IsEnemy)
@@ -197,12 +199,17 @@ namespace Assets.Scripts
                 {
                     
                     GameObject spriteInitialisation = Instantiate(sprite, Vector3.zero, Quaternion.identity) as GameObject;
+                    Vector3 scale = spriteInitialisation.transform.localScale;
+                    scale.x *= 2;
+                    scale.y *= 2;
                     if(isEnemy)
                     {
-                        Vector3 scale = spriteInitialisation.transform.localScale;
+                       
                         scale.x *= -1;
-                        spriteInitialisation.transform.localScale = scale;
+                        
+                        
                     }
+                    spriteInitialisation.transform.localScale = scale;
                     character.Sprite = spriteInitialisation;
                     return;
                 }
@@ -287,7 +294,7 @@ namespace Assets.Scripts
                 buttonRectTransForm.anchoredPosition = buttonPositions[i];
                 buttonRectTransForm.sizeDelta = buttonSize;
 
-                go.transform.parent = buttonPanel.transform;
+                go.transform.SetParent(buttonPanel.transform,false);
                 go.GetComponentInChildren<Text>().text = entry.Key;
                 
 
@@ -315,7 +322,7 @@ namespace Assets.Scripts
                 buttonRectTransForm.anchoredPosition = buttonPositions[i];
                 buttonRectTransForm.sizeDelta = buttonSize;
 
-                go.transform.parent = buttonPanel.transform;
+                go.transform.SetParent(buttonPanel.transform, false);
                 go.GetComponentInChildren<Text>().text = entry.Key + " : " + entry.Value;
 
                 Button b = go.GetComponent<Button>();

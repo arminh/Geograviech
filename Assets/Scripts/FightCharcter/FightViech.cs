@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -23,11 +24,19 @@ namespace Assets.Scripts
             this.xpAmount = xpAmount;
         }
 
-
-
         public override void executeTurn()
         {
 
+            Action<string> useAttackAction = useAttack;
+
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+
+            foreach (Attack att in attacks)
+            {
+                dict.Add(att.Name, att.Damage);
+            }
+
+            FightManager.Instance.showSelectionMenu(useAttackAction, dict);
         }
 
         protected override void die()
@@ -35,9 +44,16 @@ namespace Assets.Scripts
 
         }
 
-        public void useAttack()
+        private void useAttack(string name)
         {
+            Debug.Log("Use Attack Action triggerd");
 
+            foreach(Attack att in attacks) {
+                if (att.Name == name)
+                {
+                    FightManager.Instance.attackEnemy(att);
+                }
+            }
         }
 
         public void dropItem()
