@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.Utils
 {
-    public static class Utils
+    public static class Util
     {
         public static void InitBackground(Transform background, Camera mainCam)
         {
