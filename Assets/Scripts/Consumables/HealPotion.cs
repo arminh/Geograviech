@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Consumables
 {
     class HealPotion : Item,IConsumable
     {

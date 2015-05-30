@@ -34,5 +34,11 @@ namespace Assets.Scripts.Utils
             Earth,
             Air
         };
+
+        public enum LogBookEntryType
+        {
+            INFO = 0,
+            ERROR = 1
+        };
     }
 }

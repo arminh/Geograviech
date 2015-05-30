@@ -6,21 +6,17 @@ using System.Linq;
 
 namespace Assets.Scripts.Utils
 {
-    public enum LogBookEntryType
-    {
-        INFO = 0,
-        ERROR = 1
-    }
+    
 
     public class Log
     {
         private static Log instance = null;
 
-        private Dictionary<LogBookEntryType, string> logBook;
+        private Dictionary<Enums.LogBookEntryType, string> logBook;
 
         Log()
         {
-            logBook = new Dictionary<LogBookEntryType, string>();
+            logBook = new Dictionary<Enums.LogBookEntryType, string>();
         }
 
         public static Log Instance
@@ -36,7 +32,7 @@ namespace Assets.Scripts.Utils
         }
 
 
-        private void makeEntry(LogBookEntryType type, string message, Exception e)
+        private void makeEntry(Enums.LogBookEntryType type, string message, Exception e)
         {
             var exMessage = "";
 
@@ -45,7 +41,7 @@ namespace Assets.Scripts.Utils
                 exMessage = string.Format("{0}\n", e.ToString());
             }
 
-            var entry = string.Format("{0}: {1}\n{2}\n", Enum.GetName(typeof(LogBookEntryType), type), message, exMessage);
+            var entry = string.Format("{0}: {1}\n{2}\n", Enum.GetName(typeof(Enums.LogBookEntryType), type), message, exMessage);
 
             logBook.Add(type, entry);
         }
@@ -53,15 +49,15 @@ namespace Assets.Scripts.Utils
 
         public void Info(string message, Exception e = null)
         {
-            makeEntry(LogBookEntryType.INFO, message, e);
+            makeEntry(Enums.LogBookEntryType.INFO, message, e);
         }
 
         public void Error(string message, Exception e = null)
         {
-            makeEntry(LogBookEntryType.ERROR, message, e);
+            makeEntry(Enums.LogBookEntryType.ERROR, message, e);
         }
 
-        public Dictionary<LogBookEntryType, string> getLogBook()
+        public Dictionary<Enums.LogBookEntryType, string> getLogBook()
         {
             return logBook;
         }
