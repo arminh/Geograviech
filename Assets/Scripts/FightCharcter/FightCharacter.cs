@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts
 {
-    public abstract class FightCharacter
+    public abstract class FightCharacter: MonoBehaviour
     {
 
         public string identifier;

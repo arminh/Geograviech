@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    public delegate void UseItemDelegate();
-    public delegate void AttackDelegate();
+    delegate void UseItemDelegate();
+    delegate void AttackDelegate();
 
     public class FightPlayer: FightCharacter
     {
@@ -25,8 +25,6 @@ namespace Assets.Scripts
 
         public override void executeTurn()
         {
-            //FightManager.instance().showChooseActionGui(useItem);
-            showChooseActionGui(useItem, attack);
 
         }
 

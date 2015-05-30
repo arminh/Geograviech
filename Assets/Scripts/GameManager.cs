@@ -62,26 +62,6 @@ namespace Assets.Scripts
             }
         }
 
-        public void saveProgress()
-        {
-            Savefile file = new Savefile();
-
-            file.name = player.Name;
-            file.identifier = player.Identifier;
-            file.maxHealth = player.MaxHealth;
-            file.speed = player.Speed;
-            file.strength = player.Strength;
-            file.level = player.Level;
-            file.xp = player.Xp;
-
-            file.attacks = player.Attacks;
-            file.viecher = player.Viecher;
-            file.activeViecher = player.ActiveViecher;
-            file.weapons = player.Weapons;
-            file.activeWeapon = player.ActiveWeapon;
-            file.items = player.Items;
-        } 
-
         public static GameManager Instance
         {
             get
