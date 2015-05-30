@@ -52,6 +52,7 @@ namespace Assets.Scripts
                 if (att.Name == name)
                 {
                     FightManager.Instance.attackEnemy(att);
+                
                 }
             }
         }
