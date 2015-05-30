@@ -63,8 +63,8 @@ namespace Assets.Scripts
             List<FightViech> activeViecher = new List<FightViech>();
             List<Attack> attacks = new List<Attack>();
             attacks.Add(new Attack("TestAttack",ElementType.EARTH,15,new Effect("TestEffect",Effect.EffectType.POISON,50,50)));
-            activeViecher.Add(new FightViech("Gargoyles", 15, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
-            FightPlayer player_ = new FightPlayer(15, 10, 5, activeViecher, weapon, new List<Attack>(), new List<IItem>());
+            activeViecher.Add(new FightViech("Gargoyles", 10, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
+            FightPlayer player_ = new FightPlayer(15, 15, 5, activeViecher, weapon, new List<Attack>(), new List<IItem>());
 
             FightViech enemy_ = new FightViech("Zerberwelpe", 17, 15, 3, attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
             Debug.Log("Start Fight");
@@ -174,14 +174,14 @@ namespace Assets.Scripts
             fighters.Add(activeFighter);
             activeFighter.executeTurn();
 
-            if (!activeFighter.IsEnemy)
+          /*  if (!activeFighter.IsEnemy)
             {
                 isTurnFinished = false;
                 while(!isTurnFinished)
                 {
                     Thread.Sleep(100);
                 }
-            }
+            }*/
             
         }
 
@@ -297,7 +297,7 @@ namespace Assets.Scripts
             }
         }
 
-        public void showItemMenu(Action<String> function, Dictionary<String,int> items)
+        public void showSelectionMenu(Action<String> function, Dictionary<String,int> items)
         {
             GameObject buttonPanel = Utils.Utils.getButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;

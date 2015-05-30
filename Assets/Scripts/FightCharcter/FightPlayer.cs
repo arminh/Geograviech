@@ -34,6 +34,7 @@ namespace Assets.Scripts
 
         public void showChooseActionGui()
         {
+            Debug.Log("FightPlayer.showChooseActionGui");
             List<string> labels = new List<string>();
             List<Action> actions = new List<Action>();
             
@@ -46,7 +47,6 @@ namespace Assets.Scripts
             actions.Add(attackAction);
             
 
-       //     FightManager.Instance.showMenu(labels, actions);
         }
 
 
