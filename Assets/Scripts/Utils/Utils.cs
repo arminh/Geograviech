@@ -66,7 +66,7 @@ namespace Assets.Scripts.Utils
             Vector3 rightDown = leftDown;
             rightDown.x += worldScreenWidth;
 
-            float spaceBetweenCharactersAndScreen = 5;
+            float spaceBetweenCharactersAndScreen = 7;
 
             float spaceBetweenFriends = worldScreenHeight / (float)(friendCount + 1);
             float spaceBetweenEnemies = worldScreenHeight / (float)(enemyCount + 1);
@@ -80,7 +80,7 @@ namespace Assets.Scripts.Utils
             for (int index = 0; index < friendCount; index++)
             {
                 posY = leftDown.y + spaceBetweenFriends * (index + 1);
-                positions.Add(new Vector3(posX +2, posY, index));
+                positions.Add(new Vector3(posX, posY, index));
             }
 
             posX = rightDown.x - spaceBetweenCharactersAndScreen;
@@ -102,15 +102,15 @@ namespace Assets.Scripts.Utils
         {
             GameObject panel = new GameObject("ButtonPanel", typeof(RectTransform));
 
-            float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
-            float worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
+            panel.AddComponent<CanvasRenderer>();
 
             RectTransform rect = panel.transform as RectTransform;
             rect.anchorMin = new Vector2(0.5f, 0.25f);
             rect.anchorMax = new Vector2(0.5f, 0.25f);
             rect.anchoredPosition = Vector2.zero;
-            
-            rect.sizeDelta = new Vector2(worldScreenWidth / 3, worldScreenHeight / 2);
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            rect.sizeDelta = new Vector2(Screen.width / 3, Screen.height / 2);
 
             return panel;
         }
