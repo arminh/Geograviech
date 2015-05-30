@@ -12,6 +12,12 @@ namespace Assets.Scripts
 
         private static GameManager gameManager = null;
 
+        private bool levelWasLoaded = false;
+        private void OnLevelWasLoaded(int iLevel)
+        {
+            levelWasLoaded = true;
+        }
+
         public void init()
         {
             //TODO: Read Savefile
@@ -37,11 +43,15 @@ namespace Assets.Scripts
             Application.LoadLevel("PlayerMenue");
         }
 
-        public void executeFight(FightViech enemy)
+        public IEnumerator executeFight(FightViech enemy)
         {
             Application.LoadLevel("Fightscreen");
 
             FightPlayer hero = player.createHero();
+
+            while (!levelWasLoaded)
+                yield return 1;
+            levelWasLoaded = false;
 
             FightManager.Instance.fight(hero, enemy);
 
