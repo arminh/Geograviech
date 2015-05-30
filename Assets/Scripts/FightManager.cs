@@ -185,7 +185,7 @@ namespace Assets.Scripts
         {
             Debug.Log("Execute Turn");
             setPositions();
-            FightCharacter fighter = fighters.FirstOrDefault();
+            activeFighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
 
             fighters.Add(activeFighter);
@@ -234,10 +234,8 @@ namespace Assets.Scripts
 
         public void attackEnemy(Attack attack)
         {
+            clearButtonPanel();
             List<FightCharacter> availableEnemies = getAttackableEnemies();
-
-           
-            
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
@@ -252,7 +250,7 @@ namespace Assets.Scripts
                 buttonRectTransForm.anchoredPosition = buttonPositions[i];
                 buttonRectTransForm.sizeDelta = buttonSize;
 
-                go.transform.parent = buttonPanel.transform;
+                go.transform.SetParent(buttonPanel.transform,false);
                 go.GetComponentInChildren<Text>().text = availableEnemies[i].Identifier;
 
                 Button b = go.GetComponent<Button>();
@@ -295,7 +293,7 @@ namespace Assets.Scripts
 
         public void showActionMenu(Dictionary<String, Action> actions)
         {
-            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+            clearButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
@@ -321,10 +319,20 @@ namespace Assets.Scripts
             }
         }
 
+<<<<<<< HEAD
+        public void showSelectionMenu(Action<String> function, Dictionary<String,int> items)
+=======
+        private void clearButtonPanel()
+>>>>>>> 4a82473f4284b20744560375ae331c59b84b60dc
+        {
+            foreach (Transform child in buttonPanel.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
         public void showSelectionMenu(Action<String> function, Dictionary<String,int> items)
         {
-            
-            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+            clearButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
