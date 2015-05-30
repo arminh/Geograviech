@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
@@ -93,11 +93,17 @@ namespace Assets.Scripts.Utils
 
             return positions;
         }
-        
+
+        /// <summary>
+        /// Creates the button panel for the FightScreen.
+        /// </summary>
+        /// <returns>GameObject</returns>
         public static GameObject getButtonPanel()
         {
-            //TODO gebnerate Panel for buttons;
+            
+
             return null;
         }
     }
+
 }

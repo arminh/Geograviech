@@ -12,6 +12,14 @@ namespace Assets.Scripts
         private int inflictChance;
         private int cureChance;
 
+        public Effect(string name,EffectType type,int inflictChance,int cureChance)
+        {
+            this.name = name;
+            this.type = type;
+            this.inflictChance = inflictChance;
+            this.cureChance = cureChance;
+        }
+
         Random rand = new Random();
 
         public Effect.EffectType inflict(FightCharacter character)

@@ -24,9 +24,24 @@ namespace Assets.Scripts
 
         private bool isTurnFinished;
 
+        public void StartFight()
+        {
+            Debug.Log("Start");
+            Weapon weapon = new Weapon();
+            List<FightViech> activeViecher = new List<FightViech>();
+            List<Attack> attacks = new List<Attack>();
+            attacks.Add(new Attack("TestAttack",ElementType.EARTH,15,new Effect("TestEffect",Effect.EffectType.POISON,50,50)));
+            activeViecher.Add(new FightViech("Gargoyles", 15, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
+            FightPlayer player_ = new FightPlayer(15, 10, 5, activeViecher, weapon, new List<Attack>(), new List<IItem>());
+
+            FightViech enemy_ = new FightViech("Zerberwelpe", 17, 15, 3, attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
+            Debug.Log("Start Fight");
+            this.fight(player_, enemy_);
+            Debug.Log("Done");
+        }
+
         private void orderFighters()
         {
-            //fighters.Sort((c1, c2) => c1.getSpeed().CompareTo(c2.getSpeed())); so sollte das auch funktioniern (lambda expression)
             fighters.Sort(
                 delegate(FightCharacter c1, FightCharacter c2)
                 {
@@ -40,34 +55,49 @@ namespace Assets.Scripts
             this.player = player;
             this.enemy = enemy;
 
-            //TODO set EnemyPosition
-            //TODO set PlayerPosition
-
             int friendCount = 1;
             int enemyCount = 1;
             
             fighters = new List<FightCharacter>();
-            fighters.Add(player);
+            addFighter(player,false);
+            //fighters.Add(player);
             foreach (FightViech viech in player.ActiveViecher)
             {
                 addFighter(viech,false);
                 friendCount++;
             }
 
-            fighters.Add(enemy);
-
-            //TODO: Rudi
-           /* if(enemy.isElite())
+            addFighter(enemy,true);
+            //fighters.Add(enemy);
+          if(enemy is FightBoss)
             {
-                foreach (Character viech in ((Elite)enemy).getActiveViecher())
+                foreach (FightCharacter viech in ((FightBoss)enemy).ActiveViecher)
                 {
                     addFighter(viech,true);
                     enemyCount++;
                 }
-            }*/
+            }
             orderFighters();
 
+            playerPositions = new List<Vector3>();
+            enemyPositions = new List<Vector3>();
+
            List<Vector3> positions = Utils.Utils.getFightScreenPostitions(friendCount, enemyCount);
+           foreach (Vector3 pos in positions)
+           {
+               Debug.Log("pos:" + pos);
+           }
+           for (int i = 0; i < positions.Count; i++)
+           {
+               if(i < friendCount)
+               {
+                   playerPositions.Add(positions[i]);
+               }
+               else
+               {
+                   enemyPositions.Add(positions[i]);
+               }
+           }
 
 
             bool fightFinished = false;
@@ -76,7 +106,9 @@ namespace Assets.Scripts
             {
                 executeTurn();
 
-                fightFinished = player.isDead() || enemy.isDead();
+                //TODo remove 
+                fightFinished = true;
+                //fightFinished = player.isDead() || enemy.isDead();
             }
 
 
@@ -90,13 +122,17 @@ namespace Assets.Scripts
             {
                 GameObject sprite = character.Sprite;
                 if(character.IsEnemy)
-                {                   
+                {
+
                    sprite.transform.position = enemyPositions.ElementAt(enemyCount);
                    enemyCount++;
+                   
                 }else
                 {
+
                     sprite.transform.position = playerPositions.ElementAt(playerCount);
                     playerCount++;
+                  
                 }
             }
         }
@@ -109,25 +145,28 @@ namespace Assets.Scripts
             fighters.Add(fighter);  
             fighter.executeTurn();
 
-            if(!fighter.IsEnemy)
+    /*        if(!fighter.IsEnemy)
             {
                 isTurnFinished = false;
                 while(!isTurnFinished)
                 {
                     Thread.Sleep(100);
                 }
-            }
+            }*/
             
         }
 
         private void addFighter(FightCharacter character, bool isEnemy)
         {
+
             character.IsEnemy = isEnemy;
             fighters.Add(character);
             foreach (GameObject sprite in allViecherPefabs)
-	        {
+            {
+
                 if (sprite.name.Equals(character.Identifier))
                 {
+                    
                     GameObject spriteInitialisation = Instantiate(sprite, Vector3.zero, Quaternion.identity) as GameObject;
                     if(isEnemy)
                     {
@@ -183,17 +222,17 @@ namespace Assets.Scripts
         public List<FightCharacter> getAttackableEnemies()
         {
             List<FightCharacter> enemies = new List<FightCharacter>();
-            //TODO: Rudi
-            /* if (enemy.isElite())
+
+             if (enemy is FightBoss)
             {
-                foreach (Character viech in ((Elite)enemy).getActiveViecher())
+                foreach (FightCharacter viech in ((FightBoss)enemy).ActiveViecher)
                 {
                     if(!viech.isDead())
                     {
                         enemies.Add(viech);
                     }
                 }
-            }*/
+            }
             if(enemies.Count == 0)
             {
                 enemies.Add(enemy);
