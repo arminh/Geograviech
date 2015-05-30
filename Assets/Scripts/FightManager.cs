@@ -279,6 +279,7 @@ namespace Assets.Scripts
             Vector2 buttonSize = calculateButtonSize(panelSize, actions.Count);
             List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize,actions.Count);
 
+            int i = 0;
             foreach(KeyValuePair<String, Action> entry in actions)
             {
                 GameObject go = (GameObject)Instantiate(buttonPrefab);
@@ -292,6 +293,7 @@ namespace Assets.Scripts
 
                 Button b = go.GetComponent<Button>();
                 b.onClick.AddListener(() => entry.Value.Invoke());
+                i++;
             }
         }
 
@@ -305,6 +307,7 @@ namespace Assets.Scripts
             Vector2 buttonSize = calculateButtonSize(panelSize, items.Count);
             List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, items.Count);
 
+            int i = 0;
             foreach (KeyValuePair<String, int> entry in items)
             {
                 GameObject go = (GameObject)Instantiate(buttonPrefab);
@@ -317,6 +320,7 @@ namespace Assets.Scripts
 
                 Button b = go.GetComponent<Button>();
                 b.onClick.AddListener(() => function.Invoke(entry.Key));
+                i++;
             }
         }
 
