@@ -105,8 +105,8 @@ namespace Assets.Scripts.Utils
             panel.AddComponent<CanvasRenderer>();
 
             RectTransform rect = panel.transform as RectTransform;
-            rect.anchorMin = new Vector2(0.5f, 0.25f);
-            rect.anchorMax = new Vector2(0.5f, 0.25f);
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
             rect.anchoredPosition = Vector2.zero;
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
