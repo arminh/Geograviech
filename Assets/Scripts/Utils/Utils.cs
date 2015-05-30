@@ -102,12 +102,15 @@ namespace Assets.Scripts.Utils
         {
             GameObject panel = new GameObject("ButtonPanel", typeof(RectTransform));
 
+            float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
+            float worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
+
             RectTransform rect = panel.transform as RectTransform;
             rect.anchorMin = new Vector2(0.5f, 0.25f);
             rect.anchorMax = new Vector2(0.5f, 0.25f);
             rect.anchoredPosition = Vector2.zero;
-
-            rect.sizeDelta = new Vector2(Screen.width / 3, Screen.height / 2);
+            
+            rect.sizeDelta = new Vector2(worldScreenWidth / 3, worldScreenHeight / 2);
 
             return panel;
         }
