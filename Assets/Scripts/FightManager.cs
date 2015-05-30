@@ -16,6 +16,7 @@ namespace Assets.Scripts
         private FightCharacter activeFighter;
 
         private FightCharacter enemy;
+        public GameObject canvas;
 
         private static FightManager instance;
 
@@ -24,6 +25,7 @@ namespace Assets.Scripts
 
         List<Vector3> enemyPositions;
         List<Vector3> playerPositions;
+        GameObject buttonPanel;
 
         private bool isTurnFinished;
 
@@ -54,6 +56,12 @@ namespace Assets.Scripts
                 if (this != instance)
                     Destroy(this.gameObject);
             }
+        }
+
+        void Start()
+        {
+             buttonPanel = Utils.Utils.getButtonPanel();
+             buttonPanel.transform.SetParent(canvas.transform, false);
         }
 
         public void StartFight()
@@ -220,7 +228,8 @@ namespace Assets.Scripts
         {
             List<FightCharacter> availableEnemies = getAttackableEnemies();
 
-            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+           
+            
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;

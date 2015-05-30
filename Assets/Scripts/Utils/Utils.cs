@@ -80,7 +80,7 @@ namespace Assets.Scripts.Utils
             for (int index = 0; index < friendCount; index++)
             {
                 posY = leftDown.y + spaceBetweenFriends * (index + 1);
-                positions.Add(new Vector3(posX, posY, 0));
+                positions.Add(new Vector3(posX +2, posY, index));
             }
 
             posX = rightDown.x - spaceBetweenCharactersAndScreen;
