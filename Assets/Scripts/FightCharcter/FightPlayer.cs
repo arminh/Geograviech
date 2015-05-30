@@ -46,7 +46,7 @@ namespace Assets.Scripts
             actions.Add(attackAction);
             
 
-            FightManager.Instance.showMenu(labels, actions);
+       //     FightManager.Instance.showMenu(labels, actions);
         }
 
 

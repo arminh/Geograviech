@@ -13,6 +13,7 @@ namespace Assets.Scripts
     {
         private List<FightCharacter> fighters;
         private FightPlayer player;
+        private FightCharacter activeViech;
 
         private FightCharacter enemy;
 
@@ -274,9 +275,9 @@ namespace Assets.Scripts
             return enemies;
         }
 
-        public void showMenu(List<String> labels, List<Action> functions)
+        public void showActionMenu(Dictionary<String, Action> items)
         {
-            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+       /*     GameObject buttonPanel = Utils.Utils.getButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
@@ -296,7 +297,33 @@ namespace Assets.Scripts
 
                 Button b = go.GetComponent<Button>();
                 b.onClick.AddListener(() => functions[i].Invoke());
-            }
+            }*/
+        }
+
+        public void showItemMenu(Action functions, Dictionary<String,int> items)
+        {
+            /*
+            GameObject buttonPanel = Utils.Utils.getButtonPanel();
+            RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
+            Vector2 panelPosition = panelRectTransform.anchoredPosition;
+            Vector2 panelSize = panelRectTransform.sizeDelta;
+
+            Vector2 buttonSize = calculateButtonSize(panelSize, labels.Count);
+            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, labels.Count);
+
+            for (int i = 0; i < labels.Count; i++)
+            {
+                GameObject go = (GameObject)Instantiate(buttonPrefab);
+                RectTransform buttonRectTransForm = go.transform as RectTransform;
+                buttonRectTransForm.anchoredPosition = buttonPositions[i];
+                buttonRectTransForm.sizeDelta = buttonSize;
+
+                go.transform.parent = buttonPanel.transform;
+                go.GetComponentInChildren<Text>().text = labels[i];
+
+                Button b = go.GetComponent<Button>();
+                b.onClick.AddListener(() => functions[i].Invoke());
+            }*/
         }
 
         public List<FightCharacter> getAttackablePlayerViecher()
