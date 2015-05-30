@@ -65,7 +65,7 @@ namespace Assets.Scripts
 
         void Start()
         {
-             buttonPanel = Utils.Utils.getButtonPanel();
+             buttonPanel = Util.getButtonPanel();
              buttonPanel.transform.SetParent(canvas.transform, false);
         }
 
@@ -128,7 +128,7 @@ namespace Assets.Scripts
             playerPositions = new List<Vector3>();
             enemyPositions = new List<Vector3>();
 
-           List<Vector3> positions = Utils.Utils.getFightScreenPostitions(friendCount, enemyCount);
+           List<Vector3> positions = Util.getFightScreenPostitions(friendCount, enemyCount);
            foreach (Vector3 pos in positions)
            {
                Debug.Log("pos:" + pos);

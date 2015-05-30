@@ -17,7 +17,7 @@ namespace Assets.Scripts.FightScreen
 
             if (background != null)
             {
-                Utils.Utils.InitBackground(background, mainCam);
+                Util.InitBackground(background, mainCam);
             }
         }
 
