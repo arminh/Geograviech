@@ -13,7 +13,7 @@ namespace Assets.Scripts
     {
         private List<FightCharacter> fighters;
         private FightPlayer player;
-        private FightCharacter activeFighter;
+        private FightCharacter activeViech;
 
         private FightCharacter enemy;
         public GameObject canvas;
@@ -36,6 +36,9 @@ namespace Assets.Scripts
                 if (instance == null)
                 {
                     instance = GameObject.FindObjectOfType<FightManager>();
+
+                    //Tell unity not to destroy this object when loading a new scene!
+                    DontDestroyOnLoad(instance.gameObject);
                 }
 
                 return instance;
@@ -71,8 +74,13 @@ namespace Assets.Scripts
             List<FightViech> activeViecher = new List<FightViech>();
             List<Attack> attacks = new List<Attack>();
             attacks.Add(new Attack("TestAttack",ElementType.EARTH,15,new Effect("TestEffect",Effect.EffectType.POISON,50,50)));
+<<<<<<< HEAD
             activeViecher.Add(new FightViech("Gargoyles", 10, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
             FightPlayer player_ = new FightPlayer(15, 15, 5, activeViecher, weapon, new List<Attack>(), new List<IConsumable>());
+=======
+            activeViecher.Add(new FightViech("Gargoyles", 15, 20, 4, attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
+            FightPlayer player_ = new FightPlayer(15, 10, 5, activeViecher, weapon, new List<Attack>(), new List<IConsumable>());
+>>>>>>> Armin
 
             FightViech enemy_ = new FightViech("Zerberwelpe", 17, 20, 3, attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
             Debug.Log("Start Fight");
@@ -100,6 +108,7 @@ namespace Assets.Scripts
             
             fighters = new List<FightCharacter>();
             addFighter(player,false);
+            //fighters.Add(player);
             foreach (FightViech viech in player.ActiveViecher)
             {
                 addFighter(viech,false);
@@ -107,6 +116,7 @@ namespace Assets.Scripts
             }
 
             addFighter(enemy,true);
+            //fighters.Add(enemy);
           if(enemy is FightBoss)
             {
                 foreach (FightCharacter viech in ((FightBoss)enemy).ActiveViecher)
@@ -161,6 +171,7 @@ namespace Assets.Scripts
                 GameObject sprite = character.Sprite;
                 if(character.IsEnemy)
                 {
+
                    sprite.transform.position = enemyPositions.ElementAt(enemyCount);
                    enemyCount++;
                    
@@ -178,13 +189,20 @@ namespace Assets.Scripts
         {
             Debug.Log("Execute Turn");
             setPositions();
-            activeFighter = fighters.FirstOrDefault();
+            FightCharacter fighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
+<<<<<<< HEAD
             fighters.Add(activeFighter);
             Debug.Log("Active fighter: " + activeFighter.identifier);
             activeFighter.executeTurn();
 
           /*  if (!activeFighter.IsEnemy)
+=======
+            fighters.Add(fighter);  
+            fighter.executeTurn();
+
+    /*        if(!fighter.IsEnemy)
+>>>>>>> Armin
             {
                 isTurnFinished = false;
                 while(!isTurnFinished)
@@ -285,9 +303,9 @@ namespace Assets.Scripts
             return enemies;
         }
 
-        public void showActionMenu(Dictionary<String, Action> actions)
+        public void showActionMenu(Dictionary<String, Action> items)
         {
-           GameObject buttonPanel = Utils.Utils.getButtonPanel();
+            GameObject buttonPanel = Utils.Utils.getButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
@@ -315,6 +333,7 @@ namespace Assets.Scripts
 
         public void showSelectionMenu(Action<String> function, Dictionary<String,int> items)
         {
+            
             GameObject buttonPanel = Utils.Utils.getButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
