@@ -51,7 +51,7 @@ namespace Assets.Scripts
                 if(enemy.decideJoin()) {
 
                     //TODO: Give Viech a name
-                    Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Identifier, enemy.Level, enemy.Level * 1000, enemy.Attacks, enemy.Type);
+                    Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Identifier, enemy.Level, 0, enemy.Attacks, enemy.Type);
                     player.addViech(viech);
                 }
 
@@ -61,6 +61,26 @@ namespace Assets.Scripts
                 //Error: Either hero or enemy should be dead after fight
             }
         }
+
+        public void saveProgress()
+        {
+            Savefile file = new Savefile();
+
+            file.name = player.Name;
+            file.identifier = player.Identifier;
+            file.maxHealth = player.MaxHealth;
+            file.speed = player.Speed;
+            file.strength = player.Strength;
+            file.level = player.Level;
+            file.xp = player.Xp;
+
+            file.attacks = player.Attacks;
+            file.viecher = player.Viecher;
+            file.activeViecher = player.ActiveViecher;
+            file.weapons = player.Weapons;
+            file.activeWeapon = player.ActiveWeapon;
+            file.items = player.Items;
+        } 
 
         public static GameManager Instance
         {

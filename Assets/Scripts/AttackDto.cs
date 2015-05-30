@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Assets.Scripts
 {
-    public class AttackDto : MonoBehaviour
+    public class AttackDto
     {
 
         private FightCharacter attackedChar;

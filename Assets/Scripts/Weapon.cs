@@ -14,6 +14,9 @@ namespace Assets.Scripts
             throw new NotImplementedException();
         }
 
-
+        public Attack Attack
+        {
+            get { return attack;  }
+        }
     }
 }

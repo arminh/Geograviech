@@ -41,8 +41,6 @@ namespace Assets.Scripts
 
         public void addViech(Viech viech)
         {
-
-            //TODO Give Viech a name
             viecher.Add(viech);
         }
 

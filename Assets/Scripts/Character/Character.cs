@@ -72,5 +72,10 @@ namespace Assets.Scripts
         {
             get { return xp; }
         }
+
+        public List<Attack> Attacks
+        {
+            get { return attacks; }
+        }
     }
 }
