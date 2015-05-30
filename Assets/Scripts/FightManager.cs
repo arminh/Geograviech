@@ -47,6 +47,7 @@ namespace Assets.Scripts
 
         void Awake()
         {
+            Debug.Log("Awake");
             if (instance == null)
             {
                 //If I am the first instance, make me the Singleton
@@ -324,11 +325,7 @@ namespace Assets.Scripts
             }
         }
 
-<<<<<<< HEAD
-        public void showSelectionMenu(Action<String> function, Dictionary<String,int> items)
-=======
         private void clearButtonPanel()
->>>>>>> 4a82473f4284b20744560375ae331c59b84b60dc
         {
             foreach (Transform child in buttonPanel.transform)
             {
