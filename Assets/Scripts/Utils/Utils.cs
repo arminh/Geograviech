@@ -64,7 +64,7 @@ namespace Assets.Scripts.Utils
             leftDown.y -= worldScreenHeight / 2.0f;
 
             Vector3 rightDown = leftDown;
-            leftDown.x += worldScreenWidth;
+            rightDown.x += worldScreenWidth;
 
             float spaceBetweenCharactersAndScreen = 5;
 
