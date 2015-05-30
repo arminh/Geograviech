@@ -13,7 +13,7 @@ namespace Assets.Scripts
     {
         private List<FightCharacter> fighters;
         private FightPlayer player;
-        private FightCharacter activeViech;
+        private FightCharacter activeFighter;
 
         private FightCharacter enemy;
 
@@ -34,9 +34,6 @@ namespace Assets.Scripts
                 if (instance == null)
                 {
                     instance = GameObject.FindObjectOfType<FightManager>();
-
-                    //Tell unity not to destroy this object when loading a new scene!
-                    DontDestroyOnLoad(instance.gameObject);
                 }
 
                 return instance;
@@ -95,7 +92,6 @@ namespace Assets.Scripts
             
             fighters = new List<FightCharacter>();
             addFighter(player,false);
-            //fighters.Add(player);
             foreach (FightViech viech in player.ActiveViecher)
             {
                 addFighter(viech,false);
@@ -103,7 +99,6 @@ namespace Assets.Scripts
             }
 
             addFighter(enemy,true);
-            //fighters.Add(enemy);
           if(enemy is FightBoss)
             {
                 foreach (FightCharacter viech in ((FightBoss)enemy).ActiveViecher)
@@ -158,7 +153,6 @@ namespace Assets.Scripts
                 GameObject sprite = character.Sprite;
                 if(character.IsEnemy)
                 {
-
                    sprite.transform.position = enemyPositions.ElementAt(enemyCount);
                    enemyCount++;
                    
@@ -175,19 +169,19 @@ namespace Assets.Scripts
         private void executeTurn()
         {
             setPositions();
-            FightCharacter fighter = fighters.FirstOrDefault();
+            activeFighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
-            fighters.Add(fighter);  
-            fighter.executeTurn();
+            fighters.Add(activeFighter);
+            activeFighter.executeTurn();
 
-    /*        if(!fighter.IsEnemy)
+            if (!activeFighter.IsEnemy)
             {
                 isTurnFinished = false;
                 while(!isTurnFinished)
                 {
                     Thread.Sleep(100);
                 }
-            }*/
+            }
             
         }
 
@@ -275,17 +269,17 @@ namespace Assets.Scripts
             return enemies;
         }
 
-        public void showActionMenu(Dictionary<String, Action> items)
+        public void showActionMenu(Dictionary<String, Action> actions)
         {
-       /*     GameObject buttonPanel = Utils.Utils.getButtonPanel();
+           GameObject buttonPanel = Utils.Utils.getButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
 
-            Vector2 buttonSize = calculateButtonSize(panelSize, labels.Count);
-            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, labels.Count);
-            
-            for (int i = 0; i < labels.Count; i++)
+            Vector2 buttonSize = calculateButtonSize(panelSize, actions.Count);
+            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize,actions.Count);
+
+            foreach(KeyValuePair<String, Action> entry in actions)
             {
                 GameObject go = (GameObject)Instantiate(buttonPrefab);
                 RectTransform buttonRectTransForm = go.transform as RectTransform;
@@ -293,25 +287,25 @@ namespace Assets.Scripts
                 buttonRectTransForm.sizeDelta = buttonSize;
 
                 go.transform.parent = buttonPanel.transform;
-                go.GetComponentInChildren<Text>().text = labels[i];
+                go.GetComponentInChildren<Text>().text = entry.Key;
+                
 
                 Button b = go.GetComponent<Button>();
-                b.onClick.AddListener(() => functions[i].Invoke());
-            }*/
+                b.onClick.AddListener(() => entry.Value.Invoke());
+            }
         }
 
-        public void showItemMenu(Action functions, Dictionary<String,int> items)
+        public void showItemMenu(Action<String> function, Dictionary<String,int> items)
         {
-            /*
             GameObject buttonPanel = Utils.Utils.getButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
 
-            Vector2 buttonSize = calculateButtonSize(panelSize, labels.Count);
-            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, labels.Count);
+            Vector2 buttonSize = calculateButtonSize(panelSize, items.Count);
+            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, items.Count);
 
-            for (int i = 0; i < labels.Count; i++)
+            foreach (KeyValuePair<String, int> entry in items)
             {
                 GameObject go = (GameObject)Instantiate(buttonPrefab);
                 RectTransform buttonRectTransForm = go.transform as RectTransform;
@@ -319,11 +313,11 @@ namespace Assets.Scripts
                 buttonRectTransForm.sizeDelta = buttonSize;
 
                 go.transform.parent = buttonPanel.transform;
-                go.GetComponentInChildren<Text>().text = labels[i];
+                go.GetComponentInChildren<Text>().text = entry.Key + " : " + entry.Value;
 
                 Button b = go.GetComponent<Button>();
-                b.onClick.AddListener(() => functions[i].Invoke());
-            }*/
+                b.onClick.AddListener(() => function.Invoke(entry.Key));
+            }
         }
 
         public List<FightCharacter> getAttackablePlayerViecher()
