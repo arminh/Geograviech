@@ -15,9 +15,9 @@ namespace Assets.Scripts
         private Weapon activeWeapon;
         private List<FightViech> activeViecher;
 
-        private List<IItem> items;
+        private List<IConsumable> items;
 
-        public FightPlayer(int maxHealth, int speed, int strength, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IItem> items)
+        public FightPlayer(int maxHealth, int speed, int strength, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IConsumable> items)
             : base("Player", maxHealth, speed, strength, attacks)
         {
             this.activeViecher = activeViecher;
@@ -34,23 +34,36 @@ namespace Assets.Scripts
 
         public void showChooseActionGui()
         {
-            List<string> labels = new List<string>();
-            List<Action> actions = new List<Action>();
-            
-            Action useItemAction = useItem;
-            labels.Add("Use Item");
-            actions.Add(useItemAction);
+            Debug.Log("PLayer.showChooseActionGui");
+            Dictionary<string, Action> dict = new Dictionary<string, Action>();
+
+            Action chooseItemAction = chooseItem;
+            dict.Add("Use Item", chooseItemAction);
 
             Action attackAction = attack;
-            labels.Add("Attack");
-            actions.Add(attackAction);
+            dict.Add("Attack", attackAction);
             
 
-       //     FightManager.Instance.showMenu(labels, actions);
+            FightManager.Instance.showActionMenu(dict);
         }
 
 
-        private static void useItem()
+        private void chooseItem()
+        {
+            Debug.Log("Choose Item Action triggerd");
+
+            Action<string> useItemAction = useItem;
+
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+
+            foreach(Item item in items) {
+                dict.Add(item.Name, item.Quantity);
+            }
+
+            FightManager.Instance.showSelectionMenu(useItemAction, dict);
+        }
+
+        private void useItem(string name)
         {
             Debug.Log("Use Item Action triggerd");
         }
@@ -58,6 +71,7 @@ namespace Assets.Scripts
          private void attack()
         {
             Debug.Log("Attack Action triggerd");
+            FightManager.Instance.attackEnemy(activeWeapon.Attack);
         }
 
         protected override void die()
@@ -86,7 +100,7 @@ namespace Assets.Scripts
             get { return activeViecher; }
         }
 
-        public List<IItem> Items
+        public List<IConsumable> Items
         {
             get { return items; }
         }
