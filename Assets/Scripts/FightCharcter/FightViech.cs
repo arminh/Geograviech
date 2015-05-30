@@ -12,6 +12,7 @@ namespace Assets.Scripts
         private List<IConsumable> dropItems;
 
         protected int xpAmount;
+        protected int level;
 
         public FightViech(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
             : base(identifier, maxHealth, speed, strength, attacks)
@@ -44,16 +45,10 @@ namespace Assets.Scripts
 
         }
 
-        public void decideJoin()
+        public bool decideJoin()
         {
-
+            return true;
         }
-
-        public void joinPlayer()
-        {
-
-        }
-
 
         public ElementType Type
         {
@@ -77,5 +72,11 @@ namespace Assets.Scripts
         {
             get { return xpAmount; }
         }
+
+        public int Level
+        {
+            get { return level; }
+        }
+
     }
 }

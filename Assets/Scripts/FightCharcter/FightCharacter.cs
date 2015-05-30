@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts
 {
-    public abstract class FightCharacter
+    public abstract class FightCharacter: MonoBehaviour
     {
 
         public string identifier;
@@ -110,9 +110,9 @@ namespace Assets.Scripts
         {
             AttackDto attackResult = new AttackDto();
             attackResult.setAttackedChar(this);
-            attackResult.setInflictedDamage(applyDamage(attack.getDamage()));
+            attackResult.setInflictedDamage(applyDamage(attack.Damage));
             attackResult.setCurrentEffect(currentEffect);
-            attackResult.setInflictEffect(attack.getEffect().inflict(this));
+            attackResult.setInflictEffect(attack.Effect.inflict(this));
 
             return attackResult;
         }

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public delegate void UseItemDelegate();
-    public delegate void AttackDelegate();
+    delegate void UseItemDelegate();
+    delegate void AttackDelegate();
 
     public class FightPlayer: FightCharacter
+
     {
         private Weapon activeWeapon;
         private List<FightViech> activeViecher;
@@ -25,24 +27,37 @@ namespace Assets.Scripts
 
         public override void executeTurn()
         {
-            //FightManager.instance().showChooseActionGui(useItem);
-            showChooseActionGui(useItem, attack);
-
+            showChooseActionGui();
         }
 
-        public void showChooseActionGui(UseItemDelegate useItem, AttackDelegate attack)
-        {
 
+
+        public void showChooseActionGui()
+        {
+            List<string> labels = new List<string>();
+            List<Action> actions = new List<Action>();
+            
+            Action useItemAction = useItem;
+            labels.Add("Use Item");
+            actions.Add(useItemAction);
+
+            Action attackAction = attack;
+            labels.Add("Attack");
+            actions.Add(attackAction);
+            
+
+            FightManager.Instance.showMenu(labels, actions);
         }
 
-        private void useItem()
-        {
 
+        private static void useItem()
+        {
+            Debug.Log("Use Item Action triggerd");
         }
 
          private void attack()
         {
-
+            Debug.Log("Attack Action triggerd");
         }
 
         protected override void die()

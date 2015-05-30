@@ -26,34 +26,24 @@ namespace Assets.Scripts
 
         }
 
-        public int getDamage()
+        public string Name
         {
-            return damage;
+            get { return name;  }
         }
 
-        public void setDamage(int value)
+        public ElementType Type
         {
-            damage = value;
+            get { return type; }
         }
 
-        public ElementType getType()
+        public int Damage
         {
-            return type;
+            get { return damage; }
         }
 
-        public void setType(ElementType value)
+        public Effect Effect
         {
-            type = value;
-        }
-
-        public Effect getEffect()
-        {
-            return effect;
-        }
-
-        public void setEffect(Effect value)
-        {
-            effect = value;
+            get { return effect; }
         }
 
     }
