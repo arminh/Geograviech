@@ -28,8 +28,7 @@ namespace Assets.Scripts
             Application.LoadLevel("Fightscreen");
 
             FightPlayer hero = player.createHero();
-            FightManager fightmanager = FindObjectsOfType(typeof(FightManager))[0] as FightManager;
-            fightmanager.fight(hero, enemy);
+            FightManager.Instance.fight(hero, enemy);
 
             if (hero.isDead())
             {
