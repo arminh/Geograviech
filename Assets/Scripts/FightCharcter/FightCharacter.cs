@@ -25,13 +25,16 @@ namespace Assets.Scripts
 
         protected AttackDto attackResult;
 
-        public FightCharacter(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks)
+        protected string name;
+
+        public FightCharacter(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks)
         {
             this.identifier = identifier;
             this.maxHealth = maxHealth;
             this.health = maxHealth;
             this.speed = speed;
             this.strength = strength;
+            this.name = name;
             this.attacks = attacks;
         }
          
@@ -144,6 +147,10 @@ namespace Assets.Scripts
             get { return strength; }
         }
 
+        public string Name
+        {
+            get { return name; }
+        }
         
         public List<Attack> Attacks
         {

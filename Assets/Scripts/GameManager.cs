@@ -15,7 +15,21 @@ namespace Assets.Scripts
         public void init()
         {
             //TODO: Read Savefile
-            player = new Player(50, 1, 10, "Armin", "Player", 0, 1, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new  List<Attack>());
+            Debug.Log("Start");
+            Weapon weapon = new Weapon();
+            List<Weapon> weapons = new List<Weapon>();
+            List<Viech> activeViecher = new List<Viech>();
+            List<Viech> viecher = new List<Viech>();
+            List<Attack> attacks = new List<Attack>();
+            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, new Effect("TestEffect", Effect.EffectType.POISON, 50, 50)));
+
+            activeViecher.Add(new Viech(10, 20, 4, "Garganton", "Gargoyles", 3, 500, attacks, ElementType.EARTH));
+
+            player = new Player(15, 15, 5, "TestPlayer", "Player", 500, 5, viecher, activeViecher, weapons, weapon, new List<IConsumable>(), new List<Attack>());
+
+            FightViech enemy = new FightViech("Zerberwelpe", 17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
+
+            executeFight(enemy);
         }
 
         public void showMenu()
@@ -28,6 +42,7 @@ namespace Assets.Scripts
             Application.LoadLevel("Fightscreen");
 
             FightPlayer hero = player.createHero();
+
             FightManager.Instance.fight(hero, enemy);
 
             if (hero.isDead())

@@ -15,8 +15,8 @@ namespace Assets.Scripts
         protected int xpAmount;
         protected int level;
 
-        public FightViech(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
-            : base(identifier, maxHealth, speed, strength, attacks)
+        public FightViech(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
+            : base(identifier, maxHealth, speed, strength, name, attacks)
         {
             this.type = type;
             this.catchChance = catchChance;

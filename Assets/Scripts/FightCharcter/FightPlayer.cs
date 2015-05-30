@@ -17,8 +17,8 @@ namespace Assets.Scripts
 
         private List<IConsumable> items;
 
-        public FightPlayer(int maxHealth, int speed, int strength, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IConsumable> items)
-            : base("Player", maxHealth, speed, strength, attacks)
+        public FightPlayer(int maxHealth, int speed, int strength, string name, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IConsumable> items)
+            : base("Player", maxHealth, speed, strength, name, attacks)
         {
             this.activeViecher = activeViecher;
             this.activeWeapon = activeWeapon;
