@@ -69,22 +69,7 @@ namespace Assets.Scripts
              buttonPanel.transform.SetParent(canvas.transform, false);
         }
 
-        public void StartFight()
-        {
-            Debug.Log("Start");
-            Weapon weapon = new Weapon();
-            List<FightViech> activeViecher = new List<FightViech>();
-            List<Attack> attacks = new List<Attack>();
-            attacks.Add(new Attack("TestAttack",ElementType.EARTH,15,new Effect("TestEffect",Effect.EffectType.POISON,50,50)));
-
-            activeViecher.Add(new FightViech("Gargoyles", 10, 20, 4, "Franz", attacks, ElementType.EARTH, 0.5f, new List<IConsumable>(), 150));
-            FightPlayer player_ = new FightPlayer(15, 15, 5, "Jürgen", activeViecher, weapon, new List<Attack>(), new List<IConsumable>());
-
-            FightViech enemy_ = new FightViech("Zerberwelpe", 17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
-            Debug.Log("Start Fight");
-            this.fight(player_, enemy_);
-            Debug.Log("Done");
-        }
+    
 
         private void orderFighters()
         {
@@ -241,6 +226,7 @@ namespace Assets.Scripts
             if(availableEnemies.Count == 1)
             {
                 attackViech(attack, availableEnemies.FirstOrDefault());
+				return;
             }
 
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
@@ -321,7 +307,8 @@ namespace Assets.Scripts
                 
 
                 Button b = go.GetComponent<Button>();
-                b.onClick.AddListener(() => entry.Value.Invoke());
+				Action captured = entry.Value;
+				b.onClick.AddListener(() => captured.Invoke());
                 i++;
             }
         }

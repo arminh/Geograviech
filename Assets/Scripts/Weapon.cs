@@ -9,6 +9,11 @@ namespace Assets.Scripts
     {
         private Attack attack;
 
+        public Weapon(Attack attack)
+        {
+            this.attack = attack;
+        }
+
         protected void use()
         {
             throw new NotImplementedException();
