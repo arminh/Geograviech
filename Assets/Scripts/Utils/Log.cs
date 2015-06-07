@@ -25,10 +25,6 @@ namespace Assets.Scripts.Utils
             {
                 return instance ?? (instance = new Log());
             }
-            private set
-            {
-                //do nothing
-            }
         }
 
 
