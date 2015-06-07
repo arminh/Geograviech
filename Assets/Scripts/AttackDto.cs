@@ -7,8 +7,8 @@ namespace Assets.Scripts
     {
 
         private FightCharacter attackedChar;
-        private Effect.EffectType currentEffect;
-        private Effect.EffectType inflictEfect;
+        private Effect currentEffect;
+        private Effect inflictEfect;
         private int inflictedDamage;
 
         public FightCharacter getAttackedChar()
@@ -21,22 +21,22 @@ namespace Assets.Scripts
             this.attackedChar = attackedChar;
         }
 
-        public Effect.EffectType getCurrentEffect()
+        public Effect getCurrentEffect()
         {
             return currentEffect;
         }
 
-        public void setCurrentEffect(Effect.EffectType currentEffect)
+        public void setCurrentEffect(Effect currentEffect)
         {
             this.currentEffect = currentEffect;
         }
 
-        public Effect.EffectType getInflictEffect()
+        public Effect getInflictEffect()
         {
             return inflictEfect;
         }
 
-        public void setInflictEffect(Effect.EffectType inflictEfect)
+        public void setInflictEffect(Effect inflictEfect)
         {
             this.inflictEfect = inflictEfect;
         }
