@@ -255,6 +255,37 @@ namespace Assets.Scripts
         public void attackViech(Attack attack, FightCharacter viech)
         {
             AttackDto attackResult = viech.getAttacked(attack);
+            String message = "";
+            if(viech.IsEnemy)
+            {
+                message += "Enemy " + viech.Name + " "; 
+            }else
+            {
+                if(viech == player)
+                {
+                    message += "You ";
+                }else
+                {
+                    message += "Your viech " + viech.Name + " ";
+                }
+            }
+            
+            message += "take(s) " + attackResult.getInflictedDamage() + " Damage";
+               
+                if (viech.isDead())
+                {
+                    message += "and is dead! ";
+                    fighters.Remove(viech);
+                    if(viech == enemy)
+                    {
+                        message += "You won the fight!";
+                    }
+                    if(viech == player)
+                    {
+                        message += "You lost the fight!";
+                    }
+                }
+            }
             //TODO log result
         }
 
@@ -267,7 +298,7 @@ namespace Assets.Scripts
         {
             List<FightCharacter> enemies = new List<FightCharacter>();
 
-             if (enemy is FightBoss)
+            if (enemy is FightBoss)
             {
                 foreach (FightCharacter viech in ((FightBoss)enemy).ActiveViecher)
                 {
@@ -307,6 +338,7 @@ namespace Assets.Scripts
                 
 
                 Button b = go.GetComponent<Button>();
+                b.interactable = false;
 				Action captured = entry.Value;
 				b.onClick.AddListener(() => captured.Invoke());
                 i++;
