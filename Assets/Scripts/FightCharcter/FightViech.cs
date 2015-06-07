@@ -28,16 +28,18 @@ namespace Assets.Scripts
         public override void executeTurn()
         {
 
-            Action<string> useAttackAction = useAttack;
+            List<ButtonDto> buttons = new List<ButtonDto>();
 
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-
-            foreach (Attack att in attacks)
-            {
-                dict.Add(att.Name, att.Damage);
+            foreach(Attack attack in attacks) {
+                ButtonDto chooseAttackBtn = new ButtonDto();
+                chooseAttackBtn.Name = attack.Name;
+                chooseAttackBtn.Label = attack.Name;
+                chooseAttackBtn.Callback = useAttack;
+                chooseAttackBtn.Enabled = true;
+                buttons.Add(chooseAttackBtn);
             }
 
-            FightManager.Instance.showSelectionMenu(useAttackAction, dict);
+            FightManager.Instance.showSelectionMenu(buttons);
         }
 
         protected override void die()
