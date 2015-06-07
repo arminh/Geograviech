@@ -39,7 +39,7 @@ namespace Assets.Scripts
         bool isattack = false;
         bool isUseItem = false;
 
-        bool playerHasChoosen = false;
+        bool stateChanged = false;
 
         public static FightManager Instance
         {
@@ -148,13 +148,12 @@ namespace Assets.Scripts
                 fighters.Add(activeFighter);
                 Debug.Log("Active fighter: " + activeFighter.identifier);
                 isTurnFinished = false;
-                playerHasChoosen = true;
+                stateChanged = true;
                 state = 0;
             }
 
             if (!activeFighter.IsEnemy)
-            {
-                
+            {   
                 isTurnFinished = false;
                 executeFSM();
             }else
@@ -171,7 +170,7 @@ namespace Assets.Scripts
            // {
                 // TODO implement effects
             Debug.Log("executeFSM");
-            if (playerHasChoosen)
+            if (stateChanged)
             {
                 Debug.Log("playerHasChoosen " + state);
                 if (activeFighter == player)
@@ -181,7 +180,7 @@ namespace Assets.Scripts
                         case 0:
                             {
                                 FightScreenManager.Instance.showActionMenu();
-                                playerHasChoosen = false;
+                                stateChanged = false;
                                 break;
                             }
                         case 1:
@@ -196,7 +195,7 @@ namespace Assets.Scripts
                                     List<FightCharacter> viecher = getAttackableEnemies();
                                     FightScreenManager.Instance.showViecherMenu(viecher);
                                 }
-                                playerHasChoosen = false;
+                                stateChanged = false;
                                 break;
                             }
                         case 2:
@@ -205,12 +204,12 @@ namespace Assets.Scripts
                                 {
                                     List<FightCharacter> viecher = getPlayerViecher(false);
                                     FightScreenManager.Instance.showViecherMenu(viecher);
-                                    playerHasChoosen = false;
+                                    stateChanged = false;
                                 }
                                 else
                                 {
                                     attackViech(player.ActiveWeapon.Attack, chosenViech);
-                                    isTurnFinished = true;
+                                    
                                 }
                                 break;
                             }
@@ -219,12 +218,15 @@ namespace Assets.Scripts
                                 if (isUseItem)
                                 {
                                     useItem(chosenItem, chosenViech);
-                                    isTurnFinished = true;
                                 }
                                 else
                                 {
                                     throw new NotImplementedException("Schould not be reached!");
                                 }
+                                break;
+                            }
+                        default:
+                            {
                                 break;
                             }
                     }
@@ -236,20 +238,19 @@ namespace Assets.Scripts
                         case 0:
                             {
                                 FightScreenManager.Instance.showAttackMenu(activeFighter.Attacks);
-                                playerHasChoosen = false;
+                                stateChanged = false;
                                 break;
                             }
                         case 1:
                             {
                                 List<FightCharacter> viecher = getAttackableEnemies();
                                 FightScreenManager.Instance.showViecherMenu(viecher);
-                                playerHasChoosen = false;
+                                stateChanged = false;
                                 break;
                             }
                         case 2:
                             {
                                 attackViech(chosenAttack, chosenViech);
-                                isTurnFinished = true;
                                 break;
                             }
                     }
@@ -267,6 +268,7 @@ namespace Assets.Scripts
         {
             ItemDto result = player.useItem(choosenItem, choosenViech);
             //TODO log
+            isTurnFinished = true;
         }
 
         private void addFighter(FightCharacter character, bool isEnemy)
@@ -333,8 +335,13 @@ namespace Assets.Scripts
 
         public void attackViech(Attack attack, FightCharacter viech)
         {
+            //zum gegner fahren
             Debug.Log("attackViech");
             AttackDto attackResult = viech.getAttacked(attack);
+            //Start attack animation
+            //Start hurt animation if possible an yield till done
+            //yield till all animations done
+            //TODO log result
             Debug.Log("attackViech2");
             String message = "";
             if(viech.IsEnemy)
@@ -367,7 +374,7 @@ namespace Assets.Scripts
                     }
                 }
             
-            //TODO log result
+            
                 isTurnFinished = true;
         }
 
@@ -396,11 +403,6 @@ namespace Assets.Scripts
             }
             return enemies;
         }
-
-    /*    public void ItemUsed(ItemDto itemDto)
-        {
-
-        }*/
 
 
 
@@ -434,11 +436,22 @@ namespace Assets.Scripts
             return enemy;
         }
 
+         
  */
-        public void backChosen()
+        public void incrementState()
+        {
+            state++;
+            stateChanged = true;
+        }
+        public void decrementState()
         {
             state--;
-            playerHasChoosen = true;
+            stateChanged = true;
+        }
+
+        public void backChosen()
+        {
+            decrementState();
         }
 
         public void useItemChosen()
@@ -446,16 +459,14 @@ namespace Assets.Scripts
             Debug.Log("useItemChosen");
             isUseItem = true;
             isattack = false;
-            state++;
-            playerHasChoosen = true;
+            incrementState();
         }
 
         public void setChosenItem(IConsumable item)
         {
             chosenItem = item;
             Debug.Log("setChosenItem");
-            playerHasChoosen = true;
-            state++;
+            incrementState();
         }
 
         public void attackChosen()
@@ -463,22 +474,19 @@ namespace Assets.Scripts
             Debug.Log("attackChosen");
             isUseItem = false;
             isattack = true;
-            state++;
-            playerHasChoosen = true;
+            incrementState();
         }
 
         public void setChosenViech(FightCharacter viech)
         {
             chosenViech = viech;
-            state++;
-            playerHasChoosen = true;
+            incrementState();
         }
 
         public void setChosenAttack(Attack attack)
         {
             chosenAttack = attack;
-            state++;
-            playerHasChoosen = true;
+            incrementState();
         }
     }
 }
