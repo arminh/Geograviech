@@ -116,7 +116,7 @@ public class FightScreenManager : MonoBehaviour {
         //use item
             GameObject go = (GameObject)Instantiate(buttonPrefab);
             RectTransform buttonRectTransForm = go.transform as RectTransform;
-            buttonRectTransForm.anchoredPosition = buttonPositions[1];
+            buttonRectTransForm.anchoredPosition = buttonPositions[0];
             buttonRectTransForm.sizeDelta = buttonSize;
 
             go.transform.SetParent(buttonPanel.transform, false);
@@ -128,7 +128,7 @@ public class FightScreenManager : MonoBehaviour {
         //attack
            go = (GameObject)Instantiate(buttonPrefab);
            buttonRectTransForm = go.transform as RectTransform;
-           buttonRectTransForm.anchoredPosition = buttonPositions[2];
+           buttonRectTransForm.anchoredPosition = buttonPositions[1];
            buttonRectTransForm.sizeDelta = buttonSize;
 
            go.transform.SetParent(buttonPanel.transform, false);

@@ -437,6 +437,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1925819687}
   - 114: {fileID: 1925819686}
+  - 114: {fileID: 1925819688}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -455,7 +456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f442197fc227d4b48bf8502a34e02ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1794903993}
   allViecherPefabs:
   - {fileID: 188014, guid: c4bd026e083aa9145b99c20f48fcbbd7, type: 2}
   - {fileID: 187630, guid: 8bd7dfd6f4475734f836b7e8fa1c8f93, type: 2}
@@ -466,7 +466,6 @@ MonoBehaviour:
   - {fileID: 199638, guid: 7b9097094c85cef43bca0e3149112b4d, type: 2}
   - {fileID: 165050, guid: c3e7b693bb565864fb62793d77cf11bd, type: 2}
   - {fileID: 102038, guid: c4cc7c82f98a8f54ca77a67560a41285, type: 2}
-  buttonPrefab: {fileID: 133448, guid: 385687e60cf95434fbbe51701516bdaf, type: 2}
 --- !u!4 &1925819687
 Transform:
   m_ObjectHideFlags: 0
@@ -479,3 +478,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &1925819688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1925819685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af989fc8137915468e61a835a2a1f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 133448, guid: 385687e60cf95434fbbe51701516bdaf, type: 2}
+  canvas: {fileID: 1794903993}

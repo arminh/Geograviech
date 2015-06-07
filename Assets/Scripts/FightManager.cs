@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using Assets.Scripts.Utils;
 using Assets.Scripts.Consumables;
 using Assets.Scripts.ArtificialIntelligence;
+using System.Collections;
 
 namespace Assets.Scripts
 {
@@ -24,9 +25,10 @@ namespace Assets.Scripts
         private static FightManager instance;
 
         public List<GameObject> allViecherPefabs;
-       
+
 
         private bool isTurnFinished;
+        private bool executeFight = false;
 
 
         //fields for stateMachine
@@ -117,45 +119,60 @@ namespace Assets.Scripts
             FightScreenManager.Instance.init(friendCount, enemyCount);
 
 
-            bool fightFinished = false;
+            isTurnFinished = true;
+            
+            executeFight = true;
 
-            while (!fightFinished)
+
+        }
+
+        public void Update()
+        {
+            if(executeFight)
             {
+                Debug.Log("executeFight");
                 executeTurn();
-                
-                fightFinished = player.isDead() || enemy.isDead();
             }
-
-
         }
 
         
 
         private void executeTurn()
         {
-            Debug.Log("Execute Turn");
-            FightScreenManager.Instance.setPositions(fighters);
-            activeFighter = fighters.FirstOrDefault();
-            fighters.RemoveAt(0);
+            if (isTurnFinished)
+            {
+                FightScreenManager.Instance.setPositions(fighters);
+                activeFighter = fighters.FirstOrDefault();
+                fighters.RemoveAt(0);
 
-            fighters.Add(activeFighter);
-            Debug.Log("Active fighter: " + activeFighter.identifier);
-            AI.executeTurn(activeFighter);
+                fighters.Add(activeFighter);
+                Debug.Log("Active fighter: " + activeFighter.identifier);
+                isTurnFinished = false;
+                playerHasChoosen = true;
+            }
 
             if (!activeFighter.IsEnemy)
             {
                 state = 0;
                 isTurnFinished = false;
                 executeFSM();
+            }else
+            {
+                AI.executeTurn(activeFighter);
+                isTurnFinished = true;
             }
             
         }
 
         private void executeFSM()
         {
-            while(!isTurnFinished)
-            {
+           // while(!isTurnFinished)
+           // {
                 // TODO implement effects
+            Debug.Log("executeFSM");
+            if (playerHasChoosen)
+            {
+                Debug.Log("playerHasChoosen " + state);
                 if (activeFighter == player)
                 {
                     switch (state)
@@ -236,12 +253,13 @@ namespace Assets.Scripts
                             }
                     }
                 }
-
-                while (!playerHasChoosen && !isTurnFinished)
-                {
-                    Thread.Sleep(100);
-                } 
             }
+              /*  while (!playerHasChoosen && !isTurnFinished)
+                {
+                    Debug.Log("Thread sleeps");
+                    Thread.Sleep(200);
+                }*/ 
+           // }
         }
 
         private void useItem(IConsumable choosenItem, FightCharacter choosenViech)
@@ -424,6 +442,7 @@ namespace Assets.Scripts
 
         public void useItemChosen()
         {
+            Debug.Log("useItemChosen");
             isUseItem = true;
             isattack = false;
             state++;
@@ -433,11 +452,14 @@ namespace Assets.Scripts
         public void setChosenItem(IConsumable item)
         {
             chosenItem = item;
+            Debug.Log("setChosenItem");
             playerHasChoosen = true;
+            state++;
         }
 
         public void attackChosen()
         {
+            Debug.Log("attackChosen");
             isUseItem = false;
             isattack = true;
             state++;
