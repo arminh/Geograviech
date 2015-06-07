@@ -9,7 +9,7 @@ namespace Assets.Scripts.ArtificialIntelligence
     public static class AI 
     {
 
-        public static void executeTurn()
+        public static void executeTurn(FightCharacter viech)
         {
 
         }
@@ -23,7 +23,7 @@ namespace Assets.Scripts.ArtificialIntelligence
 
         private static void selectAttackEnemy(Attack attack)
         {
-            List<FightCharacter> attackAble = FightManager.Instance.getAttackablePlayerViecher();
+            List<FightCharacter> attackAble = FightManager.Instance.getPlayerViecher(true);
 
             FightManager.Instance.attackViech(attack, attackAble.FirstOrDefault());
         }

@@ -7,6 +7,7 @@ using System.Threading;
 using UnityEngine.UI;
 using Assets.Scripts.Utils;
 using Assets.Scripts.Consumables;
+using Assets.Scripts.ArtificialIntelligence;
 
 namespace Assets.Scripts
 {
