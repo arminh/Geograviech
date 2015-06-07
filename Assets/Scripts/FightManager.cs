@@ -254,7 +254,9 @@ namespace Assets.Scripts
 
         public void attackViech(Attack attack, FightCharacter viech)
         {
+            Debug.Log("attackViech");
             AttackDto attackResult = viech.getAttacked(attack);
+            Debug.Log("attackViech2");
             String message = "";
             if(viech.IsEnemy)
             {
@@ -285,8 +287,9 @@ namespace Assets.Scripts
                         message += "You lost the fight!";
                     }
                 }
-            }
+            
             //TODO log result
+                isTurnFinished = true;
         }
 
         public void turnFinished()
@@ -315,18 +318,23 @@ namespace Assets.Scripts
             return enemies;
         }
 
-        public void showActionMenu(Dictionary<String, Action> actions)
+        public void ItemUsed(ItemDto itemDto)
+        {
+
+        }
+
+        public void showActionMenu(List<ButtonDto> buttons)
         {
             clearButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
 
-            Vector2 buttonSize = calculateButtonSize(panelSize, actions.Count);
-            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize,actions.Count);
+            Vector2 buttonSize = calculateButtonSize(panelSize, buttons.Count);
+            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, buttons.Count);
 
             int i = 0;
-            foreach(KeyValuePair<String, Action> entry in actions)
+            foreach (ButtonDto button in buttons)
             {
                 GameObject go = (GameObject)Instantiate(buttonPrefab);
                 RectTransform buttonRectTransForm = go.transform as RectTransform;
@@ -334,13 +342,12 @@ namespace Assets.Scripts
                 buttonRectTransForm.sizeDelta = buttonSize;
 
                 go.transform.SetParent(buttonPanel.transform,false);
-                go.GetComponentInChildren<Text>().text = entry.Key;
+                go.GetComponentInChildren<Text>().text = button.Label;
                 
 
                 Button b = go.GetComponent<Button>();
-                b.interactable = false;
-				Action captured = entry.Value;
-				b.onClick.AddListener(() => captured.Invoke());
+				Action<string> captured = button.Callback;
+				b.onClick.AddListener(() => captured.Invoke(button.Name));
                 i++;
             }
         }
@@ -352,18 +359,18 @@ namespace Assets.Scripts
                 Destroy(child.gameObject);
             }
         }
-        public void showSelectionMenu(Action<String> function, Dictionary<String,int> items)
+        public void showSelectionMenu(List<ButtonDto> buttons)
         {
             clearButtonPanel();
             RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
             Vector2 panelPosition = panelRectTransform.anchoredPosition;
             Vector2 panelSize = panelRectTransform.sizeDelta;
 
-            Vector2 buttonSize = calculateButtonSize(panelSize, items.Count);
-            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, items.Count);
+            Vector2 buttonSize = calculateButtonSize(panelSize, buttons.Count);
+            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, buttons.Count);
 
             int i = 0;
-            foreach (KeyValuePair<String, int> entry in items)
+            foreach (ButtonDto button in buttons)
             {
                 GameObject go = (GameObject)Instantiate(buttonPrefab);
                 RectTransform buttonRectTransForm = go.transform as RectTransform;
@@ -371,10 +378,10 @@ namespace Assets.Scripts
                 buttonRectTransForm.sizeDelta = buttonSize;
 
                 go.transform.SetParent(buttonPanel.transform, false);
-                go.GetComponentInChildren<Text>().text = entry.Key + " : " + entry.Value;
+                go.GetComponentInChildren<Text>().text = button.Label;
 
                 Button b = go.GetComponent<Button>();
-                b.onClick.AddListener(() => function.Invoke(entry.Key));
+                b.onClick.AddListener(() => button.Callback.Invoke(button.Name));
                 i++;
             }
         }
