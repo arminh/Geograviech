@@ -149,11 +149,12 @@ namespace Assets.Scripts
                 Debug.Log("Active fighter: " + activeFighter.identifier);
                 isTurnFinished = false;
                 playerHasChoosen = true;
+                state = 0;
             }
 
             if (!activeFighter.IsEnemy)
             {
-                state = 0;
+                
                 isTurnFinished = false;
                 executeFSM();
             }else
