@@ -25,39 +25,9 @@ namespace Assets.Scripts
             this.xpAmount = xpAmount;
         }
 
-        public override void executeTurn()
-        {
-
-            List<ButtonDto> buttons = new List<ButtonDto>();
-
-            foreach(Attack attack in attacks) {
-                ButtonDto chooseAttackBtn = new ButtonDto();
-                chooseAttackBtn.Name = attack.Name;
-                chooseAttackBtn.Label = attack.Name;
-                chooseAttackBtn.Callback = useAttack;
-                chooseAttackBtn.Enabled = true;
-                buttons.Add(chooseAttackBtn);
-            }
-
-            FightManager.Instance.showSelectionMenu(buttons);
-        }
-
         protected override void die()
         {
 
-        }
-
-        private void useAttack(string name)
-        {
-            Debug.Log("Use Attack Action triggerd");
-
-            foreach(Attack att in attacks) {
-                if (att.Name == name)
-                {
-                    FightManager.Instance.attackEnemy(att);
-                
-                }
-            }
         }
 
         public void dropItem()

@@ -8,5 +8,10 @@ namespace Assets.Scripts.Consumables
     public interface IConsumable
     {
         bool use(FightCharacter character);
+        String Name{ get; }
+
+        int DropChance{ get; }
+
+        int Quantity{ get; }
     }
 }

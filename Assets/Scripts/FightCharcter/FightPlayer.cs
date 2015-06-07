@@ -26,71 +26,10 @@ namespace Assets.Scripts
             this.items = items;
         }
 
-        public override void executeTurn()
-        {
-            showChooseActionGui();
-        }
-
-
-
-        public void showChooseActionGui()
-        {
-            Debug.Log("PLayer.showChooseActionGui");
-            List<ButtonDto> buttons = new List<ButtonDto>();
-
-
-            ButtonDto chooseItemBtn = new ButtonDto(); 
-            chooseItemBtn.Name = "";
-            chooseItemBtn.Label = "Use Item";
-            chooseItemBtn.Callback = chooseItem;
-
-            if(items.Count == 0) {
-                chooseItemBtn.Enabled = false;
-            }
-            else {
-                chooseItemBtn.Enabled = true;
-            }
-
-            buttons.Add(chooseItemBtn);
-
-            ButtonDto attackBtn = new ButtonDto(); 
-            attackBtn.Name = "";
-            attackBtn.Label = "Attack";
-            attackBtn.Callback = attack;
-            attackBtn.Enabled = true;
-            buttons.Add(attackBtn);
-
-            FightManager.Instance.showActionMenu(buttons);
-        }
-
-
-        private void chooseItem(string name)
-        {
-            Debug.Log("Choose Item Action triggerd");
-
-            List<ButtonDto> buttons = new List<ButtonDto>();
-
-            foreach(Item item in items) {
-                ButtonDto chooseItemBtn = new ButtonDto();
-                chooseItemBtn.Name = item.Name;
-                chooseItemBtn.Label = item.Name + " x" + item.Quantity;
-                chooseItemBtn.Callback = useItem;
-                chooseItemBtn.Enabled = true;
-                buttons.Add(chooseItemBtn);
-            }
-
-            FightManager.Instance.showSelectionMenu(buttons);
-        }
-
-        private void useItem(string name)
+        public ItemDto useItem(IConsumable item, FightCharacter viech)
         {
             Debug.Log("Use Item Action triggerd");
-        }
-
-         private void attack(string name)
-        {
-            Debug.Log("Attack Action triggerd");
-            FightManager.Instance.attackEnemy(activeWeapon.Attack);
+            return null;
         }
 
         protected override void die()
@@ -123,5 +62,6 @@ namespace Assets.Scripts
         {
             get { return items; }
         }
+
     }
 }

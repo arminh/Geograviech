@@ -24,7 +24,7 @@ namespace Assets.Scripts
         public List<Weapon> weapons;
         public Weapon activeWeapon;
 
-        public List<IItem> items;
+        public List<Item> items;
 
     }
 }

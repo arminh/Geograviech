@@ -13,22 +13,30 @@ namespace Assets.Scripts
     class FightManager : MonoBehaviour
     {
         private List<FightCharacter> fighters;
+        
         private FightPlayer player;
+        private FightCharacter enemy;
+
         private FightCharacter activeFighter;
 
-        private FightCharacter enemy;
-        public GameObject canvas;
 
         private static FightManager instance;
 
         public List<GameObject> allViecherPefabs;
-        public GameObject buttonPrefab;
-
-        List<Vector3> enemyPositions;
-        List<Vector3> playerPositions;
-        GameObject buttonPanel;
+       
 
         private bool isTurnFinished;
+
+
+        //fields for stateMachine
+        int state;
+        IConsumable chosenItem = null;
+        FightCharacter chosenViech = null;
+        Attack chosenAttack = null;
+        bool isattack = false;
+        bool isUseItem = false;
+
+        bool playerHasChoosen = false;
 
         public static FightManager Instance
         {
@@ -63,12 +71,8 @@ namespace Assets.Scripts
             }
         }
 
-        void Start()
-        {
-             buttonPanel = Util.getButtonPanel();
-             buttonPanel.transform.SetParent(canvas.transform, false);
-        }
 
+       
     
 
         private void orderFighters()
@@ -91,7 +95,6 @@ namespace Assets.Scripts
             
             fighters = new List<FightCharacter>();
             addFighter(player,false);
-            //fighters.Add(player);
             foreach (FightViech viech in player.ActiveViecher)
             {
                 addFighter(viech,false);
@@ -99,7 +102,6 @@ namespace Assets.Scripts
             }
 
             addFighter(enemy,true);
-            //fighters.Add(enemy);
           if(enemy is FightBoss)
             {
                 foreach (FightCharacter viech in ((FightBoss)enemy).ActiveViecher)
@@ -110,25 +112,8 @@ namespace Assets.Scripts
             }
             orderFighters();
 
-            playerPositions = new List<Vector3>();
-            enemyPositions = new List<Vector3>();
 
-           List<Vector3> positions = Util.getFightScreenPostitions(friendCount, enemyCount);
-           foreach (Vector3 pos in positions)
-           {
-               Debug.Log("pos:" + pos);
-           }
-           for (int i = 0; i < positions.Count; i++)
-           {
-               if(i < friendCount)
-               {
-                   playerPositions.Add(positions[i]);
-               }
-               else
-               {
-                   enemyPositions.Add(positions[i]);
-               }
-           }
+            FightScreenManager.Instance.init(friendCount, enemyCount);
 
 
             bool fightFinished = false;
@@ -136,58 +121,132 @@ namespace Assets.Scripts
             while (!fightFinished)
             {
                 executeTurn();
-
-                //TODo remove 
-                fightFinished = true;
-                //fightFinished = player.isDead() || enemy.isDead();
+                
+                fightFinished = player.isDead() || enemy.isDead();
             }
 
 
         }
 
-        private void setPositions()
-        {
-            int playerCount = 0;
-            int enemyCount = 0;
-            foreach (FightCharacter character in fighters)
-            {
-                GameObject sprite = character.Sprite;
-                if(character.IsEnemy)
-                {
-
-                   sprite.transform.position = enemyPositions.ElementAt(enemyCount);
-                   enemyCount++;
-                   
-                }else
-                {
-
-                    sprite.transform.position = playerPositions.ElementAt(playerCount);
-                    playerCount++;
-                  
-                }
-            }
-        }
+        
 
         private void executeTurn()
         {
             Debug.Log("Execute Turn");
-            setPositions();
+            FightScreenManager.Instance.setPositions(fighters);
             activeFighter = fighters.FirstOrDefault();
             fighters.RemoveAt(0);
 
             fighters.Add(activeFighter);
             Debug.Log("Active fighter: " + activeFighter.identifier);
-            activeFighter.executeTurn();
+            AI.executeTurn(activeFighter);
 
-          /*  if (!activeFighter.IsEnemy)
+            if (!activeFighter.IsEnemy)
             {
+                state = 0;
                 isTurnFinished = false;
-                while(!isTurnFinished)
+                executeFSM();
+            }
+            
+        }
+
+        private void executeFSM()
+        {
+            while(!isTurnFinished)
+            {
+                // TODO implement effects
+                if (activeFighter == player)
+                {
+                    switch (state)
+                    {
+                        case 0:
+                            {
+                                FightScreenManager.Instance.showActionMenu();
+                                playerHasChoosen = false;
+                                break;
+                            }
+                        case 1:
+                            {
+                                if (isUseItem)
+                                {
+                                    FightScreenManager.Instance.showConsumablesMenu(player.Items);
+
+                                }
+                                else
+                                {
+                                    List<FightCharacter> viecher = getAttackableEnemies();
+                                    FightScreenManager.Instance.showViecherMenu(viecher);
+                                }
+                                playerHasChoosen = false;
+                                break;
+                            }
+                        case 2:
+                            {
+                                if (isUseItem)
+                                {
+                                    List<FightCharacter> viecher = getPlayerViecher(false);
+                                    FightScreenManager.Instance.showViecherMenu(viecher);
+                                    playerHasChoosen = false;
+                                }
+                                else
+                                {
+                                    attackViech(player.ActiveWeapon.Attack, chosenViech);
+                                    isTurnFinished = true;
+                                }
+                                break;
+                            }
+                        case 3:
+                            {
+                                if (isUseItem)
+                                {
+                                    useItem(chosenItem, chosenViech);
+                                    isTurnFinished = true;
+                                }
+                                else
+                                {
+                                    throw new NotImplementedException("Schould not be reached!");
+                                }
+                                break;
+                            }
+                    }
+                }
+                else
+                {
+                    switch (state)
+                    {
+                        case 0:
+                            {
+                                FightScreenManager.Instance.showAttackMenu(activeFighter.Attacks);
+                                playerHasChoosen = false;
+                                break;
+                            }
+                        case 1:
+                            {
+                                List<FightCharacter> viecher = getAttackableEnemies();
+                                FightScreenManager.Instance.showViecherMenu(viecher);
+                                playerHasChoosen = false;
+                                break;
+                            }
+                        case 2:
+                            {
+                                attackViech(chosenAttack, chosenViech);
+                                isTurnFinished = true;
+                                break;
+                            }
+                    }
+                }
+
+                while (!playerHasChoosen && !isTurnFinished)
                 {
                     Thread.Sleep(100);
-                }
-            }*/
-            
+                } 
+            }
+        }
+
+        private void useItem(IConsumable choosenItem, FightCharacter choosenViech)
+        {
+            ItemDto result = player.useItem(choosenItem, choosenViech);
+            //TODO log
         }
 
         private void addFighter(FightCharacter character, bool isEnemy)
@@ -219,7 +278,7 @@ namespace Assets.Scripts
 	        }
         }
 
-        public void attackEnemy(Attack attack)
+/*        public void attackEnemy(Attack attack)
         {
             clearButtonPanel();
             List<FightCharacter> availableEnemies = getAttackableEnemies();
@@ -250,7 +309,7 @@ namespace Assets.Scripts
                 FightCharacter captured = availableEnemies[i];
                 b.onClick.AddListener(() => attackViech(attack,captured));
             }
-        }
+        }*/
 
         public void attackViech(Attack attack, FightCharacter viech)
         {
@@ -292,10 +351,10 @@ namespace Assets.Scripts
                 isTurnFinished = true;
         }
 
-        public void turnFinished()
+  /*      public void turnFinished()
         {
             isTurnFinished = true;
-        }
+        }*/
 
         public List<FightCharacter> getAttackableEnemies()
         {
@@ -323,70 +382,9 @@ namespace Assets.Scripts
 
         }*/
 
-        public void showActionMenu(List<ButtonDto> buttons)
-        {
-            clearButtonPanel();
-            RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
-            Vector2 panelPosition = panelRectTransform.anchoredPosition;
-            Vector2 panelSize = panelRectTransform.sizeDelta;
 
-            Vector2 buttonSize = calculateButtonSize(panelSize, buttons.Count);
-            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, buttons.Count);
 
-            int i = 0;
-            foreach (ButtonDto button in buttons)
-            {
-                GameObject go = (GameObject)Instantiate(buttonPrefab);
-                RectTransform buttonRectTransForm = go.transform as RectTransform;
-                buttonRectTransForm.anchoredPosition = buttonPositions[i];
-                buttonRectTransForm.sizeDelta = buttonSize;
-
-                go.transform.SetParent(buttonPanel.transform,false);
-                go.GetComponentInChildren<Text>().text = button.Label;
-                
-
-                Button b = go.GetComponent<Button>();
-				Action<string> captured = button.Callback;
-				b.onClick.AddListener(() => captured.Invoke(button.Name));
-                i++;
-            }
-        }
-
-        private void clearButtonPanel()
-        {
-            foreach (Transform child in buttonPanel.transform)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-        public void showSelectionMenu(List<ButtonDto> buttons)
-        {
-            clearButtonPanel();
-            RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
-            Vector2 panelPosition = panelRectTransform.anchoredPosition;
-            Vector2 panelSize = panelRectTransform.sizeDelta;
-
-            Vector2 buttonSize = calculateButtonSize(panelSize, buttons.Count);
-            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, buttons.Count);
-
-            int i = 0;
-            foreach (ButtonDto button in buttons)
-            {
-                GameObject go = (GameObject)Instantiate(buttonPrefab);
-                RectTransform buttonRectTransForm = go.transform as RectTransform;
-                buttonRectTransForm.anchoredPosition = buttonPositions[i];
-                buttonRectTransForm.sizeDelta = buttonSize;
-
-                go.transform.SetParent(buttonPanel.transform, false);
-                go.GetComponentInChildren<Text>().text = button.Label;
-
-                Button b = go.GetComponent<Button>();
-                b.onClick.AddListener(() => button.Callback.Invoke(button.Name));
-                i++;
-            }
-        }
-
-        public List<FightCharacter> getAttackablePlayerViecher()
+        public List<FightCharacter> getPlayerViecher(Boolean onlyAttackable)
         {
             List<FightCharacter> viecher = new List<FightCharacter>();
 
@@ -398,13 +396,14 @@ namespace Assets.Scripts
                 }
             }
             
-            if (viecher.Count == 0)
+            if (viecher.Count == 0 || !onlyAttackable)
             {
                 viecher.Add(player);
             }
             return viecher;
         }
 
+        /*
         public FightPlayer getHero()
         {
             return player;
@@ -415,92 +414,47 @@ namespace Assets.Scripts
             return enemy;
         }
 
-        private Vector2 calculateButtonSize(Vector2 panelSize, int buttonCount)
+ */
+        public void backChosen()
         {
-            Vector2 buttonSize = Vector2.zero;
-            buttonSize.x = panelSize.x / 2 - panelSize.x *0.05f;
-            switch (buttonCount)
-            {
-                case 2:
-                    {
-
-                        buttonSize.y = panelSize.y;
-                        break;
-                    }
-                case 3:
-                case 4:
-                    {
-                        buttonSize.y = panelSize.y / 2 - panelSize.y * 0.05f;
-                        break;
-                    }
-                default:
-                    {
-                        buttonSize.x = panelSize.x;
-                        buttonSize.y = panelSize.y/3;
-                        break;
-                    }                
-            }
-            return buttonSize;
+            state--;
+            playerHasChoosen = true;
         }
 
-        private List<Vector2> calculateButtonPositions(Vector2 panelPosition, Vector2 panelSize, int buttonCount)
+        public void useItemChosen()
         {
-            panelPosition.x = panelPosition.x - panelSize.x / 2;
-            panelPosition.y = panelPosition.y - panelSize.y / 2;
-            List<Vector2> buttonPositions = new List<Vector2>();
-            switch (buttonCount)
-            {
-                case 2:
-                    {
-                        buttonPositions.Add(panelPosition);
+            isUseItem = true;
+            isattack = false;
+            state++;
+            playerHasChoosen = true;
+        }
 
-                        float x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
-                        float y = panelPosition.y;
-                        buttonPositions.Add(new Vector2(x, y));
-                        break;
-                    }
-                case 3:
-                    {
-                        float x = panelPosition.x;
-                        float y = panelPosition.y + panelSize.y / 2 + panelSize.y * 0.05f;
-                        buttonPositions.Add(new Vector2(x, y));
+        public void setChosenItem(IConsumable item)
+        {
+            chosenItem = item;
+            playerHasChoosen = true;
+        }
 
-                        x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
-                        buttonPositions.Add(new Vector2(x, y));
+        public void attackChosen()
+        {
+            isUseItem = false;
+            isattack = true;
+            state++;
+            playerHasChoosen = true;
+        }
 
-                        x = (panelSize.x - calculateButtonSize(panelSize,3).x) / 2;
-                        y = panelPosition.y;
-                        buttonPositions.Add(new Vector2(x, y));
-                        break;
-                    }
-                case 4:
-                    {
-                        float x = panelPosition.x;
-                        float y = panelPosition.y;
-                        buttonPositions.Add(new Vector2(x, y));
+        public void setChosenViech(FightCharacter viech)
+        {
+            chosenViech = viech;
+            state++;
+            playerHasChoosen = true;
+        }
 
-                        x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
-                        buttonPositions.Add(new Vector2(x, y));
-
-                        y = panelPosition.y + panelSize.y / 2 + panelSize.y * 0.05f;
-                        buttonPositions.Add(new Vector2(x, y));
-
-                        x = panelPosition.x;
-                        buttonPositions.Add(new Vector2(x, y));
-                        break;
-                    }
-                default:
-                    {
-                        float firstY = panelPosition.y + 2*panelSize.y/3;
-
-                        for (int i = 0; i < buttonCount; i++)
-                        {
-                            buttonPositions.Add(new Vector2(panelPosition.x,firstY - (i * panelSize.y/3)));
-                        }
-                        break;
-                    }
-            }
-            return buttonPositions;
+        public void setChosenAttack(Attack attack)
+        {
+            chosenAttack = attack;
+            state++;
+            playerHasChoosen = true;
         }
     }
 }

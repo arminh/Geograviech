@@ -37,9 +37,7 @@ namespace Assets.Scripts
             this.name = name;
             this.attacks = attacks;
         }
-         
-
-        public abstract void executeTurn();
+       
 
         protected int applyDamage(int damage)
         {

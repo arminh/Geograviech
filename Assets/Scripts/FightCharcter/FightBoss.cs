@@ -16,10 +16,6 @@ namespace Assets.Scripts
             this.activeViecher = activeViecher;
         }
 
-        public override void executeTurn()
-        {
-            throw new NotImplementedException();
-        }
 
         protected override void die()
         {
