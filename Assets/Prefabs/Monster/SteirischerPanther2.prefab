@@ -529,6 +529,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 432842}
+  - 114: {fileID: 11478028}
   m_Layer: 0
   m_Name: SteirischerPanther2
   m_TagString: Untagged
@@ -1063,6 +1064,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11478028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cfe786e47e63c240b2b3b73790e9030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 1
+  MaxDistanceToGoal: .100000001
+  started: 0
 --- !u!114 &11489044
 MonoBehaviour:
   m_ObjectHideFlags: 1
