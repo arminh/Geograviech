@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Consumables;
+using System.Threading;
 
 namespace Assets.Scripts
 {
@@ -16,6 +17,7 @@ namespace Assets.Scripts
         private bool levelWasLoaded = false;
         private void OnLevelWasLoaded(int iLevel)
         {
+            Debug.Log("Level loaded");
             levelWasLoaded = true;
         }
 
@@ -23,7 +25,7 @@ namespace Assets.Scripts
         {
             //TODO: Read Savefile
             Debug.Log("Start");
-            Weapon weapon = new Weapon();
+            Weapon weapon = new Weapon( new Attack ("TestAttack", ElementType.EARTH, 15, new Effect ("TestEffect", Effect.EffectType.POISON, 50, 50)));
             List<Weapon> weapons = new List<Weapon>();
             List<Viech> activeViecher = new List<Viech>();
             List<Viech> viecher = new List<Viech>();
@@ -36,7 +38,11 @@ namespace Assets.Scripts
 
             FightViech enemy = new FightViech("Zerberwelpe", 17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
 
-            executeFight(enemy);
+ 
+
+                StartCoroutine(executeFight(enemy));
+              
+
         }
 
         public void showMenu()
@@ -46,13 +52,17 @@ namespace Assets.Scripts
 
         public IEnumerator executeFight(FightViech enemy)
         {
+            Debug.Log("executeFight");
             Application.LoadLevel("Fightscreen");
 
-            FightPlayer hero = player.createHero();
-
-            while (!levelWasLoaded)
-                yield return 1;
-            levelWasLoaded = false;
+          while (!levelWasLoaded)
+            {
+                Debug.Log("Thread sleeps");
+                yield return null;
+            }
+          levelWasLoaded = false;
+          Debug.Log("Thread awoke");
+           FightPlayer hero = player.createHero();
 
             FightManager.Instance.fight(hero, enemy);
 
