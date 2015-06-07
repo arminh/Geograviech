@@ -55,46 +55,49 @@ namespace Assets.Scripts
             Debug.Log("executeFight");
             Application.LoadLevel("Fightscreen");
 
-          while (!levelWasLoaded)
+            while (!levelWasLoaded)
             {
                 Debug.Log("Thread sleeps");
                 yield return null;
             }
-          levelWasLoaded = false;
-          Debug.Log("Thread awoke");
-           FightPlayer hero = player.createHero();
+            levelWasLoaded = false;
+            Debug.Log("Thread awoke");
+            FightPlayer hero = player.createHero();
 
             FightManager.Instance.fight(hero, enemy);
+        }
 
-            if (hero.isDead())
+        public void fightFinished(FightCharacter winner, FightCharacter looser)
+        {
+            if (winner.IsEnemy)
             {
-
+                // 
             }
-            else if(enemy.isDead())
+            else
             {
+                FightViech enemy = (FightViech)looser;
+
                 int gainXp = enemy.XpAmount;
                 int numChars = player.ActiveViecher.Count + 1;
 
                 int xpPerChar = (int)Mathf.Round((float)gainXp / (float)numChars);
                 player.gainXp(xpPerChar);
 
-                foreach(Viech viech in player.ActiveViecher) {
+                foreach (Viech viech in player.ActiveViecher)
+                {
                     viech.gainXp(xpPerChar);
                 }
 
 
-                if(enemy.decideJoin()) {
-
+                if (enemy.decideJoin())
+                {
                     //TODO: Give Viech a name
                     Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Identifier, enemy.Level, 0, enemy.Attacks, enemy.Type);
                     player.addViech(viech);
                 }
+            }
 
-            }
-            else
-            {
-                //Error: Either hero or enemy should be dead after fight
-            }
+            Application.LoadLevel("MainScreen");
         }
 
         public static GameManager Instance
