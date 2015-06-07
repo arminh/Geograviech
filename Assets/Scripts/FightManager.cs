@@ -318,10 +318,10 @@ namespace Assets.Scripts
             return enemies;
         }
 
-        public void ItemUsed(ItemDto itemDto)
+    /*    public void ItemUsed(ItemDto itemDto)
         {
 
-        }
+        }*/
 
         public void showActionMenu(List<ButtonDto> buttons)
         {
