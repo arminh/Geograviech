@@ -15,7 +15,7 @@ namespace Assets.Scripts
         protected int strength;
 
         protected List<Attack> attacks;
-        protected Effect.EffectType currentEffect;
+        protected Effect currentEffect;
 
         GameObject sprite = null;
        
@@ -25,18 +25,19 @@ namespace Assets.Scripts
 
         protected AttackDto attackResult;
 
-        public FightCharacter(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks)
+        protected string name;
+
+        public FightCharacter(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks)
         {
             this.identifier = identifier;
             this.maxHealth = maxHealth;
             this.health = maxHealth;
             this.speed = speed;
             this.strength = strength;
+            this.name = name;
             this.attacks = attacks;
         }
-         
-
-        public abstract void executeTurn();
+       
 
         protected int applyDamage(int damage)
         {
@@ -73,33 +74,12 @@ namespace Assets.Scripts
             return false;
         }
 
-        public void applyEffect(Effect.EffectType effectToApply)
-        {
-            switch (effectToApply)
-            {
-                case Effect.EffectType.FIRE:
-                    sprite.GetComponent<AnimationStatus>().SetOnFire = true;
-                    break;
-                case Effect.EffectType.FREEZE:
-                    sprite.GetComponent<AnimationStatus>().SetFrozen = true;
-                    break;
-                case Effect.EffectType.POISON:
-                    sprite.GetComponent<AnimationStatus>().SetPoisoned = true;
-                    break;
-                case Effect.EffectType.SLEEP:
-                    sprite.GetComponent<AnimationStatus>().SetSleeping = true;
-                    break;
-                case Effect.EffectType.STUN:
-                    sprite.GetComponent<AnimationStatus>().SetStunned = true;
-                    break;
-            }
-        }
 
         public bool cureEffect(Effect.EffectType effectToCure)
         {
-            if (effectToCure.Equals(currentEffect))
+            if (effectToCure.Equals(currentEffect.Type))
             {
-                currentEffect = Effect.EffectType.NONE;
+                currentEffect = null;
                 //TODO notify AnimationHandler
                 return true;
             }
@@ -110,9 +90,11 @@ namespace Assets.Scripts
         {
             AttackDto attackResult = new AttackDto();
             attackResult.setAttackedChar(this);
-            attackResult.setInflictedDamage(applyDamage(attack.getDamage()));
+            attackResult.setInflictedDamage(applyDamage(attack.Damage));
+
+            attack.Effect.inflict(this);
             attackResult.setCurrentEffect(currentEffect);
-            attackResult.setInflictEffect(attack.getEffect().inflict(this));
+            attackResult.setInflictEffect(attack.Effect);
 
             return attackResult;
         }
@@ -144,15 +126,20 @@ namespace Assets.Scripts
             get { return strength; }
         }
 
+        public string Name
+        {
+            get { return name; }
+        }
         
         public List<Attack> Attacks
         {
             get { return attacks; }
         }
 
-        public Effect.EffectType CurrentEffect
+        public Effect CurrentEffect
         {
             get { return currentEffect; }
+            set { currentEffect = value; }
         }
 
         public GameObject Sprite

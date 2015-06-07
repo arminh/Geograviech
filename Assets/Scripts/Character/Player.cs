@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Consumables;
 
 namespace Assets.Scripts
 {
@@ -12,9 +13,10 @@ namespace Assets.Scripts
         private List<Weapon> weapons;
         private Weapon activeWeapon;
 
-        private List<IItem> items;
+        private List<IConsumable> items;
 
-        public Player(int maxHealth, int speed, int strength, string name, string identifier, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IItem> items, List<Attack> attacks): base(maxHealth, speed, strength, name, identifier, level, xp, attacks)
+        public Player(int maxHealth, int speed, int strength, string name, string identifier, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks)
+            : base(maxHealth, speed, strength, name, identifier, level, xp, attacks)
         {
            
             this.viecher = viecher;
@@ -36,12 +38,12 @@ namespace Assets.Scripts
             }
 
 
-            return new FightPlayer(maxHealth, speed, strength, fightViecher, activeWeapon, attacks, items);
+            return new FightPlayer(maxHealth, speed, strength, name, fightViecher, activeWeapon, attacks, items);
         }
 
-        public void gainXp(int amount)
+        public void addViech(Viech viech)
         {
-
+            viecher.Add(viech);
         }
 
         public List<Viech> Viecher
@@ -61,7 +63,7 @@ namespace Assets.Scripts
         {
             get { return activeWeapon; }
         }
-        public List<IItem> Items
+        public List<IConsumable> Items
         {
             get { return items; }
         }

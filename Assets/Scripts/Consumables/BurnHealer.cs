@@ -13,7 +13,7 @@ namespace Assets.Scripts.Consumables
         }
         public bool use(FightCharacter character)
         {
-            return character.cureEffect(Effect.EffectType.FIRE);
+            return character.cureEffect(Effect.EffectType.BURN);
         }
     }
 }

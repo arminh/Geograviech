@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.Utils
 {
-    public static class Utils
+    public static class Util
     {
         public static void InitBackground(Transform background, Camera mainCam)
         {
             Vector3 pos = mainCam.transform.position;
-            pos.z = 0.0f;
+            pos.z = 10.0f;
             background.position = pos;
 
             SpriteRenderer spriteRenderer = background.GetComponent<SpriteRenderer>();
@@ -64,9 +64,9 @@ namespace Assets.Scripts.Utils
             leftDown.y -= worldScreenHeight / 2.0f;
 
             Vector3 rightDown = leftDown;
-            leftDown.x += worldScreenWidth;
+            rightDown.x += worldScreenWidth;
 
-            float spaceBetweenCharactersAndScreen = 5;
+            float spaceBetweenCharactersAndScreen = 7;
 
             float spaceBetweenFriends = worldScreenHeight / (float)(friendCount + 1);
             float spaceBetweenEnemies = worldScreenHeight / (float)(enemyCount + 1);
@@ -80,7 +80,7 @@ namespace Assets.Scripts.Utils
             for (int index = 0; index < friendCount; index++)
             {
                 posY = leftDown.y + spaceBetweenFriends * (index + 1);
-                positions.Add(new Vector3(posX, posY, 0));
+                positions.Add(new Vector3(posX, posY, index));
             }
 
             posX = rightDown.x - spaceBetweenCharactersAndScreen;
@@ -100,9 +100,19 @@ namespace Assets.Scripts.Utils
         /// <returns>GameObject</returns>
         public static GameObject getButtonPanel()
         {
-            
+            GameObject panel = new GameObject("ButtonPanel", typeof(RectTransform));
 
-            return null;
+            panel.AddComponent<CanvasRenderer>();
+
+            RectTransform rect = panel.transform as RectTransform;
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            rect.sizeDelta = new Vector2(Screen.width / 3, Screen.height / 2);
+
+            return panel;
         }
     }
 

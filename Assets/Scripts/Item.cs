@@ -9,8 +9,22 @@ namespace Assets
     public abstract class Item
     {
         protected string name;
-        protected float dropChance;
+        protected int dropChance;
+        protected int quantity;
 
-        
+        public String Name
+        {
+            get { return name; }
+        }
+
+        public int DropChance
+        {
+            get { return dropChance; }
+        }
+
+        public int Quantity
+        {
+            get { return quantity; }
+        }
     }
 }

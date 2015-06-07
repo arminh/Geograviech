@@ -13,39 +13,37 @@ namespace Assets.Scripts
         private int damage;
         private Effect effect;
 
+        public Attack(string name,ElementType type, int damage, Effect effect)
+        {
+            this.name = name;
+            this.type = type;
+            this.damage = damage;
+            this.effect = effect;
+        }
+
         public void execute(FightCharacter character)
         {
 
         }
 
-        public int getDamage()
+        public string Name
         {
-            return damage;
+            get { return name;  }
         }
 
-        public void setDamage(int value)
+        public ElementType Type
         {
-            damage = value;
+            get { return type; }
         }
 
-        public ElementType getType()
+        public int Damage
         {
-            return type;
+            get { return damage; }
         }
 
-        public void setType(ElementType value)
+        public Effect Effect
         {
-            type = value;
-        }
-
-        public Effect getEffect()
-        {
-            return effect;
-        }
-
-        public void setEffect(Effect value)
-        {
-            effect = value;
+            get { return effect; }
         }
 
     }

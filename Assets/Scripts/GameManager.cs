@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Consumables;
+using System.Threading;
+
 namespace Assets.Scripts
 {
     public class GameManager: MonoBehaviour
@@ -11,10 +14,35 @@ namespace Assets.Scripts
 
         private static GameManager gameManager = null;
 
+        private bool levelWasLoaded = false;
+        private void OnLevelWasLoaded(int iLevel)
+        {
+            Debug.Log("Level loaded");
+            levelWasLoaded = true;
+        }
+
         public void init()
         {
             //TODO: Read Savefile
-            player = new Player(50, 1, 10, "Armin", "Player", 0, 0, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IItem>(), new  List<Attack>());
+            Debug.Log("Start");
+            Weapon weapon = new Weapon( new Attack ("TestAttack", ElementType.EARTH, 15, new FreezeEffect (50)));
+            List<Weapon> weapons = new List<Weapon>();
+            List<Viech> activeViecher = new List<Viech>();
+            List<Viech> viecher = new List<Viech>();
+            List<Attack> attacks = new List<Attack>();
+            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, new BurnEffect(50)));
+
+            activeViecher.Add(new Viech(10, 20, 4, "Garganton", "Gargoyles", 3, 500, attacks, ElementType.EARTH));
+
+            player = new Player(15, 15, 5, "TestPlayer", "Player", 500, 5, viecher, activeViecher, weapons, weapon, new List<IConsumable>(), new List<Attack>());
+
+            FightViech enemy = new FightViech("Zerberwelpe", 17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
+
+ 
+
+           StartCoroutine(executeFight(enemy));
+              
+
         }
 
         public void showMenu()
@@ -22,26 +50,54 @@ namespace Assets.Scripts
             Application.LoadLevel("PlayerMenue");
         }
 
-        public void startFight(FightCharacter enemy)
+        public IEnumerator executeFight(FightViech enemy)
         {
+            Debug.Log("executeFight");
             Application.LoadLevel("Fightscreen");
 
-            FightPlayer hero = player.createHero();
-            FightManager fightmanager = FindObjectsOfType(typeof(FightManager))[0] as FightManager;
-            fightmanager.fight(hero, enemy);
-
-            if (hero.isDead())
+            while (!levelWasLoaded)
             {
-
+                Debug.Log("Thread sleeps");
+                yield return null;
             }
-            else if(enemy.isDead())
+            levelWasLoaded = false;
+            Debug.Log("Thread awoke");
+            FightPlayer hero = player.createHero();
+
+            FightManager.Instance.fight(hero, enemy);
+        }
+
+        public void fightFinished(FightCharacter winner, FightCharacter looser)
+        {
+            if (winner.IsEnemy)
             {
-               // player.gainXp(enemy.xp)
+                // 
             }
             else
             {
-                //Error: Either hero or enemy should be dead after fight
+                FightViech enemy = (FightViech)looser;
+
+                int gainXp = enemy.XpAmount;
+                int numChars = player.ActiveViecher.Count + 1;
+
+                int xpPerChar = (int)Mathf.Round((float)gainXp / (float)numChars);
+                player.gainXp(xpPerChar);
+
+                foreach (Viech viech in player.ActiveViecher)
+                {
+                    viech.gainXp(xpPerChar);
+                }
+
+
+                if (enemy.decideJoin())
+                {
+                    //TODO: Give Viech a name
+                    Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Identifier, enemy.Level, 0, enemy.Attacks, enemy.Type);
+                    player.addViech(viech);
+                }
             }
+
+            Application.LoadLevel("MainScreen");
         }
 
         public static GameManager Instance

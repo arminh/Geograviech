@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
+using Assets.Scripts.Consumables;
 
 namespace Assets.Scripts
 {
@@ -12,9 +14,10 @@ namespace Assets.Scripts
         private List<IConsumable> dropItems;
 
         protected int xpAmount;
+        protected int level;
 
-        public FightViech(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
-            : base(identifier, maxHealth, speed, strength, attacks)
+        public FightViech(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
+            : base(identifier, maxHealth, speed, strength, name, attacks)
         {
             this.type = type;
             this.catchChance = catchChance;
@@ -22,19 +25,7 @@ namespace Assets.Scripts
             this.xpAmount = xpAmount;
         }
 
-
-
-        public override void executeTurn()
-        {
-
-        }
-
         protected override void die()
-        {
-
-        }
-
-        public void useAttack()
         {
 
         }
@@ -44,16 +35,10 @@ namespace Assets.Scripts
 
         }
 
-        public void decideJoin()
+        public bool decideJoin()
         {
-
+            return true;
         }
-
-        public void joinPlayer()
-        {
-
-        }
-
 
         public ElementType Type
         {
@@ -77,5 +62,11 @@ namespace Assets.Scripts
         {
             get { return xpAmount; }
         }
+
+        public int Level
+        {
+            get { return level; }
+        }
+
     }
 }

@@ -2,47 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
+using Assets.Scripts.Consumables;
 
 namespace Assets.Scripts
 {
-    public delegate void UseItemDelegate();
-    public delegate void AttackDelegate();
+    delegate void UseItemDelegate();
+    delegate void AttackDelegate();
 
     public class FightPlayer: FightCharacter
+
     {
         private Weapon activeWeapon;
         private List<FightViech> activeViecher;
 
-        private List<IItem> items;
+        private List<IConsumable> items;
 
-        public FightPlayer(int maxHealth, int speed, int strength, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IItem> items)
-            : base("Player", maxHealth, speed, strength, attacks)
+        public FightPlayer(int maxHealth, int speed, int strength, string name, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IConsumable> items)
+            : base("Player", maxHealth, speed, strength, name, attacks)
         {
             this.activeViecher = activeViecher;
             this.activeWeapon = activeWeapon;
             this.items = items;
         }
 
-        public override void executeTurn()
+        public ItemDto useItem(IConsumable item, FightCharacter viech)
         {
-            //FightManager.instance().showChooseActionGui(useItem);
-            showChooseActionGui(useItem, attack);
-
-        }
-
-        public void showChooseActionGui(UseItemDelegate useItem, AttackDelegate attack)
-        {
-
-        }
-
-        private void useItem()
-        {
-
-        }
-
-         private void attack()
-        {
-
+            Debug.Log("Use Item Action triggerd");
+            return null;
         }
 
         protected override void die()
@@ -71,9 +58,10 @@ namespace Assets.Scripts
             get { return activeViecher; }
         }
 
-        public List<IItem> Items
+        public List<IConsumable> Items
         {
             get { return items; }
         }
+
     }
 }
