@@ -36,32 +36,50 @@ namespace Assets.Scripts
         public void showChooseActionGui()
         {
             Debug.Log("PLayer.showChooseActionGui");
-            Dictionary<string, Action> dict = new Dictionary<string, Action>();
+            List<ButtonDto> buttons = new List<ButtonDto>();
 
-            Action chooseItemAction = chooseItem;
-            dict.Add("Use Item", chooseItemAction);
 
-            Action attackAction = attack;
-            dict.Add("Attack", attackAction);
-            
+            ButtonDto chooseItemBtn = new ButtonDto(); 
+            chooseItemBtn.Name = "";
+            chooseItemBtn.Label = "Use Item";
+            chooseItemBtn.Callback = chooseItem;
 
-            FightManager.Instance.showActionMenu(dict);
+            if(items.Count == 0) {
+                chooseItemBtn.Enabled = false;
+            }
+            else {
+                chooseItemBtn.Enabled = true;
+            }
+
+            buttons.Add(chooseItemBtn);
+
+            ButtonDto attackBtn = new ButtonDto(); 
+            attackBtn.Name = "";
+            attackBtn.Label = "Attack";
+            attackBtn.Callback = attack;
+            attackBtn.Enabled = true;
+            buttons.Add(attackBtn);
+
+            FightManager.Instance.showActionMenu(buttons);
         }
 
 
-        private void chooseItem()
+        private void chooseItem(string name)
         {
             Debug.Log("Choose Item Action triggerd");
 
-            Action<string> useItemAction = useItem;
-
-            Dictionary<string, int> dict = new Dictionary<string, int>();
+            List<ButtonDto> buttons = new List<ButtonDto>();
 
             foreach(Item item in items) {
-                dict.Add(item.Name, item.Quantity);
+                ButtonDto chooseItemBtn = new ButtonDto();
+                chooseItemBtn.Name = item.Name;
+                chooseItemBtn.Label = item.Name + " x" + item.Quantity;
+                chooseItemBtn.Callback = useItem;
+                chooseItemBtn.Enabled = true;
+                buttons.Add(chooseItemBtn);
             }
 
-            FightManager.Instance.showSelectionMenu(useItemAction, dict);
+            FightManager.Instance.showSelectionMenu(buttons);
         }
 
         private void useItem(string name)
@@ -69,7 +87,7 @@ namespace Assets.Scripts
             Debug.Log("Use Item Action triggerd");
         }
 
-         private void attack()
+         private void attack(string name)
         {
             Debug.Log("Attack Action triggerd");
             FightManager.Instance.attackEnemy(activeWeapon.Attack);
