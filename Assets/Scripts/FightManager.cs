@@ -129,6 +129,17 @@ namespace Assets.Scripts
 
         public void Update()
         {
+            if(player.isDead())
+            {
+                GameManager.Instance.fightFinished(enemy, player);
+                executeFight = false;
+            }
+            if(enemy.isDead())
+            {
+                GameManager.Instance.fightFinished(player, enemy);
+                executeFight = false;
+            }
+
             if(executeFight && !isWaiting)
             {
                 Debug.Log("executeFight");
@@ -139,7 +150,7 @@ namespace Assets.Scripts
         
 
         private IEnumerator executeTurn()
-        {
+        {isWaiting = true;
             if (isTurnFinished)
             {
                 FightScreenManager.Instance.setPositions(fighters);
@@ -154,18 +165,23 @@ namespace Assets.Scripts
 
                 if(activeFighter.CurrentEffect != null)
                 {
-                    foreach(var x in activeFighter.CurrentEffect.execute(activeFighter))
-                    {
-                        yield return null;
-                    }
+
+                    
+                    yield return StartCoroutine(activeFighter.CurrentEffect.execute(activeFighter));
+                    
+
                     AnimationStatus anim = activeFighter.Sprite.GetComponentInChildren<AnimationStatus>();
                     while (!anim.areSpechialAnimationsFinished())
                     {
+
                         yield return null;
                     }
+
                     Log.Instance.print();
                     if(activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is SleepEffect)
                     {
+                        isTurnFinished = true;
+                        isWaiting = false;
                         yield break;
                     }
                 }
@@ -174,16 +190,17 @@ namespace Assets.Scripts
             if (!activeFighter.IsEnemy)
             {   
                 isTurnFinished = false;
-                executeFSM();
+               yield return StartCoroutine(executeFSM());
                 
             }else
             {
                 AI.executeTurn(activeFighter);
                 isTurnFinished = true;
             }
+            isWaiting = false;
         }
 
-        private void executeFSM()
+        private IEnumerator executeFSM()
         {
            // while(!isTurnFinished)
            // {
@@ -231,7 +248,7 @@ namespace Assets.Scripts
                                 }
                                 else
                                 {
-                                    attackViech(player.ActiveWeapon.Attack, chosenViech);
+                                   yield return StartCoroutine(attackViech(player.ActiveWeapon.Attack, chosenViech));
                                     
                                 }
                                 break;
@@ -285,12 +302,13 @@ namespace Assets.Scripts
                             }
                         case 3:
                             {
-                                attackViech(chosenAttack, chosenViech);
+                                yield return StartCoroutine(attackViech(chosenAttack, chosenViech));
                                 break;
                             }
                     }
                 }
             }
+            yield break;
         }
 
         private void useItem(IConsumable choosenItem, FightCharacter choosenViech)
@@ -325,18 +343,24 @@ namespace Assets.Scripts
 	        }
         }
 
-        public void attackViech(Attack attack, FightCharacter viech)
+        public IEnumerator attackViech(Attack attack, FightCharacter viech)
         {
             
             Debug.Log("attackViech");
 
-//zum gegner fahren
+            //zum gegner fahren
             GoToPoint gotoPoint = activeFighter.Sprite.GetComponent<GoToPoint>();
             Vector3 enemyPosition = viech.Sprite.transform.position;
-            gotoPoint.start(enemyPosition);
+            BoxCollider2D enemyCollider = viech.Sprite.GetComponentInChildren<BoxCollider2D>();
+            BoxCollider2D collider = activeFighter.Sprite.GetComponentInChildren<BoxCollider2D>();
+
+            float xPosition = enemyPosition.x - enemyCollider.bounds.size.x/2 - collider.bounds.size.x/2;
+            float yPosition = enemyPosition.y - enemyCollider.bounds.size.y/2 + collider.bounds.size.y/2;
+            Vector3 attackPosition = new Vector3(xPosition, yPosition);
+            gotoPoint.start(attackPosition);
             while(!gotoPoint.isFinished())
             {
-
+                yield return null;
             }
 
             if (activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is StunEffect)
@@ -428,6 +452,9 @@ namespace Assets.Scripts
         public void backChosen()
         {
             decrementState();
+            isattack = false;
+            isUseItem = false;
+            isSkip = false;
         }
 
         public void useItemChosen()

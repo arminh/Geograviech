@@ -53,7 +53,7 @@ namespace Assets.Scripts
             character.CurrentEffect = null;
         }
 
-        public abstract IEnumerable execute(FightCharacter character);
+        public abstract IEnumerator execute(FightCharacter character);
 
         protected abstract void playAnimation(FightCharacter character);
 

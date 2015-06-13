@@ -133,6 +133,7 @@ public class FightScreenManager : MonoBehaviour {
             Button b = go.GetComponent<Button>();
             b.interactable = hasItems;
             b.onClick.AddListener(() => FightManager.Instance.useItemChosen());
+            b.onClick.AddListener(() => clearButtonPanel());
             currentindex++;
         }
 
@@ -147,6 +148,7 @@ public class FightScreenManager : MonoBehaviour {
 
            Button b1 = go1.GetComponent<Button>();
            b1.onClick.AddListener(() => FightManager.Instance.attackChosen());
+           b1.onClick.AddListener(() => clearButtonPanel());
            currentindex++;
 
         //SkipTurn
@@ -160,6 +162,7 @@ public class FightScreenManager : MonoBehaviour {
 
            Button b2 = go2.GetComponent<Button>();
            b2.onClick.AddListener(() => FightManager.Instance.skipChosen());
+           b2.onClick.AddListener(() => clearButtonPanel());
            currentindex++;
 
 
@@ -198,6 +201,7 @@ public class FightScreenManager : MonoBehaviour {
 
             IConsumable captured = item;
             b.onClick.AddListener(() => FightManager.Instance.setChosenItem(captured));
+            b.onClick.AddListener(() => clearButtonPanel());
             i++;
         }
 
@@ -212,6 +216,7 @@ public class FightScreenManager : MonoBehaviour {
 
         Button button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(() => FightManager.Instance.backChosen());
+        button.onClick.AddListener(() => clearButtonPanel());
     }
 
     public void showViecherMenu(List<FightCharacter> viecher)
@@ -239,6 +244,7 @@ public class FightScreenManager : MonoBehaviour {
 
             FightCharacter captured = viech;
             b.onClick.AddListener(() => FightManager.Instance.setChosenViech(captured));
+            b.onClick.AddListener(() => clearButtonPanel());
             i++;
         }
 
@@ -253,6 +259,7 @@ public class FightScreenManager : MonoBehaviour {
 
         Button button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(() => FightManager.Instance.backChosen());
+        button.onClick.AddListener(() => clearButtonPanel());
     }
 
     public void showAttackMenu(List<Attack> attacks)
@@ -280,6 +287,7 @@ public class FightScreenManager : MonoBehaviour {
             b.interactable = attack.Active;
             Attack captured = attack;
             b.onClick.AddListener(() => FightManager.Instance.setChosenAttack(attack));
+            b.onClick.AddListener(() => clearButtonPanel());
             i++;
         }
     }

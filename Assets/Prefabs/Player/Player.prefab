@@ -1047,6 +1047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Status: 0
+  SpecialDamageStatus: 0
 --- !u!114 &11460734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1058,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfe786e47e63c240b2b3b73790e9030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 15
   MaxDistanceToGoal: .100000001
   started: 0
 --- !u!212 &21204932

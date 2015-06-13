@@ -12,7 +12,7 @@ namespace Assets.Scripts
         private ElementType type;
         private int damage;
         private Effect effect;
-        private bool active;
+        private bool active = true;
 
         public Attack(string name,ElementType type, int damage, Effect effect)
         {

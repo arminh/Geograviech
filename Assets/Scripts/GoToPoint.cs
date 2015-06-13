@@ -15,6 +15,8 @@ public class GoToPoint : MonoBehaviour
     
     public void start(Vector3 point)
     {
+        Debug.Log("goto " + point.ToString());
+        currentPoint = point;
         started = true;
     }
 
@@ -30,6 +32,7 @@ public class GoToPoint : MonoBehaviour
             var distanceSquared = (transform.position - currentPoint).magnitude;
             if (distanceSquared < MaxDistanceToGoal)
             {
+                Debug.Log("stopped at " + transform.position.ToString());
                 started = false;
                 FightManager.Instance.incrementState();
             }

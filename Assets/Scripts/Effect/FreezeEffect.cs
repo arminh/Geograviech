@@ -13,7 +13,7 @@ namespace Assets.Scripts
 
         }
 
-        public override IEnumerable execute(FightCharacter character)
+        public override IEnumerator execute(FightCharacter character)
         {
             int numAttacks = character.Attacks.Count;
 
