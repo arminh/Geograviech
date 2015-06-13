@@ -30,9 +30,6 @@ public class FightScreenManager : MonoBehaviour {
             if (instance == null)
             {
                 instance = GameObject.FindObjectOfType<FightScreenManager>();
-
-                //Tell unity not to destroy this object when loading a new scene!
-                DontDestroyOnLoad(instance.gameObject);
             }
 
             return instance;

@@ -26,10 +26,11 @@ namespace Assets.Scripts
             this.items = items;
         }
 
-        public ItemDto useItem(IConsumable item, FightCharacter viech)
+        public void useItem(IConsumable item, FightCharacter character)
         {
             Debug.Log("Use Item Action triggerd");
-            return null;
+
+            item.use(character);
         }
 
         protected override void die()
@@ -37,15 +38,9 @@ namespace Assets.Scripts
 
         }
 
-
         public void useConsumable(IConsumable consumable)
         {
             consumable.use(this);
-        }
-
-        public void useWeapon()
-        {
-
         }
 
         public Weapon ActiveWeapon

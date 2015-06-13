@@ -23,8 +23,6 @@ namespace Assets.Scripts
 
         private bool isEnemy = false;
 
-        protected AttackDto attackResult;
-
         protected string name;
 
         public FightCharacter(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks)
@@ -86,17 +84,11 @@ namespace Assets.Scripts
             return false;
         }
 
-        public AttackDto getAttacked(Attack attack)
+        public void getAttacked(Attack attack)
         {
-            AttackDto attackResult = new AttackDto();
-            attackResult.setAttackedChar(this);
-            attackResult.setInflictedDamage(applyDamage(attack.Damage));
+            applyDamage(attack.Damage);
 
             attack.Effect.inflict(this);
-            attackResult.setCurrentEffect(currentEffect);
-            attackResult.setInflictEffect(attack.Effect);
-
-            return attackResult;
         }
 
 

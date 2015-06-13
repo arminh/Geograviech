@@ -150,6 +150,15 @@ namespace Assets.Scripts
                 isTurnFinished = false;
                 stateChanged = true;
                 state = 0;
+
+                if(activeFighter.CurrentEffect != null)
+                {
+                    activeFighter.CurrentEffect.execute(activeFighter);
+                    if(activeFighter.CurrentEffect is SleepEffect)
+                    {
+                        return;
+                    }
+                }
             }
 
             if (!activeFighter.IsEnemy)
@@ -266,8 +275,7 @@ namespace Assets.Scripts
 
         private void useItem(IConsumable choosenItem, FightCharacter choosenViech)
         {
-            ItemDto result = player.useItem(choosenItem, choosenViech);
-            //TODO log
+            player.useItem(choosenItem, choosenViech);
             isTurnFinished = true;
         }
 
@@ -300,80 +308,16 @@ namespace Assets.Scripts
 	        }
         }
 
-/*        public void attackEnemy(Attack attack)
-        {
-            clearButtonPanel();
-            List<FightCharacter> availableEnemies = getAttackableEnemies();
-            if(availableEnemies.Count == 1)
-            {
-                attackViech(attack, availableEnemies.FirstOrDefault());
-				return;
-            }
-
-            RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
-            Vector2 panelPosition = panelRectTransform.anchoredPosition;
-            Vector2 panelSize = panelRectTransform.sizeDelta;
-
-            Vector2 buttonSize = calculateButtonSize(panelSize, availableEnemies.Count);
-            List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, availableEnemies.Count);
-
-            for (int i = 0; i < availableEnemies.Count; i++)
-            {
-                GameObject go = (GameObject)Instantiate(buttonPrefab);
-                RectTransform buttonRectTransForm = go.transform as RectTransform;
-                buttonRectTransForm.anchoredPosition = buttonPositions[i];
-                buttonRectTransForm.sizeDelta = buttonSize;
-
-                go.transform.SetParent(buttonPanel.transform,false);
-                go.GetComponentInChildren<Text>().text = availableEnemies[i].Identifier;
-
-                Button b = go.GetComponent<Button>();
-                FightCharacter captured = availableEnemies[i];
-                b.onClick.AddListener(() => attackViech(attack,captured));
-            }
-        }*/
-
         public void attackViech(Attack attack, FightCharacter viech)
         {
             //zum gegner fahren
             Debug.Log("attackViech");
-            AttackDto attackResult = viech.getAttacked(attack);
+            viech.getAttacked(attack);
             //Start attack animation
             //Start hurt animation if possible an yield till done
             //yield till all animations done
             //TODO log result
-            Debug.Log("attackViech2");
-            String message = "";
-            if(viech.IsEnemy)
-            {
-                message += "Enemy " + viech.Name + " "; 
-            }else
-            {
-                if(viech == player)
-                {
-                    message += "You ";
-                }else
-                {
-                    message += "Your viech " + viech.Name + " ";
-                }
-            }
-            
-            message += "take(s) " + attackResult.getInflictedDamage() + " Damage";
-               
-                if (viech.isDead())
-                {
-                    message += "and is dead! ";
-                    fighters.Remove(viech);
-                    if(viech == enemy)
-                    {
-                        message += "You won the fight!";
-                    }
-                    if(viech == player)
-                    {
-                        message += "You lost the fight!";
-                    }
-                }
-            
+        
             
                 isTurnFinished = true;
         }
