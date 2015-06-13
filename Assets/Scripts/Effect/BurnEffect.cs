@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 namespace Assets.Scripts
@@ -6,14 +7,30 @@ namespace Assets.Scripts
     public class BurnEffect: Effect
     {
         public BurnEffect(int inflictChance)
-            : base(inflictChance, EffectType.BURN)
+            : base(inflictChance, 10, EffectType.BURN)
         {
 
         }
 
-        public override void execute(FightCharacter character)
+        public override IEnumerable execute(FightCharacter character)
         {
+            if (!tryCure(character))
+            {
+                increaseCureChance(15);
 
+                int health = character.Health;
+                double dmgTemp = health / 100 * 5;
+                int damage = Convert.ToInt32(dmgTemp);
+
+                character.Health -= damage;
+            }
+
+            yield break;
+        }
+
+        protected override void playAnimation(FightCharacter character)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

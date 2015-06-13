@@ -72,13 +72,11 @@ namespace Assets.Scripts
             return false;
         }
 
-
         public bool cureEffect(Effect.EffectType effectToCure)
         {
             if (effectToCure.Equals(currentEffect.Type))
             {
-                currentEffect = null;
-                //TODO notify AnimationHandler
+                currentEffect.cure(this);
                 return true;
             }
             return false;
