@@ -38,9 +38,10 @@ namespace Assets.Scripts
         Attack chosenAttack = null;
         bool isattack = false;
         bool isUseItem = false;
+        bool isSkip = false;
 
         bool stateChanged = false;
-
+        Boolean isWaiting = false;
         public static FightManager Instance
         {
             get
@@ -128,16 +129,16 @@ namespace Assets.Scripts
 
         public void Update()
         {
-            if(executeFight)
+            if(executeFight && !isWaiting)
             {
                 Debug.Log("executeFight");
-                executeTurn();
+                StartCoroutine(executeTurn());
             }
         }
 
         
 
-        private void executeTurn()
+        private IEnumerator executeTurn()
         {
             if (isTurnFinished)
             {
@@ -153,10 +154,19 @@ namespace Assets.Scripts
 
                 if(activeFighter.CurrentEffect != null)
                 {
-                    activeFighter.CurrentEffect.execute(activeFighter);
-                    if(activeFighter.CurrentEffect is SleepEffect)
+                    foreach(var x in activeFighter.CurrentEffect.execute(activeFighter))
                     {
-                        return;
+                        yield return null;
+                    }
+                    AnimationStatus anim = activeFighter.Sprite.GetComponentInChildren<AnimationStatus>();
+                    while (!anim.areSpechialAnimationsFinished())
+                    {
+                        yield return null;
+                    }
+                    Log.Instance.print();
+                    if(activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is SleepEffect)
+                    {
+                        yield break;
                     }
                 }
             }
@@ -165,12 +175,12 @@ namespace Assets.Scripts
             {   
                 isTurnFinished = false;
                 executeFSM();
+                
             }else
             {
                 AI.executeTurn(activeFighter);
                 isTurnFinished = true;
             }
-            
         }
 
         private void executeFSM()
@@ -188,7 +198,7 @@ namespace Assets.Scripts
                     {
                         case 0:
                             {
-                                FightScreenManager.Instance.showActionMenu();
+                                FightScreenManager.Instance.showActionMenu(player.Items.Count != null,true);
                                 stateChanged = false;
                                 break;
                             }
@@ -199,10 +209,14 @@ namespace Assets.Scripts
                                     FightScreenManager.Instance.showConsumablesMenu(player.Items);
 
                                 }
-                                else
+                                else if(isattack)
                                 {
                                     List<FightCharacter> viecher = getAttackableEnemies();
                                     FightScreenManager.Instance.showViecherMenu(viecher);
+                                }
+                                else if (isSkip)
+                                {
+                                    isTurnFinished = true;
                                 }
                                 stateChanged = false;
                                 break;
@@ -246,18 +260,30 @@ namespace Assets.Scripts
                     {
                         case 0:
                             {
-                                FightScreenManager.Instance.showAttackMenu(activeFighter.Attacks);
+                                FightScreenManager.Instance.showActionMenu(false, false);
                                 stateChanged = false;
                                 break;
                             }
                         case 1:
+                            {
+                                if (isattack)
+                                {
+                                    FightScreenManager.Instance.showAttackMenu(activeFighter.Attacks);
+                                }else if(isSkip)
+                                {
+                                    isTurnFinished = true;
+                                }
+                                stateChanged = false;
+                                break;
+                            }
+                        case 2:
                             {
                                 List<FightCharacter> viecher = getAttackableEnemies();
                                 FightScreenManager.Instance.showViecherMenu(viecher);
                                 stateChanged = false;
                                 break;
                             }
-                        case 2:
+                        case 3:
                             {
                                 attackViech(chosenAttack, chosenViech);
                                 break;
@@ -312,7 +338,31 @@ namespace Assets.Scripts
         {
             //zum gegner fahren
             Debug.Log("attackViech");
-            viech.getAttacked(attack);
+
+            if (activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is StunEffect)
+            {
+                System.Random rand = new System.Random();
+                int action = rand.Next(1, 3);
+                Log.Instance.Info(activeFighter.Name + "is confused!");
+                switch (action)
+                {
+                    case 1:
+                        viech.getAttacked(attack);
+                        break;
+                    case 2:
+                        Log.Instance.Info("It hurts itself!");
+                        activeFighter.getAttacked(attack);
+                        break;
+                    case 3:
+                        Log.Instance.Info("It misses the enemy!");
+                        break;
+                }
+            }
+            else
+            {
+                viech.getAttacked(attack);
+            }
+            Log.Instance.print();
             //Start attack animation
             //Start hurt animation if possible an yield till done
             //yield till all animations done
@@ -430,6 +480,13 @@ namespace Assets.Scripts
         public void setChosenAttack(Attack attack)
         {
             chosenAttack = attack;
+            incrementState();
+        }
+
+        public void skipChosen()
+        {
+            Debug.Log("attackChosen");
+            isSkip = true;
             incrementState();
         }
     }

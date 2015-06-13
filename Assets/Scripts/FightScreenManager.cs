@@ -100,39 +100,67 @@ public class FightScreenManager : MonoBehaviour {
         }
     }
 
-    public void showActionMenu()
+    public void showActionMenu(bool hasItems,bool showItemButton)
     {
         clearButtonPanel();
+
+        int buttonCount = 2;
+        if(showItemButton)
+        {
+            buttonCount = 3;
+        }
+
+
         RectTransform panelRectTransform = buttonPanel.transform as RectTransform;
         Vector2 panelPosition = panelRectTransform.anchoredPosition;
         Vector2 panelSize = panelRectTransform.sizeDelta;
 
-        Vector2 buttonSize = calculateButtonSize(panelSize, 2);
-        List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, 2);
+        Vector2 buttonSize = calculateButtonSize(panelSize, buttonCount);
+        List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, buttonCount);
 
-        //use item
+        int currentindex = 0;
+        if (showItemButton)
+        {
+            //use item
             GameObject go = (GameObject)Instantiate(buttonPrefab);
             RectTransform buttonRectTransForm = go.transform as RectTransform;
-            buttonRectTransForm.anchoredPosition = buttonPositions[0];
+            buttonRectTransForm.anchoredPosition = buttonPositions[currentindex];
             buttonRectTransForm.sizeDelta = buttonSize;
 
             go.transform.SetParent(buttonPanel.transform, false);
             go.GetComponentInChildren<Text>().text = "Use Item";
 
-           Button b = go.GetComponent<Button>();
-           b.onClick.AddListener(() => FightManager.Instance.useItemChosen());
+            Button b = go.GetComponent<Button>();
+            b.interactable = hasItems;
+            b.onClick.AddListener(() => FightManager.Instance.useItemChosen());
+            currentindex++;
+        }
 
         //attack
-           go = (GameObject)Instantiate(buttonPrefab);
-           buttonRectTransForm = go.transform as RectTransform;
-           buttonRectTransForm.anchoredPosition = buttonPositions[1];
-           buttonRectTransForm.sizeDelta = buttonSize;
+        GameObject go1 = (GameObject)Instantiate(buttonPrefab);
+        RectTransform buttonRectTransForm1 = go1.transform as RectTransform;
+           buttonRectTransForm1.anchoredPosition = buttonPositions[currentindex];
+           buttonRectTransForm1.sizeDelta = buttonSize;
 
-           go.transform.SetParent(buttonPanel.transform, false);
-           go.GetComponentInChildren<Text>().text = "Attack";
+           go1.transform.SetParent(buttonPanel.transform, false);
+           go1.GetComponentInChildren<Text>().text = "Attack";
 
-           b = go.GetComponent<Button>();
-           b.onClick.AddListener(() => FightManager.Instance.attackChosen());
+           Button b1 = go1.GetComponent<Button>();
+           b1.onClick.AddListener(() => FightManager.Instance.attackChosen());
+           currentindex++;
+
+        //SkipTurn
+           GameObject go2 = (GameObject)Instantiate(buttonPrefab);
+           RectTransform buttonRectTransForm2 = go2.transform as RectTransform;
+           buttonRectTransForm2.anchoredPosition = buttonPositions[currentindex];
+           buttonRectTransForm2.sizeDelta = buttonSize;
+
+           go2.transform.SetParent(buttonPanel.transform, false);
+           go2.GetComponentInChildren<Text>().text = "Skip Turn";
+
+           Button b2 = go1.GetComponent<Button>();
+           b2.onClick.AddListener(() => FightManager.Instance.skipChosen());
+           currentindex++;
 
 
     }
@@ -173,7 +201,7 @@ public class FightScreenManager : MonoBehaviour {
             i++;
         }
 
-        //attack
+        //Back
         GameObject gameObject = (GameObject)Instantiate(buttonPrefab);
         RectTransform backButtonRectTransForm = gameObject.transform as RectTransform;
         backButtonRectTransForm.anchoredPosition = buttonPositions[items.Count];
@@ -214,7 +242,7 @@ public class FightScreenManager : MonoBehaviour {
             i++;
         }
 
-        //attack
+        //Back
         GameObject gameObject = (GameObject)Instantiate(buttonPrefab);
         RectTransform backButtonRectTransForm = gameObject.transform as RectTransform;
         backButtonRectTransForm.anchoredPosition = buttonPositions[viecher.Count];
@@ -249,7 +277,7 @@ public class FightScreenManager : MonoBehaviour {
             go.GetComponentInChildren<Text>().text = attack.Name;
 
             Button b = go.GetComponent<Button>();
-
+            b.interactable = attack.Active;
             Attack captured = attack;
             b.onClick.AddListener(() => FightManager.Instance.setChosenAttack(attack));
             i++;

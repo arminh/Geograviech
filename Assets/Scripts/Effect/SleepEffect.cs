@@ -11,9 +11,9 @@ namespace Assets.Scripts
 
         }
 
-        public override void execute(FightCharacter character)
+        public override IEnumerable execute(FightCharacter character)
         {
-
+            yield break;
         }
     }
 }

@@ -126,4 +126,8 @@ public class AnimationStatus : MonoBehaviour
                 break;
         }
     }
+    public bool areSpechialAnimationsFinished()
+    {
+        return false;
+    }
 }

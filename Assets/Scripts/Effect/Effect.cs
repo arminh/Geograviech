@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,7 @@ namespace Assets.Scripts
             }
         }
 
-        public abstract void execute(FightCharacter character);
+        public abstract IEnumerable execute(FightCharacter character);
 
         public enum EffectType { BURN, POISON, SLEEP, STUN, FREEZE, NONE };
 

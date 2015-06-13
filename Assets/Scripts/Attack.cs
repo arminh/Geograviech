@@ -42,5 +42,10 @@ namespace Assets.Scripts
             get { return effect; }
         }
 
+        public bool Active
+        {
+            get { return true; }
+        }
+
     }
 }

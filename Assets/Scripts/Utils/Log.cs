@@ -58,5 +58,10 @@ namespace Assets.Scripts.Utils
             return logBook;
         }
 
+        public void print()
+        {
+            // print changes since last print to screen
+        }
+
     }
 }
