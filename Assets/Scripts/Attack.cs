@@ -13,17 +13,13 @@ namespace Assets.Scripts
         private int damage;
         private Effect effect;
 
+
         public Attack(string name,ElementType type, int damage, Effect effect)
         {
             this.name = name;
             this.type = type;
             this.damage = damage;
             this.effect = effect;
-        }
-
-        public void execute(FightCharacter character)
-        {
-
         }
 
         public string Name

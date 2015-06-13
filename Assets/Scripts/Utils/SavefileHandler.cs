@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using Assets.Scripts.Consumables;
 
 namespace Assets.Scripts {
     public static class SavefileHandler {
@@ -108,6 +110,10 @@ namespace Assets.Scripts {
                 videntifier.InnerText = viech.Identifier;
                 v.AppendChild(videntifier);
 
+                XmlElement vtype = doc.CreateElement("type");
+                vtype.InnerText = viech.Type.ToString();
+                v.AppendChild(vtype);
+
                 XmlElement vmaxHealth = doc.CreateElement("maxHealth");
                 vmaxHealth.InnerText = viech.MaxHealth.ToString();
                 v.AppendChild(vmaxHealth);
@@ -153,16 +159,155 @@ namespace Assets.Scripts {
             }
         }
 
-       /* public static Player readSavefile(string path)
+        private static void addItems(ref XmlDocument doc, ref XmlElement el, List<IConsumable> items)
+        {
+            foreach (IConsumable item in items)
+            {
+                XmlElement i = doc.CreateElement("item");
+                el.AppendChild(i);
+               
+                XmlElement attName = doc.CreateElement("name");
+                attName.InnerText = i.Name;
+                el.AppendChild(attName);
+
+               /* XmlElement dropChance = doc.CreateElement("dropChance");
+                dropChance.InnerText = i.Drop.ToString();
+                el.AppendChild(dropChance);
+
+                XmlElement quantity = doc.CreateElement("quantity");
+                quantity.InnerText = i.Damage.ToString();
+                el.AppendChild(quantity);*/
+            }
+        }
+
+        public static Player readSavefile(string path)
         {
             XmlDocument xml = new XmlDocument();
-            xml.LoadXml(path);
+            xml.Load(path);
 
-            XmlNodeList savefile = xml.GetElementsByTagName("player");
+            XmlNode savefile = xml.SelectSingleNode("player");
 
-            Player player = new Player();
+            string name = savefile.SelectSingleNode("name").InnerText;
+            string identifier = savefile.SelectSingleNode("identifier").InnerText;
+
+            int maxHealth = 0;
+            if (!int.TryParse(savefile.SelectSingleNode("maxHealth").InnerText, out maxHealth))
+            {
+                //Savefile corrupt
+            }
+
+            int speed = 0;
+            if (!int.TryParse(savefile.SelectSingleNode("speed").InnerText, out speed))
+            {
+                //Savefile corrupt
+            }
+
+            int strength = 0;
+            if (!int.TryParse(savefile.SelectSingleNode("strength").InnerText, out strength))
+            {
+                //Savefile corrupt
+            }
+
+            int level = 0;
+            if (!int.TryParse(savefile.SelectSingleNode("level").InnerText, out level))
+            {
+                //Savefile corrupt
+            }
+
+            int xp = 0;
+            if (!int.TryParse(savefile.SelectSingleNode("xp").InnerText, out xp))
+            {
+                //Savefile corrupt
+            }
+
+            XmlNode atts = savefile.SelectSingleNode("attacks");
+            List<Attack> attacks = getAttacks(atts);
+
+            XmlNode vs = savefile.SelectSingleNode("viecher");
+            List<Viech> viecher = getViecher(vs);
+
+            XmlNode activeVs = savefile.SelectSingleNode("activeViecher");
+            List<Viech> activeViecher = getViecher(activeVs);
+
+            Player player = new Player(maxHealth, speed, strength, name, identifier, xp, level, viecher, activeViecher, null, null, null, attacks);
 
             return player;
-        }*/
+        }
+
+        private static List<Attack> getAttacks(XmlNode atts)
+        {
+            List<Attack> attacks = new List<Attack>();
+
+            foreach (XmlNode att in atts.ChildNodes)
+            {
+                attacks.Add(getAttack(att));
+            }
+
+            return attacks;
+        }
+
+        private static Attack getAttack(XmlNode att)
+        {
+            string name = att.SelectSingleNode("name").InnerText;
+            ElementType type = (ElementType)Enum.Parse(typeof(ElementType), att.SelectSingleNode("type").InnerText);
+            int damage = 0;
+            if (!int.TryParse(att.SelectSingleNode("damage").InnerText, out damage))
+            {
+                //Savefile corrupt
+            }
+
+            //TODO Read Effect
+            return new Attack(name, type, damage, new BurnEffect(50));    
+        }
+
+        private static List<Viech> getViecher(XmlNode vs)
+        {
+            List<Viech> viecher = new List<Viech>();
+
+            foreach (XmlNode v in vs.ChildNodes)
+            {
+                string name = v.SelectSingleNode("name").InnerText;
+                string identifier = v.SelectSingleNode("identifier").InnerText;
+
+                ElementType type = (ElementType)Enum.Parse(typeof(ElementType), v.SelectSingleNode("type").InnerText);
+
+                int maxHealth = 0;
+                if (!int.TryParse(v.SelectSingleNode("maxHealth").InnerText, out maxHealth))
+                {
+                    //Savefile corrupt
+                }
+
+                int speed = 0;
+                if (!int.TryParse(v.SelectSingleNode("speed").InnerText, out speed))
+                {
+                    //Savefile corrupt
+                }
+
+                int strength = 0;
+                if (!int.TryParse(v.SelectSingleNode("strength").InnerText, out strength))
+                {
+                    //Savefile corrupt
+                }
+
+                int level = 0;
+                if (!int.TryParse(v.SelectSingleNode("level").InnerText, out level))
+                {
+                    //Savefile corrupt
+                }
+
+                int xp = 0;
+                if (!int.TryParse(v.SelectSingleNode("xp").InnerText, out xp))
+                {
+                    //Savefile corrupt
+                }
+
+                XmlNode atts = v.SelectSingleNode("attacks");
+                List<Attack> attacks = getAttacks(atts);
+
+                viecher.Add(new Viech(maxHealth, speed, strength, name, identifier, level, xp, attacks, type));
+            }
+
+            return viecher;
+        }
     }
 }
