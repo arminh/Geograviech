@@ -9,7 +9,7 @@ namespace Assets.Scripts
     public class ItemDto
     {
         private IConsumable item;
-        private FightViech viech;
+        private FightCharacter character;
         private int healedAmount;
         private Effect curedEffect;
 
@@ -19,9 +19,9 @@ namespace Assets.Scripts
             get { return item; }
         }
 
-        public FightViech Viech
+        public FightCharacter Character
         {
-            get { return viech; }
+            get { return character; }
         }
 
         public int HealedAmount
