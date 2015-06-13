@@ -94,8 +94,4 @@ public class AnimationStatus : MonoBehaviour
     {
         Status = Enums.MonsterStatus.IsIdle;
     }
-    public bool areSpechialAnimationsFinished()
-    {
-        return false;
-    }
 }
