@@ -22,5 +22,17 @@ namespace Assets.Scripts
 
             yield break;
         }
+
+        public override void cure(FightCharacter character)
+        {
+            base.cure(character);
+            character.Sprite.GetComponent<AnimationStatus>().WakeUp();
+        }
+
+        public override void inflict(FightCharacter character)
+        {
+            base.inflict(character);
+            character.Sprite.GetComponent<AnimationStatus>().FallAsleep();
+        }
     }
 }
