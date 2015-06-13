@@ -54,7 +54,7 @@ public class AnimationStatus : MonoBehaviour
         SpecialDamageStatus = Effect.EffectType.NONE;
     }
 
-    public void FallAsleeping()
+    public void FallAsleep()
     {
         if (Status == Enums.MonsterStatus.IsIdle)
         {

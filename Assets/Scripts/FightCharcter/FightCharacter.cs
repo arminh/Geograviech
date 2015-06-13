@@ -40,13 +40,15 @@ namespace Assets.Scripts
         protected int applyDamage(int damage)
         {
             //Reduce damage by Strength maybe?
-            //damage -= strength;
+            //damage -= strength
 
             health -= damage;
 
             if(health <= 0) {
                 die();
             }
+
+            sprite.GetComponent<AnimationStatus>().PlaySpecialDamageEffect(Effect.EffectType.NONE);
 
             return damage;
 

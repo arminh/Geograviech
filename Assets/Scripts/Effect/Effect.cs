@@ -19,7 +19,7 @@ namespace Assets.Scripts
 
         protected System.Random rand = new System.Random();
 
-        public void inflict(FightCharacter character)
+        public virtual void inflict(FightCharacter character)
         {
             if (character.CurrentEffect == null)
             {
