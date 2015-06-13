@@ -199,6 +199,7 @@ GameObject:
   - 95: {fileID: 9585942}
   - 114: {fileID: 11437918}
   - 82: {fileID: 8257972}
+  - 61: {fileID: 6130944}
   m_Layer: 0
   m_Name: Figur
   m_TagString: Untagged
@@ -782,7 +783,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -28.6870937, y: 22.2235012, z: 0}
   m_LocalScale: {x: -.300000012, y: .300000012, z: 1}
   m_Children:
   - {fileID: 492610}
@@ -890,6 +891,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 448712}
   m_RootOrder: 6
+--- !u!61 &6130944
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141390}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 9.52000046, y: 23.8500004}
 --- !u!82 &8257972
 AudioSource:
   m_ObjectHideFlags: 1
@@ -987,7 +1001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfe786e47e63c240b2b3b73790e9030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 20
   MaxDistanceToGoal: .100000001
   started: 0
 --- !u!114 &11437918
@@ -1002,6 +1016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Status: 0
+  SpecialDamageStatus: 0
 --- !u!212 &21209838
 SpriteRenderer:
   m_ObjectHideFlags: 1

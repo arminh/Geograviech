@@ -349,7 +349,8 @@ namespace Assets.Scripts
             Debug.Log("attackViech");
 
             //zum gegner fahren
-            GoToPoint gotoPoint = activeFighter.Sprite.GetComponent<GoToPoint>();
+            
+            Vector3 position = activeFighter.Sprite.transform.position;
             Vector3 enemyPosition = viech.Sprite.transform.position;
             BoxCollider2D enemyCollider = viech.Sprite.GetComponentInChildren<BoxCollider2D>();
             BoxCollider2D collider = activeFighter.Sprite.GetComponentInChildren<BoxCollider2D>();
@@ -361,11 +362,15 @@ namespace Assets.Scripts
             xPosition = enemyPosition.x - enemyCollider.bounds.size.x/2 - collider.bounds.size.x/2;
             float yPosition = enemyPosition.y - enemyCollider.bounds.size.y/2 + collider.bounds.size.y/2;
             Vector3 attackPosition = new Vector3(xPosition, yPosition);
+
+            GoToPoint gotoPoint = activeFighter.Sprite.GetComponent<GoToPoint>();
             gotoPoint.start(attackPosition);
             while(!gotoPoint.isFinished())
             {
                 yield return null;
             }
+
+            //TODO Attackanimation
 
             if (activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is StunEffect)
             {
@@ -380,6 +385,7 @@ namespace Assets.Scripts
                     case 2:
                         Log.Instance.Info("It hurts itself!");
                         activeFighter.getAttacked(attack);
+
                         break;
                     case 3:
                         Log.Instance.Info("It misses the enemy!");
@@ -390,14 +396,41 @@ namespace Assets.Scripts
             {
                 viech.getAttacked(attack);
             }
+
+
+
+
+            while(!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
+            {
+                yield return null;
+            }
+
+            while (!viech.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
+            {
+                yield return null;
+            }
+
             Log.Instance.print();
-            //Start attack animation
-            //Start hurt animation if possible an yield till done
-            //yield till all animations done
-            //TODO log result
-        
-            
-                isTurnFinished = true;
+
+            if (viech.isDead())
+            {
+                fighters.Remove(viech);
+                Destroy(viech.Sprite);
+            }
+
+            if (activeFighter.isDead())
+            {
+                fighters.Remove(activeFighter);
+                Destroy(activeFighter.Sprite);
+            }else
+            {
+                gotoPoint.start(position);
+                while (!gotoPoint.isFinished())
+                {
+                    yield return null;
+                }
+            }
+            isTurnFinished = true;
         }
 
         public List<FightCharacter> getAttackableEnemies()

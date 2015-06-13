@@ -55,7 +55,7 @@ namespace Assets.Scripts
         protected void die()
         {
             dead = true;
-            sprite.GetComponent<AnimationStatus>().Die();
+            sprite.GetComponentInChildren<AnimationStatus>().Die();
         }
 
         public bool heal(int amount)
