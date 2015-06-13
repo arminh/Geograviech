@@ -5,6 +5,7 @@ using Assets.Scripts.Utils;
 public class AnimationStatus : MonoBehaviour 
 {
     public Enums.MonsterStatus Status;
+    public Enums.MonsterAttackEffect SpecialDamageStatus;
 
     private Animator MonsterAnimator;
 
@@ -14,89 +15,70 @@ public class AnimationStatus : MonoBehaviour
 	    MonsterAnimator = GetComponent<Animator>();
 	}
 
-    public bool SetOnFire 
-    { 
-        get 
-        {
-            return Status == Enums.MonsterStatus.IsBurning;
-        }
-        set
-        {
-            SetStatus(Enums.MonsterStatus.IsBurning, value);
-        }
-    }
-    public bool SetFrozen
+    public void PlaySpecialDamageEffect(Enums.MonsterAttackEffect effect)
     {
-        get
+        if (Status == Enums.MonsterStatus.IsIdle)
         {
-            return Status == Enums.MonsterStatus.IsFrozen;
-        }
-        set
-        {
-            SetStatus(Enums.MonsterStatus.IsFrozen, value);
-        }
-    }
-    public bool SetSleeping
-    {
-        get
-        {
-            return Status == Enums.MonsterStatus.IsSleeping;
-        }
-        set
-        {
-            SetStatus(Enums.MonsterStatus.IsSleeping, value);
-        }
-    }
-    public bool SetPoisoned
-    {
-        get
-        {
-            return Status == Enums.MonsterStatus.IsPoisoned;
-        }
-        set
-        {
-            SetStatus(Enums.MonsterStatus.IsPoisoned, value);
-        }
-    }
-    public bool SetStunned
-    {
-        get
-        {
-            return Status == Enums.MonsterStatus.IsStunned;
-        }
-        set
-        {
-            SetStatus(Enums.MonsterStatus.IsStunned, value);
+            SpecialDamageStatus = effect;
+            Status = Enums.MonsterStatus.IsSpecial;
+            switch (effect)
+            {
+                case Enums.MonsterAttackEffect.None:
+                    MonsterAnimator.SetTrigger("Hurt");
+                    break;
+                case Enums.MonsterAttackEffect.Burning:
+                    MonsterAnimator.SetTrigger("Burning");
+                    break;
+                case Enums.MonsterAttackEffect.Stunned:
+                    MonsterAnimator.SetTrigger("Stunned");
+                    break;
+                case Enums.MonsterAttackEffect.Poisoned:
+                    MonsterAnimator.SetTrigger("Poisoned");
+                    break;
+                case Enums.MonsterAttackEffect.Frozen:
+                    MonsterAnimator.SetTrigger("Frozen");
+                    break;
+            }
         }
     }
 
-    public void SetIdle()
+    public void PlaySpecialDamageEffectAgain()
     {
-        Status = Enums.MonsterStatus.IsIdle;
+        if (SpecialDamageStatus != Enums.MonsterAttackEffect.None)
+            PlaySpecialDamageEffect(SpecialDamageStatus);
     }
 
-    public void SetDead()
+    public void ResetSpecialDamageEffect()
+    {
+        SpecialDamageStatus = Enums.MonsterAttackEffect.None;
+    }
+
+    public void FallAsleeping()
+    {
+        if (Status == Enums.MonsterStatus.IsIdle)
+        {
+            Status = Enums.MonsterStatus.IsSleeping;
+            MonsterAnimator.SetBool("Sleeping", true);
+        }
+    }
+
+    public void WakeUp()
+    {
+        if (Status == Enums.MonsterStatus.IsSleeping)
+        {
+            MonsterAnimator.SetBool("Sleeping", false);
+        }
+    }
+
+    public void Die()
     {
         Status = Enums.MonsterStatus.IsDead;
         MonsterAnimator.SetTrigger("Death");
     }
 
-    public void WasHurt()
+    public bool areSpechialAnimationsFinished()
     {
-        MonsterAnimator.SetTrigger("Hurt");
-    }
-
-    private void SetStatus(Enums.MonsterStatus stat, bool value)
-    {
-        if (value && Status == Enums.MonsterStatus.IsIdle)
-        {
-            Status = stat;
-            SetAnimationBool(stat, true);
-        }
-        if (!value)
-        {
-            SetAnimationBool(stat, false);
-        }
+        return false;
     }
 
     public Enums.MonsterStatus GetStatus()
@@ -104,27 +86,13 @@ public class AnimationStatus : MonoBehaviour
         return Status;
     }
 
-
-    private void SetAnimationBool(Enums.MonsterStatus stat, bool value)
+    /**
+     * Do not use this function!!!!
+     * Do not delete this function!!!!
+     */
+    public void SetIdleState()
     {
-        switch (stat)
-        {
-            case Enums.MonsterStatus.IsSleeping:
-                MonsterAnimator.SetBool("Sleeping", value);
-                break;
-            case Enums.MonsterStatus.IsBurning:
-                MonsterAnimator.SetBool("Burning", value);
-                break;
-            case Enums.MonsterStatus.IsStunned:
-                MonsterAnimator.SetBool("Stunned", value);
-                break;
-            case Enums.MonsterStatus.IsPoisoned:
-                MonsterAnimator.SetBool("Poisoned", value);
-                break;
-            case Enums.MonsterStatus.IsFrozen:
-                MonsterAnimator.SetBool("Frozen", value);
-                break;
-        }
+        Status = Enums.MonsterStatus.IsIdle;
     }
     public bool areSpechialAnimationsFinished()
     {
