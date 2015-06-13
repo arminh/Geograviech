@@ -150,6 +150,7 @@ namespace Assets.Scripts
                 isTurnFinished = false;
                 stateChanged = true;
                 state = 0;
+
             }
 
             if (!activeFighter.IsEnemy)
