@@ -44,11 +44,19 @@ namespace Assets.Scripts
 
             health -= damage;
 
+            if(health <= 0) {
+                die();
+            }
+
             return damage;
 
         }
 
-        protected abstract void die();
+        protected void die()
+        {
+            dead = true;
+            sprite.GetComponent<AnimationStatus>().Die();
+        }
 
         public bool heal(int amount)
         {

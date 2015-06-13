@@ -15,15 +15,6 @@ namespace Assets.Scripts.Utils
             IsSpecial
         };
 
-        public enum MonsterAttackEffect
-        {
-            None,
-            Burning,
-            Stunned,
-            Poisoned,
-            Frozen
-        };
-
         public enum MonsterType
         {
             Water,

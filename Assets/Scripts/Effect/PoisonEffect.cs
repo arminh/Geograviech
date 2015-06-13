@@ -28,10 +28,5 @@ namespace Assets.Scripts
 
             yield break;
         }
-
-        protected override void playAnimation(FightCharacter character)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

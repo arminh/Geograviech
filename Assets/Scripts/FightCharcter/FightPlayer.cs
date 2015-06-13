@@ -33,11 +33,6 @@ namespace Assets.Scripts
             item.use(character);
         }
 
-        protected override void die()
-        {
-
-        }
-
         public void useConsumable(IConsumable consumable)
         {
             consumable.use(this);
