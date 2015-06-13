@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 using Assets.Scripts.Utils;
 
 public class AnimationStatus : MonoBehaviour 
 {
     public Enums.MonsterStatus Status;
-    public Enums.MonsterAttackEffect SpecialDamageStatus;
+    public Effect.EffectType SpecialDamageStatus;
 
     private Animator MonsterAnimator;
 
@@ -15,27 +16,27 @@ public class AnimationStatus : MonoBehaviour
 	    MonsterAnimator = GetComponent<Animator>();
 	}
 
-    public void PlaySpecialDamageEffect(Enums.MonsterAttackEffect effect)
+    public void PlaySpecialDamageEffect(Effect.EffectType effectType)
     {
         if (Status == Enums.MonsterStatus.IsIdle)
         {
-            SpecialDamageStatus = effect;
+            SpecialDamageStatus = effectType;
             Status = Enums.MonsterStatus.IsSpecial;
-            switch (effect)
+            switch (effectType)
             {
-                case Enums.MonsterAttackEffect.None:
+                case Effect.EffectType.NONE:
                     MonsterAnimator.SetTrigger("Hurt");
                     break;
-                case Enums.MonsterAttackEffect.Burning:
+                case Effect.EffectType.BURN:
                     MonsterAnimator.SetTrigger("Burning");
                     break;
-                case Enums.MonsterAttackEffect.Stunned:
+                case Effect.EffectType.STUN:
                     MonsterAnimator.SetTrigger("Stunned");
                     break;
-                case Enums.MonsterAttackEffect.Poisoned:
+                case Effect.EffectType.POISON:
                     MonsterAnimator.SetTrigger("Poisoned");
                     break;
-                case Enums.MonsterAttackEffect.Frozen:
+                case Effect.EffectType.FREEZE:
                     MonsterAnimator.SetTrigger("Frozen");
                     break;
             }
@@ -44,16 +45,16 @@ public class AnimationStatus : MonoBehaviour
 
     public void PlaySpecialDamageEffectAgain()
     {
-        if (SpecialDamageStatus != Enums.MonsterAttackEffect.None)
+        if (SpecialDamageStatus != Effect.EffectType.NONE)
             PlaySpecialDamageEffect(SpecialDamageStatus);
     }
 
     public void ResetSpecialDamageEffect()
     {
-        SpecialDamageStatus = Enums.MonsterAttackEffect.None;
+        SpecialDamageStatus = Effect.EffectType.NONE;
     }
 
-    public void FallAsleeping()
+    public void FallAsleep()
     {
         if (Status == Enums.MonsterStatus.IsIdle)
         {

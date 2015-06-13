@@ -40,15 +40,25 @@ namespace Assets.Scripts
         protected int applyDamage(int damage)
         {
             //Reduce damage by Strength maybe?
-            //damage -= strength;
+            //damage -= strength
 
             health -= damage;
+
+            if(health <= 0) {
+                die();
+            }
+
+            sprite.GetComponentInChildren<AnimationStatus>().PlaySpecialDamageEffect(Effect.EffectType.NONE);
 
             return damage;
 
         }
 
-        protected abstract void die();
+        protected void die()
+        {
+            dead = true;
+            sprite.GetComponentInChildren<AnimationStatus>().Die();
+        }
 
         public bool heal(int amount)
         {
@@ -72,19 +82,17 @@ namespace Assets.Scripts
             return false;
         }
 
-
         public bool cureEffect(Effect.EffectType effectToCure)
         {
             if (effectToCure.Equals(currentEffect.Type))
             {
-                currentEffect = null;
-                //TODO notify AnimationHandler
+                currentEffect.cure(this);
                 return true;
             }
             return false;
         }
 
-        public void getAttacked(Attack attack)
+        public void getAttacked(Attack attack, int opponentStrength)
         {
             applyDamage(attack.Damage);
 

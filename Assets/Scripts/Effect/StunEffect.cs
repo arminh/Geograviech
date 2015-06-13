@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 namespace Assets.Scripts
@@ -6,14 +7,19 @@ namespace Assets.Scripts
     public class StunEffect : Effect
     {
         public StunEffect(int inflictChance)
-            : base(inflictChance, EffectType.STUN)
+            : base(inflictChance, 10, EffectType.STUN)
         {
 
         }
 
-        public override void execute(FightCharacter character)
+        public override IEnumerator execute(FightCharacter character)
         {
+            if (!tryCure(character))
+            {
+                increaseCureChance(15);
+            }
 
+            yield break;
         }
     }
 }

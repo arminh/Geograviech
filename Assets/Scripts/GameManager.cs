@@ -36,13 +36,9 @@ namespace Assets.Scripts
 
             player = new Player(15, 15, 5, "TestPlayer", "Player", 500, 5, viecher, activeViecher, weapons, weapon, new List<IConsumable>(), new List<Attack>());
 
-            FightViech enemy = new FightViech("Zerberwelpe", 17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 0.4f, new List<IConsumable>(), 160);
-
- 
+            FightViech enemy = new FightViech("Zerberwelpe", 17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 40, new List<Item>(), 160);
 
            StartCoroutine(executeFight(enemy));
-              
-
         }
 
         public void showMenu()
@@ -88,12 +84,25 @@ namespace Assets.Scripts
                     viech.gainXp(xpPerChar);
                 }
 
-
                 if (enemy.decideJoin())
                 {
                     //TODO: Give Viech a name
                     Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Identifier, enemy.Level, 0, enemy.Attacks, enemy.Type);
                     player.addViech(viech);
+                }
+
+                List<Item> droppedItems = enemy.dropItems();
+
+                foreach (Item item in droppedItems)
+                {
+                    if (item is IConsumable)
+                    {
+                        player.addConsumable((IConsumable)item);
+                    }
+                    else
+                    {
+                        player.addWeapon((Weapon)item);
+                    }
                 }
             }
 

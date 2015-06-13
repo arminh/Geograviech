@@ -46,6 +46,16 @@ namespace Assets.Scripts
             viecher.Add(viech);
         }
 
+        public void addWeapon(Weapon weapon)
+        {
+            weapons.Add(weapon);
+        }
+
+        public void addConsumable(IConsumable item)
+        {
+            items.Add(item);
+        }
+
         public List<Viech> Viecher
         {
             get { return viecher; }

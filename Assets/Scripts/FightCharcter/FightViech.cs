@@ -9,35 +9,53 @@ namespace Assets.Scripts
 {
     public class FightViech : FightCharacter
     {
+        private const int num_drops = 3;
+
         private ElementType type;
-        private float catchChance;
-        private List<IConsumable> dropItems;
+        private int catchChance;
+        private List<Item> drops;
 
         protected int xpAmount;
         protected int level;
 
-        public FightViech(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
+        protected System.Random rand;
+
+        public FightViech(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, int catchChance, List<Item> drops, int xpAmount)
             : base(identifier, maxHealth, speed, strength, name, attacks)
         {
             this.type = type;
             this.catchChance = catchChance;
-            this.dropItems = dropItems;
+            this.drops = drops;
             this.xpAmount = xpAmount;
+
+            rand = new System.Random();
         }
 
-        protected override void die()
+        public List<Item> dropItems()
         {
+            List<Item> droppedItems = new List<Item>();
 
-        }
+            for (int i = 0; i < num_drops; i++)
+            {
+                Item dropItem = drops[rand.Next(0, drops.Count - 1)];
 
-        public void dropItem()
-        {
+                if (rand.Next(1, 100) <= dropItem.DropChance)
+                {
+                    droppedItems.Add(dropItem);
+                }
+            }
 
+            return droppedItems;
         }
 
         public bool decideJoin()
         {
-            return true;
+            if (rand.Next(1, 100) <= catchChance)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public ElementType Type
@@ -52,9 +70,9 @@ namespace Assets.Scripts
         }
 
 
-        public List<IConsumable> DropItems
+        public List<Item> Drops
         {
-            get { return dropItems; }
+            get { return drops; }
         }
 
 
