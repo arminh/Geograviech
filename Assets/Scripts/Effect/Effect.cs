@@ -28,7 +28,7 @@ namespace Assets.Scripts
                 if (num <= inflictChance)
                 {
                     character.CurrentEffect = this;
-                    character.Sprite.GetComponent<AnimationStatus>().PlaySpecialDamageEffect(this.type);
+                    character.Sprite.GetComponentInChildren<AnimationStatus>().PlaySpecialDamageEffect(this.type);
                 }
             }  
         }

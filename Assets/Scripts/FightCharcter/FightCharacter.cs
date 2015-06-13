@@ -48,7 +48,7 @@ namespace Assets.Scripts
                 die();
             }
 
-            sprite.GetComponent<AnimationStatus>().PlaySpecialDamageEffect(Effect.EffectType.NONE);
+            sprite.GetComponentInChildren<AnimationStatus>().PlaySpecialDamageEffect(Effect.EffectType.NONE);
 
             return damage;
 
@@ -92,7 +92,7 @@ namespace Assets.Scripts
             return false;
         }
 
-        public void getAttacked(Attack attack)
+        public void getAttacked(Attack attack, int opponentStrength)
         {
             applyDamage(attack.Damage);
 

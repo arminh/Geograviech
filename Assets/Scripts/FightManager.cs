@@ -202,9 +202,6 @@ namespace Assets.Scripts
 
         private IEnumerator executeFSM()
         {
-           // while(!isTurnFinished)
-           // {
-                // TODO implement effects
             Debug.Log("executeFSM");
             if (stateChanged)
             {
@@ -380,11 +377,11 @@ namespace Assets.Scripts
                 switch (action)
                 {
                     case 1:
-                        viech.getAttacked(attack);
+                        viech.getAttacked(attack,activeFighter.Strength);
                         break;
                     case 2:
                         Log.Instance.Info("It hurts itself!");
-                        activeFighter.getAttacked(attack);
+                        activeFighter.getAttacked(attack, activeFighter.Strength);
 
                         break;
                     case 3:
@@ -394,7 +391,7 @@ namespace Assets.Scripts
             }
             else
             {
-                viech.getAttacked(attack);
+                viech.getAttacked(attack, activeFighter.Strength);
             }
 
 
