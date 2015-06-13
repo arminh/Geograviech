@@ -353,8 +353,12 @@ namespace Assets.Scripts
             Vector3 enemyPosition = viech.Sprite.transform.position;
             BoxCollider2D enemyCollider = viech.Sprite.GetComponentInChildren<BoxCollider2D>();
             BoxCollider2D collider = activeFighter.Sprite.GetComponentInChildren<BoxCollider2D>();
-
-            float xPosition = enemyPosition.x - enemyCollider.bounds.size.x/2 - collider.bounds.size.x/2;
+            float xPosition;
+            if(activeFighter.IsEnemy)
+            {
+                xPosition = enemyPosition.x + enemyCollider.bounds.size.x / 2 + collider.bounds.size.x / 2;
+            }
+            xPosition = enemyPosition.x - enemyCollider.bounds.size.x/2 - collider.bounds.size.x/2;
             float yPosition = enemyPosition.y - enemyCollider.bounds.size.y/2 + collider.bounds.size.y/2;
             Vector3 attackPosition = new Vector3(xPosition, yPosition);
             gotoPoint.start(attackPosition);
