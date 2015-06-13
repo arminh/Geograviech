@@ -28,7 +28,7 @@ namespace Assets.Scripts
                 if (num <= inflictChance)
                 {
                     character.CurrentEffect = this;
-                    playAnimation(character);
+                    character.Sprite.GetComponent<AnimationStatus>().PlaySpecialDamageEffect(this.type);
                 }
             }  
         }
@@ -54,8 +54,6 @@ namespace Assets.Scripts
         }
 
         public abstract IEnumerable execute(FightCharacter character);
-
-        protected abstract void playAnimation(FightCharacter character);
 
         public enum EffectType { BURN, POISON, SLEEP, STUN, FREEZE, NONE };
 

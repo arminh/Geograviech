@@ -25,11 +25,6 @@ namespace Assets.Scripts
             this.xpAmount = xpAmount;
         }
 
-        protected override void die()
-        {
-
-        }
-
         public void dropItem()
         {
 

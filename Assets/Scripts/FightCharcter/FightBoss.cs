@@ -16,12 +16,6 @@ namespace Assets.Scripts
             this.activeViecher = activeViecher;
         }
 
-
-        protected override void die()
-        {
-            throw new NotImplementedException();
-        }
-
         public List<FightViech> ActiveViecher
         {
             get { return activeViecher; }
