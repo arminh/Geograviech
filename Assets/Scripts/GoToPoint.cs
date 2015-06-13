@@ -35,4 +35,9 @@ public class GoToPoint : MonoBehaviour
             }
         }
     }
+
+    public bool isFinished()
+    {
+        return !started;
+    }
 }

@@ -198,7 +198,7 @@ namespace Assets.Scripts
                     {
                         case 0:
                             {
-                                FightScreenManager.Instance.showActionMenu(player.Items.Count != null,true);
+                                FightScreenManager.Instance.showActionMenu(player.Items.Count != 0,true);
                                 stateChanged = false;
                                 break;
                             }
@@ -291,12 +291,6 @@ namespace Assets.Scripts
                     }
                 }
             }
-              /*  while (!playerHasChoosen && !isTurnFinished)
-                {
-                    Debug.Log("Thread sleeps");
-                    Thread.Sleep(200);
-                }*/ 
-           // }
         }
 
         private void useItem(IConsumable choosenItem, FightCharacter choosenViech)
@@ -321,11 +315,8 @@ namespace Assets.Scripts
                     scale.x *= 2;
                     scale.y *= 2;
                     if(isEnemy)
-                    {
-                       
+                    {                   
                         scale.x *= -1;
-                        
-                        
                     }
                     spriteInitialisation.transform.localScale = scale;
                     character.Sprite = spriteInitialisation;
@@ -336,8 +327,17 @@ namespace Assets.Scripts
 
         public void attackViech(Attack attack, FightCharacter viech)
         {
-            //zum gegner fahren
+            
             Debug.Log("attackViech");
+
+//zum gegner fahren
+            GoToPoint gotoPoint = activeFighter.Sprite.GetComponent<GoToPoint>();
+            Vector3 enemyPosition = viech.Sprite.transform.position;
+            gotoPoint.start(enemyPosition);
+            while(!gotoPoint.isFinished())
+            {
+
+            }
 
             if (activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is StunEffect)
             {
@@ -371,11 +371,6 @@ namespace Assets.Scripts
             
                 isTurnFinished = true;
         }
-
-  /*      public void turnFinished()
-        {
-            isTurnFinished = true;
-        }*/
 
         public List<FightCharacter> getAttackableEnemies()
         {
@@ -419,19 +414,6 @@ namespace Assets.Scripts
             return viecher;
         }
 
-        /*
-        public FightPlayer getHero()
-        {
-            return player;
-        }
-
-        public FightCharacter getEnemy()
-        {
-            return enemy;
-        }
-
-         
- */
         public void incrementState()
         {
             state++;

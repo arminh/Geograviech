@@ -158,7 +158,7 @@ public class FightScreenManager : MonoBehaviour {
            go2.transform.SetParent(buttonPanel.transform, false);
            go2.GetComponentInChildren<Text>().text = "Skip Turn";
 
-           Button b2 = go1.GetComponent<Button>();
+           Button b2 = go2.GetComponent<Button>();
            b2.onClick.AddListener(() => FightManager.Instance.skipChosen());
            currentindex++;
 
@@ -337,7 +337,7 @@ public class FightScreenManager : MonoBehaviour {
                     x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
                     buttonPositions.Add(new Vector2(x, y));
 
-                    x = (panelSize.x - calculateButtonSize(panelSize, 3).x) / 2;
+                    x = panelPosition.x+ (panelSize.x - calculateButtonSize(panelSize, 3).x) / 2;
                     y = panelPosition.y;
                     buttonPositions.Add(new Vector2(x, y));
                     break;
