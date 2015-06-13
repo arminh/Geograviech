@@ -26,12 +26,11 @@ namespace Assets.Scripts
             this.items = items;
         }
 
-        public ItemDto useItem(IConsumable item, FightCharacter character)
+        public void useItem(IConsumable item, FightCharacter character)
         {
             Debug.Log("Use Item Action triggerd");
 
             item.use(character);
-            return null;
         }
 
         protected override void die()
