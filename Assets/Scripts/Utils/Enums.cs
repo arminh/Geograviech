@@ -11,11 +11,17 @@ namespace Assets.Scripts.Utils
         {
             IsIdle,
             IsSleeping,
-            IsBurning,
-            IsStunned,
-            IsPoisoned,
-            IsFrozen,
-            IsDead
+            IsDead,
+            IsSpecial
+        };
+
+        public enum MonsterAttackEffect
+        {
+            None,
+            Burning,
+            Stunned,
+            Poisoned,
+            Frozen
         };
 
         public enum MonsterType
@@ -40,5 +46,12 @@ namespace Assets.Scripts.Utils
             INFO = 0,
             ERROR = 1
         };
+
+        public enum ItemType
+        {
+            Weapon,
+            Monster,
+            Consumable
+        }
     }
 }
