@@ -6,27 +6,47 @@ using System;
 
 namespace Assets.Scripts.ArtificialIntelligence
 {
-    public static class AI 
+    public class AI : MonoBehaviour
     {
+        private static AI instance;
 
-        public static void executeTurn(FightCharacter viech)
+        public static AI Instance
         {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = GameObject.FindObjectOfType<AI>();
 
+                    //Tell unity not to destroy this object when loading a new scene!
+                    DontDestroyOnLoad(instance.gameObject);
+                }
+                return instance;
+            }
         }
 
-        private static void selectAttack(Action<String> function, Dictionary<String, int> items)
+
+        public IEnumerator executeTurn(FightCharacter viech)
+        {
+            Attack attack = viech.Attacks.FirstOrDefault();
+
+            return selectAttackEnemy(attack);
+        }
+
+        private void selectAttack(Action<String> function, Dictionary<String, int> items)
         {
             string item = items.FirstOrDefault().Key;
 
             function.Invoke(item);
         }
 
-        private static void selectAttackEnemy(Attack attack)
+        private IEnumerator selectAttackEnemy(Attack attack)
         {
             List<FightCharacter> attackAble = FightManager.Instance.getPlayerViecher(true);
-
-            FightManager.Instance.attackViech(attack, attackAble.FirstOrDefault());
+            return FightManager.Instance.attackViech(attack, attackAble.FirstOrDefault());
         }
+
+
     }
 }
 

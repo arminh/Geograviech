@@ -129,12 +129,12 @@ namespace Assets.Scripts
 
         public void Update()
         {
-            if(player.isDead())
+            if(player != null && player.isDead())
             {
                 GameManager.Instance.fightFinished(enemy, player);
                 executeFight = false;
             }
-            if(enemy.isDead())
+            if(enemy != null && enemy.isDead())
             {
                 GameManager.Instance.fightFinished(player, enemy);
                 executeFight = false;
@@ -150,7 +150,9 @@ namespace Assets.Scripts
         
 
         private IEnumerator executeTurn()
-        {isWaiting = true;
+        {
+            isWaiting = true;
+
             if (isTurnFinished)
             {
                 FightScreenManager.Instance.setPositions(fighters);
@@ -194,7 +196,7 @@ namespace Assets.Scripts
                 
             }else
             {
-                AI.executeTurn(activeFighter);
+                yield return StartCoroutine(AI.Instance.executeTurn(activeFighter));
                 isTurnFinished = true;
             }
             isWaiting = false;
@@ -342,7 +344,7 @@ namespace Assets.Scripts
 
         public IEnumerator attackViech(Attack attack, FightCharacter viech)
         {
-            
+
             Debug.Log("attackViech");
 
             //zum gegner fahren
@@ -352,11 +354,14 @@ namespace Assets.Scripts
             BoxCollider2D enemyCollider = viech.Sprite.GetComponentInChildren<BoxCollider2D>();
             BoxCollider2D collider = activeFighter.Sprite.GetComponentInChildren<BoxCollider2D>();
             float xPosition;
-            if(activeFighter.IsEnemy)
+            if (activeFighter.IsEnemy)
             {
                 xPosition = enemyPosition.x + enemyCollider.bounds.size.x / 2 + collider.bounds.size.x / 2;
             }
-            xPosition = enemyPosition.x - enemyCollider.bounds.size.x/2 - collider.bounds.size.x/2;
+            else
+            {
+                xPosition = enemyPosition.x - enemyCollider.bounds.size.x / 2 - collider.bounds.size.x / 2;
+            }
             float yPosition = enemyPosition.y - enemyCollider.bounds.size.y/2 + collider.bounds.size.y/2;
             Vector3 attackPosition = new Vector3(xPosition, yPosition);
 
