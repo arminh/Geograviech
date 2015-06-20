@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
+
 namespace Assets.Scripts.ArtificialIntelligence
 {
     public class AI : MonoBehaviour
@@ -85,16 +86,13 @@ namespace Assets.Scripts.ArtificialIntelligence
 
         private bool viechHasCCAttack(List<Attack> attacks)
         {
-            var result = attacks.Where(y => y.Effect != null).Any(x => x.Effect.Type == Effect.EffectType.FREEZE ||
-                                                                       x.Effect.Type == Effect.EffectType.SLEEP ||
-                                                                       x.Effect.Type == Effect.EffectType.STUN);
+            var result = attacks.Where(y => y.Effect != null).Any(x => x.Effect.IsCCType);
             return result;
         }
 
         private bool viechHasSDAttack(List<Attack> attacks)
         {
-            var result = attacks.Where(y => y.Effect != null).Any(x => x.Effect.Type == Effect.EffectType.BURN ||
-                                                                       x.Effect.Type == Effect.EffectType.POISON);
+            var result = attacks.Where(y => y.Effect != null).Any(x => x.Effect.IsSDType);
             return result;
         }
 
