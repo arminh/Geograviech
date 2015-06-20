@@ -34,10 +34,10 @@ public class InventoryContentHandler : MonoBehaviour
 
     public void AddMonsterToList(Viech monster)
     {
-        //var prefab = PrefabContainer.getMonsterIconPrefab(monster.Identifier, true);
-        //var dragHandler = prefab.GetComponent<ListMonsterDragHandler>();
-        //dragHandler.Item = monster;
-        //prefab.transform.SetParent(MonsterList);
+        var prefab = PrefabContainer.getMonsterListIconPrefab();
+        var dragHandler = prefab.GetComponent<ListMonsterDragHandler>();
+        dragHandler.OnListItemCreated(monster);
+        prefab.transform.SetParent(MonsterList);
     }
 
     private void FillItemList(List<IConsumable> items)
@@ -50,10 +50,11 @@ public class InventoryContentHandler : MonoBehaviour
 
     public void AddItemToList(IConsumable item)
     {
-        //var prefab = PrefabContainer.getConsumableIconPrefab(item.Name, true);
-        //var dragHandler = prefab.GetComponent<ListConsumableDragHandler>();
-        //dragHandler.Item = item;
-        //prefab.transform.SetParent(ItemList);
+        var prefab = PrefabContainer.getConsumableListIconPrefab();
+
+        var dragHandler = prefab.GetComponent<ListConsumableDragHandler>();
+        dragHandler.OnListItemCreated(item);
+        prefab.transform.SetParent(ItemList);
     }
 
     private void FillWeaponList(List<Weapon> weapons)
@@ -67,6 +68,7 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddWeaponToList(Weapon weapon)
     {
         var prefab = PrefabContainer.getWeaponListIconPrefab();
+        
         var dragHandler = prefab.GetComponent<ListWeaponDragHandler>();
         dragHandler.OnListItemCreated(weapon);
         prefab.transform.SetParent(WeaponList);
