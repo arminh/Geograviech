@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.Consumables
 {
@@ -13,5 +14,7 @@ namespace Assets.Scripts.Consumables
         int DropChance{ get; }
 
         int Quantity{ get; }
+
+        Sprite Icon { get; }
     }
 }

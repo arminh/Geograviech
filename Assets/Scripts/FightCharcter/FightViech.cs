@@ -20,8 +20,8 @@ namespace Assets.Scripts
 
         protected System.Random rand;
 
-        public FightViech(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, int catchChance, List<Item> drops, int xpAmount)
-            : base(identifier, maxHealth, speed, strength, name, attacks)
+        public FightViech(int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, int catchChance, List<Item> drops, int xpAmount, GameObject sprite, Sprite icon)
+            : base(maxHealth, speed, strength, name, attacks, sprite, icon)
         {
             this.type = type;
             this.catchChance = catchChance;

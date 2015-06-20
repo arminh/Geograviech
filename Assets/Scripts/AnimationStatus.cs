@@ -58,7 +58,7 @@ public class AnimationStatus : MonoBehaviour
     {
         if (Status == Enums.MonsterStatus.IsIdle)
         {
-            Status = Enums.MonsterStatus.IsSleeping;
+            Status = Enums.MonsterStatus.IsSpecial;
             MonsterAnimator.SetBool("Sleeping", true);
         }
     }
@@ -67,19 +67,26 @@ public class AnimationStatus : MonoBehaviour
     {
         if (Status == Enums.MonsterStatus.IsSleeping)
         {
+            Status = Enums.MonsterStatus.IsSpecial;
             MonsterAnimator.SetBool("Sleeping", false);
         }
     }
 
     public void Die()
     {
-        Status = Enums.MonsterStatus.IsDead;
+        Status = Enums.MonsterStatus.IsSpecial;
         MonsterAnimator.SetTrigger("Death");
+    }
+
+    public void Attack()
+    {
+        Status = Enums.MonsterStatus.IsSpecial;
+        MonsterAnimator.SetTrigger("Attack");
     }
 
     public bool areSpechialAnimationsFinished()
     {
-        return Status == Enums.MonsterStatus.IsSleeping || Status == Enums.MonsterStatus.IsIdle;
+        return Status == Enums.MonsterStatus.IsSleeping || Status == Enums.MonsterStatus.IsIdle || Status == Enums.MonsterStatus.IsDead;
     }
 
     public Enums.MonsterStatus GetStatus()
@@ -91,8 +98,8 @@ public class AnimationStatus : MonoBehaviour
      * Do not use this function!!!!
      * Do not delete this function!!!!
      */
-    public void SetIdleState()
+    public void SetState(Enums.MonsterStatus state)
     {
-        Status = Enums.MonsterStatus.IsIdle;
+        Status = state;
     }
 }

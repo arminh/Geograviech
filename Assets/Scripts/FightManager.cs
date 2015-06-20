@@ -24,9 +24,6 @@ namespace Assets.Scripts
 
         private static FightManager instance;
 
-        public List<GameObject> allViecherPefabs;
-
-
         private bool isTurnFinished;
         private bool executeFight = false;
 
@@ -160,7 +157,6 @@ namespace Assets.Scripts
                 fighters.RemoveAt(0);
 
                 fighters.Add(activeFighter);
-                Debug.Log("Active fighter: " + activeFighter.identifier);
                 isTurnFinished = false;
                 stateChanged = true;
                 state = 0;
@@ -321,25 +317,18 @@ namespace Assets.Scripts
 
             character.IsEnemy = isEnemy;
             fighters.Add(character);
-            foreach (GameObject sprite in allViecherPefabs)
-            {
-
-                if (sprite.name.Equals(character.Identifier))
-                {
                     
-                    GameObject spriteInitialisation = Instantiate(sprite, Vector3.zero, Quaternion.identity) as GameObject;
-                    Vector3 scale = spriteInitialisation.transform.localScale;
-                    scale.x *= 2;
-                    scale.y *= 2;
-                    if(isEnemy)
-                    {                   
-                        scale.x *= -1;
-                    }
-                    spriteInitialisation.transform.localScale = scale;
-                    character.Sprite = spriteInitialisation;
-                    return;
-                }
-	        }
+            GameObject spriteInitialisation = Instantiate(character.Sprite, Vector3.zero, Quaternion.identity) as GameObject;
+            Vector3 scale = spriteInitialisation.transform.localScale;
+            scale.x *= 2;
+            scale.y *= 2;
+            if(isEnemy)
+            {                   
+                scale.x *= -1;
+            }
+            spriteInitialisation.transform.localScale = scale;
+            character.Sprite = spriteInitialisation;
+            return;
         }
 
         public IEnumerator attackViech(Attack attack, FightCharacter viech)
@@ -372,7 +361,7 @@ namespace Assets.Scripts
                 yield return null;
             }
 
-            //TODO Attackanimation
+            activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().Attack();
 
             if (activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is StunEffect)
             {
@@ -396,7 +385,9 @@ namespace Assets.Scripts
             }
             else
             {
+                Debug.Log("Vor getAttacked");
                 viech.getAttacked(attack, activeFighter.Strength);
+                Debug.Log("Nach getAttacked");
             }
 
 
@@ -404,11 +395,13 @@ namespace Assets.Scripts
 
             while(!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
+                Debug.Log("wait");
                 yield return null;
             }
 
             while (!viech.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
+                Debug.Log("wait");
                 yield return null;
             }
 
