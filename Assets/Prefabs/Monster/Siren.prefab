@@ -198,7 +198,7 @@ GameObject:
   - 4: {fileID: 424234}
   - 114: {fileID: 11435218}
   m_Layer: 0
-  m_Name: Sirene
+  m_Name: Siren
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,9 +3,10 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using Assets.Scripts.Utils;
 
-public class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler 
+public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler 
 {
     public Enums.ItemType type;
+	public object Item;
 
     public static DragItemHandler ItemToBeDragged;
     public static Transform ItemOriginalSlot;
@@ -36,9 +37,19 @@ public class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (ItemCanvasGroup != null)
             ItemCanvasGroup.blocksRaycasts = true;
 
-        if (transform.parent == ItemOriginalSlot)
+        if (ItemToBeDragged.transform.parent == ItemOriginalSlot)
+        {
             Destroy(ItemToBeDragged.gameObject);
+
+			var slot = ItemOriginalSlot.GetComponent<ItemSlot>();
+			if (slot && slot.type == this.type)
+			{
+				OnPlaceInSlot();
+			}
+        }
 
         ItemToBeDragged = null;
     }
+
+	protected abstract void OnPlaceInSlot();
 }

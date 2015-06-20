@@ -15,8 +15,8 @@ namespace Assets.Scripts
 
         private List<IConsumable> items;
 
-        public Player(int maxHealth, int speed, int strength, string name, string identifier, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks)
-            : base(maxHealth, speed, strength, name, identifier, level, xp, attacks)
+        public Player(int maxHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, GameObject sprite, GameObject icon)
+            : base(maxHealth, speed, strength, name, level, xp, attacks, sprite, icon)
         {
            
             this.viecher = viecher;
@@ -24,7 +24,6 @@ namespace Assets.Scripts
             this.weapons = weapons;
             this.activeWeapon = activeWeapon;
             this.items = items;
-
         }
 
         public FightPlayer createHero()
@@ -38,7 +37,7 @@ namespace Assets.Scripts
             }
 
 
-            return new FightPlayer(maxHealth, speed, strength, name, fightViecher, activeWeapon, attacks, items);
+            return new FightPlayer(maxHealth, speed, strength, name, fightViecher, activeWeapon, attacks, items, sprite, icon);
         }
 
         public void addViech(Viech viech)
@@ -46,14 +45,47 @@ namespace Assets.Scripts
             viecher.Add(viech);
         }
 
+        public void removeViech(Viech viech)
+        {
+            viecher.Remove(viech);
+        }
+
         public void addWeapon(Weapon weapon)
         {
             weapons.Add(weapon);
         }
 
-        public void addConsumable(IConsumable item)
+        public void removeWeapon(Weapon weapon)
         {
-            items.Add(item);
+            weapons.Remove(weapon);
+        }
+        
+        public void addConsumable(Item consumable)
+        {
+            foreach (Item item in items)
+            {
+                if(consumable.Name == item.Name)
+                {
+                    item.Quantity += 1;
+                    break;
+                }
+                else
+                {
+                    items.Add((IConsumable)consumable);
+                }
+            }
+        }
+
+        public void removeConsumable(Item item, int amount)
+        {
+            if(item.Quantity > amount) 
+            {
+                item.Quantity -= amount;
+            }
+            else
+            {
+                items.Remove((IConsumable)item);
+            }
         }
 
         public List<Viech> Viecher
@@ -72,6 +104,7 @@ namespace Assets.Scripts
         public Weapon ActiveWeapon
         {
             get { return activeWeapon; }
+            set { activeWeapon = value; }
         }
         public List<IConsumable> Items
         {
