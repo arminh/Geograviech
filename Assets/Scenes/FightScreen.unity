@@ -457,16 +457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f442197fc227d4b48bf8502a34e02ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allViecherPefabs:
-  - {fileID: 188014, guid: c4bd026e083aa9145b99c20f48fcbbd7, type: 2}
-  - {fileID: 187630, guid: 8bd7dfd6f4475734f836b7e8fa1c8f93, type: 2}
-  - {fileID: 114900, guid: d8ef42baf572a8649bb26c260736fdab, type: 2}
-  - {fileID: 137114, guid: 621f50f28be0cc542a414b1ddb582632, type: 2}
-  - {fileID: 144722, guid: 6932bfc7899850e4cb8aa7744f5e8f6e, type: 2}
-  - {fileID: 197998, guid: 8857adf1f9eb6d4419127a092e9c65a0, type: 2}
-  - {fileID: 199638, guid: 7b9097094c85cef43bca0e3149112b4d, type: 2}
-  - {fileID: 165050, guid: c3e7b693bb565864fb62793d77cf11bd, type: 2}
-  - {fileID: 102038, guid: c4cc7c82f98a8f54ca77a67560a41285, type: 2}
 --- !u!4 &1925819687
 Transform:
   m_ObjectHideFlags: 0
@@ -492,6 +482,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 106024, guid: 385687e60cf95434fbbe51701516bdaf, type: 2}
   sprite: {fileID: 21300000, guid: fe9e9e262a3a5674b928a1fc641f82fb, type: 3}
+  attackSprite: {fileID: 21300000, guid: d040f9b1cc1fa044b82e53b7e9e5b9b7, type: 3}
+  backSprite: {fileID: 21300000, guid: a6fa2688ef35c3248a70c781510f0dd5, type: 3}
   canvas: {fileID: 1794903993}
 --- !u!114 &1925819689
 MonoBehaviour:

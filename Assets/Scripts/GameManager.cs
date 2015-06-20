@@ -16,10 +16,10 @@ namespace Assets.Scripts
         private static GameManager gameManager = null;
 
         public List<GameObject> allCharactersPefabs;
-        private Dictionary<string, GameObject> prefabs;
+        private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
 
         public List<Sprite> allCharactersIcons;
-        private Dictionary<string, Sprite> icons;
+        private Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
 
         private bool levelWasLoaded = false;
         private void OnLevelWasLoaded(int iLevel)

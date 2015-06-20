@@ -10,6 +10,8 @@ using Assets.Scripts.Consumables;
 public class FightScreenManager : MonoBehaviour {
     public GameObject buttonPrefab;
     public Sprite sprite;
+    public Sprite attackSprite;
+    public Sprite backSprite;
 
     List<Vector3> enemyPositions;
     List<Vector3> playerPositions;
@@ -156,7 +158,7 @@ public class FightScreenManager : MonoBehaviour {
            text1.text = "Attack";
            text1.transform.localPosition = new Vector3(0, -buttonSize.y/1.7f, 1);
            Image image1 = go1.GetComponentInChildren<Image>();
-           image1.sprite = sprite;
+           image1.sprite = attackSprite;
            image1.preserveAspect = true;
 
 
@@ -223,7 +225,7 @@ public class FightScreenManager : MonoBehaviour {
             text.text = item.Name + " x" + item.Quantity;
             text.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
             Image image = go.GetComponentInChildren<Image>();
-            image.sprite = sprite;
+            image.sprite = item.Icon;
             image.preserveAspect = true;
 
             Button b = go.GetComponent<Button>();
@@ -246,7 +248,7 @@ public class FightScreenManager : MonoBehaviour {
         text1.text = "Back";
         text1.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
         Image image1 = gameObject.GetComponentInChildren<Image>();
-        image1.sprite = sprite;
+        image1.sprite = backSprite;
         image1.preserveAspect = true;
 
         Button button = gameObject.GetComponent<Button>();
@@ -278,7 +280,7 @@ public class FightScreenManager : MonoBehaviour {
             text.text = viech.Name;
             text.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
             Image image = go.GetComponentInChildren<Image>();
-            image.sprite = sprite;
+            image.sprite = viech.Icon;
             image.preserveAspect = true;
 
             Button b = go.GetComponent<Button>();
@@ -301,7 +303,7 @@ public class FightScreenManager : MonoBehaviour {
         text1.text = "Back";
         text1.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
         Image image1 = gameObject.GetComponentInChildren<Image>();
-        image1.sprite = sprite;
+        image1.sprite = backSprite;
         image1.preserveAspect = true;
 
         Button button = gameObject.GetComponent<Button>();
@@ -356,7 +358,7 @@ public class FightScreenManager : MonoBehaviour {
         text1.text = "Back";
         text1.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
         Image image1 = gameObject.GetComponentInChildren<Image>();
-        image1.sprite = sprite;
+        image1.sprite = backSprite;
         image1.preserveAspect = true;
 
         Button button = gameObject.GetComponent<Button>();
