@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine.UI;
+using UnityEngine;
 
 namespace Assets
 {
@@ -13,7 +13,7 @@ namespace Assets
         protected int dropChance;
         protected int quantity;
 
-        protected Image icon;
+        protected GameObject icon;
 
         public String Name
         {
@@ -31,7 +31,7 @@ namespace Assets
             set { quantity = value; }
         }
 
-        public Image Icon
+        public GameObject Icon
         {
             get { return icon; }
         }
