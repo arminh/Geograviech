@@ -7,7 +7,6 @@ namespace Assets.Scripts
     public class Character
     {
         protected string name;
-        protected string identifier;
 
         protected int maxHealth;
         protected int speed;
@@ -19,21 +18,35 @@ namespace Assets.Scripts
 
         protected List<Attack> attacks;
 
-        public Character(int maxHealth, int speed, int strength, string name, string identifier, int level, int xp, List<Attack> attacks)
+        protected GameObject sprite;
+        protected GameObject icon;
+
+        public Character(int maxHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, GameObject sprite, GameObject icon)
         {
             this.maxHealth = maxHealth;
             this.speed = speed;
             this.strength = strength;
             this.name = name;
-            this.identifier = identifier;
             this.level = level;
             this.xp = xp;
             this.levelUpXp = 1000 * level;
             this.attacks = attacks;
+            this.sprite = sprite;
+            this.icon = icon;
         }
 
 
         public void gainXp(int amount)
+        {
+            xp += amount;
+
+            if (xp > levelUpXp)
+            {
+                levelUp();
+            }
+        }
+
+        private void levelUp()
         {
 
         }
@@ -41,11 +54,6 @@ namespace Assets.Scripts
         public string Name
         {
             get { return name; }
-        }
-
-        public string Identifier
-        {
-            get { return identifier; }
         }
 
         public int MaxHealth
@@ -76,6 +84,16 @@ namespace Assets.Scripts
         public List<Attack> Attacks
         {
             get { return attacks; }
+        }
+
+        public GameObject Sprite
+        {
+            get { return sprite; }
+        }
+
+        public GameObject Icon
+        {
+            get { return icon; }
         }
     }
 }

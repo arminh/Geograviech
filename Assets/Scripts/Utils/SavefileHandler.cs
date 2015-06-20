@@ -18,10 +18,6 @@ namespace Assets.Scripts {
             name.InnerText = player.Name;
             savefile.AppendChild(name);
 
-            XmlElement identifier = doc.CreateElement("identifier");
-            identifier.InnerText = player.Identifier;
-            savefile.AppendChild(identifier);
-
             XmlElement maxHealth = doc.CreateElement("maxHealth");
             maxHealth.InnerText = player.MaxHealth.ToString();
             savefile.AppendChild(maxHealth);
@@ -105,10 +101,6 @@ namespace Assets.Scripts {
                 XmlElement vname = doc.CreateElement("name");
                 vname.InnerText = viech.Name;
                 v.AppendChild(vname);
-
-                XmlElement videntifier = doc.CreateElement("identifier");
-                videntifier.InnerText = viech.Identifier;
-                v.AppendChild(videntifier);
 
                 XmlElement vtype = doc.CreateElement("type");
                 vtype.InnerText = viech.Type.ToString();
@@ -229,7 +221,7 @@ namespace Assets.Scripts {
             XmlNode activeVs = savefile.SelectSingleNode("activeViecher");
             List<Viech> activeViecher = getViecher(activeVs);
 
-            Player player = new Player(maxHealth, speed, strength, name, identifier, xp, level, viecher, activeViecher, null, null, null, attacks);
+            Player player = new Player(maxHealth, speed, strength, name, xp, level, viecher, activeViecher, null, null, null, attacks, null, null);
 
             return player;
         }
@@ -304,7 +296,7 @@ namespace Assets.Scripts {
                 XmlNode atts = v.SelectSingleNode("attacks");
                 List<Attack> attacks = getAttacks(atts);
 
-                viecher.Add(new Viech(maxHealth, speed, strength, name, identifier, level, xp, attacks, type));
+                viecher.Add(new Viech(maxHealth, speed, strength, name, level, xp, attacks, type, null, null));
             }
 
             return viecher;

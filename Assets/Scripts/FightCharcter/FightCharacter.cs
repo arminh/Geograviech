@@ -6,9 +6,6 @@ namespace Assets.Scripts
 {
     public abstract class FightCharacter
     {
-
-        public string identifier;
-
         protected int health;
         protected int maxHealth;
         protected int speed;
@@ -18,6 +15,7 @@ namespace Assets.Scripts
         protected Effect currentEffect;
 
         GameObject sprite = null;
+        GameObject icon = null;
        
         protected bool dead;
 
@@ -25,15 +23,17 @@ namespace Assets.Scripts
 
         protected string name;
 
-        public FightCharacter(string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks)
+        public FightCharacter(int maxHealth, int speed, int strength, string name, List<Attack> attacks, GameObject sprite, GameObject icon)
         {
-            this.identifier = identifier;
             this.maxHealth = maxHealth;
             this.health = maxHealth;
             this.speed = speed;
             this.strength = strength;
             this.name = name;
             this.attacks = attacks;
+
+            this.sprite = sprite;
+            this.icon = icon;
         }
        
 
@@ -99,12 +99,6 @@ namespace Assets.Scripts
             attack.Effect.inflict(this);
         }
 
-
-        public string Identifier
-        {
-            get { return identifier; }
-        }
-
         public int Health
         {
             get { return health; }
@@ -146,6 +140,11 @@ namespace Assets.Scripts
         {
             get { return sprite; }
             set { sprite = value; }
+        }
+
+        public GameObject Icon
+        {
+            get { return icon; }
         }
 
         public bool IsEnemy
