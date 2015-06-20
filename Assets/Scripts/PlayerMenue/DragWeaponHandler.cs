@@ -6,8 +6,8 @@ using Assets.Scripts;
 
 public class DragWeaponHandler : DragItemHandler  
 {
-	protected override void OnPlaceInSlot()
+	protected override void OnPlaceInSlot(ItemSlot slot)
 	{
-        PlayerMenueManager.RemoveActiveWeapon(this.Item as Weapon);
+        PlayerMenueManager.SwapActiveWeapon(null);
 	}
 }

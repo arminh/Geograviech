@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using Assets.Scripts.Utils;
 using Assets.Scripts.Consumables;
+using UnityEngine.UI;
+using Assets;
 
 public abstract class ListItemDragHandler : DragItemHandler
 {
@@ -23,10 +25,9 @@ public abstract class ListItemDragHandler : DragItemHandler
         }
 
 		var itemHandl = ItemToBeDragged.GetComponent<DragItemHandler>();
-		if (itemHandl)
-		{
-			itemHandl.Item = this.Item;
-		}
+		itemHandl.Item = this.Item;
+        var image = ItemToBeDragged.GetComponentInChildren<Image>();
+        image.sprite = (this.Item as Item).Icon;
 
         ItemCanvasGroup = ItemToBeDragged.GetComponent<CanvasGroup>();
         if (ItemCanvasGroup != null)
@@ -40,7 +41,7 @@ public abstract class ListItemDragHandler : DragItemHandler
 		var slot = ItemToBeDragged.transform.parent.GetComponent<ItemSlot>();
 		if (slot && slot.type == this.type)
 		{
-			OnPlaceInSlot();
+            OnPlaceInSlot(slot);
 		}
 		
 		base.OnEndDrag(eventData);

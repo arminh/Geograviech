@@ -36,11 +36,25 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddMonsterToList(Viech monster)
     {
         var prefab = PrefabContainer.getMonsterListIconPrefab();
-        var image = prefab.GetComponentInChildren<Image>();
+        var listItem = Instantiate(prefab);
+        var image = listItem.GetComponentInChildren<Image>();
         image.sprite = monster.Icon;
-        var dragHandler = prefab.GetComponent<ListMonsterDragHandler>();
+        var dragHandler = listItem.GetComponent<ListMonsterDragHandler>();
         dragHandler.OnListItemCreated(monster);
-        prefab.transform.SetParent(MonsterList);
+        listItem.transform.SetParent(MonsterList);
+    }
+
+    public void RemoveMonsterFromList(Viech monster)
+    {
+        ListMonsterDragHandler monsterItem = null;
+        foreach (var item in MonsterList.GetComponentsInChildren<ListMonsterDragHandler>())
+        {
+            if(item.Item.Equals(monster))
+            {
+                monsterItem = item;
+            }
+        }
+        Destroy(monsterItem.gameObject);
     }
 
     private void FillItemList(List<IConsumable> items)
@@ -54,11 +68,12 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddItemToList(IConsumable item)
     {
         var prefab = PrefabContainer.getConsumableListIconPrefab();
-        var image = prefab.GetComponentInChildren<Image>();
+        var listItem = Instantiate(prefab);
+        var image = listItem.GetComponentInChildren<Image>();
         image.sprite = item.Icon;
-        var dragHandler = prefab.GetComponent<ListConsumableDragHandler>();
+        var dragHandler = listItem.GetComponent<ListConsumableDragHandler>();
         dragHandler.OnListItemCreated(item);
-        prefab.transform.SetParent(ItemList);
+        listItem.transform.SetParent(ItemList);
     }
 
     private void FillWeaponList(List<Weapon> weapons)
@@ -72,10 +87,11 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddWeaponToList(Weapon weapon)
     {
         var prefab = PrefabContainer.getWeaponListIconPrefab();
-        var image = prefab.GetComponentInChildren<Image>();
+        var listItem = Instantiate(prefab);
+        var image = listItem.GetComponentInChildren<Image>();
         image.sprite = weapon.Icon;
-        var dragHandler = prefab.GetComponent<ListWeaponDragHandler>();
+        var dragHandler = listItem.GetComponent<ListWeaponDragHandler>();
         dragHandler.OnListItemCreated(weapon);
-        prefab.transform.SetParent(WeaponList);
+        listItem.transform.SetParent(WeaponList);
     }
 }

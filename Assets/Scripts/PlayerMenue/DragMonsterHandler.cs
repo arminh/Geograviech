@@ -6,8 +6,8 @@ using Assets.Scripts;
 
 public class DragMonsterHandler : DragItemHandler  
 {
-	protected override void OnPlaceInSlot()
+	protected override void OnPlaceInSlot(ItemSlot slot)
 	{
-        PlayerMenueManager.RemoveMonsterFromActive(this.Item as Viech);
+        PlayerMenueManager.SwapActiveMonster(null, slot.SlotNumber);
 	}
 }

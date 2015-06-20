@@ -6,7 +6,7 @@ using Assets.Scripts.Consumables;
 
 public class DragConsumableHandler : DragItemHandler 
 {
-    protected override void OnPlaceInSlot()
+    protected override void OnPlaceInSlot(ItemSlot slot)
     {
         //TODO something
     }

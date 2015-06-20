@@ -10,9 +10,9 @@ public class ListWeaponDragHandler : ListItemDragHandler
     public Text Name;
     public Text Damage;
 
-	protected override void OnPlaceInSlot()
+	protected override void OnPlaceInSlot(ItemSlot slot)
 	{
-		PlayerMenueManager.SetActiveWeapon(this.Item as Weapon);
+		PlayerMenueManager.SwapActiveWeapon(this.Item as Weapon);
 	}
 
     public override void OnListItemCreated(object item)

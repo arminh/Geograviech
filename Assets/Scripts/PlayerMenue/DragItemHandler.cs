@@ -44,12 +44,12 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
 			var slot = ItemOriginalSlot.GetComponent<ItemSlot>();
 			if (slot && slot.type == this.type)
 			{
-				OnPlaceInSlot();
+                OnPlaceInSlot(slot);
 			}
         }
 
         ItemToBeDragged = null;
     }
 
-	protected abstract void OnPlaceInSlot();
+	protected abstract void OnPlaceInSlot(ItemSlot slot);
 }

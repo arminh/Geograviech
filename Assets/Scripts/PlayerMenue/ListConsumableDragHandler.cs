@@ -11,7 +11,7 @@ public class ListConsumableDragHandler : ListItemDragHandler
     public Text Name;
     public Text Effect;
 
-	protected override void OnPlaceInSlot()
+	protected override void OnPlaceInSlot(ItemSlot slot)
 	{
 		//TODO something
 	}

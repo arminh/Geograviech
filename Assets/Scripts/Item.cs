@@ -15,6 +15,14 @@ namespace Assets
 
         protected Sprite icon;
 
+        public Item(string name, int dropChance, int quantity, Sprite icon)
+        {
+            this.name = name;
+            this.dropChance = dropChance;
+            this.quantity = quantity;
+            this.icon = icon;
+        }
+
         public String Name
         {
             get { return name; }
