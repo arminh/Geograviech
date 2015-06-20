@@ -70,7 +70,7 @@ namespace Assets.Scripts.ArtificialIntelligence
                 if (viechHasSDAttack(attacks))
                 {
                     //TODO: falls ein viech mehr als 1 sd attacke hat muss man noch eine priosisierung einbauen
-                    chosenAttack = attacks.FirstOrDefault(x => x.Effect.IsSDType);
+                    chosenAttack = attacks.Where(y => y.Effect != null).FirstOrDefault(x => x.Effect.IsSDType);
                 }
                 else
                 {
