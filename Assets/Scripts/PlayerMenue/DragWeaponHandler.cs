@@ -8,6 +8,6 @@ public class DragWeaponHandler : DragItemHandler
 {
 	protected override void OnPlaceInSlot()
 	{
-        PlayerMenueManager.OnWeaponRemoved(this.Item as Weapon);
+        PlayerMenueManager.RemoveActiveWeapon(this.Item as Weapon);
 	}
 }

@@ -12,7 +12,7 @@ public class ListWeaponDragHandler : ListItemDragHandler
 
 	protected override void OnPlaceInSlot()
 	{
-		PlayerMenueManager.OnWeaponAdded(this.Item as Weapon);
+		PlayerMenueManager.SetActiveWeapon(this.Item as Weapon);
 	}
 
     public override void OnListItemCreated(object item)

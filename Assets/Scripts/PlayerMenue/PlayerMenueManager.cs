@@ -30,6 +30,28 @@ public class PlayerMenueManager : MonoBehaviour
         player = GameManager.Instance.getPlayer();
 	}
 
+    //    public static void OnWeaponAdded(Weapon weapon)
+    //{
+    //    manager.SetActiveWeapon(weapon);
+    //}
+
+    //public static void OnWeaponRemoved(Weapon weapon)
+    //{
+    //    manager.RemoveActiveWeapon(weapon);
+    //}
+
+    //public static void OnMonsterAdded(Viech monster)
+    //{
+    //    manager.AddMonsterToActive(monster);
+    //}
+
+    //public static void OnMonsterRemoved(Viech monster)
+    //{
+
+    //        manager.RemoveMonsterFromActive(monster);
+    //    }
+    //}
+
     public static void SwitchMonsterPlayerPanel()
     {
         if (manager.MonsterPanel.gameObject.activeSelf)
@@ -40,9 +62,9 @@ public class PlayerMenueManager : MonoBehaviour
         manager.MonsterPanel.gameObject.SetActive(!manager.MonsterPanel.gameObject.activeSelf);
     }
 
-    public void SetMonsterPanelInformation(Viech monster)
+    public static void SetMonsterPanelInformation(Viech monster)
     {
-		MonsterPanel.SetMonsterInfos(monster);
+		manager.MonsterPanel.SetMonsterInfos(monster);
     }
 
     public static void SetMonsterFree(Viech monster)
@@ -50,28 +72,28 @@ public class PlayerMenueManager : MonoBehaviour
         manager.player.Viecher.Remove(monster);
     }
 
-    public void AddMonsterToActive(Viech monster)
+    public static void AddMonsterToActive(Viech monster)
     {
-		player.Viecher.Remove(monster);
-        player.ActiveViecher.Add(monster);
+        manager.player.Viecher.Remove(monster);
+        manager.player.ActiveViecher.Add(monster);
     }
 
-    public void RemoveMonsterFromActive(Viech monster)
+    public static void RemoveMonsterFromActive(Viech monster)
     {
-        player.ActiveViecher.Remove(monster);
-		player.Viecher.Add(monster);
+        manager.player.ActiveViecher.Remove(monster);
+        manager.player.Viecher.Add(monster);
     }
 
-    public void SetActiveWeapon(Weapon weapon)
+    public static void SetActiveWeapon(Weapon weapon)
     {
-		player.Weapons.Remove (weapon);
-        player.ActiveWeapon = weapon;
+        manager.player.Weapons.Remove(weapon);
+        manager.player.ActiveWeapon = weapon;
     }
 
-	public void RemoveActiveWeapon(Weapon weapon)
+	public static void RemoveActiveWeapon(Weapon weapon)
     {
-        player.ActiveWeapon = null;
-		player.Weapons.Add (weapon);
+        manager.player.ActiveWeapon = null;
+        manager.player.Weapons.Add(weapon);
     }
 
     public List<Viech> GetAllMonstersOfPlayer()

@@ -12,7 +12,7 @@ public class ListMonsterDragHandler : ListItemDragHandler
 
 	protected override void OnPlaceInSlot()
 	{
-		PlayerMenueManager.OnMonsterAdded(this.Item as Viech);
+		PlayerMenueManager.AddMonsterToActive(this.Item as Viech);
 	}
 
     public override void OnListItemCreated(object item)
@@ -25,11 +25,7 @@ public class ListMonsterDragHandler : ListItemDragHandler
 
     public void OnSingleShortClick()
     {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
-        {
-            manager.SetMonsterPanelInformation(this.Item as Viech);
-            manager.SwitchMonsterPlayerPanel();
-        }
+        PlayerMenueManager.SwitchMonsterPlayerPanel();
+        PlayerMenueManager.SetMonsterPanelInformation(this.Item as Viech);
     }
 }

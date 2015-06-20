@@ -8,6 +8,6 @@ public class DragMonsterHandler : DragItemHandler
 {
 	protected override void OnPlaceInSlot()
 	{
-        PlayerMenueManager.OnMonsterRemoved(this.Item as Viech);
+        PlayerMenueManager.RemoveMonsterFromActive(this.Item as Viech);
 	}
 }
