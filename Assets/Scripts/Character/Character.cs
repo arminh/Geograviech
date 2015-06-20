@@ -19,9 +19,9 @@ namespace Assets.Scripts
         protected List<Attack> attacks;
 
         protected GameObject sprite;
-        protected GameObject icon;
+        protected Sprite icon;
 
-        public Character(int maxHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, GameObject sprite, GameObject icon)
+        public Character(int maxHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, GameObject sprite, Sprite icon)
         {
             this.maxHealth = maxHealth;
             this.speed = speed;
@@ -91,7 +91,7 @@ namespace Assets.Scripts
             get { return sprite; }
         }
 
-        public GameObject Icon
+        public Sprite Icon
         {
             get { return icon; }
         }

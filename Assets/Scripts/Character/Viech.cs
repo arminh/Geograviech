@@ -8,7 +8,7 @@ namespace Assets.Scripts
     {
         private ElementType type;
 
-        public Viech(int maxHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, ElementType type, GameObject sprite, GameObject icon)
+        public Viech(int maxHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, ElementType type, GameObject sprite, Sprite icon)
             : base(maxHealth, speed, strength, name, level, xp, attacks, sprite, icon)
         {
             this.type = type;

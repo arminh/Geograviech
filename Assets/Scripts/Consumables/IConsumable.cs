@@ -15,6 +15,6 @@ namespace Assets.Scripts.Consumables
 
         int Quantity{ get; }
 
-        GameObject Icon { get;  }
+        Sprite Icon { get; }
     }
 }

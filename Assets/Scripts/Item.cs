@@ -13,7 +13,7 @@ namespace Assets
         protected int dropChance;
         protected int quantity;
 
-        protected GameObject icon;
+        protected Sprite icon;
 
         public String Name
         {
@@ -31,7 +31,7 @@ namespace Assets
             set { quantity = value; }
         }
 
-        public GameObject Icon
+        public Sprite Icon
         {
             get { return icon; }
         }

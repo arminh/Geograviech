@@ -15,7 +15,7 @@ namespace Assets.Scripts
 
         private List<IConsumable> items;
 
-        public Player(int maxHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, GameObject sprite, GameObject icon)
+        public Player(int maxHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, GameObject sprite, Sprite icon)
             : base(maxHealth, speed, strength, name, level, xp, attacks, sprite, icon)
         {
            
