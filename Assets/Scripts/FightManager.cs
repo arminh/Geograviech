@@ -372,7 +372,7 @@ namespace Assets.Scripts
                 yield return null;
             }
 
-            //TODO Attackanimation
+            activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().Attack();
 
             if (activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is StunEffect)
             {
@@ -396,7 +396,9 @@ namespace Assets.Scripts
             }
             else
             {
+                Debug.Log("Vor getAttacked");
                 viech.getAttacked(attack, activeFighter.Strength);
+                Debug.Log("Nach getAttacked");
             }
 
 
@@ -404,11 +406,13 @@ namespace Assets.Scripts
 
             while(!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
+                Debug.Log("wait");
                 yield return null;
             }
 
             while (!viech.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
+                Debug.Log("wait");
                 yield return null;
             }
 
