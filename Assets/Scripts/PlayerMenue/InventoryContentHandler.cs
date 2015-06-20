@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.Consumables;
 using System.Linq;
+using UnityEngine.UI;
 
 public class InventoryContentHandler : MonoBehaviour 
 {
@@ -34,9 +35,11 @@ public class InventoryContentHandler : MonoBehaviour
 
     public void AddMonsterToList(Viech monster)
     {
-        var prefab = PrefabContainer.getMonsterIconPrefab(monster.Identifier, true);
+        var prefab = PrefabContainer.getMonsterListIconPrefab();
+        var image = prefab.GetComponentInChildren<Image>();
+        image.sprite = monster.Icon;
         var dragHandler = prefab.GetComponent<ListMonsterDragHandler>();
-        dragHandler.Item = monster;
+        dragHandler.OnListItemCreated(monster);
         prefab.transform.SetParent(MonsterList);
     }
 
@@ -50,9 +53,11 @@ public class InventoryContentHandler : MonoBehaviour
 
     public void AddItemToList(IConsumable item)
     {
-        var prefab = PrefabContainer.getConsumableIconPrefab(item.Name, true);
+        var prefab = PrefabContainer.getConsumableListIconPrefab();
+        var image = prefab.GetComponentInChildren<Image>();
+        image.sprite = item.Icon;
         var dragHandler = prefab.GetComponent<ListConsumableDragHandler>();
-        dragHandler.Item = item;
+        dragHandler.OnListItemCreated(item);
         prefab.transform.SetParent(ItemList);
     }
 
@@ -66,9 +71,11 @@ public class InventoryContentHandler : MonoBehaviour
 
     public void AddWeaponToList(Weapon weapon)
     {
-        var prefab = PrefabContainer.getConsumableIconPrefab(weapon.Name, true);
+        var prefab = PrefabContainer.getWeaponListIconPrefab();
+        var image = prefab.GetComponentInChildren<Image>();
+        image.sprite = weapon.Icon;
         var dragHandler = prefab.GetComponent<ListWeaponDragHandler>();
-        dragHandler.Item = weapon;
+        dragHandler.OnListItemCreated(weapon);
         prefab.transform.SetParent(WeaponList);
     }
 }

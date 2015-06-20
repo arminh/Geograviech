@@ -44,7 +44,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
     public void SetMonsterInfos(Viech monster)
     {
         Monster = monster;
-        var monsterImage = PrefabContainer.getMonsterPrefab(Monster.Identifier);
+        var monsterImage = monster.Sprite;
         if(monsterImage != null)
         {
             var monsterView = Instantiate(monsterImage);
@@ -76,16 +76,12 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
 
     public static void OnBackToPlayerMenueClick()
     {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if(manager)
-        {
-            manager.SwitchMonsterPlayerPanel();
-        }
+        PlayerMenueManager.SwitchMonsterPlayerPanel();
     }
 
     public static void OnFreeMonsterCkilck()
     {
-        throw new System.NotImplementedException();
+        PlayerMenueManager.SetMonsterFree(manager.Monster);
     }
 
     public void Consume(IConsumable item)

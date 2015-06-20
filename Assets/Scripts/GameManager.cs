@@ -18,8 +18,8 @@ namespace Assets.Scripts
         public List<GameObject> allCharactersPefabs;
         private Dictionary<string, GameObject> prefabs;
 
-        public List<GameObject> allCharactersIcons;
-        private Dictionary<string, GameObject> icons;
+        public List<Sprite> allCharactersIcons;
+        private Dictionary<string, Sprite> icons;
 
         private bool levelWasLoaded = false;
         private void OnLevelWasLoaded(int iLevel)
@@ -37,9 +37,9 @@ namespace Assets.Scripts
                 prefabs.Add(sprite.name, sprite);
             }
 
-            foreach (GameObject icon in allCharactersIcons)
+            foreach (Sprite icon in allCharactersIcons)
             {
-                prefabs.Add(icon.name, icon);
+                icons.Add(icon.name, icon);
             }
 
             Debug.Log("Start");

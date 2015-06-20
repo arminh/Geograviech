@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Scripts;
 using System.Collections.Generic;
 using Assets.Scripts.Consumables;
+using UnityEngine.UI;
 
 public class PlayerMenueManager : MonoBehaviour 
 {
@@ -29,84 +30,70 @@ public class PlayerMenueManager : MonoBehaviour
         player = GameManager.Instance.getPlayer();
 	}
 
-    public static void OnWeaponAdded(Weapon weapon)
+    //    public static void OnWeaponAdded(Weapon weapon)
+    //{
+    //    manager.SetActiveWeapon(weapon);
+    //}
+
+    //public static void OnWeaponRemoved(Weapon weapon)
+    //{
+    //    manager.RemoveActiveWeapon(weapon);
+    //}
+
+    //public static void OnMonsterAdded(Viech monster)
+    //{
+    //    manager.AddMonsterToActive(monster);
+    //}
+
+    //public static void OnMonsterRemoved(Viech monster)
+    //{
+
+    //        manager.RemoveMonsterFromActive(monster);
+    //    }
+    //}
+
+    public static void SwitchMonsterPlayerPanel()
     {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
+        if (manager.MonsterPanel.gameObject.activeSelf)
         {
-            manager.SetActiveWeapon(weapon);
+            manager.MonsterPanel.ResetMonsterPanel();
         }
+        manager.PlayerPanel.gameObject.SetActive(!manager.PlayerPanel.gameObject.activeSelf);
+        manager.MonsterPanel.gameObject.SetActive(!manager.MonsterPanel.gameObject.activeSelf);
     }
 
-    public static void OnWeaponRemoved(Weapon weapon)
+    public static void SetMonsterPanelInformation(Viech monster)
     {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
-        {
-            manager.RemoveActiveWeapon(weapon);
-        }
+		manager.MonsterPanel.SetMonsterInfos(monster);
     }
 
-    public static void OnMonsterAdded(Viech monster)
+    public static void SetMonsterFree(Viech monster)
     {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
-        {
-            manager.AddMonsterToActive(monster);
-        }
+        manager.player.Viecher.Remove(monster);
     }
 
-    public static void OnMonsterRemoved(Viech monster)
+    public static void AddMonsterToActive(Viech monster)
     {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
-        {
-            manager.RemoveMonsterFromActive(monster);
-        }
-    }
-	
-    public void SwitchMonsterPlayerPanel()
-    {
-        if (MonsterPanel.gameObject.activeSelf)
-        {
-            MonsterPanel.ResetMonsterPanel();
-        }
-        PlayerPanel.gameObject.SetActive(!PlayerPanel.gameObject.activeSelf);
-        MonsterPanel.gameObject.SetActive(!MonsterPanel.gameObject.activeSelf);
+        manager.player.Viecher.Remove(monster);
+        manager.player.ActiveViecher.Add(monster);
     }
 
-    public void SetMonsterPanelInformation(Viech monster)
+    public static void RemoveMonsterFromActive(Viech monster)
     {
-		MonsterPanel.SetMonsterInfos(monster);
+        manager.player.ActiveViecher.Remove(monster);
+        manager.player.Viecher.Add(monster);
     }
 
-    public void SetMonsterFree(Viech monster)
+    public static void SetActiveWeapon(Weapon weapon)
     {
-		player.Viecher.Remove(monster);
+        manager.player.Weapons.Remove(weapon);
+        manager.player.ActiveWeapon = weapon;
     }
 
-    public void AddMonsterToActive(Viech monster)
+	public static void RemoveActiveWeapon(Weapon weapon)
     {
-		player.Viecher.Remove(monster);
-        player.ActiveViecher.Add(monster);
-    }
-
-    public void RemoveMonsterFromActive(Viech monster)
-    {
-        player.ActiveViecher.Remove(monster);
-		player.Viecher.Add(monster);
-    }
-
-    public void SetActiveWeapon(Weapon weapon)
-    {
-		player.Weapons.Remove (weapon);
-        player.ActiveWeapon = weapon;
-    }
-
-	public void RemoveActiveWeapon(Weapon weapon)
-    {
-        player.ActiveWeapon = null;
-		player.Weapons.Add (weapon);
+        manager.player.ActiveWeapon = null;
+        manager.player.Weapons.Add(weapon);
     }
 
     public List<Viech> GetAllMonstersOfPlayer()
