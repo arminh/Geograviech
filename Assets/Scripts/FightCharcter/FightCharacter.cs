@@ -15,7 +15,7 @@ namespace Assets.Scripts
         protected Effect currentEffect;
 
         GameObject sprite = null;
-        GameObject icon = null;
+        Sprite icon = null;
        
         protected bool dead;
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts
 
         protected string name;
 
-        public FightCharacter(int maxHealth, int speed, int strength, string name, List<Attack> attacks, GameObject sprite, GameObject icon)
+        public FightCharacter(int maxHealth, int speed, int strength, string name, List<Attack> attacks, GameObject sprite, Sprite icon)
         {
             this.maxHealth = maxHealth;
             this.health = maxHealth;
@@ -142,7 +142,7 @@ namespace Assets.Scripts
             set { sprite = value; }
         }
 
-        public GameObject Icon
+        public Sprite Icon
         {
             get { return icon; }
         }
