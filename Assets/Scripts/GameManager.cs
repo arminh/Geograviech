@@ -43,12 +43,12 @@ namespace Assets.Scripts
             }
 
             Debug.Log("Start");
-            Weapon weapon = new Weapon( new Attack ("TestAttack", ElementType.EARTH, 15, new FreezeEffect (50)));
+            Weapon weapon = new Weapon( new Attack ("TestAttack", ElementType.EARTH, 15, new FreezeEffect (50), null));
             List<Weapon> weapons = new List<Weapon>();
             List<Viech> activeViecher = new List<Viech>();
             List<Viech> viecher = new List<Viech>();
             List<Attack> attacks = new List<Attack>();
-            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, new BurnEffect(50)));
+            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, new BurnEffect(50), null));
 
             activeViecher.Add(new Viech(10, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
 
