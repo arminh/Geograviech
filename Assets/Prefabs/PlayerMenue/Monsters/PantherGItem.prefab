@@ -32,7 +32,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: eb367cc0f1e130045b52a10e3b4e0e31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 79d135ae20c9f1c4e83e68cf9c7e6339, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 128528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 875b2537ebdef8d42926b5b6d204cf24, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f5926edfcc20a346a007909c2378612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
