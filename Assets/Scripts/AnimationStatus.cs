@@ -98,11 +98,6 @@ public class AnimationStatus : MonoBehaviour
      * Do not use this function!!!!
      * Do not delete this function!!!!
      */
-    public void SetIdleState()
-    {
-        Status = Enums.MonsterStatus.IsIdle;
-    }
-
     public void SetState(Enums.MonsterStatus state)
     {
         Status = state;

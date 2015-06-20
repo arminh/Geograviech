@@ -342,10 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b310b4e0dd292a468a0a8175a6cdda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabMap:
-  - {fileID: 105810, guid: f9b31946b47a6c14f86a76f49eac0fc1, type: 2}
   MonsterPanel: {fileID: 22451680}
   Name: {fileID: 11427110}
+  Type: {fileID: 0}
   Health: {fileID: 11487992}
   LevelXp: {fileID: 11406566}
   Damage: {fileID: 11485680}
@@ -438,7 +437,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Attacks: {0}'
+  m_Text: 'Attacks: {0}{1}'
 --- !u!114 &11422338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -450,9 +449,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b310b4e0dd292a468a0a8175a6cdda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabMap: []
   MonsterPanel: {fileID: 0}
   Name: {fileID: 0}
+  Type: {fileID: 0}
   Health: {fileID: 0}
   LevelXp: {fileID: 0}
   Damage: {fileID: 0}
@@ -516,9 +515,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b310b4e0dd292a468a0a8175a6cdda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabMap: []
   MonsterPanel: {fileID: 0}
   Name: {fileID: 0}
+  Type: {fileID: 0}
   Health: {fileID: 0}
   LevelXp: {fileID: 0}
   Damage: {fileID: 0}

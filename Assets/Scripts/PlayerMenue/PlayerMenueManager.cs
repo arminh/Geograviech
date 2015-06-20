@@ -77,7 +77,7 @@ public class PlayerMenueManager : MonoBehaviour
 
     public void SetMonsterPanelInformation(Viech monster)
     {
-		MonsterPanel.SetMonsterInfos(monster, monster.Identifier);
+		MonsterPanel.SetMonsterInfos(monster);
     }
 
     public void SetMonsterFree(Viech monster)
