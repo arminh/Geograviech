@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -6,24 +7,32 @@ using System.Linq;
 
 namespace Assets.Scripts.Utils
 {
-    
 
-    public class Log
+
+    public class Log : MonoBehaviour
     {
         private static Log instance = null;
 
-        private Dictionary<Enums.LogBookEntryType, string> logBook;
+        private static List<string> logBook;
 
-        Log()
-        {
-            logBook = new Dictionary<Enums.LogBookEntryType, string>();
-        }
+        private static string logBookAsText;
+
+        private static bool logOnGui;
+
 
         public static Log Instance
         {
             get
             {
-                return instance ?? (instance = new Log());
+                if (instance == null)
+                {
+                    instance = GameObject.FindObjectOfType<Log>();
+                    logBook = new List<string>();
+                    logOnGui = false;
+                    //Tell unity not to destroy this object when loading a new scene!
+                    DontDestroyOnLoad(instance.gameObject);
+                }
+                return instance;
             }
         }
 
@@ -37,9 +46,9 @@ namespace Assets.Scripts.Utils
                 exMessage = string.Format("{0}\n", e.ToString());
             }
 
-            var entry = string.Format("{0}: {1}\n{2}\n", Enum.GetName(typeof(Enums.LogBookEntryType), type), message, exMessage);
+            var entry = string.Format("{0}: {1}\n{2}", Enum.GetName(typeof(Enums.LogBookEntryType), type), message, exMessage);
 
-            logBook.Add(type, entry);
+            logBook.Add(entry);
         }
 
 
@@ -53,15 +62,37 @@ namespace Assets.Scripts.Utils
             makeEntry(Enums.LogBookEntryType.ERROR, message, e);
         }
 
-        public Dictionary<Enums.LogBookEntryType, string> getLogBook()
+        public List<string> getLogBook()
         {
             return logBook;
         }
 
         public void print()
         {
-            // print changes since last print to screen
+            logBookAsText = string.Empty;
+
+            foreach(var entry in logBook)
+            {
+                logBookAsText = string.Concat(string.Format("{0}", entry), logBookAsText);
+            }
         }
 
+        public void toggleLogOnGui()
+        {
+            logOnGui = !logOnGui;
+        }
+
+
+        void OnGUI()
+        {
+            //GUI.BeginGroup(new Rect(Screen.width/2, Screen.height/2, 110, 130));  //note the 250 width and 305 height compared to the scrollview size
+            //GUILayout.BeginScrollView(new Vector2(0, 0), GUILayout.Width(100), GUILayout.Height(100));
+            GUI.Label(new Rect(Screen.width * (1.0f / 3.0f), Screen.height * (3.0f / 4.0f), Screen.width * (1.0f / 3.0f), Screen.height * (1.0f / 4.0f)), logBookAsText, GUI.skin.textArea);
+            //GUILayout.EndScrollView();
+            //GUI.EndGroup();
+
+
+
+        }
     }
 }

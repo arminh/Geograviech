@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -9,7 +10,7 @@ namespace Assets.Scripts
     {
         private Attack attack;
 
-        public Weapon(Attack attack)
+        public Weapon(string name, Attack attack, Sprite icon) : base(name, 1, 1, icon)
         {
             this.attack = attack;
         }

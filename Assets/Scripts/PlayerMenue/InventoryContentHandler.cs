@@ -15,14 +15,10 @@ public class InventoryContentHandler : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        var manager = FindObjectOfType<PlayerMenueManager>();
-        var monsters = manager.GetAllMonstersOfPlayer();
-        var items = manager.GetAllConsumablesOfPlayer();
-        var weapons = manager.GetAllWeaponsOfPlayer();
-
-        FillMonsterList(manager.GetAllMonstersOfPlayer());
-        FillItemList(manager.GetAllConsumablesOfPlayer());  
-        FillWeaponList(manager.GetAllWeaponsOfPlayer());      
+        var player = GameManager.Instance.getPlayer();
+        FillMonsterList(player.Viecher);
+        FillItemList(player.Items);
+        FillWeaponList(player.Weapons);      
 	}
 
     private void FillMonsterList(List<Viech> monsters)
@@ -36,11 +32,24 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddMonsterToList(Viech monster)
     {
         var prefab = PrefabContainer.getMonsterListIconPrefab();
-        var image = prefab.GetComponentInChildren<Image>();
-        image.sprite = monster.Icon;
-        var dragHandler = prefab.GetComponent<ListMonsterDragHandler>();
-        dragHandler.OnListItemCreated(monster);
-        prefab.transform.SetParent(MonsterList);
+        var listItem = Instantiate(prefab);
+        var dragHandler = listItem.GetComponent<ListMonsterDragHandler>();
+        dragHandler.OnItemCreated(monster);
+        listItem.transform.SetParent(MonsterList);
+        listItem.transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    public void RemoveMonsterFromList(Viech monster)
+    {
+        ListMonsterDragHandler monsterItem = null;
+        foreach (var item in MonsterList.GetComponentsInChildren<ListMonsterDragHandler>())
+        {
+            if(item.Item.Equals(monster))
+            {
+                monsterItem = item;
+            }
+        }
+        Destroy(monsterItem.gameObject);
     }
 
     private void FillItemList(List<IConsumable> items)
@@ -54,11 +63,11 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddItemToList(IConsumable item)
     {
         var prefab = PrefabContainer.getConsumableListIconPrefab();
-        var image = prefab.GetComponentInChildren<Image>();
-        image.sprite = item.Icon;
-        var dragHandler = prefab.GetComponent<ListConsumableDragHandler>();
-        dragHandler.OnListItemCreated(item);
-        prefab.transform.SetParent(ItemList);
+        var listItem = Instantiate(prefab);
+        var dragHandler = listItem.GetComponent<ListConsumableDragHandler>();
+        dragHandler.OnItemCreated(item);
+        listItem.transform.SetParent(ItemList);
+        listItem.transform.localScale = new Vector3(1, 1, 1);
     }
 
     private void FillWeaponList(List<Weapon> weapons)
@@ -72,10 +81,10 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddWeaponToList(Weapon weapon)
     {
         var prefab = PrefabContainer.getWeaponListIconPrefab();
-        var image = prefab.GetComponentInChildren<Image>();
-        image.sprite = weapon.Icon;
-        var dragHandler = prefab.GetComponent<ListWeaponDragHandler>();
-        dragHandler.OnListItemCreated(weapon);
-        prefab.transform.SetParent(WeaponList);
+        var listItem = Instantiate(prefab);
+        var dragHandler = listItem.GetComponent<ListWeaponDragHandler>();
+        dragHandler.OnItemCreated(weapon);
+        listItem.transform.SetParent(WeaponList);
+        listItem.transform.localScale = new Vector3(1, 1, 1);
     }
 }

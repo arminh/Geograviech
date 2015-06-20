@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -14,12 +15,17 @@ namespace Assets.Scripts
         private Effect effect;
         private bool active = true;
 
-        public Attack(string name,ElementType type, int damage, Effect effect)
+        private int level;
+        private Sprite icon;
+
+        public Attack(string name,ElementType type, int damage, Effect effect, Sprite icon, int level = 1)
         {
             this.name = name;
             this.type = type;
             this.damage = damage;
             this.effect = effect;
+            this.icon = icon;
+            this.level = level;
         }
 
         public string Name
@@ -34,12 +40,23 @@ namespace Assets.Scripts
 
         public int Damage
         {
-            get { return damage; }
+            get { return damage * level; }
         }
 
         public Effect Effect
         {
             get { return effect; }
+        }
+
+        public Sprite Icon
+        {
+            get { return icon; }
+        }
+
+        public int Level 
+        {
+            get { return level; }
+            set { level = value; }
         }
 
         public bool Active

@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.Consumables
 {
     class HealPotion : Item,IConsumable
     {
         int healAmount;
-        public HealPotion(int healAmount)
+        public HealPotion(string name, int healAmount, int dropChance, int quantity, Sprite icon) 
+            : base(name, dropChance, quantity, icon)
         {
-            this.name = "Kürbiskernöl";
+            //this.name = "Kürbiskernöl"
             this.healAmount = healAmount;
         }
 

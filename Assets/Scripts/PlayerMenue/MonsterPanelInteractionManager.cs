@@ -48,6 +48,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         if(monsterImage != null)
         {
             var monsterView = Instantiate(monsterImage);
+            monsterView.transform.localPosition = new Vector3(0, 0, -50);
             monsterView.transform.SetParent(MonsterPanel);   
         }
         Name.text = string.Format(Name.text, Monster.Name);

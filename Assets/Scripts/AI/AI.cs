@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
+
 namespace Assets.Scripts.ArtificialIntelligence
 {
     public class AI : MonoBehaviour
@@ -30,43 +31,68 @@ namespace Assets.Scripts.ArtificialIntelligence
         {
             var attackEnemy = selectEnemyToAttack(viech);
 
-
             return FightManager.Instance.attackViech(attackEnemy.Key, attackEnemy.Value);
         }
 
         private KeyValuePair<Attack, FightCharacter> selectEnemyToAttack(FightCharacter viech)
         {
+            //TODO: CD auf Spezialattacken warad vl net so schlecht!!!!
 
-
-            var attacks = viech.Attacks;
-            var attack = selectAttack(attacks);
             List<FightCharacter> attackAble = FightManager.Instance.getPlayerViecher(true);
+            var attacks = viech.Attacks;
+            Attack chosenAttack = null;
+            FightCharacter chosenViech = null;
+
+            chosenViech = getAttackableViechWithTheMostLife(attackAble);
+            if (chosenViech.CurrentEffect != null && !chosenViech.CurrentEffect.IsCCType)
+            {
+                if (viechHasCCAttack(attacks))
+                {
+                    //TODO: falls ein viech mehr als 1 cc attacke hat muss man noch eine priosisierung einbauen
+                    chosenAttack = attacks.Where(y => y.Effect != null).FirstOrDefault(x => x.Effect.IsCCType);
+                }
+                else
+                {
+                    chosenViech = getAttackableViechWithTheLowestLife(attackAble);
+                    if (viechHasSDAttack(attacks))
+                    {
+                        chosenAttack = attacks.Where(y => y.Effect != null).FirstOrDefault(x => x.Effect.IsSDType);
+                    }
+                    else
+                    {
+                        chosenAttack = attacks.FirstOrDefault(x => x.Effect == null);
+                    }
+                }
+            }
+            else
+            {
+                chosenViech = getAttackableViechWithTheLowestLife(attackAble);
+
+                if (viechHasSDAttack(attacks))
+                {
+                    //TODO: falls ein viech mehr als 1 sd attacke hat muss man noch eine priosisierung einbauen
+                    chosenAttack = attacks.Where(y => y.Effect != null).FirstOrDefault(x => x.Effect.IsSDType);
+                }
+                else
+                {
+                    chosenAttack = attacks.FirstOrDefault(x => x.Effect == null);
+                }
+            }
 
 
-            return new KeyValuePair<Attack, FightCharacter>(attack, attackAble.FirstOrDefault());
+            return new KeyValuePair<Attack, FightCharacter>(chosenAttack, chosenViech);
         }
 
 
-        private Attack selectAttack(List<Attack> attacks)
+        private bool viechHasCCAttack(List<Attack> attacks)
         {
-            List<Attack> activeAttacks = attacks.Where(x => x.Active == true).ToList<Attack>();
-            var attack = activeAttacks.FirstOrDefault();
-            return attack;
-        }
-
-
-        private bool viechHasCCAttack(FightCharacter viech)
-        {
-            var result = viech.Attacks.Any(x => x.Effect.Type == Effect.EffectType.FREEZE ||
-                                                x.Effect.Type == Effect.EffectType.SLEEP ||
-                                                x.Effect.Type == Effect.EffectType.STUN);
+            var result = attacks.Where(y => y.Effect != null).Any(x => x.Effect.IsCCType);
             return result;
         }
 
-        private bool viechHasSDAttack(FightCharacter viech)
+        private bool viechHasSDAttack(List<Attack> attacks)
         {
-            var result = viech.Attacks.Any(x => x.Effect.Type == Effect.EffectType.BURN ||
-                                                x.Effect.Type == Effect.EffectType.POISON);
+            var result = attacks.Where(y => y.Effect != null).Any(x => x.Effect.IsSDType);
             return result;
         }
 

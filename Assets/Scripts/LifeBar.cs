@@ -4,8 +4,8 @@ public class LifeBar : MonoBehaviour {
 
    // Vector2 pos = new Vector2(25, 40);
  //   Vector2 size = new Vector2(100, 300);
-    public Texture2D progressBarEmpty;
     public Texture2D progressBarFull;
+    public Texture2D progressBarEmpty;
 
     private int health = 50;
     private int maxHealth = 100;
@@ -52,12 +52,12 @@ public class LifeBar : MonoBehaviour {
      
         // draw the background:
         GUI.BeginGroup(new Rect(position.x, position.y, progressBarFull.width * 0.5f, progressBarFull.height * 0.35f));
-        GUI.Box(new Rect(0, 0, progressBarFull.width * 0.5f, progressBarFull.height * 0.35f), progressBarEmpty);
+        GUI.Box(new Rect(0, 0, progressBarFull.width * 0.5f, progressBarFull.height * 0.35f), progressBarFull);
       
 
         // draw the filled-in part:
         GUI.BeginGroup(new Rect(0, 0, progressBarFull.width * 0.5f, progressBarFull.height * 0.35f * (1.0f - (float)health / (float)maxHealth)));
-        GUI.Box(new Rect(0, 0, progressBarFull.width *0.5f, progressBarFull.height * 0.35f), progressBarFull);
+        GUI.Box(new Rect(0, 0, progressBarFull.width * 0.5f, progressBarFull.height * 0.35f), progressBarEmpty);
         GUI.EndGroup();
 
         GUI.EndGroup();
