@@ -76,16 +76,12 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
 
     public static void OnBackToPlayerMenueClick()
     {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if(manager)
-        {
-            manager.SwitchMonsterPlayerPanel();
-        }
+        PlayerMenueManager.SwitchMonsterPlayerPanel();
     }
 
     public static void OnFreeMonsterCkilck()
     {
-        throw new System.NotImplementedException();
+        PlayerMenueManager.SetMonsterFree(manager.Monster);
     }
 
     public void Consume(IConsumable item)

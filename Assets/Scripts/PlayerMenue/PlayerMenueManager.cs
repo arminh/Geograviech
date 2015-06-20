@@ -30,50 +30,14 @@ public class PlayerMenueManager : MonoBehaviour
         player = GameManager.Instance.getPlayer();
 	}
 
-    public static void OnWeaponAdded(Weapon weapon)
+    public static void SwitchMonsterPlayerPanel()
     {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
+        if (manager.MonsterPanel.gameObject.activeSelf)
         {
-            manager.SetActiveWeapon(weapon);
+            manager.MonsterPanel.ResetMonsterPanel();
         }
-    }
-
-    public static void OnWeaponRemoved(Weapon weapon)
-    {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
-        {
-            manager.RemoveActiveWeapon(weapon);
-        }
-    }
-
-    public static void OnMonsterAdded(Viech monster)
-    {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
-        {
-            manager.AddMonsterToActive(monster);
-        }
-    }
-
-    public static void OnMonsterRemoved(Viech monster)
-    {
-        PlayerMenueManager manager = FindObjectOfType<PlayerMenueManager>();
-        if (manager)
-        {
-            manager.RemoveMonsterFromActive(monster);
-        }
-    }
-	
-    public void SwitchMonsterPlayerPanel()
-    {
-        if (MonsterPanel.gameObject.activeSelf)
-        {
-            MonsterPanel.ResetMonsterPanel();
-        }
-        PlayerPanel.gameObject.SetActive(!PlayerPanel.gameObject.activeSelf);
-        MonsterPanel.gameObject.SetActive(!MonsterPanel.gameObject.activeSelf);
+        manager.PlayerPanel.gameObject.SetActive(!manager.PlayerPanel.gameObject.activeSelf);
+        manager.MonsterPanel.gameObject.SetActive(!manager.MonsterPanel.gameObject.activeSelf);
     }
 
     public void SetMonsterPanelInformation(Viech monster)
@@ -81,9 +45,9 @@ public class PlayerMenueManager : MonoBehaviour
 		MonsterPanel.SetMonsterInfos(monster);
     }
 
-    public void SetMonsterFree(Viech monster)
+    public static void SetMonsterFree(Viech monster)
     {
-		player.Viecher.Remove(monster);
+        manager.player.Viecher.Remove(monster);
     }
 
     public void AddMonsterToActive(Viech monster)
