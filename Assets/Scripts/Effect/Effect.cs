@@ -70,5 +70,24 @@ namespace Assets.Scripts
         {
             get { return inflictChance; }
         }
+
+
+        // is crowdcontrol type
+        public bool IsCCType
+        {
+            get
+            {
+                return type == EffectType.STUN || type == EffectType.SLEEP || type == EffectType.FREEZE;
+            }
+        }
+
+        // is special damage type
+        public bool IsSDType
+        {
+            get
+            {
+                return type == EffectType.BURN || type == EffectType.POISON;
+            }
+        }
     }
 }

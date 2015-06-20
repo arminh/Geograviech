@@ -9,6 +9,9 @@ using Assets.Scripts.Consumables;
 
 public class FightScreenManager : MonoBehaviour {
     public GameObject buttonPrefab;
+    public Sprite sprite;
+    public Sprite attackSprite;
+    public Sprite backSprite;
 
     List<Vector3> enemyPositions;
     List<Vector3> playerPositions;
@@ -128,7 +131,13 @@ public class FightScreenManager : MonoBehaviour {
             buttonRectTransForm.sizeDelta = buttonSize;
 
             go.transform.SetParent(buttonPanel.transform, false);
-            go.GetComponentInChildren<Text>().text = "Use Item";
+
+            Text text = go.GetComponentInChildren<Text>();
+            text.text = "Use Item";
+            text.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
+            Image image = go.GetComponentInChildren<Image>();
+            image.sprite = sprite;
+            image.preserveAspect = true;
 
             Button b = go.GetComponent<Button>();
             b.interactable = hasItems;
@@ -144,12 +153,22 @@ public class FightScreenManager : MonoBehaviour {
            buttonRectTransForm1.sizeDelta = buttonSize;
 
            go1.transform.SetParent(buttonPanel.transform, false);
-           go1.GetComponentInChildren<Text>().text = "Attack";
+
+           Text text1 = go1.GetComponentInChildren<Text>();
+           text1.text = "Attack";
+           text1.transform.localPosition = new Vector3(0, -buttonSize.y/1.7f, 1);
+           Image image1 = go1.GetComponentInChildren<Image>();
+           image1.sprite = attackSprite;
+           image1.preserveAspect = true;
+
 
            Button b1 = go1.GetComponent<Button>();
            b1.onClick.AddListener(() => FightManager.Instance.attackChosen());
            b1.onClick.AddListener(() => clearButtonPanel());
            currentindex++;
+
+         
+
 
         //SkipTurn
            GameObject go2 = (GameObject)Instantiate(buttonPrefab);
@@ -158,7 +177,13 @@ public class FightScreenManager : MonoBehaviour {
            buttonRectTransForm2.sizeDelta = buttonSize;
 
            go2.transform.SetParent(buttonPanel.transform, false);
-           go2.GetComponentInChildren<Text>().text = "Skip Turn";
+
+           Text text2 = go2.GetComponentInChildren<Text>();
+           text2.text = "Skip Turn";
+           text2.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
+           Image image2 = go2.GetComponentInChildren<Image>();
+           image2.sprite = sprite;
+           image2.preserveAspect = true;
 
            Button b2 = go2.GetComponent<Button>();
            b2.onClick.AddListener(() => FightManager.Instance.skipChosen());
@@ -195,7 +220,13 @@ public class FightScreenManager : MonoBehaviour {
             buttonRectTransForm.sizeDelta = buttonSize;
 
             go.transform.SetParent(buttonPanel.transform, false);
-            go.GetComponentInChildren<Text>().text = item.Name + " x" + item.Quantity; 
+
+            Text text = go.GetComponentInChildren<Text>();
+            text.text = item.Name + " x" + item.Quantity;
+            text.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
+            Image image = go.GetComponentInChildren<Image>();
+            image.sprite = item.Icon;
+            image.preserveAspect = true;
 
             Button b = go.GetComponent<Button>();
 
@@ -212,7 +243,13 @@ public class FightScreenManager : MonoBehaviour {
         backButtonRectTransForm.sizeDelta = buttonSize;
 
         gameObject.transform.SetParent(buttonPanel.transform, false);
-        gameObject.GetComponentInChildren<Text>().text = "Back";
+
+        Text text1 = gameObject.GetComponentInChildren<Text>();
+        text1.text = "Back";
+        text1.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
+        Image image1 = gameObject.GetComponentInChildren<Image>();
+        image1.sprite = backSprite;
+        image1.preserveAspect = true;
 
         Button button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(() => FightManager.Instance.backChosen());
@@ -238,7 +275,13 @@ public class FightScreenManager : MonoBehaviour {
             buttonRectTransForm.sizeDelta = buttonSize;
 
             go.transform.SetParent(buttonPanel.transform, false);
-            go.GetComponentInChildren<Text>().text = viech.Name;
+
+            Text text = go.GetComponentInChildren<Text>();
+            text.text = viech.Name;
+            text.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
+            Image image = go.GetComponentInChildren<Image>();
+            image.sprite = viech.Icon;
+            image.preserveAspect = true;
 
             Button b = go.GetComponent<Button>();
 
@@ -255,7 +298,13 @@ public class FightScreenManager : MonoBehaviour {
         backButtonRectTransForm.sizeDelta = buttonSize;
 
         gameObject.transform.SetParent(buttonPanel.transform, false);
-        gameObject.GetComponentInChildren<Text>().text = "Back";
+
+        Text text1 = gameObject.GetComponentInChildren<Text>();
+        text1.text = "Back";
+        text1.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
+        Image image1 = gameObject.GetComponentInChildren<Image>();
+        image1.sprite = backSprite;
+        image1.preserveAspect = true;
 
         Button button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(() => FightManager.Instance.backChosen());
@@ -269,8 +318,8 @@ public class FightScreenManager : MonoBehaviour {
         Vector2 panelPosition = panelRectTransform.anchoredPosition;
         Vector2 panelSize = panelRectTransform.sizeDelta;
 
-        Vector2 buttonSize = calculateButtonSize(panelSize, attacks.Count);
-        List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, attacks.Count);
+        Vector2 buttonSize = calculateButtonSize(panelSize, attacks.Count +1);
+        List<Vector2> buttonPositions = calculateButtonPositions(panelPosition, panelSize, attacks.Count +1);
 
         int i = 0;
         foreach (Attack attack in attacks)
@@ -281,7 +330,13 @@ public class FightScreenManager : MonoBehaviour {
             buttonRectTransForm.sizeDelta = buttonSize;
 
             go.transform.SetParent(buttonPanel.transform, false);
-            go.GetComponentInChildren<Text>().text = attack.Name;
+
+            Text text = go.GetComponentInChildren<Text>();
+            text.text = attack.Name;
+            text.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
+            Image image = go.GetComponentInChildren<Image>();
+            image.sprite = sprite;
+            image.preserveAspect = true;
 
             Button b = go.GetComponent<Button>();
             b.interactable = attack.Active;
@@ -290,6 +345,25 @@ public class FightScreenManager : MonoBehaviour {
             b.onClick.AddListener(() => clearButtonPanel());
             i++;
         }
+
+        //Back
+        GameObject gameObject = (GameObject)Instantiate(buttonPrefab);
+        RectTransform backButtonRectTransForm = gameObject.transform as RectTransform;
+        backButtonRectTransForm.anchoredPosition = buttonPositions[attacks.Count];
+        backButtonRectTransForm.sizeDelta = buttonSize;
+
+        gameObject.transform.SetParent(buttonPanel.transform, false);
+
+        Text text1 = gameObject.GetComponentInChildren<Text>();
+        text1.text = "Back";
+        text1.transform.localPosition = new Vector3(0, -buttonSize.y / 1.7f, 1);
+        Image image1 = gameObject.GetComponentInChildren<Image>();
+        image1.sprite = backSprite;
+        image1.preserveAspect = true;
+
+        Button button = gameObject.GetComponent<Button>();
+        button.onClick.AddListener(() => FightManager.Instance.backChosen());
+        button.onClick.AddListener(() => clearButtonPanel());
     }
 
     private Vector2 calculateButtonSize(Vector2 panelSize, int buttonCount)

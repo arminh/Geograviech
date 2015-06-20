@@ -7,13 +7,13 @@ namespace Assets.Scripts.Utils
 {
     public static class Util
     {
-        public static void InitBackground(Transform background, Camera mainCam)
+        public static void InitBackground(GameObject background, Camera mainCam)
         {
             Vector3 pos = mainCam.transform.position;
             pos.z = 10.0f;
-            background.position = pos;
+            background.transform.position = pos;
 
-            SpriteRenderer spriteRenderer = background.GetComponent<SpriteRenderer>();
+            SpriteRenderer spriteRenderer = background.GetComponentInChildren<SpriteRenderer>();
 
             if (spriteRenderer == null)
             {
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Utils
             float scaleHeight = worldScreenHeight / height;
             float scaleWidth = worldScreenWidth / width;
 
-            Vector3 scale = background.localScale;
+            Vector3 scale = background.transform.localScale;
 
             if (scaleHeight < scaleWidth)
             {
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Utils
                 scale.y = scaleHeight;
             }
 
-            background.localScale = scale;
+            background.transform.localScale = scale;
 
         }
 

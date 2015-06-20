@@ -7,7 +7,7 @@ namespace Assets.Scripts.FightScreen
     public class InitFightScene : MonoBehaviour
     {
         private Camera mainCam;
-        public Transform background;
+        public GameObject background;
 
 
         // Use this for initialization

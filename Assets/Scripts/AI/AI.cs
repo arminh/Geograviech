@@ -28,24 +28,85 @@ namespace Assets.Scripts.ArtificialIntelligence
 
         public IEnumerator executeTurn(FightCharacter viech)
         {
-            Attack attack = viech.Attacks.FirstOrDefault();
+            var attackEnemy = selectEnemyToAttack(viech);
 
-            return selectAttackEnemy(attack);
+            return FightManager.Instance.attackViech(attackEnemy.Key, attackEnemy.Value);
         }
 
-        private void selectAttack(Action<String> function, Dictionary<String, int> items)
+        private KeyValuePair<Attack, FightCharacter> selectEnemyToAttack(FightCharacter viech)
         {
-            string item = items.FirstOrDefault().Key;
+            //TODO: CD auf Spezialattacken warad vl net so schlecht!!!!
 
-            function.Invoke(item);
-        }
-
-        private IEnumerator selectAttackEnemy(Attack attack)
-        {
             List<FightCharacter> attackAble = FightManager.Instance.getPlayerViecher(true);
-            return FightManager.Instance.attackViech(attack, attackAble.FirstOrDefault());
+            var attacks = viech.Attacks;
+            Attack chosenAttack = null;
+            FightCharacter chosenViech = null;
+
+            chosenViech = getAttackableViechWithTheMostLife(attackAble);
+            if (chosenViech.CurrentEffect != null && !chosenViech.CurrentEffect.IsCCType)
+            {
+                if (viechHasCCAttack(attacks))
+                {
+                    //TODO: falls ein viech mehr als 1 cc attacke hat muss man noch eine priosisierung einbauen
+                    chosenAttack = attacks.Where(y => y.Effect != null).FirstOrDefault(x => x.Effect.IsCCType);
+                }
+                else
+                {
+                    chosenViech = getAttackableViechWithTheLowestLife(attackAble);
+                    if (viechHasSDAttack(attacks))
+                    {
+                        chosenAttack = attacks.Where(y => y.Effect != null).FirstOrDefault(x => x.Effect.IsSDType);
+                    }
+                    else
+                    {
+                        chosenAttack = attacks.FirstOrDefault(x => x.Effect == null);
+                    }
+                }
+            }
+            else
+            {
+                chosenViech = getAttackableViechWithTheLowestLife(attackAble);
+
+                if (viechHasSDAttack(attacks))
+                {
+                    //TODO: falls ein viech mehr als 1 sd attacke hat muss man noch eine priosisierung einbauen
+                    chosenAttack = attacks.Where(y => y.Effect != null).FirstOrDefault(x => x.Effect.IsSDType);
+                }
+                else
+                {
+                    chosenAttack = attacks.FirstOrDefault(x => x.Effect == null);
+                }
+            }
+
+
+            return new KeyValuePair<Attack, FightCharacter>(chosenAttack, chosenViech);
         }
 
+
+        private bool viechHasCCAttack(List<Attack> attacks)
+        {
+            var result = attacks.Where(y => y.Effect != null).Any(x => x.Effect.Type == Effect.EffectType.FREEZE ||
+                                                                       x.Effect.Type == Effect.EffectType.SLEEP ||
+                                                                       x.Effect.Type == Effect.EffectType.STUN);
+            return result;
+        }
+
+        private bool viechHasSDAttack(List<Attack> attacks)
+        {
+            var result = attacks.Where(y => y.Effect != null).Any(x => x.Effect.Type == Effect.EffectType.BURN ||
+                                                                       x.Effect.Type == Effect.EffectType.POISON);
+            return result;
+        }
+
+        private FightCharacter getAttackableViechWithTheMostLife(List<FightCharacter> viecher)
+        {
+            return viecher.Where(y => y.Health == viecher.Max(x => x.Health)).FirstOrDefault();
+        }
+
+        private FightCharacter getAttackableViechWithTheLowestLife(List<FightCharacter> viecher)
+        {
+            return viecher.Where(y => y.Health == viecher.Min(x => x.Health)).LastOrDefault();
+        }
 
     }
 }

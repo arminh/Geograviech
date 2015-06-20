@@ -249,7 +249,7 @@ namespace Assets.Scripts {
             }
 
             //TODO Read Effect
-            return new Attack(name, type, damage, new BurnEffect(50));    
+            return new Attack(name, type, damage, new BurnEffect(50), null);    
         }
 
         private static List<Viech> getViecher(XmlNode vs)
