@@ -15,10 +15,12 @@ public class ListWeaponDragHandler : ListItemDragHandler
 		PlayerMenueManager.SwapActiveWeapon(this.Item as Weapon);
 	}
 
-    public override void OnListItemCreated(object item)
+    public override void OnItemCreated(object item)
     {
         this.Item = item;
         var weapon = item as Weapon;
+        var image = transform.GetComponentInChildren<Image>();
+        image.sprite = weapon.Icon;
         Name.text = string.Format(Name.text, weapon.Name);
         Damage.text = string.Format(Damage.text, weapon.Attack.Damage);
     }

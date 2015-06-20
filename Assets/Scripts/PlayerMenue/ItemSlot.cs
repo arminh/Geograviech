@@ -14,16 +14,18 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         return transform.childCount > 0;
     }
 
+    public Transform GetContainedItem()
+    {
+        return transform.GetChild(0);
+    }
+
     public virtual void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("OnDrop");
         if (DragItemHandler.ItemToBeDragged.type == type)
         {
-            Debug.Log("DropIT");
-            if(IsOccupied())
-            {
+            if (IsOccupied())
                 transform.DetachChildren();
-            }
+
             DragItemHandler.ItemToBeDragged.transform.SetParent(transform);
             DragItemHandler.ItemToBeDragged.transform.localScale = new Vector3(1,1,1);
         }

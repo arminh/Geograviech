@@ -16,10 +16,12 @@ public class ListConsumableDragHandler : ListItemDragHandler
 		//TODO something
 	}
 
-    public override void OnListItemCreated(object item)
+    public override void OnItemCreated(object item)
     {
         this.Item = item;
         var consumable = item as IConsumable;
+        var image = transform.GetComponentInChildren<Image>();
+        image.sprite = consumable.Icon;
         Name.text = string.Format(Name.text, consumable.Name);
         Effect.text = string.Format(Effect.text, consumable.Name);
     }

@@ -22,9 +22,11 @@ public class PlayerPanelInteractionManager : MonoBehaviour, IConsumableInteracti
         var image = weaponItem.GetComponentInChildren<Image>();
         image.sprite = player.ActiveWeapon.Icon;
         weaponItem.transform.SetParent(ActiveWeaponSlot);
+        weaponItem.transform.localScale = new Vector3(1, 1, 1);
 
         prefab = PrefabContainer.getMonsterIconPrefab();
-        for (int index = 0; index < ActiveMonsterSlots.Count; index++)
+        for (int index = 0; index < ActiveMonsterSlots.Count && 
+                            index < player.ActiveViecher.Count; index++)
         {
             var monster = player.ActiveViecher.ElementAt(index);
             if (monster != null)
@@ -34,7 +36,8 @@ public class PlayerPanelInteractionManager : MonoBehaviour, IConsumableInteracti
                 monsterImage.sprite = monster.Icon;
                 var itemHandl = monsterItem.GetComponent<DragItemHandler>();
                 itemHandl.Item = monster;
-                weaponItem.transform.SetParent(ActiveMonsterSlots.ElementAt(index));
+                monsterItem.transform.SetParent(ActiveMonsterSlots.ElementAt(index));
+                monsterItem.transform.localScale = new Vector3(1, 1, 1);
             }
         }
     }

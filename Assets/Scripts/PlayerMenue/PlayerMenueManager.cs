@@ -61,7 +61,7 @@ public class PlayerMenueManager : MonoBehaviour
         if (prev_monster != null)
         {
             manager.player.Viecher.Add(prev_monster);
-            manager.Inventory.AddMonsterToList(monster);
+            manager.Inventory.AddMonsterToList(prev_monster);
         }
         manager.player.ActiveViecher.Insert(slotNumber, monster);
     }
@@ -71,25 +71,9 @@ public class PlayerMenueManager : MonoBehaviour
         manager.player.Weapons.Remove(weapon);
         if (manager.player.ActiveWeapon != null)
         {
-            manager.player.Weapons.Add(weapon);
-            manager.Inventory.AddWeaponToList(weapon);
+            manager.player.Weapons.Add(manager.player.ActiveWeapon);
+            manager.Inventory.AddWeaponToList(manager.player.ActiveWeapon);
         }
         manager.player.ActiveWeapon = weapon;
-    }
-
-    public List<Viech> GetAllMonstersOfPlayer()
-    {
-        Debug.Log(player);
-        return player.Viecher;
-    }
-
-    public List<IConsumable> GetAllConsumablesOfPlayer()
-    {
-        return player.Items;
-    }
-
-    public List<Weapon> GetAllWeaponsOfPlayer()
-    {
-        return player.Weapons;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using Assets.Scripts.Utils;
 using Assets.Scripts;
 using UnityEngine.UI;
+using Assets;
 
 public class ListMonsterDragHandler : ListItemDragHandler
 {
@@ -15,10 +16,12 @@ public class ListMonsterDragHandler : ListItemDragHandler
         PlayerMenueManager.SwapActiveMonster(this.Item as Viech, slot.SlotNumber);
 	}
 
-    public override void OnListItemCreated(object item)
+    public override void OnItemCreated(object item)
     {
         this.Item = item;
         var monster = item as Viech;
+        var image = transform.GetComponentInChildren<Image>();
+        image.sprite = monster.Icon;
         Name.text = string.Format(Name.text, monster.Name);
         TypeLvl.text = string.Format(TypeLvl.text, monster.Type.ToString(), monster.Level);
     }

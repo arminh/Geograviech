@@ -15,6 +15,10 @@ namespace Assets
 
         protected Sprite icon;
 
+        public Item()
+        {
+        }
+
         public Item(string name, int dropChance, int quantity, Sprite icon)
         {
             this.name = name;

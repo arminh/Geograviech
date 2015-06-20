@@ -13,21 +13,17 @@ public abstract class ListItemDragHandler : DragItemHandler
     public override void OnBeginDrag(PointerEventData eventData)
     {
         ItemToBeDragged = Instantiate(DraggedPrefab).GetComponent<DragItemHandler>();
-        
-        var root = GameObject.Find("DragDropSlot");
+
         var rectTrans = ItemToBeDragged.transform as RectTransform;
-        if(rectTrans && root)
+        if(rectTrans)
         {
             rectTrans.position = Input.mousePosition;
-            rectTrans.SetParent(root.transform);
-            ItemOriginalSlot = root.transform;
+            ItemOriginalSlot = rectTrans.parent;
             rectTrans.localScale = new Vector3(1,1,1);        
         }
 
-		var itemHandl = ItemToBeDragged.GetComponent<DragItemHandler>();
-		itemHandl.Item = this.Item;
-        var image = ItemToBeDragged.GetComponentInChildren<Image>();
-        image.sprite = (this.Item as Item).Icon;
+        var itemHandl = ItemToBeDragged.GetComponent<DragItemHandler>();
+        itemHandl.OnItemCreated(this.Item);
 
         ItemCanvasGroup = ItemToBeDragged.GetComponent<CanvasGroup>();
         if (ItemCanvasGroup != null)
@@ -36,16 +32,13 @@ public abstract class ListItemDragHandler : DragItemHandler
 	
 	public override void OnEndDrag(PointerEventData eventData)
 	{
-		Debug.Log("EndDrag");
-		
 		var slot = ItemToBeDragged.transform.parent.GetComponent<ItemSlot>();
-		if (slot && slot.type == this.type)
-		{
-            OnPlaceInSlot(slot);
-		}
-		
-		base.OnEndDrag(eventData);
-	}
+        base.OnEndDrag(eventData);
 
-    public abstract void OnListItemCreated(object item);
+		if (slot && slot.type == this.type)
+        {
+            OnPlaceInSlot(slot);
+            Destroy(gameObject);
+		}
+	}
 }
