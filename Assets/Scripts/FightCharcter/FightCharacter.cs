@@ -20,6 +20,7 @@ namespace Assets.Scripts
         protected bool dead;
 
         private bool isEnemy = false;
+        protected LifeBar lifeBar;
 
         protected string name;
 
@@ -43,13 +44,14 @@ namespace Assets.Scripts
             //damage -= strength
 
             health -= damage;
+            lifeBar.Health = health;
 
             if(health <= 0) {
                 die();
             }
 
             sprite.GetComponentInChildren<AnimationStatus>().PlaySpecialDamageEffect(Effect.EffectType.NONE);
-
+            
             return damage;
 
         }
@@ -57,7 +59,10 @@ namespace Assets.Scripts
         protected void die()
         {
             dead = true;
-            sprite.GetComponentInChildren<AnimationStatus>().Die();
+            currentEffect = null;
+            AnimationStatus animStatus = sprite.GetComponentInChildren<AnimationStatus>();
+            animStatus.ResetSpecialDamageEffect();
+            animStatus.Die();
         }
 
         public bool heal(int amount)
@@ -65,6 +70,7 @@ namespace Assets.Scripts
             if (health < maxHealth)
             {
                 health = Mathf.Min(health + amount, maxHealth);
+                lifeBar.Health = health;
                 return true;
             }
             return false;
@@ -76,6 +82,7 @@ namespace Assets.Scripts
             {
                 dead = false;
                 health = healAmount;
+                lifeBar.Health = health;
                 //TODO notify AnimationHandler
                 return true;
             }
@@ -102,7 +109,9 @@ namespace Assets.Scripts
         public int Health
         {
             get { return health; }
-            set { health = value; }
+            set { health = value;
+            lifeBar.Health = health;
+            }
         }
 
         public int MaxHealth
@@ -139,7 +148,12 @@ namespace Assets.Scripts
         public GameObject Sprite
         {
             get { return sprite; }
-            set { sprite = value; }
+            set 
+            { 
+                sprite = value;
+                lifeBar = sprite.GetComponentInChildren<LifeBar>();
+                lifeBar.MaxHealth = maxHealth;
+            }
         }
 
         public Sprite Icon

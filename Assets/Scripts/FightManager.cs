@@ -114,7 +114,7 @@ namespace Assets.Scripts
             orderFighters();
 
 
-            FightScreenManager.Instance.init(friendCount, enemyCount);
+            FightScreenManager.Instance.init(Mathf.Max(5,friendCount), Mathf.Max(5,enemyCount));
 
 
             isTurnFinished = true;
@@ -126,21 +126,24 @@ namespace Assets.Scripts
 
         public void Update()
         {
-            if(player != null && player.isDead())
+            if (!isWaiting)
             {
-                GameManager.Instance.fightFinished(enemy, player);
-                executeFight = false;
-            }
-            if(enemy != null && enemy.isDead())
-            {
-                GameManager.Instance.fightFinished(player, enemy);
-                executeFight = false;
-            }
+                if (player != null && player.isDead())
+                {
+                    GameManager.Instance.fightFinished(enemy, player);
+                    executeFight = false;
+                }
+                if (enemy != null && enemy.isDead())
+                {
+                    GameManager.Instance.fightFinished(player, enemy);
+                    executeFight = false;
+                }
 
-            if(executeFight && !isWaiting)
-            {
-                Debug.Log("executeFight");
-                StartCoroutine(executeTurn());
+                if (executeFight)
+                {
+                    Debug.Log("executeFight");
+                    StartCoroutine(executeTurn());
+                }
             }
         }
 
@@ -161,6 +164,13 @@ namespace Assets.Scripts
                 stateChanged = true;
                 state = 0;
 
+                if(activeFighter.isDead())
+                {
+                    isTurnFinished = true;
+                    isWaiting = false;
+                    yield break;
+                }
+
                 if(activeFighter.CurrentEffect != null)
                 {
 
@@ -176,7 +186,7 @@ namespace Assets.Scripts
                     }
 
                     Log.Instance.print();
-                    if(activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is SleepEffect)
+                    if((activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is SleepEffect))
                     {
                         isTurnFinished = true;
                         isWaiting = false;
@@ -320,11 +330,12 @@ namespace Assets.Scripts
                     
             GameObject spriteInitialisation = Instantiate(character.Sprite, Vector3.zero, Quaternion.identity) as GameObject;
             Vector3 scale = spriteInitialisation.transform.localScale;
-            scale.x *= 2;
-            scale.y *= 2;
+            scale.x *= 1.5f;
+            scale.y *= 1.5f;
             if(isEnemy)
             {                   
                 scale.x *= -1;
+                spriteInitialisation.GetComponentInChildren<LifeBar>().IsEnemy = true;
             }
             spriteInitialisation.transform.localScale = scale;
             character.Sprite = spriteInitialisation;
@@ -362,6 +373,11 @@ namespace Assets.Scripts
             }
 
             activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().Attack();
+            while (!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
+            {
+                Debug.Log("wait");
+                yield return null;
+            }
 
             if (activeFighter.CurrentEffect != null && activeFighter.CurrentEffect is StunEffect)
             {
@@ -385,9 +401,7 @@ namespace Assets.Scripts
             }
             else
             {
-                Debug.Log("Vor getAttacked");
                 viech.getAttacked(attack, activeFighter.Strength);
-                Debug.Log("Nach getAttacked");
             }
 
 
@@ -407,24 +421,15 @@ namespace Assets.Scripts
 
             Log.Instance.print();
 
-            if (viech.isDead())
+
+
+
+            gotoPoint.start(position);
+            while (!gotoPoint.isFinished())
             {
-                fighters.Remove(viech);
-                Destroy(viech.Sprite);
+                yield return null;
             }
 
-            if (activeFighter.isDead())
-            {
-                fighters.Remove(activeFighter);
-                Destroy(activeFighter.Sprite);
-            }else
-            {
-                gotoPoint.start(position);
-                while (!gotoPoint.isFinished())
-                {
-                    yield return null;
-                }
-            }
             isTurnFinished = true;
         }
 
