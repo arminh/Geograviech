@@ -65,6 +65,7 @@ namespace Assets.Scripts
 
         public void fightFinished(FightCharacter winner, FightCharacter looser)
         {
+            Debug.Log("fightFinished");
             if (winner.IsEnemy)
             {
                 // 
