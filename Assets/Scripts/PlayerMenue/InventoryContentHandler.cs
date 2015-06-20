@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.Consumables;
 using System.Linq;
+using UnityEngine.UI;
 
 public class InventoryContentHandler : MonoBehaviour 
 {
@@ -35,6 +36,8 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddMonsterToList(Viech monster)
     {
         var prefab = PrefabContainer.getMonsterListIconPrefab();
+        var image = prefab.GetComponentInChildren<Image>();
+        image.sprite = monster.Icon;
         var dragHandler = prefab.GetComponent<ListMonsterDragHandler>();
         dragHandler.OnListItemCreated(monster);
         prefab.transform.SetParent(MonsterList);
@@ -51,7 +54,8 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddItemToList(IConsumable item)
     {
         var prefab = PrefabContainer.getConsumableListIconPrefab();
-
+        var image = prefab.GetComponentInChildren<Image>();
+        image.sprite = item.Icon;
         var dragHandler = prefab.GetComponent<ListConsumableDragHandler>();
         dragHandler.OnListItemCreated(item);
         prefab.transform.SetParent(ItemList);
@@ -68,7 +72,8 @@ public class InventoryContentHandler : MonoBehaviour
     public void AddWeaponToList(Weapon weapon)
     {
         var prefab = PrefabContainer.getWeaponListIconPrefab();
-        
+        var image = prefab.GetComponentInChildren<Image>();
+        image.sprite = weapon.Icon;
         var dragHandler = prefab.GetComponent<ListWeaponDragHandler>();
         dragHandler.OnListItemCreated(weapon);
         prefab.transform.SetParent(WeaponList);

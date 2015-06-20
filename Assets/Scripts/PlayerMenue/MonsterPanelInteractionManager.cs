@@ -44,8 +44,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
     public void SetMonsterInfos(Viech monster)
     {
         Monster = monster;
-        //var monsterImage = PrefabContainer.getMonsterPrefab(Monster.Identifier);
-        GameObject monsterImage = null;
+        var monsterImage = monster.Sprite;
         if(monsterImage != null)
         {
             var monsterView = Instantiate(monsterImage);
