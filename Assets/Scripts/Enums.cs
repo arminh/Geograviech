@@ -5,5 +5,5 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    public enum ElementType { EARTH, WIND, FIRE, WATER };
+    public enum ElementType { EARTH, WIND, FIRE, WATER , NORMAL};
 }

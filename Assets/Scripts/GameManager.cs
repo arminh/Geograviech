@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Consumables;
@@ -14,6 +15,12 @@ namespace Assets.Scripts
 
         private static GameManager gameManager = null;
 
+        public List<GameObject> allCharactersPefabs;
+        private Dictionary<string, GameObject> prefabs;
+
+        public List<GameObject> allCharactersIcons;
+        private Dictionary<string, GameObject> icons;
+
         private bool levelWasLoaded = false;
         private void OnLevelWasLoaded(int iLevel)
         {
@@ -24,6 +31,17 @@ namespace Assets.Scripts
         public void init()
         {
             //TODO: Read Savefile
+
+            foreach (GameObject sprite in allCharactersPefabs)
+            {
+                prefabs.Add(sprite.name, sprite);
+            }
+
+            foreach (GameObject icon in allCharactersIcons)
+            {
+                prefabs.Add(icon.name, icon);
+            }
+
             Debug.Log("Start");
             Weapon weapon = new Weapon( new Attack ("TestAttack", ElementType.EARTH, 15, new FreezeEffect (50)));
             List<Weapon> weapons = new List<Weapon>();
@@ -32,11 +50,11 @@ namespace Assets.Scripts
             List<Attack> attacks = new List<Attack>();
             attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, new BurnEffect(50)));
 
-            activeViecher.Add(new Viech(10, 20, 4, "Garganton", "Gargoyles", 3, 500, attacks, ElementType.EARTH));
+            activeViecher.Add(new Viech(10, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
 
-            player = new Player(15, 15, 5, "TestPlayer", "Player", 500, 5, viecher, activeViecher, weapons, weapon, new List<IConsumable>(), new List<Attack>());
+            player = new Player(15, 15, 5, "TestPlayer", 500, 5, viecher, activeViecher, weapons, weapon, new List<IConsumable>(), new List<Attack>(), prefabs["Player"], null);
 
-            FightViech enemy = new FightViech("Zerberwelpe", 17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 40, new List<Item>(), 160);
+            FightViech enemy = new FightViech(17, 20, 3, "Skeletor", attacks, ElementType.FIRE, 40, new List<Item>(), 160, prefabs["Zerberwelpe"], icons["ZerberwelpeIcon"]);
 
            StartCoroutine(executeFight(enemy));
         }
@@ -93,7 +111,7 @@ namespace Assets.Scripts
                 if (enemy.decideJoin())
                 {
                     //TODO: Give Viech a name
-                    Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Identifier, enemy.Level, 0, enemy.Attacks, enemy.Type);
+                    Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Level, 0, enemy.Attacks, enemy.Type, enemy.Sprite, enemy.Icon);
                     player.addViech(viech);
                 }
 
@@ -103,7 +121,7 @@ namespace Assets.Scripts
                 {
                     if (item is IConsumable)
                     {
-                        player.addConsumable((IConsumable)item);
+                        player.addConsumable(item);
                     }
                     else
                     {
