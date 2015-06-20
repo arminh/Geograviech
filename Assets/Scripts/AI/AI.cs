@@ -28,24 +28,57 @@ namespace Assets.Scripts.ArtificialIntelligence
 
         public IEnumerator executeTurn(FightCharacter viech)
         {
-            Attack attack = viech.Attacks.FirstOrDefault();
+            var attackEnemy = selectEnemyToAttack(viech);
 
-            return selectAttackEnemy(attack);
+
+            return FightManager.Instance.attackViech(attackEnemy.Key, attackEnemy.Value);
         }
 
-        private void selectAttack(Action<String> function, Dictionary<String, int> items)
+        private KeyValuePair<Attack, FightCharacter> selectEnemyToAttack(FightCharacter viech)
         {
-            string item = items.FirstOrDefault().Key;
 
-            function.Invoke(item);
-        }
 
-        private IEnumerator selectAttackEnemy(Attack attack)
-        {
+            var attacks = viech.Attacks;
+            var attack = selectAttack(attacks);
             List<FightCharacter> attackAble = FightManager.Instance.getPlayerViecher(true);
-            return FightManager.Instance.attackViech(attack, attackAble.FirstOrDefault());
+
+
+            return new KeyValuePair<Attack, FightCharacter>(attack, attackAble.FirstOrDefault());
         }
 
+
+        private Attack selectAttack(List<Attack> attacks)
+        {
+            List<Attack> activeAttacks = attacks.Where(x => x.Active == true).ToList<Attack>();
+            var attack = activeAttacks.FirstOrDefault();
+            return attack;
+        }
+
+
+        private bool viechHasCCAttack(FightCharacter viech)
+        {
+            var result = viech.Attacks.Any(x => x.Effect.Type == Effect.EffectType.FREEZE ||
+                                                x.Effect.Type == Effect.EffectType.SLEEP ||
+                                                x.Effect.Type == Effect.EffectType.STUN);
+            return result;
+        }
+
+        private bool viechHasSDAttack(FightCharacter viech)
+        {
+            var result = viech.Attacks.Any(x => x.Effect.Type == Effect.EffectType.BURN ||
+                                                x.Effect.Type == Effect.EffectType.POISON);
+            return result;
+        }
+
+        private FightCharacter getAttackableViechWithTheMostLife(List<FightCharacter> viecher)
+        {
+            return viecher.Where(y => y.Health == viecher.Max(x => x.Health)).FirstOrDefault();
+        }
+
+        private FightCharacter getAttackableViechWithTheLowestLife(List<FightCharacter> viecher)
+        {
+            return viecher.Where(y => y.Health == viecher.Min(x => x.Health)).LastOrDefault();
+        }
 
     }
 }
