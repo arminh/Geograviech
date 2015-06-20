@@ -72,6 +72,7 @@ namespace Assets.Scripts
         public Weapon ActiveWeapon
         {
             get { return activeWeapon; }
+            set { activeWeapon = value; }
         }
         public List<IConsumable> Items
         {

@@ -41,6 +41,11 @@ namespace Assets.Scripts
            StartCoroutine(executeFight(enemy));
         }
 
+        public Player getPlayer()
+        {
+            return player;
+        }
+
         public void showMenu()
         {
             Application.LoadLevel("PlayerMenue");
