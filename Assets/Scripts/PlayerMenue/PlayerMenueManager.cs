@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Consumables;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class PlayerMenueManager : MonoBehaviour 
 {
@@ -28,7 +29,7 @@ public class PlayerMenueManager : MonoBehaviour
 	void Start () 
     {
 	    PlayerPanel = GetComponentInChildren<PlayerPanelInteractionManager>();
-        MonsterPanel = GetComponentInChildren<MonsterPanelInteractionManager>();
+        MonsterPanel = GetComponentsInChildren<MonsterPanelInteractionManager>(true).FirstOrDefault();
         Inventory = GetComponentInChildren<InventoryContentHandler>();
         player = GameManager.Instance.getPlayer();
 	}
@@ -52,18 +53,31 @@ public class PlayerMenueManager : MonoBehaviour
     {
         manager.Inventory.RemoveMonsterFromList(monster);
         manager.player.Viecher.Remove(monster);
+        SwitchMonsterPlayerPanel();
     }
 
     public static void SwapActiveMonster(Viech monster, int slotNumber)
     {
+        Debug.Log("SwapActiveMonster");
+        Debug.Log(monster);
+        Debug.Log(slotNumber);
         manager.player.Viecher.Remove(monster);
-        var prev_monster = manager.player.ActiveViecher.ElementAt(slotNumber);
-        if (prev_monster != null)
+        Debug.Log(manager.player.ActiveViecher.Count);
+        try
         {
-            manager.player.Viecher.Add(prev_monster);
-            manager.Inventory.AddMonsterToList(prev_monster);
+            var prev_monster = manager.player.ActiveViecher.ElementAt(slotNumber);
+            if (prev_monster != null)
+            {
+                Debug.Log(prev_monster);
+                manager.player.Viecher.Add(prev_monster);
+                manager.Inventory.AddMonsterToList(prev_monster);
+            }
+            manager.player.ActiveViecher[slotNumber] = monster;
         }
-        manager.player.ActiveViecher.Insert(slotNumber, monster);
+        catch(Exception ex)
+        {
+            manager.player.ActiveViecher.Insert(slotNumber, monster);
+        }
     }
 
     public static void SwapActiveWeapon(Weapon weapon)

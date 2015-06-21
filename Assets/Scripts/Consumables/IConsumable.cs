@@ -11,6 +11,8 @@ namespace Assets.Scripts.Consumables
         bool use(FightCharacter character);
         String Name{ get; }
 
+        String Description { get; }
+
         int DropChance{ get; }
 
         int Quantity{ get; }

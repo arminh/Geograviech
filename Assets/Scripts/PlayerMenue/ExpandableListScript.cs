@@ -17,7 +17,6 @@ public class ExpandableListScript : MonoBehaviour
         ListItem.gameObject.SetActive(IsExpanded);
         List<Image> images = new List<Image>();
         GetComponentsInChildren<Image>(images);
-        images.ForEach(x => Debug.Log(x.gameObject));
         Image = images.LastOrDefault().rectTransform;
     }
 

@@ -9,26 +9,14 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
     public Enums.ItemType type;
 	public object Item;
 
-    public static DragItemHandler ItemToBeDragged 
-    {
-        get 
-        {
-            var slot = FindObjectOfType<ItemDragSlot>();
-            return slot.GetContainedItem();
-        }
-        set 
-        {
-            var slot = FindObjectOfType<ItemDragSlot>();
-            value.transform.SetParent(slot.transform);
-        }
-    }
-
+    public static DragItemHandler ItemToBeDragged;
     public static Transform ItemOriginalSlot;
 
     protected CanvasGroup ItemCanvasGroup;
 
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("OnBeginDrag");
         ItemToBeDragged = this;
         ItemOriginalSlot = transform.parent;
 
@@ -44,6 +32,7 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log("OnEndDrag");
         if (ItemCanvasGroup != null)
             ItemCanvasGroup.blocksRaycasts = true;
 

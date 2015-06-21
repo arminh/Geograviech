@@ -13,6 +13,7 @@ namespace Assets.Scripts.Consumables
             : base(name, dropChance, quantity, icon)
         {
             //this.name = "Kürbiskernöl"
+            this.description = string.Format("Heals {0} damage", healAmount);
             this.healAmount = healAmount;
         }
 

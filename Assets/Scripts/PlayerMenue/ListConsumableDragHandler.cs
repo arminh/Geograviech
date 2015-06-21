@@ -23,6 +23,6 @@ public class ListConsumableDragHandler : ListItemDragHandler
         var image = transform.GetComponentInChildren<Image>();
         image.sprite = consumable.Icon;
         Name.text = string.Format(Name.text, consumable.Name);
-        Effect.text = string.Format(Effect.text, consumable.Name);
+        Effect.text = string.Format(Effect.text, consumable.Description);
     }
 }

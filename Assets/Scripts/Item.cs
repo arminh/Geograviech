@@ -10,6 +10,7 @@ namespace Assets
     public abstract class Item
     {
         protected string name;
+        protected string description;
         protected int dropChance;
         protected int quantity;
 
@@ -25,6 +26,11 @@ namespace Assets
             this.dropChance = dropChance;
             this.quantity = quantity;
             this.icon = icon;
+        }
+
+        public String Description
+        {
+            get { return description; }
         }
 
         public String Name

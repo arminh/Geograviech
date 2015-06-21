@@ -58,7 +58,7 @@ namespace Assets.Scripts
 
         public int MaxHealth
         {
-            get { return MaxHealth; }
+            get { return maxHealth; }
         }
 
         public int Speed

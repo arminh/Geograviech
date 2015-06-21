@@ -32,6 +32,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
 
     void Start()
     {
+        OriginalText = new Hashtable();
         OriginalText.Add(Name ,Name.text);
         OriginalText.Add(Type, Type.text);
         OriginalText.Add(Health, Health.text);
@@ -43,13 +44,17 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
 
     public void SetMonsterInfos(Viech monster)
     {
+        Debug.Log("SetMonsterInfos");
         Monster = monster;
         var monsterImage = monster.Sprite;
         if(monsterImage != null)
         {
             var monsterView = Instantiate(monsterImage);
-            monsterView.transform.localPosition = new Vector3(0, 0, -50);
-            monsterView.transform.SetParent(MonsterPanel);   
+            monsterView.transform.SetParent(MonsterPanel);
+            monsterView.transform.position = new Vector3(0, 0, 0);
+            monsterView.transform.localPosition = new Vector3(0, 0, -80);
+            var s = monsterView.transform.localScale;
+            monsterView.transform.localScale = new Vector3(s.x * 30, s.y * 30, 1);
         }
         Name.text = string.Format(Name.text, Monster.Name);
         Type.text = string.Format(Type.text, Monster.Type.ToString());
@@ -63,7 +68,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
 
     public void ResetMonsterPanel()
     {
-        MonsterPanel.DetachChildren();
+        Destroy(MonsterPanel.GetChild(0).gameObject);
         Monster = null;
 
         Name.text = OriginalText[Name] as string;
@@ -75,12 +80,12 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         Attacks.text = OriginalText[Attacks] as string;
     }
 
-    public static void OnBackToPlayerMenueClick()
+    public void OnBackToPlayerMenueClick()
     {
         PlayerMenueManager.SwitchMonsterPlayerPanel();
     }
 
-    public static void OnFreeMonsterCkilck()
+    public void OnFreeMonsterCkilck()
     {
         PlayerMenueManager.SetMonsterFree(manager.Monster);
     }

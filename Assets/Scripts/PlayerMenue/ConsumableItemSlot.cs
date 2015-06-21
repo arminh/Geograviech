@@ -12,12 +12,11 @@ public class ConsumableItemSlot : MonoBehaviour, IDropHandler
     public void Awake()
     {
         manager = GetComponentInParent<IConsumableInteraction>();
-        Debug.Log(manager);
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("OnDrop");
+        Debug.Log("ConsumableItemSlot - OnDrop");
         if (DragItemHandler.ItemToBeDragged.type == Enums.ItemType.Consumable)
         {
             var item = DragItemHandler.ItemToBeDragged.Item;
