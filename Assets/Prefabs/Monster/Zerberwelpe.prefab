@@ -386,6 +386,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 429728}
   - 114: {fileID: 11409500}
+  - 114: {fileID: 11486976}
   m_Layer: 0
   m_Name: Zerberwelpe
   m_TagString: Untagged
@@ -740,7 +741,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.6917267, y: 21.2804565, z: 0}
+  m_LocalPosition: {x: 1.89831734, y: -20.5345173, z: 0}
   m_LocalScale: {x: .600000024, y: .600000024, z: 1}
   m_Children:
   - {fileID: 486386}
@@ -1105,7 +1106,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 15.9899998, y: 3.44000006}
+  m_Size: {x: 11.7200003, y: 7.5}
 --- !u!82 &8218038
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1219,6 +1220,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Status: 0
   SpecialDamageStatus: 0
+--- !u!114 &11486976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18683e70070261b41b5af3edf4f5b879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressBarFull: {fileID: 2800000, guid: 7daa508acf8acf447bed278da23371f7, type: 3}
+  progressBarEmpty: {fileID: 2800000, guid: f6fa83e5d7ee773438edcdee57706565, type: 3}
 --- !u!212 &21200614
 SpriteRenderer:
   m_ObjectHideFlags: 1

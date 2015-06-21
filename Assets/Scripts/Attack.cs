@@ -18,7 +18,7 @@ namespace Assets.Scripts
         private int level;
         private Sprite icon;
 
-        public Attack(string name,ElementType type, int damage, Effect effect, Sprite icon, int level = 0)
+        public Attack(string name,ElementType type, int damage, Effect effect, Sprite icon, int level = 1)
         {
             this.name = name;
             this.type = type;

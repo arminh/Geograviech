@@ -51,6 +51,7 @@ namespace Assets.Scripts
         public virtual void cure(FightCharacter character)
         {
             character.CurrentEffect = null;
+            character.Sprite.GetComponentInChildren<AnimationStatus>().ResetSpecialDamageEffect();
         }
         public abstract IEnumerator execute(FightCharacter character);
 

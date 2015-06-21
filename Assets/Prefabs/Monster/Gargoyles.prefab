@@ -419,6 +419,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 481698}
   - 114: {fileID: 11423050}
+  - 114: {fileID: 11494290}
   m_Layer: 0
   m_Name: Gargoyles
   m_TagString: Untagged
@@ -783,7 +784,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.6870937, y: 22.2235012, z: 0}
+  m_LocalPosition: {x: -12.9908237, y: -9.78995228, z: 0}
   m_LocalScale: {x: -.300000012, y: .300000012, z: 1}
   m_Children:
   - {fileID: 492610}
@@ -903,7 +904,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 9.52000046, y: 23.8500004}
+  m_Size: {x: 15.1400003, y: 23.8500004}
 --- !u!82 &8257972
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1017,6 +1018,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Status: 0
   SpecialDamageStatus: 0
+--- !u!114 &11494290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18683e70070261b41b5af3edf4f5b879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressBarFull: {fileID: 2800000, guid: 7daa508acf8acf447bed278da23371f7, type: 3}
+  progressBarEmpty: {fileID: 2800000, guid: f6fa83e5d7ee773438edcdee57706565, type: 3}
 --- !u!212 &21209838
 SpriteRenderer:
   m_ObjectHideFlags: 1
