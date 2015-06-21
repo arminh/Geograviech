@@ -179,6 +179,7 @@ namespace Assets.Scripts
                     
 
                     AnimationStatus anim = activeFighter.Sprite.GetComponentInChildren<AnimationStatus>();
+                    anim.PlaySpecialDamageEffectAgain();
                     while (!anim.areSpechialAnimationsFinished())
                     {
 
@@ -371,6 +372,8 @@ namespace Assets.Scripts
             {
                 yield return null;
             }
+
+
 
             activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().Attack();
             while (!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
