@@ -19,7 +19,7 @@ namespace Assets.Scripts
                 increaseCureChance(15);
 
                 int health = character.Health;
-                double dmgTemp = health / 100 * 5;
+                double dmgTemp = (double)health / 100 * 5;
                 int damage = Convert.ToInt32(dmgTemp);
 
                 character.Health -= damage;
