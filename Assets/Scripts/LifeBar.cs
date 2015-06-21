@@ -7,8 +7,8 @@ public class LifeBar : MonoBehaviour {
     public Texture2D progressBarFull;
     public Texture2D progressBarEmpty;
 
-    private int health = 50;
-    private int maxHealth = 100;
+    private int health;
+    private int maxHealth;
     private bool isEnemy = false;
 
 
@@ -38,7 +38,7 @@ public class LifeBar : MonoBehaviour {
         position.y *= -1;
         position.y -= collider.bounds.size.y/4;
 
-        Debug.Log(gameObject.name + " " + transform.localScale);
+        
         if(isEnemy)
         {
             position.x += collider.bounds.size.x / 4;
@@ -53,7 +53,7 @@ public class LifeBar : MonoBehaviour {
         // draw the background:
         GUI.BeginGroup(new Rect(position.x, position.y, progressBarFull.width * 0.5f, progressBarFull.height * 0.35f));
         GUI.Box(new Rect(0, 0, progressBarFull.width * 0.5f, progressBarFull.height * 0.35f), progressBarFull);
-      
+
 
         // draw the filled-in part:
         GUI.BeginGroup(new Rect(0, 0, progressBarFull.width * 0.5f, progressBarFull.height * 0.35f * (1.0f - (float)health / (float)maxHealth)));

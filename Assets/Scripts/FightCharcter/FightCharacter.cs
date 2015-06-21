@@ -152,7 +152,8 @@ namespace Assets.Scripts
             { 
                 sprite = value;
                 lifeBar = sprite.GetComponentInChildren<LifeBar>();
-                lifeBar.MaxHealth = maxHealth;
+                lifeBar.MaxHealth = maxHealth; 
+                lifeBar.Health = health;
             }
         }
 

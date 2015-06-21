@@ -396,7 +396,7 @@ public class FightScreenManager : MonoBehaviour {
             case 2:
                 {
 
-                    buttonSize.y = panelSize.y;
+                    buttonSize.y = panelSize.y/2;
                     break;
                 }
             case 3:
@@ -424,10 +424,11 @@ public class FightScreenManager : MonoBehaviour {
         {
             case 2:
                 {
-                    buttonPositions.Add(panelPosition);
+                    float x = panelPosition.x;
+                    float y = panelPosition.y + panelSize.y / 4;
+                    buttonPositions.Add(new Vector2(x, y));
 
-                    float x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
-                    float y = panelPosition.y;
+                     x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
                     buttonPositions.Add(new Vector2(x, y));
                     break;
                 }
