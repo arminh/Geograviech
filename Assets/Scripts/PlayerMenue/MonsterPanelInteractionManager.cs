@@ -62,8 +62,11 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         LevelXp.text = string.Format(LevelXp.text, Monster.Level, Monster.Xp);
         Damage.text = string.Format(Damage.text, Monster.Strength);
         Speed.text = string.Format(Speed.text, Monster.Speed);
-        Monster.Attacks.ForEach(a => string.Format(Attacks.text, a.Name, ", {0}{1}"));
+        Debug.Log(Attacks.text);
+        Monster.Attacks.ForEach(a => { string.Format(Attacks.text, a.Name, ", {0}{1}"); Debug.Log(Attacks.text); });
+        Debug.Log(Attacks.text);
         Attacks.text = string.Format(Attacks.text, "", "");
+        Debug.Log(Attacks.text);
     }
 
     public void ResetMonsterPanel()
