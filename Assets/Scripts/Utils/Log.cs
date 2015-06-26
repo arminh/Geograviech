@@ -30,7 +30,7 @@ namespace Assets.Scripts.Utils
                     logBook = new List<string>();
                     logOnGui = false;
                     //Tell unity not to destroy this object when loading a new scene!
-                    DontDestroyOnLoad(instance.gameObject);
+                    //DontDestroyOnLoad(instance.gameObject);
                 }
                 return instance;
             }
@@ -85,7 +85,7 @@ namespace Assets.Scripts.Utils
 
         void OnGUI()
         {
-			print();
+			Instance.print();
             //GUI.BeginGroup(new Rect(Screen.width/2, Screen.height/2, 110, 130));  //note the 250 width and 305 height compared to the scrollview size
             //GUILayout.BeginScrollView(new Vector2(0, 0), GUILayout.Width(100), GUILayout.Height(100));
             GUI.Label(new Rect(Screen.width * (1.0f / 3.0f), Screen.height * (3.0f / 4.0f), Screen.width * (1.0f / 3.0f), Screen.height * (1.0f / 4.0f)), logBookAsText, GUI.skin.textArea);
