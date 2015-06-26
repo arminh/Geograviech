@@ -19,6 +19,17 @@ namespace Assets.Scripts
         private int level;
         private Sprite icon;
 
+		public Attack(Attack copy)
+		{
+			this.name = copy.Name;
+			this.type = copy.Type;
+			this.damage = copy.Damage;
+			this.cooldownRounds = copy.cooldownRounds;
+			this.effect = copy.Effect;
+			this.icon = copy.Icon;
+			this.level = copy.Level;
+		}
+
         public Attack(string name,ElementType type, int damage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
         {
             this.name = name;

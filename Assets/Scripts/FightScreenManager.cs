@@ -12,6 +12,7 @@ public class FightScreenManager : MonoBehaviour {
     public Sprite sprite;
     public Sprite attackSprite;
     public Sprite backSprite;
+	public Sprite skipTurnSprite;
 
     List<Vector3> enemyPositions;
     List<Vector3> playerPositions;
@@ -189,7 +190,7 @@ public class FightScreenManager : MonoBehaviour {
            text2.transform.position = position2;
 
            Image image2 = go2.GetComponentInChildren<Image>();
-           image2.sprite = sprite;
+			image2.sprite = skipTurnSprite;
            image2.preserveAspect = true;
 
            Button b2 = go2.GetComponent<Button>();
@@ -359,8 +360,8 @@ public class FightScreenManager : MonoBehaviour {
 
             Button b = go.GetComponent<Button>();
             b.interactable = attack.Active;
-            Attack captured = attack;
-            b.onClick.AddListener(() => FightManager.Instance.setChosenAttack(attack));
+            Attack captured = new Attack(attack);
+			b.onClick.AddListener(() => FightManager.Instance.setChosenAttack(captured));
             b.onClick.AddListener(() => clearButtonPanel());
             i++;
         }
