@@ -9,7 +9,7 @@ namespace Assets.Scripts
         public PoisonEffect(int inflictChance)
             : base(inflictChance, 10, EffectType.POISON)
         {
-
+            inflictMsg = "poisoned";
         }
 
         public override IEnumerator execute(FightCharacter character)

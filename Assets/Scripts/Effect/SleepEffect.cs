@@ -9,7 +9,7 @@ namespace Assets.Scripts
         public SleepEffect(int inflictChance)
             : base(inflictChance, 10, EffectType.SLEEP)
         {
-
+            inflictMsg = "asleep";
         }
 
         public override IEnumerator execute(FightCharacter character)

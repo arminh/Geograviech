@@ -4,11 +4,12 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts
 {
-    public class Character
+    public abstract class Character
     {
         protected string name;
 
         protected int maxHealth;
+        protected int currentHealth;
         protected int speed;
         protected int strength;
 
@@ -21,9 +22,10 @@ namespace Assets.Scripts
         protected GameObject sprite;
         protected Sprite icon;
 
-        public Character(int maxHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, GameObject sprite, Sprite icon)
+        public Character(int maxHealth, int currentHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, GameObject sprite, Sprite icon)
         {
             this.maxHealth = maxHealth;
+            this.currentHealth = currentHealth;
             this.speed = speed;
             this.strength = strength;
             this.name = name;
@@ -46,7 +48,9 @@ namespace Assets.Scripts
             }
         }
 
-        private void levelUp()
+        protected abstract void levelUp();
+
+        protected void updateStats()
         {
 
         }
@@ -59,6 +63,11 @@ namespace Assets.Scripts
         public int MaxHealth
         {
             get { return maxHealth; }
+        }
+
+        public int CurrentHealth
+        {
+            get { return currentHealth; }
         }
 
         public int Speed

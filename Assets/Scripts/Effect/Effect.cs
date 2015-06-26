@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using Assets.Scripts.Utils;
+
 namespace Assets.Scripts
 {
     public abstract class Effect
@@ -10,6 +12,8 @@ namespace Assets.Scripts
         protected EffectType type;
         protected int inflictChance;
         protected int cureChance;
+
+        protected string inflictMsg;
 
         public Effect(int inflictChance, int cureChance, EffectType type)
         {
@@ -27,6 +31,7 @@ namespace Assets.Scripts
 
                 if (num <= inflictChance)
                 {
+                    Log.Instance.Info(character.Name + " is now " + inflictMsg + ".");
                     character.CurrentEffect = this;
                     character.Sprite.GetComponentInChildren<AnimationStatus>().PlaySpecialDamageEffect(this.type);
                 }
@@ -44,12 +49,14 @@ namespace Assets.Scripts
             }
             else
             {
+                Log.Instance.Info(character.Name + " is still " + inflictMsg + ".");
                 return false;
             }
         }
 
         public virtual void cure(FightCharacter character)
         {
+            Log.Instance.Info(character.Name + " is no longer " + inflictMsg + ".");
             character.CurrentEffect = null;
             character.Sprite.GetComponentInChildren<AnimationStatus>().ResetSpecialDamageEffect();
         }
@@ -72,6 +79,10 @@ namespace Assets.Scripts
             get { return inflictChance; }
         }
 
+        public string InflictMsg
+        {
+            get { return inflictMsg; }
+        }
 
         // is crowdcontrol type
         public bool IsCCType

@@ -44,18 +44,20 @@ namespace Assets.Scripts
             }
 
             Debug.Log("Start");
-            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 15, new FreezeEffect(50), null), icons["normalAttack"]);
+            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 15, 0, new FreezeEffect(20), null), icons["normalAttack"]);
             List<Weapon> weapons = new List<Weapon>();
             List<Viech> activeViecher = new List<Viech>();
             List<Viech> viecher = new List<Viech>();
             List<Attack> attacks = new List<Attack>();
-            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, new BurnEffect(50), null));
+            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, 3, new BurnEffect(50), null));
 
-            activeViecher.Add(new Viech(100, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
 
-            viecher.Add(new Viech(10, 20, 4, "Wurzelgemüse", 3, 500, attacks, ElementType.EARTH, prefabs["Alraunmännlein"], icons["AlrauneIcon"]));
 
-            player = new Player(15, 15, 5, "TestPlayer", 500, 5, viecher, activeViecher, weapons, weapon, new List<IConsumable>(), new List<Attack>(), prefabs["Player"], null);
+            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), weapons, weapon, new List<IConsumable>(), new List<Attack>(), prefabs["Player"], null);
+
+            player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
+
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks, ElementType.EARTH, prefabs["Alraunmännlein"], icons["AlrauneIcon"]));
 
             FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks, ElementType.FIRE, 40, new List<Item>(), 160, prefabs["Zerberwelpe"], icons["ZerberwelpeIcon"]);
 
@@ -94,7 +96,7 @@ namespace Assets.Scripts
             Debug.Log("fightFinished");
             if (winner.IsEnemy)
             {
-                // 
+                //player.looseFight()
             }
             else
             {
@@ -114,7 +116,7 @@ namespace Assets.Scripts
                 if (enemy.decideJoin())
                 {
                     //TODO: Give Viech a name
-                    Viech viech = new Viech(enemy.MaxHealth, enemy.Speed, enemy.Strength, "Viech", enemy.Level, 0, enemy.Attacks, enemy.Type, enemy.Sprite, enemy.Icon);
+                    Viech viech = new Viech(enemy.MaxHealth, enemy.Health, enemy.Speed, enemy.Strength, "Viech", enemy.Level, 0, enemy.Attacks, enemy.Type, enemy.Sprite, enemy.Icon);
                     player.addViech(viech);
                 }
 

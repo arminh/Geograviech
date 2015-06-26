@@ -15,8 +15,8 @@ namespace Assets.Scripts
 
         private List<IConsumable> items;
 
-        public Player(int maxHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, GameObject sprite, Sprite icon)
-            : base(maxHealth, speed, strength, name, level, xp, attacks, sprite, icon)
+        public Player(int maxHealth, int currentHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, GameObject sprite, Sprite icon)
+            : base(maxHealth, currentHealth, speed, strength, name, level, xp, attacks, sprite, icon)
         {
            
             this.viecher = viecher;
@@ -40,14 +40,31 @@ namespace Assets.Scripts
             return new FightPlayer(maxHealth, speed, strength, name, fightViecher, activeWeapon, attacks, items, sprite, icon);
         }
 
+        protected override void levelUp()
+        {
+
+        }
+
         public void addViech(Viech viech)
         {
             viecher.Add(viech);
+            viech.setOwner(this);
         }
 
         public void removeViech(Viech viech)
         {
             viecher.Remove(viech);
+        }
+
+        public void addActiveViech(Viech viech)
+        {
+            activeViecher.Add(viech);
+            viech.setOwner(this);
+        }
+
+        public void removeActiveViech(Viech viech)
+        {
+            activeViecher.Remove(viech);
         }
 
         public void addWeapon(Weapon weapon)

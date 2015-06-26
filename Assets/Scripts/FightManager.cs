@@ -214,7 +214,6 @@ namespace Assets.Scripts
             //Debug.Log("executeFSM");
             if (stateChanged)
             {
-                Debug.Log("playerHasChoosen " + state);
                 if (activeFighter == player)
                 {
                     switch (state)
@@ -390,6 +389,7 @@ namespace Assets.Scripts
                 switch (action)
                 {
                     case 1:
+                        Log.Instance.Info(activeFighter.Name + " attacks " + viech.Name + " with " + attack.Name);
                         viech.getAttacked(attack,activeFighter.Strength);
                         break;
                     case 2:

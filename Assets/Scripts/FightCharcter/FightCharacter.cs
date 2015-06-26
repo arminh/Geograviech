@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utils;
 
 namespace Assets.Scripts
 {
@@ -38,10 +39,11 @@ namespace Assets.Scripts
         }
        
 
-        protected int applyDamage(int damage)
+        protected void applyDamage(int damage)
         {
-            //Reduce damage by Strength maybe?
-            //damage -= strength
+            sprite.GetComponentInChildren<AnimationStatus>().PlayNormalDamageEffect();
+
+            Log.Instance.Info(name + " suffers " + damage + " damage.");
 
             health -= damage;
             lifeBar.Health = health;
@@ -49,10 +51,6 @@ namespace Assets.Scripts
             if(health <= 0) {
                 die();
             }
-
-            sprite.GetComponentInChildren<AnimationStatus>().PlaySpecialDamageEffect(Effect.EffectType.NONE);
-            
-            return damage;
 
         }
 
@@ -63,14 +61,22 @@ namespace Assets.Scripts
             AnimationStatus animStatus = sprite.GetComponentInChildren<AnimationStatus>();
             animStatus.ResetSpecialDamageEffect();
             animStatus.Die();
+
+            Log.Instance.Info(Name + " died heroically in battle and will ascend to Viechhalla.");
         }
 
         public bool heal(int amount)
         {
             if (health < maxHealth)
             {
+                int healthBefore = health;
                 health = Mathf.Min(health + amount, maxHealth);
+
                 lifeBar.Health = health;
+
+                int healAmount = health - healthBefore;
+                Log.Instance.Info(name + " was healed for " + healAmount + " damage.");
+
                 return true;
             }
             return false;
@@ -83,6 +89,7 @@ namespace Assets.Scripts
                 dead = false;
                 health = healAmount;
                 lifeBar.Health = health;
+                Log.Instance.Info(name + " was denied a eternal life of hapiness in Viechhalla and is now alive again.");
                 //TODO notify AnimationHandler
                 return true;
             }
@@ -101,9 +108,12 @@ namespace Assets.Scripts
 
         public void getAttacked(Attack attack, int opponentStrength)
         {
-            applyDamage(attack.Damage);
+            applyDamage(attack.Damage + opponentStrength - Strength);
 
-            attack.Effect.inflict(this);
+            if (!dead)
+            {
+                attack.Effect.inflict(this);
+            }
         }
 
         public int Health
