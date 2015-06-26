@@ -24,6 +24,8 @@ namespace Assets.Scripts
                 int damage = Convert.ToInt32(dmgTemp);
 
                 character.Health -= damage;
+                Log.Instance.Info(character.Name + " suffered " + damage + " from poison effect.");
+
             }
 
             yield break;
