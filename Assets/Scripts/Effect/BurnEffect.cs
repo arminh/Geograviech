@@ -6,10 +6,12 @@ namespace Assets.Scripts
 {
     public class BurnEffect: Effect
     {
+        
+
         public BurnEffect(int inflictChance)
             : base(inflictChance, 10, EffectType.BURN)
         {
-
+            inflictMsg = "burning";
         }
 
         public override IEnumerator execute(FightCharacter character)

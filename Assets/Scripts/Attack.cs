@@ -12,17 +12,19 @@ namespace Assets.Scripts
         private string name;
         private ElementType type;
         private int damage;
+        int cooldownRounds;
         private Effect effect;
         private bool active = true;
 
         private int level;
         private Sprite icon;
 
-        public Attack(string name,ElementType type, int damage, Effect effect, Sprite icon, int level = 1)
+        public Attack(string name,ElementType type, int damage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
         {
             this.name = name;
             this.type = type;
             this.damage = damage;
+            this.cooldownRounds = cooldownRounds;
             this.effect = effect;
             this.icon = icon;
             this.level = level;

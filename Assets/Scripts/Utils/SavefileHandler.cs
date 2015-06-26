@@ -22,6 +22,10 @@ namespace Assets.Scripts {
             maxHealth.InnerText = player.MaxHealth.ToString();
             savefile.AppendChild(maxHealth);
 
+            XmlElement currentHealth = doc.CreateElement("currentHealth");
+            currentHealth.InnerText = player.CurrentHealth.ToString();
+            savefile.AppendChild(currentHealth);
+
             XmlElement speed = doc.CreateElement("speed");
             speed.InnerText = player.Speed.ToString();
             savefile.AppendChild(speed);
@@ -110,6 +114,10 @@ namespace Assets.Scripts {
                 vmaxHealth.InnerText = viech.MaxHealth.ToString();
                 v.AppendChild(vmaxHealth);
 
+                XmlElement currentHealth = doc.CreateElement("currentHealth");
+                currentHealth.InnerText = viech.CurrentHealth.ToString();
+                v.AppendChild(currentHealth);
+
                 XmlElement vspeed = doc.CreateElement("speed");
                 vspeed.InnerText = viech.Speed.ToString();
                 v.AppendChild(vspeed);
@@ -183,9 +191,16 @@ namespace Assets.Scripts {
             string identifier = savefile.SelectSingleNode("identifier").InnerText;
 
             int maxHealth = 0;
+            int currentHealth = 0;
+
             if (!int.TryParse(savefile.SelectSingleNode("maxHealth").InnerText, out maxHealth))
             {
                 //Savefile corrupt
+            }
+
+            if (!int.TryParse(savefile.SelectSingleNode("currentHealth").InnerText, out currentHealth))
+            {
+                //Savefile corruptcu
             }
 
             int speed = 0;
@@ -221,7 +236,7 @@ namespace Assets.Scripts {
             XmlNode activeVs = savefile.SelectSingleNode("activeViecher");
             List<Viech> activeViecher = getViecher(activeVs);
 
-            Player player = new Player(maxHealth, speed, strength, name, xp, level, viecher, activeViecher, null, null, null, attacks, null, null);
+            Player player = new Player(maxHealth, currentHealth, speed, strength, name, xp, level, viecher, activeViecher, null, null, null, attacks, null, null);
 
             return player;
         }
@@ -249,7 +264,7 @@ namespace Assets.Scripts {
             }
 
             //TODO Read Effect
-            return new Attack(name, type, damage, new BurnEffect(50), null);    
+            return new Attack(name, type, damage, 0, new BurnEffect(50), null);    
         }
 
         private static List<Viech> getViecher(XmlNode vs)
@@ -264,9 +279,16 @@ namespace Assets.Scripts {
                 ElementType type = (ElementType)Enum.Parse(typeof(ElementType), v.SelectSingleNode("type").InnerText);
 
                 int maxHealth = 0;
+                int currentHealth = 0;
+
                 if (!int.TryParse(v.SelectSingleNode("maxHealth").InnerText, out maxHealth))
                 {
                     //Savefile corrupt
+                }
+
+                if (!int.TryParse(v.SelectSingleNode("currentHealth").InnerText, out currentHealth))
+                {
+                    //Savefile corruptcu
                 }
 
                 int speed = 0;
@@ -296,7 +318,7 @@ namespace Assets.Scripts {
                 XmlNode atts = v.SelectSingleNode("attacks");
                 List<Attack> attacks = getAttacks(atts);
 
-                viecher.Add(new Viech(maxHealth, speed, strength, name, level, xp, attacks, type, null, null));
+                viecher.Add(new Viech(maxHealth, currentHealth, speed, strength, name, level, xp, attacks, type, null, null));
             }
 
             return viecher;

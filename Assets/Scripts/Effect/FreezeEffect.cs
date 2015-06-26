@@ -10,7 +10,7 @@ namespace Assets.Scripts
         public FreezeEffect(int inflictChance)
             : base(inflictChance, 10, EffectType.FREEZE)
         {
-
+            inflictMsg = "frozen";
         }
 
         public override IEnumerator execute(FightCharacter character)

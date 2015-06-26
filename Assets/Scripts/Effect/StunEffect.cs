@@ -9,7 +9,7 @@ namespace Assets.Scripts
         public StunEffect(int inflictChance)
             : base(inflictChance, 10, EffectType.STUN)
         {
-
+            inflictMsg = "confused";
         }
 
         public override IEnumerator execute(FightCharacter character)
