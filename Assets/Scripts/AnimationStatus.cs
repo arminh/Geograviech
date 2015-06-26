@@ -28,6 +28,8 @@ public class AnimationStatus : MonoBehaviour
             Status = Enums.MonsterStatus.IsSpecial;
             TriggerCount++;
             MonsterAnimator.SetTrigger("Hurt");
+			Log.Instance.Info("Hurt");
+			Log.Instance.print();
         }
     }
 
@@ -42,17 +44,22 @@ public class AnimationStatus : MonoBehaviour
             {
                 case Effect.EffectType.BURN:
                     MonsterAnimator.SetTrigger("Burning");
-                    break;
+					Log.Instance.Info("Burning");
+					break;
                 case Effect.EffectType.STUN:
                     MonsterAnimator.SetTrigger("Stunned");
+					Log.Instance.Info("Stunned");
                     break;
                 case Effect.EffectType.POISON:
                     MonsterAnimator.SetTrigger("Poisoned");
+					Log.Instance.Info("Poisoned");
                     break;
                 case Effect.EffectType.FREEZE:
                     MonsterAnimator.SetTrigger("Frozen");
+					Log.Instance.Info("Frozen");
                     break;
             }
+			Log.Instance.print();
         }
     }
 
@@ -92,6 +99,8 @@ public class AnimationStatus : MonoBehaviour
         Status = Enums.MonsterStatus.IsSpecial;
         TriggerCount++;
         MonsterAnimator.SetTrigger("Death");
+		Log.Instance.Info("Death");
+		Log.Instance.print();
     }
 
     public void Attack()

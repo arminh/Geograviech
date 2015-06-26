@@ -141,7 +141,7 @@ namespace Assets.Scripts
 
                 if (executeFight)
                 {
-                    Debug.Log("executeFight");
+                    //Debug.Log("executeFight");
                     StartCoroutine(executeTurn());
                 }
             }
@@ -211,7 +211,7 @@ namespace Assets.Scripts
 
         private IEnumerator executeFSM()
         {
-            Debug.Log("executeFSM");
+            //Debug.Log("executeFSM");
             if (stateChanged)
             {
                 Debug.Log("playerHasChoosen " + state);
@@ -267,7 +267,7 @@ namespace Assets.Scripts
                                 }
                                 else
                                 {
-                                    throw new NotImplementedException("Schould not be reached!");
+                                    throw new NotImplementedException("Should not be reached!");
                                 }
                                 break;
                             }
@@ -378,7 +378,7 @@ namespace Assets.Scripts
             activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().Attack();
             while (!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
-                Debug.Log("wait");
+                //Debug.Log("wait");
                 yield return null;
             }
 
@@ -412,13 +412,13 @@ namespace Assets.Scripts
 
             while(!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
-                Debug.Log("wait");
+                //Debug.Log("wait");
                 yield return null;
             }
 
             while (!viech.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
-                Debug.Log("wait");
+                //Debug.Log("wait");
                 yield return null;
             }
 
