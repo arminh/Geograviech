@@ -44,12 +44,16 @@ namespace Assets.Scripts
             }
 
             Debug.Log("Start");
-            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 15, 0, new FreezeEffect(20), null), icons["normalAttack"]);
+            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 15, 0, new FreezeEffect(80), null), icons["normalAttack"]);
             List<Weapon> weapons = new List<Weapon>();
             List<Viech> activeViecher = new List<Viech>();
             List<Viech> viecher = new List<Viech>();
             List<Attack> attacks = new List<Attack>();
-            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, 3, new BurnEffect(50), null));
+
+            attacks.Add(new Attack("Scream", ElementType.NORMAL, 3, 7, new StunEffect(100), null));
+            attacks.Add(new Attack("Poison seeds", ElementType.EARTH, 2, 6, new PoisonEffect(100), null));
+            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, 3, new BurnEffect(100), null));
+            attacks.Add(new Attack("Sleep", ElementType.EARTH, 15, 3, new SleepEffect(100), null));
 
 
 

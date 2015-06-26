@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utils;
 
 namespace Assets.Scripts
 {
@@ -19,13 +20,33 @@ namespace Assets.Scripts
 
             int activeAttack = rand.Next(0, numAttacks-1);
 
+            string log = character.Name + "'s attacks ";
+
             for (int i = 0; i < numAttacks; i++)
             {
                 if (i != activeAttack)
                 {
                     character.Attacks[i].Active = false;
+
+                    log += character.Attacks[i].Name;
+
+                    if (i == numAttacks - 2)
+                    {
+                        log += " and ";
+                    }
+                    else if (i == numAttacks -1)
+                    {
+                        log += " ";
+                    }
+                    else
+                    {
+                        log += ", ";
+                    }
                 }
             }
+
+            log += "are disabled.";
+            Log.Instance.Info(log);
 
             yield break;
         }

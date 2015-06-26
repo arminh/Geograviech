@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using Assets.Scripts.Utils;
 
 namespace Assets.Scripts
 {
@@ -25,6 +26,7 @@ namespace Assets.Scripts
                 int damage = Convert.ToInt32(dmgTemp);
 
                 character.Health -= damage;
+                Log.Instance.Info(character.Name + " suffered " + damage + " from burn effect.");
             }
 
             yield break;
