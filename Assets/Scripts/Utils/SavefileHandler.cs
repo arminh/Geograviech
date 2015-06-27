@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 
+using Assets.Scripts.Utils;
 using Assets.Scripts.Consumables;
 using Assets.Scripts.Character;
 using Assets.Scripts.Effects;
@@ -259,7 +260,7 @@ namespace Assets.Scripts {
         private static Attack getAttack(XmlNode att)
         {
             string name = att.SelectSingleNode("name").InnerText;
-            ElementType type = (ElementType)Enum.Parse(typeof(ElementType), att.SelectSingleNode("type").InnerText);
+            Enums.ElementType type = (Enums.ElementType)Enum.Parse(typeof(Enums.ElementType), att.SelectSingleNode("type").InnerText);
             int damage = 0;
             if (!int.TryParse(att.SelectSingleNode("damage").InnerText, out damage))
             {
@@ -279,7 +280,7 @@ namespace Assets.Scripts {
                 string name = v.SelectSingleNode("name").InnerText;
                 string identifier = v.SelectSingleNode("identifier").InnerText;
 
-                ElementType type = (ElementType)Enum.Parse(typeof(ElementType), v.SelectSingleNode("type").InnerText);
+                Enums.ElementType type = (Enums.ElementType)Enum.Parse(typeof(Enums.ElementType), v.SelectSingleNode("type").InnerText);
 
                 int maxHealth = 0;
                 int currentHealth = 0;

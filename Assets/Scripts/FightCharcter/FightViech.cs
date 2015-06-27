@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+
+using Assets.Scripts.Utils;
 using Assets.Scripts.Consumables;
 
 namespace Assets.Scripts.FightCharacters
@@ -11,7 +13,7 @@ namespace Assets.Scripts.FightCharacters
     {
         private const int num_drops = 3;
 
-        private ElementType type;
+        private Enums.ElementType type;
         private int catchChance;
         private List<Item> drops;
 
@@ -20,7 +22,7 @@ namespace Assets.Scripts.FightCharacters
 
         protected System.Random rand;
 
-        public FightViech(int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, int catchChance, List<Item> drops, int xpAmount, GameObject sprite, Sprite icon)
+        public FightViech(int maxHealth, int speed, int strength, string name, List<Attack> attacks, Enums.ElementType type, int catchChance, List<Item> drops, int xpAmount, GameObject sprite, Sprite icon)
             : base(maxHealth, speed, strength, name, attacks, sprite, icon)
         {
             this.type = type;
@@ -58,7 +60,7 @@ namespace Assets.Scripts.FightCharacters
             return false;
         }
 
-        public ElementType Type
+        public Enums.ElementType Type
         {
             get { return type; }
         }

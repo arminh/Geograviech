@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+using Assets.Scripts.Utils;
 using Assets.Scripts.Effects;
 
 namespace Assets.Scripts
@@ -12,7 +13,7 @@ namespace Assets.Scripts
     public class Attack
     {
         private string name;
-        private ElementType type;
+        private Enums.ElementType type;
         private int minDamage;
         private int maxDamage;
         int cooldownRounds;
@@ -35,7 +36,7 @@ namespace Assets.Scripts
 			this.level = copy.Level;
 		}
 
-        public Attack(string name, ElementType type, int minDamage, int maxDamage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
+        public Attack(string name, Enums.ElementType type, int minDamage, int maxDamage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
         {
             this.name = name;
             this.type = type;
@@ -53,7 +54,7 @@ namespace Assets.Scripts
             get { return name;  }
         }
 
-        public ElementType Type
+        public Enums.ElementType Type
         {
             get { return type; }
         }

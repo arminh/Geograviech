@@ -2,16 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using Assets.Scripts.Utils;
 using Assets.Scripts.FightCharacters;
 
 namespace Assets.Scripts.Character
 {
     public class Viech : Character
     {
-        private ElementType type;
+        private Enums.ElementType type;
         private Player owner;
 
-        public Viech(int maxHealth, int currentHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, ElementType type, GameObject sprite, Sprite icon)
+        public Viech(int maxHealth, int currentHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, Enums.ElementType type, GameObject sprite, Sprite icon)
             : base(maxHealth, currentHealth, speed, strength, name, level, xp, attacks, sprite, icon)
         {
             this.type = type;
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Character
             }
         }
 
-        public ElementType Type
+        public Enums.ElementType Type
         {
             get { return type; }
         }

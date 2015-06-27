@@ -15,6 +15,15 @@ namespace Assets.Scripts.Utils
             IsSpecial
         };
 
+        public enum ElementType 
+        { 
+            EARTH, 
+            WIND, 
+            FIRE, 
+            WATER, 
+            NORMAL 
+        };
+
         public enum MonsterType
         {
             Water,
