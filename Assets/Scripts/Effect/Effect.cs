@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Assets.Scripts.Utils;
+using Assets.Scripts.FightCharacters;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Effects
 {
     public abstract class Effect
     {

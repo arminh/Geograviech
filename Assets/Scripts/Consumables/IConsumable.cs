@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+using Assets.Scripts.FightCharacters;
+
 namespace Assets.Scripts.Consumables
 {
     public interface IConsumable

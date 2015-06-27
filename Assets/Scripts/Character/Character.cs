@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Character
 {
     public abstract class Character
     {

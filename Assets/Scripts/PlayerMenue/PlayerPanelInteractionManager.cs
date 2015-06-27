@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
+
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+
+using Assets.Scripts;
 using Assets.Scripts.PlayerMenue;
 using Assets.Scripts.Consumables;
+using Assets.Scripts.Character;
 
 public class PlayerPanelInteractionManager : MonoBehaviour, IConsumableInteraction
 {

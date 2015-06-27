@@ -2,8 +2,13 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Consumables;
 using System.Threading;
+
+using Assets.Scripts.Consumables;
+using Assets.Scripts.Character;
+using Assets.Scripts.FightCharacters;
+using Assets.Scripts.Effects;
+
 
 namespace Assets.Scripts
 {
@@ -44,26 +49,29 @@ namespace Assets.Scripts
             }
 
             Debug.Log("Start");
-            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 15, 0, new FreezeEffect(80), null), icons["normalAttack"]);
-            List<Weapon> weapons = new List<Weapon>();
+            
             List<Viech> activeViecher = new List<Viech>();
             List<Viech> viecher = new List<Viech>();
-            List<Attack> attacks = new List<Attack>();
+            List<Attack> attacks0 = new List<Attack>();
+            List<Attack> attacks1 = new List<Attack>();
+            List<Attack> attacks2 = new List<Attack>();
 
-            attacks.Add(new Attack("Scream", ElementType.NORMAL, 3, 7, new StunEffect(100), null));
-            attacks.Add(new Attack("Poison seeds", ElementType.EARTH, 2, 6, new PoisonEffect(100), null));
-            attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, 3, new BurnEffect(100), null));
-            attacks.Add(new Attack("Sleep", ElementType.EARTH, 15, 3, new SleepEffect(100), null));
+            attacks1.Add(new Attack("Scream", ElementType.NORMAL, 3, 5, 7, new StunEffect(100), null));
+            attacks1.Add(new Attack("Poison seeds", ElementType.EARTH, 2, 4, 6, new PoisonEffect(100), null));
+            attacks2.Add(new Attack("TestAttack", ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
+            attacks2.Add(new Attack("Sleep", ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
 
 
 
-            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), weapons, weapon, new List<IConsumable>(), new List<Attack>(), prefabs["Player"], null);
+            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), prefabs["Player"], null);
 
-            player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
+            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
+            
+            player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks1, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
 
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks, ElementType.EARTH, prefabs["Alraunmännlein"], icons["AlrauneIcon"]));
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, ElementType.EARTH, prefabs["Alraunmännlein"], icons["AlrauneIcon"]));
 
-            FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks, ElementType.FIRE, 40, new List<Item>(), 160, prefabs["Zerberwelpe"], icons["ZerberwelpeIcon"]);
+            FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, ElementType.FIRE, 40, new List<Item>(), 160, prefabs["Zerberwelpe"], icons["ZerberwelpeIcon"]);
 
             StartCoroutine(executeFight(enemy));
         }

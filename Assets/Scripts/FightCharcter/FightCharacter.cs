@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Utils;
 
-namespace Assets.Scripts
+using Assets.Scripts.Utils;
+using Assets.Scripts.Effects;
+
+namespace Assets.Scripts.FightCharacters
 {
     public abstract class FightCharacter
     {

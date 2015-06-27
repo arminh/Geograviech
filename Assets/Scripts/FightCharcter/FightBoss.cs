@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using Assets.Scripts.Consumables;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.FightCharacters
 {
     class FightBoss : FightViech
     {

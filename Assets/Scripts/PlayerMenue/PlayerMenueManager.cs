@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
 using System.Collections.Generic;
-using Assets.Scripts.Consumables;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+
+using Assets.Scripts;
+using Assets.Scripts.Consumables;
+using Assets.Scripts.Character;
 
 public class PlayerMenueManager : MonoBehaviour 
 {

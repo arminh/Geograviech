@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using Assets.Scripts.Consumables;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.FightCharacters
 {
     delegate void UseItemDelegate();
     delegate void AttackDelegate();

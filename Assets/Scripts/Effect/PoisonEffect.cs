@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
-using Assets.Scripts.Utils;
 
-namespace Assets.Scripts
+using Assets.Scripts.Utils;
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Effects
 {
     public class PoisonEffect : Effect
     {

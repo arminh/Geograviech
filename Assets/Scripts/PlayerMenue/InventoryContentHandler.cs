@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts;
-using Assets.Scripts.Consumables;
 using System.Linq;
 using UnityEngine.UI;
+
+using Assets.Scripts;
+using Assets.Scripts.Consumables;
+using Assets.Scripts.Character;
+
 
 public class InventoryContentHandler : MonoBehaviour 
 {

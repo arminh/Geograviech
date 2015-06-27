@@ -3,7 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+
 using Assets.Scripts.Consumables;
+using Assets.Scripts.Character;
+using Assets.Scripts.Effects;
 
 namespace Assets.Scripts {
     public static class SavefileHandler {
@@ -264,7 +267,7 @@ namespace Assets.Scripts {
             }
 
             //TODO Read Effect
-            return new Attack(name, type, damage, 0, new BurnEffect(50), null);    
+            return new Attack(name, type, damage, damage, 0, new BurnEffect(50), null);    
         }
 
         private static List<Viech> getViecher(XmlNode vs)

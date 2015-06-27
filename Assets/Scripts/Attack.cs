@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+using Assets.Scripts.Effects;
+
 namespace Assets.Scripts
 {
 
@@ -11,7 +13,8 @@ namespace Assets.Scripts
     {
         private string name;
         private ElementType type;
-        private int damage;
+        private int minDamage;
+        private int maxDamage;
         int cooldownRounds;
         private Effect effect;
         private bool active = true;
@@ -19,26 +22,30 @@ namespace Assets.Scripts
         private int level;
         private Sprite icon;
 
+        protected System.Random rand;
+
 		public Attack(Attack copy)
 		{
 			this.name = copy.Name;
 			this.type = copy.Type;
-			this.damage = copy.Damage;
+            this.minDamage = copy.Damage;
 			this.cooldownRounds = copy.cooldownRounds;
 			this.effect = copy.Effect;
 			this.icon = copy.Icon;
 			this.level = copy.Level;
 		}
 
-        public Attack(string name,ElementType type, int damage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
+        public Attack(string name, ElementType type, int minDamage, int maxDamage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
         {
             this.name = name;
             this.type = type;
-            this.damage = damage;
+            this.minDamage = minDamage;
+            this.maxDamage = maxDamage;
             this.cooldownRounds = cooldownRounds;
             this.effect = effect;
             this.icon = icon;
             this.level = level;
+            this.rand = new System.Random();
         }
 
         public string Name
@@ -53,7 +60,17 @@ namespace Assets.Scripts
 
         public int Damage
         {
-            get { return damage * level; }
+            get { return rand.Next(minDamage, maxDamage) * level; }
+        }
+
+        public int MinDamage
+        {
+            get { return minDamage; }
+        }
+        
+        public int MaxDamage
+        {
+            get { return maxDamage; }
         }
 
         public Effect Effect

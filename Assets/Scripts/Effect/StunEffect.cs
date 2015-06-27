@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 
-namespace Assets.Scripts
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Effects
 {
     public class StunEffect : Effect
     {

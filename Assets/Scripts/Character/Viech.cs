@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Assets.Scripts
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Character
 {
     public class Viech : Character
     {
