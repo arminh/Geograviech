@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace Assets.Scripts
         private bool levelWasLoaded = false;
         private void OnLevelWasLoaded(int iLevel)
         {
-            Debug.Log("Level loaded");
+			Log.Instance.Info("Level loaded");
             levelWasLoaded = true;
         }
 
@@ -42,6 +42,7 @@ namespace Assets.Scripts
             foreach (GameObject sprite in allCharactersPefabs)
             {
                 prefabs.Add(sprite.name, sprite);
+				Debug.Log(sprite.name);
             }
 
             icons = new Dictionary<string, Sprite>();
@@ -51,6 +52,29 @@ namespace Assets.Scripts
             }
 
             Debug.Log("Start");
+            
+            //List<Viech> activeViecher = new List<Viech>();
+            //List<Viech> viecher = new List<Viech>();
+            //List<Attack> attacks0 = new List<Attack>();
+            //List<Attack> attacks1 = new List<Attack>();
+            //List<Attack> attacks2 = new List<Attack>();
+
+            //attacks1.Add(new Attack("Scream", Enums.ElementType.NORMAL, 3, 5, 7, new StunEffect(100), null));
+            //attacks1.Add(new Attack("Poison seeds", Enums.ElementType.EARTH, 2, 4, 6, new PoisonEffect(100), null));
+            //attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
+            //attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
+
+            //player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
+
+            //Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", Enums.ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
+
+            //player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
+
+            //player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
+
+            //FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, Enums.ElementType.FIRE, 40, new List<Item>(), 160, "Zerberwelpe", "ZerberwelpeIcon");
+
+            //StartCoroutine(executeFight(enemy));
 
             List<Viech> activeViecher = new List<Viech>();
 
@@ -85,41 +109,6 @@ namespace Assets.Scripts
                     player.addWeapon((Weapon)item);
                 }
             }
-
-
-            //Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 15, new FreezeEffect(50), null), icons["normalAttack"]);
-            //List<Weapon> weapons = new List<Weapon>();
-            //List<Viech> activeViecher = new List<Viech>();
-            //List<Viech> viecher = new List<Viech>();
-            //List<Attack> attacks0 = new List<Attack>();
-            //List<Attack> attacks1 = new List<Attack>();
-            //List<Attack> attacks2 = new List<Attack>();
-
-            //attacks1.Add(new Attack("Scream", Enums.ElementType.NORMAL, 3, 5, 7, new StunEffect(100), null));
-            //attacks1.Add(new Attack("Poison seeds", Enums.ElementType.EARTH, 2, 4, 6, new PoisonEffect(100), null));
-            //attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
-            //attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
-
-            //player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), "Player", null);
-
-            //activeViecher.Add(new Viech(10, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
-            //activeViecher.Add(null);
-            //activeViecher.Add(new Viech(10, 20, 4, "Nervenzwerg", 3, 500, attacks, ElementType.WIND, prefabs["Imp"], icons["ImpIcon"]));
-
-            //Weapon ice_weapon = new Weapon("IceSword", new Attack("TestAttack", Enums.ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
-
-            //player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
-
-            //List<IConsumable> items = new List<IConsumable>();
-            //items.Add(new HealPotion("Lebertran", 10, 5, 1, icons["lebertran"]));
-
-            //weapons.Add(new Weapon("FireSword", new Attack("TestAttack", ElementType.FIRE, 15, new BurnEffect(50), null), icons["normalAttack"]));
-
-            //player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraunmännlein", "AlrauneIcon"));
-
-            //FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, Enums.ElementType.FIRE, 40, new List<Item>(), 160, "Zerberwelpe", "ZerberwelpeIcon");
-
-            //player = new Player(15, 15, 5, "TestPlayer", 500, 5, viecher, activeViecher, weapons, weapon, items, new List<Attack>(), prefabs["Player"], null);
         }
 
         public Player getPlayer()
@@ -134,16 +123,16 @@ namespace Assets.Scripts
 
         public IEnumerator executeFight(FightViech enemy)
         {
-            Debug.Log("executeFight");
+			Log.Instance.Info("executeFight");
             Application.LoadLevel("Fightscreen");
 
             while (!levelWasLoaded)
             {
-                Debug.Log("Thread sleeps");
+				Log.Instance.Info("Thread sleeps");
                 yield return null;
             }
             levelWasLoaded = false;
-            Debug.Log("Thread awoke");
+			Log.Instance.Info("Thread awoke");
             FightPlayer hero = player.createHero();
 
             FightManager.Instance.fight(hero, enemy);
@@ -240,3 +229,4 @@ namespace Assets.Scripts
         }
     }
 }
+>>>>>>> 6d6967988ce59da135496e4360fd2df05e700887

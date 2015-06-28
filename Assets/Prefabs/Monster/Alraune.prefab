@@ -486,7 +486,7 @@ GameObject:
   - 114: {fileID: 11428098}
   - 114: {fileID: 11462552}
   m_Layer: 0
-  m_Name: "Alraunm\xE4nnlein"
+  m_Name: Alraune
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1092,6 +1092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Status: 0
   SpecialDamageStatus: 0
+  TriggerCount: 0
 --- !u!114 &11428098
 MonoBehaviour:
   m_ObjectHideFlags: 1

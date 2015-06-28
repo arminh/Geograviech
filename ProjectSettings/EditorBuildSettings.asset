@@ -5,27 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Test.unity
-  - enabled: 0
-    path: Assets/Scenes/Test.unity
-  - enabled: 0
-    path: Assets/Scenes/FightScreen-Alraunen.unity
-  - enabled: 0
-    path: Assets/Scenes/FightScreen-Gargoyles.unity
-  - enabled: 0
-    path: Assets/Scenes/FightScreen-GefrorenePelikane.unity
-  - enabled: 0
-    path: Assets/Scenes/FightScreen-Imp.unity
-  - enabled: 0
-    path: Assets/Scenes/FightScreen-Sirene.unity
-  - enabled: 0
-    path: Assets/Scenes/FightScreen-SteirischerPanther.unity
-  - enabled: 0
-    path: Assets/Scenes/FightScreen-Welpe.unity
-  - enabled: 0
-    path: Assets/Scenes/WorldMap.unity
   - enabled: 1
-    path: Assets/Scenes/MainScreen.unity
+    path: Assets/Scenes/WorldMap.unity
   - enabled: 1
     path: Assets/Scenes/FightScreen.unity
