@@ -64,7 +64,7 @@ GameObject:
   - 225: {fileID: 22580320}
   - 114: {fileID: 11437096}
   m_Layer: 5
-  m_Name: "W\xE4rmeflascheListItem"
+  m_Name: "Wa\u0308rmeflascheListItem"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,6 +211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   DraggedPrefab: {fileID: 115334, guid: c3cbb4014eb342342ad63787de1f4043, type: 2}
+  Name: {fileID: 0}
+  Effect: {fileID: 0}
 --- !u!222 &22214476
 CanvasRenderer:
   m_ObjectHideFlags: 1
