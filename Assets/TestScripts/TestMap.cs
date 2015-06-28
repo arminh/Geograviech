@@ -209,9 +209,6 @@ public class TestMap : MonoBehaviour
 		//----------------------
 
 		GameManager.Instance.init();
-		FightViechFactory factory = new FightViechFactory ();
-		FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5);
-		GameManager.Instance.executeFight(enemy);
 
 		// setup the gui scale according to the screen resolution
 		guiXScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
@@ -225,9 +222,9 @@ public class TestMap : MonoBehaviour
 		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard;
 		map.CurrentZoom = 17.0f;
 		// 9 rue Gentil, Lyon
-		//map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
+		map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
 		//WORKS!
-		map.CenterWGS84 = new double[2] { Input.location.lastData.latitude, Input.location.lastData.longitude };
+		//map.CenterWGS84 = new double[2] { Input.location.lastData.latitude, Input.location.lastData.longitude };
 
 		////Set-up Android SDK path to make Android remote work
 	
