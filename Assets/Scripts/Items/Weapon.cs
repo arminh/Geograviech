@@ -15,11 +15,11 @@ namespace Assets.Scripts.Items
             this.attack = attack;
         }
 
-        public Weapon(string name, Attack attack, Sprite icon)
+        public Weapon(string name, Attack attack, String icon)
             : base(name)
         {
             this.attack = attack;
-            this.icon = icon;
+            this.icon = GameManager.Instance.Icons[icon];
         }
 
         public Attack Attack

@@ -452,7 +452,7 @@ namespace Assets.Scripts {
             XmlNode att = node.SelectSingleNode("attack");
             Attack attack = getAttack(att);
 
-            return new Weapon(name, attack, GameManager.Instance.Icons[iconName]);
+            return new Weapon(name, attack, iconName);
         }
 
         private static List<IConsumable> getItems(XmlNode node)

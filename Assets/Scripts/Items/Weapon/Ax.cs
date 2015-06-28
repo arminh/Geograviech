@@ -9,9 +9,9 @@ namespace Assets.Scripts.Items
     public class Ax : Weapon
     {
         public Ax(string name, Attack attack)
-            : base(string.Format(name, "Ax"), attack)
+            : base(string.Format(name, "Ax"), attack, "ax")
         {
-            this.icon = GameManager.Instance.Icons["ax"];
+
         }
     }
 }
