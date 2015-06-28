@@ -18,7 +18,7 @@ namespace Assets.Scripts
         private int maxDamage;
         int cooldownRounds;
         private Effect effect;
-        private bool active = true;
+        private bool active;
 
         private int level;
         private Sprite icon;
@@ -34,6 +34,8 @@ namespace Assets.Scripts
 			this.effect = copy.Effect;
 			this.icon = copy.Icon;
 			this.level = copy.Level;
+            active = true;
+            this.rand = new System.Random();
 		}
 
         public Attack(string name, Enums.ElementType type, int minDamage, int maxDamage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
@@ -46,6 +48,7 @@ namespace Assets.Scripts
             this.effect = effect;
             this.icon = icon;
             this.level = level;
+            active = true;
             this.rand = new System.Random();
         }
 
@@ -72,6 +75,11 @@ namespace Assets.Scripts
         public int MaxDamage
         {
             get { return maxDamage; }
+        }
+
+        public int CooldownRounds
+        {
+            get { return cooldownRounds; }
         }
 
         public Effect Effect

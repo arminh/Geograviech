@@ -6,17 +6,17 @@ using System.Text;
 using Assets.Scripts.Effects;
 using Assets.Scripts.FightCharacters;
 
-namespace Assets.Scripts.Consumables
+namespace Assets.Scripts.Items.Consumables
 {
-    class StunnHealer : Item, IConsumable
+    class BurnHealer : Item, IConsumable
     {
-        public StunnHealer()
+        public BurnHealer()
+            : base("Bepanthen Wund und Heilsalbe", null)
         {
-            this.name = "Eiseimer";
         }
         public bool use(FightCharacter character)
         {
-            return character.cureEffect(Effect.EffectType.STUN);
+            return character.cureEffect(Effect.EffectType.BURN);
         }
     }
 }

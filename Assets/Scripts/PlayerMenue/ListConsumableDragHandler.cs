@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
-using Assets.Scripts.Utils;
-using Assets.Scripts;
-using Assets.Scripts.Consumables;
 using UnityEngine.UI;
+
+using Assets.Scripts;
+using Assets.Scripts.Utils;
+using Assets.Scripts.Items.Consumables;
+
 
 public class ListConsumableDragHandler : ListItemDragHandler
 {

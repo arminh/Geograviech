@@ -6,17 +6,18 @@ using System.Text;
 using Assets.Scripts.Effects;
 using Assets.Scripts.FightCharacters;
 
-namespace Assets.Scripts.Consumables
+namespace Assets.Scripts.Items.Consumables
 {
-    class FreezeHealer : Item, IConsumable
+    class StunHealer : Item, IConsumable
     {
-        public FreezeHealer()
+        public StunHealer()
+            : base("Eiseimer", null)
         {
-            this.name = "Heizdecke";
+
         }
         public bool use(FightCharacter character)
         {
-            return character.cureEffect(Effect.EffectType.FREEZE);
+            return character.cureEffect(Effect.EffectType.STUN);
         }
     }
 }

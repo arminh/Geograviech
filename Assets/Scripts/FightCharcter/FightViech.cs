@@ -5,7 +5,8 @@ using System.Text;
 using UnityEngine;
 
 using Assets.Scripts.Utils;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items;
+using Assets.Scripts.Items.Consumables;
 
 namespace Assets.Scripts.FightCharacters
 {
@@ -22,8 +23,8 @@ namespace Assets.Scripts.FightCharacters
 
         protected System.Random rand;
 
-        public FightViech(int maxHealth, int speed, int strength, string name, List<Attack> attacks, Enums.ElementType type, int catchChance, List<Item> drops, int xpAmount, GameObject sprite, Sprite icon)
-            : base(maxHealth, speed, strength, name, attacks, sprite, icon)
+        public FightViech(int maxHealth, int speed, int strength, string name, List<Attack> attacks, Enums.ElementType type, int catchChance, List<Item> drops, int xpAmount, string prefabId, string iconId)
+            : base(maxHealth, speed, strength, name, attacks, prefabId, iconId)
         {
             this.type = type;
             this.catchChance = catchChance;
@@ -35,17 +36,9 @@ namespace Assets.Scripts.FightCharacters
 
         public List<Item> dropItems()
         {
-            List<Item> droppedItems = new List<Item>();
+            ItemFactory fact = new ItemFactory();
 
-            for (int i = 0; i < num_drops; i++)
-            {
-                Item dropItem = drops[rand.Next(0, drops.Count - 1)];
-
-                if (rand.Next(1, 100) <= dropItem.DropChance)
-                {
-                    droppedItems.Add(dropItem);
-                }
-            }
+            List<Item> droppedItems = fact.createRandomDrops(level, 4);
 
             return droppedItems;
         }

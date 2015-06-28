@@ -6,7 +6,7 @@ using UnityEngine;
 
 using Assets.Scripts.FightCharacters;
 
-namespace Assets.Scripts.Consumables
+namespace Assets.Scripts.Items.Consumables
 {
     public interface IConsumable
     {
@@ -14,8 +14,6 @@ namespace Assets.Scripts.Consumables
         String Name{ get; }
 
         String Description { get; }
-
-        int DropChance{ get; }
 
         int Quantity{ get; }
 

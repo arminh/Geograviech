@@ -5,7 +5,8 @@ using System.Linq;
 using UnityEngine.UI;
 
 using Assets.Scripts;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items;
+using Assets.Scripts.Items.Consumables;
 using Assets.Scripts.Character;
 
 

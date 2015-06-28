@@ -6,7 +6,7 @@ using System.Linq;
 using Assets;
 using Assets.Scripts;
 using Assets.Scripts.Utils;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items.Consumables;
 using Assets.Scripts.FightCharacters;
 
 public class FightScreenManager : MonoBehaviour {

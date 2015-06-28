@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using Assets.Scripts.Utils;
 using Assets.Scripts.PlayerMenue;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items.Consumables;
 
 public class ConsumableItemSlot : MonoBehaviour, IDropHandler 
 {

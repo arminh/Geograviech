@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Items
 {
     public class Weapon: Item
     {
         private Attack attack;
 
-        public Weapon(string name, Attack attack, Sprite icon) : base(name, 1, 1, icon)
+        public Weapon(string name, Attack attack, Sprite icon) : base(name, icon)
         {
             this.attack = attack;
         }

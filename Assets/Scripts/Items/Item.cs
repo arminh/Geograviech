@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets
+namespace Assets.Scripts.Items
 {
     public abstract class Item
     {
         protected string name;
         protected string description;
-        protected int dropChance;
         protected int quantity;
 
         protected Sprite icon;
@@ -20,12 +19,11 @@ namespace Assets
         {
         }
 
-        public Item(string name, int dropChance, int quantity, Sprite icon)
+        public Item(string name, Sprite icon)
         {
             this.name = name;
-            this.dropChance = dropChance;
-            this.quantity = quantity;
             this.icon = icon;
+            this.quantity = 1;
         }
 
         public String Description
@@ -36,11 +34,6 @@ namespace Assets
         public String Name
         {
             get { return name; }
-        }
-
-        public int DropChance
-        {
-            get { return dropChance; }
         }
 
         public int Quantity

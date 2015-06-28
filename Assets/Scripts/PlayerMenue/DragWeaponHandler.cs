@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
-using Assets.Scripts.Utils;
+
 using Assets.Scripts;
-using UnityEngine.UI;
+using Assets.Scripts.Utils;
+using Assets.Scripts.Items;
+
 
 public class DragWeaponHandler : DragItemHandler  
 {

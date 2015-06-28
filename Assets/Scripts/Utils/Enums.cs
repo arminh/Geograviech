@@ -32,14 +32,6 @@ namespace Assets.Scripts.Utils
             Air
         };
 
-        public enum AttackType
-        {
-            Normal,
-            Water,
-            Fire,
-            Earth,
-            Air
-        };
 
         public enum LogBookEntryType
         {

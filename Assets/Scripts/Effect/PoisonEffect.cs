@@ -32,5 +32,11 @@ namespace Assets.Scripts.Effects
 
             yield break;
         }
+
+
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new PoisonEffect(this.inflictChance);
+        }
     }
 }

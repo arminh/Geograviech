@@ -53,6 +53,10 @@ namespace Assets.Scripts.Effects
             yield break;
         }
 
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new FreezeEffect(this.inflictChance);
+        }
 
         public override void cure(FightCharacter character)
         {
