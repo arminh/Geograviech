@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -132,6 +132,12 @@ namespace Assets.Scripts
             Application.LoadLevel("PlayerMenue");
         }
 
+		public void showWorldMap()
+		{
+			Application.LoadLevel("WorldMap");
+		}
+
+
         public void executeFight(FightViech enemy)
         {
 			Log.Instance.Info("executeFight");
@@ -241,4 +247,3 @@ namespace Assets.Scripts
         }
     }
 }
->>>>>>> 177c0350abae9fec173ea444989de2768f85d1b0

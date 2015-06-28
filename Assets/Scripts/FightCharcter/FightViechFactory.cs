@@ -17,7 +17,7 @@ namespace Assets.Scripts.FightCharacters
         {
         }
 
-        public FightViech createFightViech(Enums.ElementType type, int level)
+        public FightViech createFightViech(Enums.ElementType type, int level, Enums.ViechName viech)
         {
             FightViech monster = null;
             switch (rand.Next(1, 3))

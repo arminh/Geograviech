@@ -45,5 +45,16 @@ namespace Assets.Scripts.Utils
             Monster,
             Consumable
         }
+
+		public enum ViechName
+		{
+			Alraune,
+			Gargoyle,
+			Imp,
+			Sirene,
+			Panther,
+			Zerber
+		}
+
     }
 }
