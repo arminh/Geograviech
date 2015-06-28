@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e2a6775b8d0404997817bbe616d39c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocationTexture: {fileID: 2800000, guid: 04a84750e62d8f3488ffc932a195de52, type: 3}
+  LocationTexture: {fileID: 2800000, guid: d9d2125492f09c5499f9a6a790c4b0b8, type: 3}
   MarkerAlrauneTexture: {fileID: 2800000, guid: 8bfeabe950023384cbae767d2fe7f765,
     type: 3}
   MarkerGargoyleTexture: {fileID: 2800000, guid: 10715c8a31091814aa080d08848693e0,
