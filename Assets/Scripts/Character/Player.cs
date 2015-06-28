@@ -38,7 +38,10 @@ namespace Assets.Scripts.Character
             var query = from slot in activeViecher select slot.Value;
             foreach (Viech viech in query)
             {
-                fightViecher.Add(viech.createFightViech());
+				if(viech != null)
+				{
+                	fightViecher.Add(viech.createFightViech());
+				}
             }
 
 

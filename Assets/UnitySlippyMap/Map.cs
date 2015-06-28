@@ -884,6 +884,8 @@ public class Map : MonoBehaviour
 		markerObject.transform.parent = this.gameObject.transform;
 		
 		T marker = markerObject.AddComponent<T>();
+		markerObject.AddComponent<BoxCollider>();
+
 		
 		locationGo.transform.parent = markerObject.transform;
 		locationGo.transform.localPosition = Vector3.zero;
