@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts.Consumables
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Items.Consumables
 {
     public interface IConsumable
     {
@@ -12,8 +14,6 @@ namespace Assets.Scripts.Consumables
         String Name{ get; }
 
         String Description { get; }
-
-        int DropChance{ get; }
 
         int Quantity{ get; }
 

@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts.Consumables
+using Assets.Scripts.Effects;
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Items.Consumables
 {
-    class StunnHealer : Item, IConsumable
+    class StunHealer : Item, IConsumable
     {
-        public StunnHealer()
+        public StunHealer()
+            : base("Eiseimer", null)
         {
-            this.name = "Eiseimer";
+
         }
         public bool use(FightCharacter character)
         {

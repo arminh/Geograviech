@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 
-namespace Assets.Scripts
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Effects
 {
     public class SleepEffect : Effect
     {
@@ -33,6 +35,12 @@ namespace Assets.Scripts
         {
             base.inflict(character);
 			character.Sprite.GetComponentInChildren<AnimationStatus>().FallAsleep();
+        }
+
+
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new SleepEffect(this.inflictChance);
         }
     }
 }

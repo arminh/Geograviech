@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Utils;
 
-namespace Assets.Scripts
+using Assets.Scripts.Utils;
+using Assets.Scripts.Effects;
+
+namespace Assets.Scripts.FightCharacters
 {
     public abstract class FightCharacter
     {
@@ -15,7 +17,7 @@ namespace Assets.Scripts
         protected List<Attack> attacks;
         protected Effect currentEffect;
 
-        GameObject sprite = null;
+        GameObject prefab = null;
         Sprite icon = null;
        
         protected bool dead;
@@ -25,7 +27,10 @@ namespace Assets.Scripts
 
         protected string name;
 
-        public FightCharacter(int maxHealth, int speed, int strength, string name, List<Attack> attacks, GameObject sprite, Sprite icon)
+        protected string prefabId;
+        protected string iconId;
+
+        public FightCharacter(int maxHealth, int speed, int strength, string name, List<Attack> attacks, string prefabId, string iconId)
         {
             this.maxHealth = maxHealth;
             this.health = maxHealth;
@@ -34,14 +39,16 @@ namespace Assets.Scripts
             this.name = name;
             this.attacks = attacks;
 
-            this.sprite = sprite;
-            this.icon = icon;
+            this.prefabId = prefabId;
+            this.iconId = iconId;
+            this.prefab = GameManager.Instance.Prefabs[prefabId];
+            this.icon = GameManager.Instance.Icons[prefabId];
         }
        
 
         protected void applyDamage(int damage)
         {
-            sprite.GetComponentInChildren<AnimationStatus>().PlayNormalDamageEffect();
+            prefab.GetComponentInChildren<AnimationStatus>().PlayNormalDamageEffect();
 
             Log.Instance.Info(name + " suffers " + damage + " damage.");
 
@@ -58,7 +65,7 @@ namespace Assets.Scripts
         {
             dead = true;
             currentEffect = null;
-            AnimationStatus animStatus = sprite.GetComponentInChildren<AnimationStatus>();
+            AnimationStatus animStatus = prefab.GetComponentInChildren<AnimationStatus>();
             animStatus.ResetSpecialDamageEffect();
             animStatus.Die();
 
@@ -157,11 +164,11 @@ namespace Assets.Scripts
 
         public GameObject Sprite
         {
-            get { return sprite; }
+            get { return prefab; }
             set 
-            { 
-                sprite = value;
-                lifeBar = sprite.GetComponentInChildren<LifeBar>();
+            {
+                prefab = value;
+                lifeBar = prefab.GetComponentInChildren<LifeBar>();
                 lifeBar.MaxHealth = maxHealth; 
                 lifeBar.Health = health;
             }
@@ -170,6 +177,16 @@ namespace Assets.Scripts
         public Sprite Icon
         {
             get { return icon; }
+        }
+
+        public string PrefabId
+        {
+            get { return prefabId; }
+        }
+
+        public string IconId
+        {
+            get { return iconId; }
         }
 
         public bool IsEnemy

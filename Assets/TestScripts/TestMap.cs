@@ -33,6 +33,15 @@ using System.Collections.Generic;
 
 public class TestMap : MonoBehaviour
 {
+	public Texture	LocationTexture;
+	public Texture	MarkerAlrauneTexture;
+	public Texture	MarkerGargoyleTexture;
+	public Texture	MarkerImpTexture;
+	public Texture	MarkerSireneTexture;
+	public Texture	MarkerPantherTexture;
+	public Texture	MarkerZerberWelpeTexture;
+
+
 	private Map		map;
 
 	private float	guiXScale;
@@ -48,8 +57,7 @@ public class TestMap : MonoBehaviour
 	
 	private List<Layer> layers;
 	private int     currentLayerIndex = 0;
-	public GameObject marker;
-	public Vector3 markerPos = new Vector3(0,0,0);
+
 
 	bool Toolbar(Map map)
 	{
@@ -163,6 +171,7 @@ public class TestMap : MonoBehaviour
 		// First, check if user has location service enabled
 		if (!Input.location.isEnabledByUser)
 		{
+			print ("GPS not enabled!");
 			// remind user to enable GPS
 			// As far as I know, there is no way to forward user to GPS setting menu in Unity
 		}
@@ -209,7 +218,12 @@ public class TestMap : MonoBehaviour
 		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard;
 		map.CurrentZoom = 17.0f;
 		// 9 rue Gentil, Lyon
-		map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
+		//map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
+		//WORKS!
+		map.CenterWGS84 = new double[2] { Input.location.lastData.latitude, Input.location.lastData.longitude };
+
+		////Set-up Android SDK path to make Android remote work
+	
 		map.UseLocation = true;
 		map.InputsEnabled = true;
 		map.ShowGUIControls = false;
@@ -218,10 +232,6 @@ public class TestMap : MonoBehaviour
 		
 		layers = new List<Layer>();
 
-		//marker = Instantiate (Resources.Load ("Prefabs/Misc/Marker")) as GameObject;
-
-		//Vector3 pos = Vector3 (0, 0, 0);
-		//Instantiate(testmarker, pos, Quaternion.identity); // The Instantiate command takes a GameObject, a Vector3 for position and a Quaternion for rotation.
 
 		// create an OSM tile layer
 		OSMTileLayer osmLayer = map.CreateLayer<OSMTileLayer>("OSM");
@@ -242,49 +252,6 @@ public class TestMap : MonoBehaviour
 		#endif
 		
 		layers.Add(wmsLayer);
-		
-		// create a VirtualEarth tile layer
-		/*VirtualEarthTileLayer virtualEarthLayer = map.CreateLayer<VirtualEarthTileLayer>("VirtualEarth");
-		// Note: this is the key UnitySlippyMap, DO NOT use it for any other purpose than testing
-		virtualEarthLayer.Key = "ArgkafZs0o_PGBuyg468RaapkeIQce996gkyCe8JN30MjY92zC_2hcgBU_rHVUwT";
-		#if UNITY_WEBPLAYER
-		virtualEarthLayer.ProxyURL = "http://reallyreallyreal.com/UnitySlippyMap/demo/veproxy.php";
-		#endif
-		#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-		virtualEarthLayer.gameObject.SetActiveRecursively(false);
-		#else
-		virtualEarthLayer.gameObject.SetActive(false);
-		#endif
-		
-		layers.Add(virtualEarthLayer);*/
-
-
-/*		if (GUILayout.Button(((layers != null && currentLayerIndex < layers.Count) ? layers[currentLayerIndex].name + layerMessage : "Layer"), GUILayout.ExpandHeight(true)))
-		{
-			#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-			layers[currentLayerIndex].gameObject.SetActiveRecursively(false);
-			#else
-			layers[currentLayerIndex].gameObject.SetActive(false);
-			#endif
-			++currentLayerIndex;
-			if (currentLayerIndex >= layers.Count)
-				currentLayerIndex = 0;
-			#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-			layers[currentLayerIndex].gameObject.SetActiveRecursively(true);
-			#else
-			layers[currentLayerIndex].gameObject.SetActive(true);
-			#endif
-			map.IsDirty = true;
-		}*/
-
-		/*layers[currentLayerIndex].gameObject.SetActive(false);
-		++currentLayerIndex;
-		layers[currentLayerIndex].gameObject.SetActive(true);*/
-
-		/*layers[currentLayerIndex].gameObject.SetActive(false);
-		++currentLayerIndex;
-		layers[currentLayerIndex].gameObject.SetActive(true);
-		map.IsDirty = true;*/
 
 
 
@@ -351,30 +318,52 @@ public class TestMap : MonoBehaviour
 			Debug.LogError("ERROR: MBTiles file not found!");
 		
 		#endif
-		
-		// create some test 2D markers
-		/*GameObject go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
-		gameObject.GetComponent<Renderer>().material.mainTexture = MarkerTexture;
-		gameObject.GetComponent<Renderer>().material.renderQueue = 4001;
+
+
+
+
+		GameObject go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go.GetComponent<Renderer>().material.mainTexture = MarkerImpTexture;
+		go.GetComponent<Renderer>().material.renderQueue = 4001;
 		go.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
-		go.transform.localScale /= 7.0f;
-        go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+		go.transform.localScale /= 3.0f;
+		go.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
 		
 		GameObject markerGO;
 		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker", new double[2] { 15.442552, 47.067243 }, markerGO);
+		map.CreateMarker<Marker>("test marker - Jako", new double[2] { 15.442552, 47.067243}, markerGO);
 		DestroyImmediate(go);
 
+		GameObject go2 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go2.GetComponent<Renderer>().material.mainTexture = MarkerAlrauneTexture;
+		go2.GetComponent<Renderer>().material.renderQueue = 4001;
+		go2.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+		go2.transform.localScale /= 3.0f;
+		go2.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+		
+		GameObject markerGO2;
+		markerGO2 = Instantiate(go2) as GameObject;
+		map.CreateMarker<Marker>("test marker - Jako", new double[2] { 15.443552, 47.068243}, markerGO2);
 
+		DestroyImmediate(go2);
+
+		//markerGO = Instantiate(go) as GameObject;
+		//map.CreateMarker<Marker>("test marker - 31 rue de la Bourse, Lyon", new double[2] { 4.83699, 45.76535 }, markerGO);
+		
+		//markerGO = Instantiate(go) as GameObject;
+		//map.CreateMarker<Marker>("test marker - 1 place St Nizier, Lyon", new double[2] { 4.83295, 45.76468 }, markerGO);
+		
+		
 		// create the location marker
 		go = Tile.CreateTileTemplate().gameObject;
-		gameObject.GetComponent<Renderer>().material.mainTexture = LocationTexture;
-		gameObject.GetComponent<Renderer>().material.renderQueue = 4000;
-		go.transform.localScale /= 27.0f;
+		go.GetComponent<Renderer>().material.mainTexture = LocationTexture;
+		go.GetComponent<Renderer>().material.renderQueue = 4000;
+		go.transform.localScale /= 3.0f;
 		
 		markerGO = Instantiate(go) as GameObject;
 		map.SetLocationMarker<LocationMarker>(markerGO);
-		DestroyImmediate(go);*/
+		
+		DestroyImmediate(go);
 
 	}
 	

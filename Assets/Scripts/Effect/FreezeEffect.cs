@@ -2,9 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Utils;
 
-namespace Assets.Scripts
+using Assets.Scripts.Utils;
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Effects
 {
     public class FreezeEffect : Effect
     {
@@ -51,6 +53,10 @@ namespace Assets.Scripts
             yield break;
         }
 
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new FreezeEffect(this.inflictChance);
+        }
 
         public override void cure(FightCharacter character)
         {

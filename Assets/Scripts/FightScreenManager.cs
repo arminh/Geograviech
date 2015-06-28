@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
+
 using Assets;
 using Assets.Scripts;
 using Assets.Scripts.Utils;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items.Consumables;
+using Assets.Scripts.FightCharacters;
 
 public class FightScreenManager : MonoBehaviour {
     public GameObject buttonPrefab;

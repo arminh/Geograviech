@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 
-namespace Assets.Scripts
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Effects
 {
     public class StunEffect : Effect
     {
@@ -20,6 +22,12 @@ namespace Assets.Scripts
             }
 
             yield break;
+        }
+
+
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new StunEffect(this.inflictChance);
         }
     }
 }

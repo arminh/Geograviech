@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 using Assets.Scripts;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Effects;
 
 public class AnimationStatus : MonoBehaviour 
 {

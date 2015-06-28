@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts.Consumables
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Items.Consumables
 {
     class HealPotion : Item,IConsumable
     {
         int healAmount;
-        public HealPotion(string name, int healAmount, int dropChance, int quantity, Sprite icon) 
-            : base(name, dropChance, quantity, icon)
+        public HealPotion(int healAmount)
+            : base("Kürbiskernöl", null)
         {
             //this.name = "Kürbiskernöl"
             this.description = string.Format("Heals {0} damage", healAmount);

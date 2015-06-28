@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
+using Assets.Scripts.FightCharacters;
 
 namespace Assets.Scripts.ArtificialIntelligence
 {

@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts.Consumables
+using Assets.Scripts.Effects;
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Items.Consumables
 {
     class BurnHealer : Item, IConsumable
     {
         public BurnHealer()
+            : base("Bepanthen Wund und Heilsalbe", null)
         {
-            this.name = "Bepanthen Wund und Heilsalbe";
         }
         public bool use(FightCharacter character)
         {

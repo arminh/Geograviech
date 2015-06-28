@@ -2,15 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Assets.Scripts
+using Assets.Scripts.Utils;
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Character
 {
     public class Viech : Character
     {
-        private ElementType type;
+        private Enums.ElementType type;
         private Player owner;
 
-        public Viech(int maxHealth, int currentHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, ElementType type, GameObject sprite, Sprite icon)
-            : base(maxHealth, currentHealth, speed, strength, name, level, xp, attacks, sprite, icon)
+        public Viech(int maxHealth, int currentHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, Enums.ElementType type, string prefabId, string iconId)
+            : base(maxHealth, currentHealth, speed, strength, name, level, xp, attacks, prefabId, iconId)
         {
             this.type = type;
         }
@@ -18,7 +21,7 @@ namespace Assets.Scripts
         public FightViech createFightViech()
         {
             //public FightViech(string identifier, int maxHealth, int speed, int strength, List<Attack> attacks, ElementType type, float catchChance, List<IConsumable> dropItems, int xpAmount)
-            return new FightViech(maxHealth, speed, strength, name, attacks, type, -1 , null, -1, sprite, icon);
+            return new FightViech(maxHealth, speed, strength, name, attacks, type, -1 , null, -1, prefabId, iconId);
         }
 
         public void setOwner(Player owner)
@@ -34,7 +37,7 @@ namespace Assets.Scripts
             }
         }
 
-        public ElementType Type
+        public Enums.ElementType Type
         {
             get { return type; }
         }

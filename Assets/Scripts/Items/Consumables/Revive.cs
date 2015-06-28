@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts.Consumables
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Items.Consumables
 {
     class Reviver : Item,IConsumable
     {
         int healAmount;
         public Reviver(int healAmount)
+            : base("Defibrillator", null)
         {
-            this.name = "Defibrillator";
             this.healAmount = healAmount;
         }
 

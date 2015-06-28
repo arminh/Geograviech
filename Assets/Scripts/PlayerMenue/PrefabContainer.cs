@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 using Assets.Scripts.PlayerMenue;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items.Consumables;
 
 public class PrefabContainer : MonoBehaviour
 {

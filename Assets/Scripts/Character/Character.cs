@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Character
 {
     public abstract class Character
     {
@@ -19,10 +19,13 @@ namespace Assets.Scripts
 
         protected List<Attack> attacks;
 
-        protected GameObject sprite;
+        protected string prefabId;
+        protected string iconId;
+
+        protected GameObject prefab;
         protected Sprite icon;
 
-        public Character(int maxHealth, int currentHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, GameObject sprite, Sprite icon)
+        public Character(int maxHealth, int currentHealth, int speed, int strength, string name, int level, int xp, List<Attack> attacks, string prefabId, string iconId)
         {
             this.maxHealth = maxHealth;
             this.currentHealth = currentHealth;
@@ -33,8 +36,10 @@ namespace Assets.Scripts
             this.xp = xp;
             this.levelUpXp = 1000 * level;
             this.attacks = attacks;
-            this.sprite = sprite;
-            this.icon = icon;
+            this.prefabId = prefabId;
+            this.iconId = iconId;
+            this.prefab = GameManager.Instance.Prefabs[prefabId];
+            this.icon = GameManager.Instance.Icons[prefabId];
         }
 
 
@@ -97,12 +102,22 @@ namespace Assets.Scripts
 
         public GameObject Sprite
         {
-            get { return sprite; }
+            get { return prefab; }
         }
 
         public Sprite Icon
         {
             get { return icon; }
+        }
+
+        public string PrefabId
+        {
+            get { return prefabId; }
+        }
+
+        public string IconId
+        {
+            get { return iconId; }
         }
     }
 }

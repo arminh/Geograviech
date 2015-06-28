@@ -1,8 +1,9 @@
-﻿using Assets.Scripts.Consumables;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using Assets.Scripts.Items.Consumables;
 
 namespace Assets.Scripts.PlayerMenue
 {

@@ -34,6 +34,7 @@ public class Marker : MonoBehaviour
 	// <summary>
 	// The coordinates of the marker in WGS84.
 	// </summary>
+
 	private double[]	coordinatesWGS84 = new double[2];
 	public double[]		CoordinatesWGS84
 	{
@@ -83,6 +84,7 @@ public class Marker : MonoBehaviour
 	
 	protected void Update()
 	{
+
 		if (this.gameObject.transform.localScale.x != Map.HalfMapScale)
 			this.gameObject.transform.localScale = new Vector3(Map.HalfMapScale, Map.HalfMapScale, Map.HalfMapScale);
 
@@ -134,8 +136,15 @@ public class Marker : MonoBehaviour
 			this.gameObject.transform.position += displacement;
 		}
 	}
+
+	void OnMouseDown () 
+	{
+		Application.LoadLevel ("FightScreen-Alraunen");
+	}
+
 	
 	#endregion
+
 }
 
 }
