@@ -20,6 +20,9 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using UnityEngine;
+using Assets.Scripts;
+using Assets.Scripts.FightCharacters;
+using Assets.Scripts.Utils;
 
 namespace UnitySlippyMap
 {
@@ -139,7 +142,29 @@ public class Marker : MonoBehaviour
 
 	void OnMouseDown () 
 	{
-		Application.LoadLevel ("FightScreen-Alraunen");
+			Log.Instance.Info("mousedown");
+			Log.Instance.Info(string.Equals(this.name,"Imp") ? "TRUE" : "FALSE");
+
+			FightViechFactory factory = new FightViechFactory ();
+			
+			if (string.Equals(this.name, "Imp")) {
+
+
+				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5);
+				StartCoroutine(GameManager.Instance.executeFight(enemy));
+			}
+
+			if (string.Equals(this.name, "Alraune")) {
+				Log.Instance.Info("Alraune");
+
+				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5);
+				StartCoroutine(GameManager.Instance.executeFight(enemy));
+
+				//FightViechFactory factory = new FightViechFactory ();
+				//GameManager.Instance.executeFight (factory.createFightViech());
+			}
+
+
 	}
 
 	

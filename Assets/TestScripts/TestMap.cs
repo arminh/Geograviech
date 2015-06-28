@@ -30,6 +30,9 @@ using ProjNet.Converters.WellKnownText;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
+using Assets.Scripts.FightCharacters;
+using Assets.Scripts.Utils;
 
 public class TestMap : MonoBehaviour
 {
@@ -205,6 +208,9 @@ public class TestMap : MonoBehaviour
 
 		//----------------------
 
+		GameManager.Instance.init();
+
+
 
 		// setup the gui scale according to the screen resolution
 		guiXScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
@@ -240,18 +246,19 @@ public class TestMap : MonoBehaviour
 		layers.Add(osmLayer);
 		
 		// create a WMS tile layer
-		WMSTileLayer wmsLayer = map.CreateLayer<WMSTileLayer>("WMS");
+		//WMSTileLayer wmsLayer = map.CreateLayer<WMSTileLayer>("WMS");
 		//wmsLayer.BaseURL = "http://129.206.228.72/cached/osm?"; // http://www.osm-wms.de : seems to be of very limited use
 		//wmsLayer.Layers = "osm_auto:all";
-		wmsLayer.BaseURL = "http://vmap0.tiles.osgeo.org/wms/vmap0";
-		wmsLayer.Layers = "basic";
-		#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
-		wmsLayer.gameObject.SetActiveRecursively(false);
-		#else
-		wmsLayer.gameObject.SetActive(false);
-		#endif
+		//wmsLayer.BaseURL = "http://vmap0.tiles.osgeo.org/wms/vmap0";
+		//wmsLayer.Layers = "basic";
+		//#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_3_6 || UNITY_3_7 || UNITY_3_8 || UNITY_3_9
+		//wmsLayer.gameObject.SetActiveRecursively(false);
+		//#else
+		//wmsLayer.gameObject.SetActive(false);
+		//#endif
 		
-		layers.Add(wmsLayer);
+		//layers.Add(wmsLayer);
+		//wmsLayer.gameObject.SetActive (true);
 
 
 
@@ -319,9 +326,6 @@ public class TestMap : MonoBehaviour
 		
 		#endif
 
-
-
-
 		GameObject go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
 		go.GetComponent<Renderer>().material.mainTexture = MarkerImpTexture;
 		go.GetComponent<Renderer>().material.renderQueue = 4001;
@@ -331,8 +335,12 @@ public class TestMap : MonoBehaviour
 		
 		GameObject markerGO;
 		markerGO = Instantiate(go) as GameObject;
-		map.CreateMarker<Marker>("test marker - Jako", new double[2] { 15.442552, 47.067243}, markerGO);
+		map.CreateMarker<Marker>("Imp", new double[2] { 15.442552, 47.067243}, markerGO);
 		DestroyImmediate(go);
+
+
+
+
 
 		GameObject go2 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
 		go2.GetComponent<Renderer>().material.mainTexture = MarkerAlrauneTexture;
@@ -343,10 +351,12 @@ public class TestMap : MonoBehaviour
 		
 		GameObject markerGO2;
 		markerGO2 = Instantiate(go2) as GameObject;
-		map.CreateMarker<Marker>("test marker - Jako", new double[2] { 15.443552, 47.068243}, markerGO2);
+		map.CreateMarker<Marker>("Alraune", new double[2] { 15.443552, 47.068243}, markerGO2);
 
 		DestroyImmediate(go2);
 
+
+		
 		//markerGO = Instantiate(go) as GameObject;
 		//map.CreateMarker<Marker>("test marker - 31 rue de la Bourse, Lyon", new double[2] { 4.83699, 45.76535 }, markerGO);
 		
@@ -381,7 +391,7 @@ public class TestMap : MonoBehaviour
 			{
 				float angle = Mathf.LerpAngle(0.0f, destinationAngle, (Time.time - animationStartTime) / animationDuration);
 				Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, angle - currentAngle);
-				currentAngle = angle;
+				currentAngle= angle;
 			}
 			else
 			{

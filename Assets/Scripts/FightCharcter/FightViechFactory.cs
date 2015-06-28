@@ -11,28 +11,14 @@ namespace Assets.Scripts.FightCharacters
 {
     class FightViechFactory
     {
-        public List<GameObject> allCharactersPefabs;
-        private Dictionary<string, GameObject> prefabs;
-
-        public List<Sprite> allCharactersIcons;
-        private Dictionary<string, Sprite> icons;
 
         public FightViechFactory()
         {
-            foreach (GameObject sprite in allCharactersPefabs)
-            {
-                prefabs.Add(sprite.name, sprite);
-            }
-
-            foreach (Sprite icon in allCharactersIcons)
-            {
-                icons.Add(icon.name, icon);
-            }
         }
 
         public FightViech createFightViech(Enums.ElementType type, int level)
         {
-            return null;
+			return createAlraune (GameManager.Instance.getPlayer().Level);
         }
 
         private FightViech createAlraune(int level)
