@@ -87,7 +87,7 @@ namespace Assets.Scripts
 
             //StartCoroutine(executeFight(enemy));
 
-                        List<Viech> activeViecher = new List<Viech>();
+            List<Viech> activeViecher = new List<Viech>();
 
             List<Attack> attacks0 = new List<Attack>();
             List<Attack> attacks1 = new List<Attack>();
