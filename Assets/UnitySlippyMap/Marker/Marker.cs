@@ -142,26 +142,20 @@ public class Marker : MonoBehaviour
 
 	void OnMouseDown () 
 	{
-			Log.Instance.Info("mousedown");
-			Log.Instance.Info(string.Equals(this.name,"Imp") ? "TRUE" : "FALSE");
-
 			FightViechFactory factory = new FightViechFactory ();
 			
 			if (string.Equals(this.name, "Imp")) {
-
 
 				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5, Enums.ViechName.Imp);
 				GameManager.Instance.executeFight(enemy);
 			}
 
 			if (string.Equals(this.name, "Alraune")) {
-				Log.Instance.Info("Alraune");
 
 				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5, Enums.ViechName.Alraune);
 				GameManager.Instance.executeFight(enemy);
 
 			}
-
 
 	}
 
