@@ -50,7 +50,7 @@ public class LocationMarker : Marker
 #endif
             }
         }
-    }
+    }		
 }
 
 }
