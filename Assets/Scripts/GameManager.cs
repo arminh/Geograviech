@@ -44,6 +44,23 @@ namespace Assets.Scripts
             }
 
             Debug.Log("Start");
+            //Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 15, new FreezeEffect(50), null), icons["normalAttack"]);
+            //List<Weapon> weapons = new List<Weapon>();
+            //List<Viech> activeViecher = new List<Viech>();
+            //List<Viech> viecher = new List<Viech>();
+            //List<Attack> attacks = new List<Attack>();
+            //attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, new BurnEffect(50), null));
+
+            //activeViecher.Add(new Viech(100, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
+
+            //viecher.Add(new Viech(10, 20, 4, "Wurzelgemüse", 3, 500, attacks, ElementType.EARTH, prefabs["Alraunmännlein"], icons["AlrauneIcon"]));
+
+            //player = new Player(15, 15, 5, "TestPlayer", 500, 5, viecher, activeViecher, weapons, weapon, new List<IConsumable>(), new List<Attack>(), prefabs["Player"], null);
+
+            //FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks, ElementType.FIRE, 40, new List<Item>(), 160, prefabs["Zerberwelpe"], icons["ZerberwelpeIcon"]);
+
+            //StartCoroutine(executeFight(enemy));
+
             Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 15, new FreezeEffect(50), null), icons["normalAttack"]);
             List<Weapon> weapons = new List<Weapon>();
             List<Viech> activeViecher = new List<Viech>();
@@ -51,15 +68,18 @@ namespace Assets.Scripts
             List<Attack> attacks = new List<Attack>();
             attacks.Add(new Attack("TestAttack", ElementType.EARTH, 15, new BurnEffect(50), null));
 
-            activeViecher.Add(new Viech(100, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
+            activeViecher.Add(new Viech(10, 20, 4, "Garganton", 3, 500, attacks, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
+            activeViecher.Add(null);
+            activeViecher.Add(new Viech(10, 20, 4, "Nervenzwerg", 3, 500, attacks, ElementType.WIND, prefabs["Imp"], icons["ImpIcon"]));
 
             viecher.Add(new Viech(10, 20, 4, "Wurzelgemüse", 3, 500, attacks, ElementType.EARTH, prefabs["Alraunmännlein"], icons["AlrauneIcon"]));
 
-            player = new Player(15, 15, 5, "TestPlayer", 500, 5, viecher, activeViecher, weapons, weapon, new List<IConsumable>(), new List<Attack>(), prefabs["Player"], null);
+            List<IConsumable> items = new List<IConsumable>();
+            items.Add(new HealPotion("Lebertran", 10, 5, 1, icons["lebertran"]));
 
-            FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks, ElementType.FIRE, 40, new List<Item>(), 160, prefabs["Zerberwelpe"], icons["ZerberwelpeIcon"]);
+            weapons.Add(new Weapon("FireSword", new Attack("TestAttack", ElementType.FIRE, 15, new BurnEffect(50), null), icons["normalAttack"]));
 
-            StartCoroutine(executeFight(enemy));
+            player = new Player(15, 15, 5, "TestPlayer", 500, 5, viecher, activeViecher, weapons, weapon, items, new List<Attack>(), prefabs["Player"], null);
         }
 
         public Player getPlayer()
