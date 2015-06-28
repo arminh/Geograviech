@@ -42,7 +42,6 @@ namespace Assets.Scripts
             foreach (GameObject sprite in allCharactersPefabs)
             {
                 prefabs.Add(sprite.name, sprite);
-				Debug.Log(sprite.name);
             }
 
             icons = new Dictionary<string, Sprite>();
@@ -96,7 +95,7 @@ namespace Assets.Scripts
 
             var weapon = createItems.createRandomWeapon(1);
             player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), activeViecher, new List<Weapon>(), weapon, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraunmännlein", "AlrauneIcon"));
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
 
             foreach (Item item in droppedItems)
             {
@@ -119,6 +118,11 @@ namespace Assets.Scripts
         public void showMenu()
         {
             Application.LoadLevel("PlayerMenue");
+        }
+
+        public void showWorldMap()
+        {
+            Application.LoadLevel("WorldMap");
         }
 
         public IEnumerator executeFight(FightViech enemy)
@@ -229,4 +233,4 @@ namespace Assets.Scripts
         }
     }
 }
->>>>>>> 6d6967988ce59da135496e4360fd2df05e700887
+

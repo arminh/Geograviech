@@ -14,7 +14,7 @@ namespace Assets.Scripts.Items.Consumables
             : base("Defibrillator")
         {
             this.healAmount = healAmount;
-            //this.icon = GameManager.Instance.Icons[""];
+            this.icon = GameManager.Instance.Icons["revive1"];
         }
 
         public bool use(FightCharacter character)

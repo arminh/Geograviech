@@ -96,4 +96,9 @@ public class PlayerMenueManager : MonoBehaviour
         }
         manager.player.ActiveWeapon = weapon;
     }
+
+    public void BackToMap()
+    {
+        GameManager.Instance.showWorldMap();
+    }
 }

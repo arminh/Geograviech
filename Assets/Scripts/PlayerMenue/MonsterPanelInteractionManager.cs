@@ -30,10 +30,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         if (manager != null)
             Destroy(this);
         manager = this;
-    }
 
-    void Start()
-    {
         OriginalText = new Hashtable();
         OriginalText.Add(Name ,Name.text);
         OriginalText.Add(Type, Type.text);
@@ -63,7 +60,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         }
         Name.text = string.Format(Name.text, Monster.Name);
         Type.text = string.Format(Type.text, Monster.Type.ToString());
-        Health.text = string.Format(Health.text, Monster.MaxHealth);
+        Health.text = string.Format(Health.text, Monster.CurrentHealth, Monster.MaxHealth);
         LevelXp.text = string.Format(LevelXp.text, Monster.Level, Monster.Xp);
         Damage.text = string.Format(Damage.text, Monster.Strength);
         Speed.text = string.Format(Speed.text, Monster.Speed);

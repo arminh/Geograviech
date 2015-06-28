@@ -13,7 +13,7 @@ namespace Assets.Scripts.Items.Consumables
         public FreezeHealer()
             : base("Wärmeflasche")
         {
-            this.icon = GameManager.Instance.Icons["wearmeflasche"];
+            this.icon = GameManager.Instance.Icons["waermeflasche"];
         }
         public bool use(FightCharacter character)
         {

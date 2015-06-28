@@ -87,13 +87,10 @@ namespace Assets.Scripts.Character
                 if(consumable.Name == item.Name)
                 {
                     item.Quantity += 1;
-                    break;
-                }
-                else
-                {
-                    items.Add((IConsumable)consumable);
+                    return;
                 }
             }
+            items.Add((IConsumable)consumable);
         }
 
         public void removeConsumable(Item item, int amount)

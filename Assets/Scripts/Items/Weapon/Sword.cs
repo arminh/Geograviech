@@ -9,9 +9,8 @@ namespace Assets.Scripts.Items
     public class Sword : Weapon
     {
         public Sword(string name, Attack attack)
-            : base(name, attack)
+            : base(string.Format(name, "Sword"), attack)
         {
-            name = string.Format(name, "Sword");
             this.icon = GameManager.Instance.Icons["normalAttack"];
         }
     }
