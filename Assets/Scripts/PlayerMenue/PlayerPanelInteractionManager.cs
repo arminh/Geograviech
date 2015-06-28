@@ -25,17 +25,18 @@ public class PlayerPanelInteractionManager : MonoBehaviour, IConsumableInteracti
             var weaponItem = Instantiate(weaponPrefab);
             var image = weaponItem.GetComponentInChildren<Image>();
             image.sprite = player.ActiveWeapon.Icon;
+            var itemHandl = weaponItem.GetComponent<DragItemHandler>();
+            itemHandl.Item = player.ActiveWeapon;
             weaponItem.transform.SetParent(ActiveWeaponSlot);
             weaponItem.transform.localScale = new Vector3(1, 1, 1);
         }
 
         var monsterPrefab = PrefabContainer.getMonsterIconPrefab();
-        for (int index = 0; index < ActiveMonsterSlots.Count && 
-                            index < player.ActiveViecher.Count; index++)
+        for (int index = 0; index < ActiveMonsterSlots.Count; index++)
         {
-            var monster = player.ActiveViecher.ElementAt(index);
-            if (monster != null)
+            if (player.ActiveViecher.ContainsKey(index))
             {
+                var monster = player.ActiveViecher[index];
                 var monsterItem = Instantiate(monsterPrefab);
                 var monsterImage = monsterItem.GetComponentInChildren<Image>();
                 monsterImage.sprite = monster.Icon;

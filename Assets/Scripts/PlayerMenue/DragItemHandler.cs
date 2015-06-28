@@ -39,13 +39,26 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
         if (ItemToBeDragged.transform.parent == ItemOriginalSlot)
         {
             var slot = ItemOriginalSlot.GetComponent<ItemSlot>();
-            if (slot && slot.type == this.type)
-            {
-                OnPlaceInSlot(slot);    
-            }
-
             if (ShouldItemBeDeleted(eventData, ItemOriginalSlot.gameObject))
+            {
                 Destroy(ItemToBeDragged.gameObject);
+                OnRemoveFromSlot(slot);
+            }
+        }
+        else
+        {
+            var origSlot = ItemOriginalSlot.GetComponent<ItemSlot>();
+            var slot = ItemToBeDragged.transform.parent.GetComponent<ItemSlot>();
+            if (origSlot && slot && slot.type == this.type && origSlot.type == this.type)
+            {
+                Debug.Log("OnRemoveFromSlot");
+                OnChangeSlot(origSlot, slot);
+            }
+            else if (slot && slot.type == this.type)
+            {
+                Debug.Log("DragItemHandler - OnPlaceInSlot");
+                OnPlaceInSlot(slot);
+            }
         }
 
         ItemToBeDragged = null;
@@ -60,13 +73,19 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
         {
             if(res.gameObject == slot)
             {
+                Debug.Log("Not Delete Item");
                 return false;
             }
         }
+        Debug.Log("Delete Item");
         return true;
     }
 
-	protected abstract void OnPlaceInSlot(ItemSlot slot);
+    public abstract void OnPlaceInSlot(ItemSlot slot);
+
+    public abstract void OnRemoveFromSlot(ItemSlot slot);
+
+    public abstract void OnChangeSlot(ItemSlot fromSlot, ItemSlot toSlot);
 
     public abstract void OnItemCreated(object item);
 }

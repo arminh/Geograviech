@@ -24,7 +24,15 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         if (DragItemHandler.ItemToBeDragged.type == type)
         {
             if (IsOccupied())
-                Destroy(GetContainedItem().gameObject);
+            {
+                var item = GetContainedItem();
+                DragItemHandler dragItem = item.GetComponent<DragItemHandler>();
+                if (dragItem)
+                {
+                    dragItem.OnRemoveFromSlot(this);
+                }
+                Destroy(item.gameObject);
+            }
 
             DragItemHandler.ItemToBeDragged.transform.SetParent(transform);
             DragItemHandler.ItemToBeDragged.transform.localScale = new Vector3(1,1,1);

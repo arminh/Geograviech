@@ -7,7 +7,17 @@ using UnityEngine.UI;
 
 public class DragConsumableHandler : DragItemHandler 
 {
-    protected override void OnPlaceInSlot(ItemSlot slot)
+    public override void OnPlaceInSlot(ItemSlot slot)
+    {
+        //TODO something
+    }
+
+    public override void OnRemoveFromSlot(ItemSlot slot)
+    {
+        //TODO something
+    }
+
+    public override void OnChangeSlot(ItemSlot fromSlot, ItemSlot toSlot)
     {
         //TODO something
     }

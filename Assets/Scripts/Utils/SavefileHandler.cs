@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using System.Linq;
 
 using Assets.Scripts.Utils;
 using Assets.Scripts.Items;
@@ -57,7 +58,8 @@ namespace Assets.Scripts {
 
             XmlElement activeViecher = doc.CreateElement("activeViecher");
             savefile.AppendChild(activeViecher);
-            addViecher(ref doc, ref activeViecher, player.ActiveViecher);
+            var query = from slot in player.ActiveViecher select slot.Value;
+            addViecher(ref doc, ref activeViecher, query.ToList());
 
             XmlElement weapons = doc.CreateElement("weapons");
             savefile.AppendChild(weapons);
@@ -288,7 +290,9 @@ namespace Assets.Scripts {
             List<Viech> viecher = getViecher(vs);
 
             XmlNode activeVs = savefile.SelectSingleNode("activeViecher");
-            List<Viech> activeViecher = getViecher(activeVs);
+            int i = 0;
+            Dictionary<int, Viech> activeViecher = new Dictionary<int, Viech>();
+            getViecher(activeVs).ForEach(m => activeViecher.Add(i++, m));
 
             XmlNode its = savefile.SelectSingleNode("items");
             List<IConsumable> items = getItems(its);

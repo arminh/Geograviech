@@ -115,7 +115,6 @@ GameObject:
   - 222: {fileID: 22275080}
   - 114: {fileID: 11493830}
   - 114: {fileID: 11488596}
-  - 114: {fileID: 11422338}
   m_Layer: 5
   m_Name: FreeButton
   m_TagString: Untagged
@@ -186,7 +185,6 @@ GameObject:
   - 222: {fileID: 22234180}
   - 114: {fileID: 11405150}
   - 114: {fileID: 11435040}
-  - 114: {fileID: 11434666}
   m_Layer: 5
   m_Name: PlayerPanelButton
   m_TagString: Untagged
@@ -439,25 +437,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Attacks: {0}{1}'
---- !u!114 &11422338
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b310b4e0dd292a468a0a8175a6cdda7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MonsterPanel: {fileID: 0}
-  Name: {fileID: 0}
-  Type: {fileID: 0}
-  Health: {fileID: 0}
-  LevelXp: {fileID: 0}
-  Damage: {fileID: 0}
-  Speed: {fileID: 0}
-  Attacks: {fileID: 0}
 --- !u!114 &11427110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -505,25 +484,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11434666
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 176438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b310b4e0dd292a468a0a8175a6cdda7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MonsterPanel: {fileID: 0}
-  Name: {fileID: 0}
-  Type: {fileID: 0}
-  Health: {fileID: 0}
-  LevelXp: {fileID: 0}
-  Damage: {fileID: 0}
-  Speed: {fileID: 0}
-  Attacks: {fileID: 0}
 --- !u!114 &11435040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -563,7 +523,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11434666}
+      - m_Target: {fileID: 11408628}
         m_MethodName: OnBackToPlayerMenueClick
         m_Mode: 1
         m_Arguments:
@@ -730,7 +690,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Health: {0}'
+  m_Text: 'Health: {0}/{1}'
 --- !u!114 &11488596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -770,7 +730,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11422338}
+      - m_Target: {fileID: 11408628}
         m_MethodName: OnFreeMonsterCkilck
         m_Mode: 1
         m_Arguments:
