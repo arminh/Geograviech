@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 using Assets.Scripts.Utils;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items.Consumables;
 using UnityEngine.UI;
 
 public class DragConsumableHandler : DragItemHandler 

@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Utils;
+using Assets.Scripts.Items;
+using Assets.Scripts.Items.Consumables;
 using Assets.Scripts.Character;
 using Assets.Scripts.Effects;
 
@@ -65,7 +67,30 @@ namespace Assets.Scripts {
             savefile.AppendChild(activeWeapon);
             addWeapon(ref doc, ref activeWeapon, player.ActiveWeapon);
 
+            XmlElement items = doc.CreateElement("items");
+            savefile.AppendChild(items);
+            addItems(ref doc, ref items, player.Items);
+
+            XmlElement prefabId = doc.CreateElement("prefabId");
+            prefabId.InnerText = player.PrefabId;
+            savefile.AppendChild(prefabId);
+
+            XmlElement iconId = doc.CreateElement("iconId");
+            iconId.InnerText = player.IconId;
+            savefile.AppendChild(iconId);
+
             doc.Save(path);
+        }
+
+        private static void addEffect(ref XmlDocument doc, ref XmlElement el, Effect effect)
+        {
+            XmlElement eff = doc.CreateElement("type");
+            eff.InnerText = effect.Type.ToString();
+            el.AppendChild(eff);
+
+            XmlElement inf = doc.CreateElement("inflictChance");
+            eff.InnerText = effect.InflictChance.ToString();
+            el.AppendChild(eff);
         }
 
         private static void addAttack(ref XmlDocument doc, ref XmlElement el, Attack attack)
@@ -78,13 +103,24 @@ namespace Assets.Scripts {
             type.InnerText = attack.Type.ToString();
             el.AppendChild(type);
 
-            XmlElement damage = doc.CreateElement("damage");
-            damage.InnerText = attack.Damage.ToString();
-            el.AppendChild(damage);
+            XmlElement minDamage = doc.CreateElement("minDamage");
+            minDamage.InnerText = attack.MinDamage.ToString();
+            el.AppendChild(minDamage);
 
-            /* XmlElement effect = doc.CreateElement("effect");
-             effect.InnerText = attack.Effect.ToString();
-             el.AppendChild(effect);*/
+            XmlElement maxDamage = doc.CreateElement("maxDamage");
+            maxDamage.InnerText = attack.MaxDamage.ToString();
+            el.AppendChild(maxDamage);
+
+            XmlElement cooldownRounds = doc.CreateElement("cooldownRounds");
+            cooldownRounds.InnerText = attack.CooldownRounds.ToString();
+            el.AppendChild(cooldownRounds);
+
+            XmlElement level = doc.CreateElement("level");
+            level.InnerText = attack.Level.ToString();
+            el.AppendChild(level);
+
+            XmlElement effect = doc.CreateElement("effect");
+            addEffect(ref doc, ref effect, attack.Effect);
         }
 
         private static void addAttacks(ref XmlDocument doc, ref XmlElement el, List<Attack> attacks)
@@ -140,12 +176,24 @@ namespace Assets.Scripts {
                 XmlElement vattacks = doc.CreateElement("attacks");
                 v.AppendChild(vattacks);
 
+                XmlElement prefabId = doc.CreateElement("prefabId");
+                prefabId.InnerText = viech.PrefabId;
+                v.AppendChild(prefabId);
+
+                XmlElement iconId = doc.CreateElement("iconId");
+                iconId.InnerText = viech.IconId;
+                v.AppendChild(iconId);
+
                 addAttacks(ref doc, ref vattacks, viech.Attacks);
             }
         }
 
         private static void addWeapon(ref XmlDocument doc, ref XmlElement el, Weapon weapon)
         {
+            XmlElement wname = doc.CreateElement("name");
+            wname.InnerText = weapon.Name;
+            el.AppendChild(wname);
+
             XmlElement att = doc.CreateElement("attack");
             el.AppendChild(att);
 
@@ -170,16 +218,16 @@ namespace Assets.Scripts {
                 el.AppendChild(i);
                
                 XmlElement attName = doc.CreateElement("name");
-                attName.InnerText = i.Name;
-                el.AppendChild(attName);
+                attName.InnerText = item.Name;
+                i.AppendChild(attName);
 
-               /* XmlElement dropChance = doc.CreateElement("dropChance");
-                dropChance.InnerText = i.Drop.ToString();
-                el.AppendChild(dropChance);
+                XmlElement description = doc.CreateElement("description");
+                description.InnerText = item.Description.ToString();
+                i.AppendChild(description);
 
                 XmlElement quantity = doc.CreateElement("quantity");
-                quantity.InnerText = i.Damage.ToString();
-                el.AppendChild(quantity);*/
+                quantity.InnerText = item.Quantity.ToString();
+                i.AppendChild(quantity);
             }
         }
 
@@ -191,7 +239,6 @@ namespace Assets.Scripts {
             XmlNode savefile = xml.SelectSingleNode("player");
 
             string name = savefile.SelectSingleNode("name").InnerText;
-            string identifier = savefile.SelectSingleNode("identifier").InnerText;
 
             int maxHealth = 0;
             int currentHealth = 0;
@@ -239,7 +286,20 @@ namespace Assets.Scripts {
             XmlNode activeVs = savefile.SelectSingleNode("activeViecher");
             List<Viech> activeViecher = getViecher(activeVs);
 
-            Player player = new Player(maxHealth, currentHealth, speed, strength, name, xp, level, viecher, activeViecher, null, null, null, attacks, null, null);
+            XmlNode its = savefile.SelectSingleNode("items");
+            List<IConsumable> items = getItems(its);
+
+            XmlNode ws = savefile.SelectSingleNode("weapons");
+            List<Weapon> weapons = getWeapons(ws);
+
+            XmlNode w = savefile.SelectSingleNode("activeWeapon");
+            Weapon activeWeapon = getWeapon(w);
+
+            string prefabId = savefile.SelectSingleNode("prefabId").InnerText;
+            string iconId = savefile.SelectSingleNode("iconId").InnerText;
+
+            //int maxHealth, int currentHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, string prefabId, string iconId
+            Player player = new Player(maxHealth, currentHealth, speed, strength, name, xp, level, viecher, activeViecher, weapons, activeWeapon, items, attacks, prefabId, iconId);
 
             return player;
         }
@@ -259,15 +319,57 @@ namespace Assets.Scripts {
         private static Attack getAttack(XmlNode att)
         {
             string name = att.SelectSingleNode("name").InnerText;
-            ElementType type = (ElementType)Enum.Parse(typeof(ElementType), att.SelectSingleNode("type").InnerText);
-            int damage = 0;
-            if (!int.TryParse(att.SelectSingleNode("damage").InnerText, out damage))
+            Enums.ElementType type = (Enums.ElementType)Enum.Parse(typeof(Enums.ElementType), att.SelectSingleNode("type").InnerText);
+            
+            int minDamage = 0;
+            if (!int.TryParse(att.SelectSingleNode("minDamage").InnerText, out minDamage))
             {
                 //Savefile corrupt
             }
 
+            int maxDamage = 0;
+            if (!int.TryParse(att.SelectSingleNode("maxDamage").InnerText, out maxDamage))
+            {
+                //Savefile corrupt
+            }
+
+            int cooldownRounds = 0;
+            if (!int.TryParse(att.SelectSingleNode("cooldownRounds").InnerText, out maxDamage))
+            {
+                //Savefile corrupt
+            }
+
+            Effect effect = getEffect(att.SelectSingleNode("effect"));
+
             //TODO Read Effect
-            return new Attack(name, type, damage, damage, 0, new BurnEffect(50), null);    
+            return new Attack(name, type, minDamage, maxDamage, cooldownRounds, effect, null);    
+        }
+
+        private static Effect getEffect(XmlNode eff)
+        {
+            Effect.EffectType type = (Effect.EffectType)Enum.Parse(typeof(Effect.EffectType), eff.SelectSingleNode("type").InnerText);
+
+            int inflictChance = 0;
+            if (!int.TryParse(eff.SelectSingleNode("inflictChance").InnerText, out inflictChance))
+            {
+                //Savefile corrupt
+            }
+
+            switch(type)
+            {
+                case Effect.EffectType.BURN:
+                    return new BurnEffect(inflictChance);
+                case Effect.EffectType.FREEZE:
+                    return new FreezeEffect(inflictChance);
+                case Effect.EffectType.POISON:
+                    return new PoisonEffect(inflictChance);
+                case Effect.EffectType.SLEEP:
+                    return new SleepEffect(inflictChance);
+                case Effect.EffectType.STUN:
+                    return new StunEffect(inflictChance);
+                default:
+                    return null;
+            }
         }
 
         private static List<Viech> getViecher(XmlNode vs)
@@ -277,9 +379,8 @@ namespace Assets.Scripts {
             foreach (XmlNode v in vs.ChildNodes)
             {
                 string name = v.SelectSingleNode("name").InnerText;
-                string identifier = v.SelectSingleNode("identifier").InnerText;
 
-                ElementType type = (ElementType)Enum.Parse(typeof(ElementType), v.SelectSingleNode("type").InnerText);
+                Enums.ElementType type = (Enums.ElementType)Enum.Parse(typeof(Enums.ElementType), v.SelectSingleNode("type").InnerText);
 
                 int maxHealth = 0;
                 int currentHealth = 0;
@@ -326,5 +427,48 @@ namespace Assets.Scripts {
 
             return viecher;
         }
+
+        private static List<Weapon> getWeapons(XmlNode node)
+        {
+            List<Weapon> weapons = new List<Weapon>();
+
+            foreach (XmlNode w in node.ChildNodes)
+            {
+                weapons.Add(getWeapon(w));
+            }
+
+            return weapons;
+        }
+
+        private static Weapon getWeapon(XmlNode node)
+        {
+            string name = node.SelectSingleNode("name").InnerText;
+
+            XmlNode att = node.SelectSingleNode("attack");
+            Attack attack = getAttack(att);
+
+            return new Weapon(name, attack, null);
+        }
+
+        private static List<IConsumable> getItems(XmlNode node)
+        {
+            List<IConsumable> items = new List<IConsumable>();
+
+            foreach (XmlNode i in node.ChildNodes)
+            {
+                string name = i.SelectSingleNode("name").InnerText;
+                string description = i.SelectSingleNode("description").InnerText;
+
+                int quantity = 0;
+                if (!int.TryParse(i.SelectSingleNode("quantity").InnerText, out quantity))
+                {
+                    //Savefile corrupt
+                }
+
+
+            }
+            return null;
+        }
+
     }
 }

@@ -5,14 +5,14 @@ using System.Text;
 
 using Assets.Scripts.FightCharacters;
 
-namespace Assets.Scripts.Consumables
+namespace Assets.Scripts.Items.Consumables
 {
     class Reviver : Item,IConsumable
     {
         int healAmount;
         public Reviver(int healAmount)
+            : base("Defibrillator", null)
         {
-            this.name = "Defibrillator";
             this.healAmount = healAmount;
         }
 

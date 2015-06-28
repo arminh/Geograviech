@@ -23,5 +23,11 @@ namespace Assets.Scripts.Effects
 
             yield break;
         }
+
+
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new StunEffect(this.inflictChance);
+        }
     }
 }

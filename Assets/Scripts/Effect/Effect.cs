@@ -33,11 +33,13 @@ namespace Assets.Scripts.Effects
                 if (num <= inflictChance)
                 {
                     Log.Instance.Info(character.Name + " is now " + inflictMsg + ".");
-                    character.CurrentEffect = this;
+                    applyEffect(character);
                     character.Sprite.GetComponentInChildren<AnimationStatus>().PlaySpecialDamageEffect(this.type);
                 }
             }  
         }
+
+        protected abstract void applyEffect(FightCharacter character);
 
         protected bool tryCure(FightCharacter character)
         {
@@ -76,6 +78,11 @@ namespace Assets.Scripts.Effects
         }
 
         public int InflictChance
+        {
+            get { return inflictChance; }
+        }
+
+        public int CureChance
         {
             get { return inflictChance; }
         }

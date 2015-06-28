@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Utils;
+using Assets.Scripts.Items;
+using Assets.Scripts.Items.Consumables;
 using Assets.Scripts.Character;
 using Assets.Scripts.FightCharacters;
 using Assets.Scripts.Effects;
@@ -21,10 +23,10 @@ namespace Assets.Scripts
         private static GameManager gameManager = null;
 
         public List<GameObject> allCharactersPefabs;
-        private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
+        private Dictionary<string, GameObject> prefabs;
 
         public List<Sprite> allCharactersIcons;
-        private Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
+        private Dictionary<string, Sprite> icons;
 
         private bool levelWasLoaded = false;
         private void OnLevelWasLoaded(int iLevel)
@@ -56,22 +58,22 @@ namespace Assets.Scripts
             List<Attack> attacks1 = new List<Attack>();
             List<Attack> attacks2 = new List<Attack>();
 
-            attacks1.Add(new Attack("Scream", ElementType.NORMAL, 3, 5, 7, new StunEffect(100), null));
-            attacks1.Add(new Attack("Poison seeds", ElementType.EARTH, 2, 4, 6, new PoisonEffect(100), null));
-            attacks2.Add(new Attack("TestAttack", ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
-            attacks2.Add(new Attack("Sleep", ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
+            attacks1.Add(new Attack("Scream", Enums.ElementType.NORMAL, 3, 5, 7, new StunEffect(100), null));
+            attacks1.Add(new Attack("Poison seeds", Enums.ElementType.EARTH, 2, 4, 6, new PoisonEffect(100), null));
+            attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
+            attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
 
 
 
-            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), prefabs["Player"], null);
+            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), "Player", null);
 
-            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
-            
-            player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks1, ElementType.EARTH, prefabs["Gargoyles"], icons["GargoyleIcon"]));
+            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", Enums.ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
 
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, ElementType.EARTH, prefabs["Alraunmännlein"], icons["AlrauneIcon"]));
+            player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
 
-            FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, ElementType.FIRE, 40, new List<Item>(), 160, prefabs["Zerberwelpe"], icons["ZerberwelpeIcon"]);
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraunmännlein", "AlrauneIcon"));
+
+            FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, Enums.ElementType.FIRE, 40, new List<Item>(), 160, "Zerberwelpe", "ZerberwelpeIcon");
 
             StartCoroutine(executeFight(enemy));
         }
@@ -128,7 +130,7 @@ namespace Assets.Scripts
                 if (enemy.decideJoin())
                 {
                     //TODO: Give Viech a name
-                    Viech viech = new Viech(enemy.MaxHealth, enemy.Health, enemy.Speed, enemy.Strength, "Viech", enemy.Level, 0, enemy.Attacks, enemy.Type, enemy.Sprite, enemy.Icon);
+                    Viech viech = new Viech(enemy.MaxHealth, enemy.Health, enemy.Speed, enemy.Strength, "Viech", enemy.Level, 0, enemy.Attacks, enemy.Type, enemy.PrefabId, enemy.IconId);
                     player.addViech(viech);
                 }
 
@@ -148,6 +150,16 @@ namespace Assets.Scripts
             }
 
             Application.LoadLevel("MainScreen");
+        }
+
+        public Dictionary<string, GameObject> Prefabs
+        {
+            get { return prefabs; }
+        }
+
+        public Dictionary<string, Sprite> Icons
+        {
+            get { return icons; }
         }
 
         public static GameManager Instance

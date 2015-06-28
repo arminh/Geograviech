@@ -6,13 +6,14 @@ using System.Text;
 using Assets.Scripts.Effects;
 using Assets.Scripts.FightCharacters;
 
-namespace Assets.Scripts.Consumables
+namespace Assets.Scripts.Items.Consumables
 {
     class Antidote : Item,IConsumable
     {
         public Antidote()
+            : base("Pfefferminz-Tee", null)
         {
-            this.name = "Pfefferminz-Tee";
+
         }
         public bool use(FightCharacter character)
         {

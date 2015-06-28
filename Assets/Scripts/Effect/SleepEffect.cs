@@ -36,5 +36,11 @@ namespace Assets.Scripts.Effects
             base.inflict(character);
 			character.Sprite.GetComponentInChildren<AnimationStatus>().FallAsleep();
         }
+
+
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new SleepEffect(this.inflictChance);
+        }
     }
 }

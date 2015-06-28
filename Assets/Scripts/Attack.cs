@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+using Assets.Scripts.Utils;
 using Assets.Scripts.Effects;
 
 namespace Assets.Scripts
@@ -12,12 +13,12 @@ namespace Assets.Scripts
     public class Attack
     {
         private string name;
-        private ElementType type;
+        private Enums.ElementType type;
         private int minDamage;
         private int maxDamage;
         int cooldownRounds;
         private Effect effect;
-        private bool active = true;
+        private bool active;
 
         private int level;
         private Sprite icon;
@@ -33,9 +34,11 @@ namespace Assets.Scripts
 			this.effect = copy.Effect;
 			this.icon = copy.Icon;
 			this.level = copy.Level;
+            active = true;
+            this.rand = new System.Random();
 		}
 
-        public Attack(string name, ElementType type, int minDamage, int maxDamage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
+        public Attack(string name, Enums.ElementType type, int minDamage, int maxDamage, int cooldownRounds, Effect effect, Sprite icon, int level = 1)
         {
             this.name = name;
             this.type = type;
@@ -45,6 +48,7 @@ namespace Assets.Scripts
             this.effect = effect;
             this.icon = icon;
             this.level = level;
+            active = true;
             this.rand = new System.Random();
         }
 
@@ -53,7 +57,7 @@ namespace Assets.Scripts
             get { return name;  }
         }
 
-        public ElementType Type
+        public Enums.ElementType Type
         {
             get { return type; }
         }
@@ -71,6 +75,11 @@ namespace Assets.Scripts
         public int MaxDamage
         {
             get { return maxDamage; }
+        }
+
+        public int CooldownRounds
+        {
+            get { return cooldownRounds; }
         }
 
         public Effect Effect

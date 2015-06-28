@@ -6,7 +6,7 @@ using System.Linq;
 
 using Assets.Scripts;
 using Assets.Scripts.PlayerMenue;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items.Consumables;
 using Assets.Scripts.Character;
 
 public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteraction

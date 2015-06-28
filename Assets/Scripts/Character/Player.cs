@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Consumables;
 
+using Assets.Scripts.Items;
+using Assets.Scripts.Items.Consumables;
 using Assets.Scripts.FightCharacters;
 
 namespace Assets.Scripts.Character
@@ -17,8 +18,8 @@ namespace Assets.Scripts.Character
 
         private List<IConsumable> items;
 
-        public Player(int maxHealth, int currentHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, GameObject sprite, Sprite icon)
-            : base(maxHealth, currentHealth, speed, strength, name, level, xp, attacks, sprite, icon)
+        public Player(int maxHealth, int currentHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, string prefabId, string iconId)
+            : base(maxHealth, currentHealth, speed, strength, name, level, xp, attacks, prefabId, iconId)
         {
            
             this.viecher = viecher;
@@ -39,7 +40,7 @@ namespace Assets.Scripts.Character
             }
 
 
-            return new FightPlayer(maxHealth, speed, strength, name, fightViecher, activeWeapon, attacks, items, sprite, icon);
+            return new FightPlayer(maxHealth, speed, strength, name, fightViecher, activeWeapon, attacks, items, prefabId, iconId);
         }
 
         protected override void levelUp()
