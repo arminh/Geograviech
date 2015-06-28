@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Assets.Scripts
+using Assets.Scripts.Utils;
+using Assets.Scripts.Effects;
+
+namespace Assets.Scripts.FightCharacters
 {
     public abstract class FightCharacter
     {
@@ -14,7 +17,7 @@ namespace Assets.Scripts
         protected List<Attack> attacks;
         protected Effect currentEffect;
 
-        GameObject sprite = null;
+        GameObject prefab = null;
         Sprite icon = null;
        
         protected bool dead;
@@ -24,7 +27,10 @@ namespace Assets.Scripts
 
         protected string name;
 
-        public FightCharacter(int maxHealth, int speed, int strength, string name, List<Attack> attacks, GameObject sprite, Sprite icon)
+        protected string prefabId;
+        protected string iconId;
+
+        public FightCharacter(int maxHealth, int speed, int strength, string name, List<Attack> attacks, string prefabId, string iconId)
         {
             this.maxHealth = maxHealth;
             this.health = maxHealth;
@@ -33,15 +39,18 @@ namespace Assets.Scripts
             this.name = name;
             this.attacks = attacks;
 
-            this.sprite = sprite;
-            this.icon = icon;
+            this.prefabId = prefabId;
+            this.iconId = iconId;
+            this.prefab = GameManager.Instance.Prefabs[prefabId];
+            this.icon = GameManager.Instance.Icons[prefabId];
         }
        
 
-        protected int applyDamage(int damage)
+        protected void applyDamage(int damage)
         {
-            //Reduce damage by Strength maybe?
-            //damage -= strength
+            prefab.GetComponentInChildren<AnimationStatus>().PlayNormalDamageEffect();
+
+            Log.Instance.Info(name + " suffers " + damage + " damage.");
 
             health -= damage;
             lifeBar.Health = health;
@@ -50,27 +59,31 @@ namespace Assets.Scripts
                 die();
             }
 
-            sprite.GetComponentInChildren<AnimationStatus>().PlaySpecialDamageEffect(Effect.EffectType.NONE);
-            
-            return damage;
-
         }
 
         protected void die()
         {
             dead = true;
             currentEffect = null;
-            AnimationStatus animStatus = sprite.GetComponentInChildren<AnimationStatus>();
+            AnimationStatus animStatus = prefab.GetComponentInChildren<AnimationStatus>();
             animStatus.ResetSpecialDamageEffect();
             animStatus.Die();
+
+            Log.Instance.Info(Name + " died heroically in battle and will ascend to Viechhalla.");
         }
 
         public bool heal(int amount)
         {
             if (health < maxHealth)
             {
+                int healthBefore = health;
                 health = Mathf.Min(health + amount, maxHealth);
+
                 lifeBar.Health = health;
+
+                int healAmount = health - healthBefore;
+                Log.Instance.Info(name + " was healed for " + healAmount + " damage.");
+
                 return true;
             }
             return false;
@@ -83,6 +96,7 @@ namespace Assets.Scripts
                 dead = false;
                 health = healAmount;
                 lifeBar.Health = health;
+                Log.Instance.Info(name + " was denied a eternal life of hapiness in Viechhalla and is now alive again.");
                 //TODO notify AnimationHandler
                 return true;
             }
@@ -101,9 +115,12 @@ namespace Assets.Scripts
 
         public void getAttacked(Attack attack, int opponentStrength)
         {
-            applyDamage(attack.Damage);
+            applyDamage(attack.Damage + opponentStrength - Strength);
 
-            attack.Effect.inflict(this);
+            if (!dead)
+            {
+                attack.Effect.inflict(this);
+            }
         }
 
         public int Health
@@ -147,11 +164,11 @@ namespace Assets.Scripts
 
         public GameObject Sprite
         {
-            get { return sprite; }
+            get { return prefab; }
             set 
-            { 
-                sprite = value;
-                lifeBar = sprite.GetComponentInChildren<LifeBar>();
+            {
+                prefab = value;
+                lifeBar = prefab.GetComponentInChildren<LifeBar>();
                 lifeBar.MaxHealth = maxHealth; 
                 lifeBar.Health = health;
             }
@@ -160,6 +177,16 @@ namespace Assets.Scripts
         public Sprite Icon
         {
             get { return icon; }
+        }
+
+        public string PrefabId
+        {
+            get { return prefabId; }
+        }
+
+        public string IconId
+        {
+            get { return iconId; }
         }
 
         public bool IsEnemy

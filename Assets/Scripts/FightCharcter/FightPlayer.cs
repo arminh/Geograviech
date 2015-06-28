@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items;
+using Assets.Scripts.Items.Consumables;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.FightCharacters
 {
     delegate void UseItemDelegate();
     delegate void AttackDelegate();
@@ -18,8 +19,8 @@ namespace Assets.Scripts
 
         private List<IConsumable> items;
 
-        public FightPlayer(int maxHealth, int speed, int strength, string name, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IConsumable> items, GameObject sprite, Sprite icon)
-            : base(maxHealth, speed, strength, name, attacks, sprite, icon)
+        public FightPlayer(int maxHealth, int speed, int strength, string name, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IConsumable> items, string prefabId, string iconId)
+            : base(maxHealth, speed, strength, name, attacks, prefabId, iconId)
         {
             this.activeViecher = activeViecher;
             this.activeWeapon = activeWeapon;

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
-using Assets.Scripts.Utils;
-using Assets.Scripts;
 using UnityEngine.UI;
+
+using Assets.Scripts;
+using Assets.Scripts.Utils;
+using Assets.Scripts.Character;
 
 public class DragMonsterHandler : DragItemHandler  
 {

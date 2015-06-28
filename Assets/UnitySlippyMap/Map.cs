@@ -949,6 +949,7 @@ public class Map : MonoBehaviour
 	{
 		// create a GameObject and add the templated Marker component to it
         GameObject markerObject = new GameObject(name);
+		markerObject.AddComponent<BoxCollider>();
 		markerObject.transform.parent = this.gameObject.transform;
 		
 		//go.name = "go - " + name;

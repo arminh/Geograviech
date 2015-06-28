@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
 using System.Collections.Generic;
-using Assets.Scripts.Consumables;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+
+using Assets.Scripts;
+using Assets.Scripts.Items;
+using Assets.Scripts.Items.Consumables;
+using Assets.Scripts.Character;
 
 public class PlayerMenueManager : MonoBehaviour 
 {
@@ -34,18 +37,21 @@ public class PlayerMenueManager : MonoBehaviour
         player = GameManager.Instance.getPlayer();
 	}
 
-    public static void SwitchMonsterPlayerPanel()
+    public static void SwitchToMonsterPanel()
     {
-        if (manager.MonsterPanel.gameObject.activeSelf)
-        {
-            manager.MonsterPanel.ResetMonsterPanel();
-        }
-        manager.PlayerPanel.gameObject.SetActive(!manager.PlayerPanel.gameObject.activeSelf);
-        manager.MonsterPanel.gameObject.SetActive(!manager.MonsterPanel.gameObject.activeSelf);
+        manager.PlayerPanel.gameObject.SetActive(false);
+        manager.MonsterPanel.gameObject.SetActive(true);
+    }
+
+    public static void SwitchToPlayerPanel()
+    {
+        manager.PlayerPanel.gameObject.SetActive(true);
+        manager.MonsterPanel.gameObject.SetActive(false);
     }
 
     public static void SetMonsterPanelInformation(Viech monster)
     {
+        manager.MonsterPanel.ResetMonsterPanel();
 		manager.MonsterPanel.SetMonsterInfos(monster);
     }
 
@@ -53,7 +59,7 @@ public class PlayerMenueManager : MonoBehaviour
     {
         manager.Inventory.RemoveMonsterFromList(monster);
         manager.player.Viecher.Remove(monster);
-        SwitchMonsterPlayerPanel();
+        SwitchToPlayerPanel();
     }
 
     public static void SwapActiveMonster(Viech monster, int slotNumber)

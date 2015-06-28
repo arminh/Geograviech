@@ -649,7 +649,8 @@ MonoBehaviour:
   buttonPrefab: {fileID: 133448, guid: 385687e60cf95434fbbe51701516bdaf, type: 2}
   sprite: {fileID: 21300000, guid: fe9e9e262a3a5674b928a1fc641f82fb, type: 3}
   attackSprite: {fileID: 21300000, guid: d040f9b1cc1fa044b82e53b7e9e5b9b7, type: 3}
-  backSprite: {fileID: 21300000, guid: a6fa2688ef35c3248a70c781510f0dd5, type: 3}
+  backSprite: {fileID: 21300000, guid: 56aa4f660b9f5424a85333f0c77c5eee, type: 3}
+  skipTurnSprite: {fileID: 21300000, guid: 408a5becd5545ab4f946a8ff726b33a2, type: 3}
   canvas: {fileID: 1794903993}
 --- !u!114 &1925819689
 MonoBehaviour:
@@ -673,4 +674,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b686f6c14b23aa4091eebc1a5421e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBox: {fileID: 0}

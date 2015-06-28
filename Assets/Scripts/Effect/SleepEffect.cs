@@ -2,14 +2,16 @@
 using System;
 using System.Collections;
 
-namespace Assets.Scripts
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Effects
 {
     public class SleepEffect : Effect
     {
         public SleepEffect(int inflictChance)
             : base(inflictChance, 10, EffectType.SLEEP)
         {
-
+            inflictMsg = "asleep";
         }
 
         public override IEnumerator execute(FightCharacter character)
@@ -26,13 +28,19 @@ namespace Assets.Scripts
         public override void cure(FightCharacter character)
         {
             base.cure(character);
-            character.Sprite.GetComponent<AnimationStatus>().WakeUp();
+			character.Sprite.GetComponentInChildren<AnimationStatus>().WakeUp();
         }
 
         public override void inflict(FightCharacter character)
         {
             base.inflict(character);
-            character.Sprite.GetComponent<AnimationStatus>().FallAsleep();
+			character.Sprite.GetComponentInChildren<AnimationStatus>().FallAsleep();
+        }
+
+
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new SleepEffect(this.inflictChance);
         }
     }
 }

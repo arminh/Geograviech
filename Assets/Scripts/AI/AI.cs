@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
+using Assets.Scripts.FightCharacters;
 
 namespace Assets.Scripts.ArtificialIntelligence
 {
@@ -20,7 +21,7 @@ namespace Assets.Scripts.ArtificialIntelligence
                     instance = GameObject.FindObjectOfType<AI>();
 
                     //Tell unity not to destroy this object when loading a new scene!
-                    DontDestroyOnLoad(instance.gameObject);
+                    //DontDestroyOnLoad(instance.gameObject);
                 }
                 return instance;
             }

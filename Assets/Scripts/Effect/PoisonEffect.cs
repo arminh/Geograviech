@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections;
-using Assets.Scripts.Utils;
 
-namespace Assets.Scripts
+using Assets.Scripts.Utils;
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Effects
 {
     public class PoisonEffect : Effect
     {
         public PoisonEffect(int inflictChance)
             : base(inflictChance, 10, EffectType.POISON)
         {
-
+            inflictMsg = "poisoned";
         }
 
         public override IEnumerator execute(FightCharacter character)
@@ -24,9 +26,17 @@ namespace Assets.Scripts
                 int damage = Convert.ToInt32(dmgTemp);
 
                 character.Health -= damage;
+                Log.Instance.Info(character.Name + " suffered " + damage + " from poison effect.");
+
             }
 
             yield break;
+        }
+
+
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new PoisonEffect(this.inflictChance);
         }
     }
 }

@@ -15,6 +15,15 @@ namespace Assets.Scripts.Utils
             IsSpecial
         };
 
+        public enum ElementType 
+        { 
+            EARTH, 
+            WIND, 
+            FIRE, 
+            WATER, 
+            NORMAL 
+        };
+
         public enum MonsterType
         {
             Water,
@@ -23,14 +32,6 @@ namespace Assets.Scripts.Utils
             Air
         };
 
-        public enum AttackType
-        {
-            Normal,
-            Water,
-            Fire,
-            Earth,
-            Air
-        };
 
         public enum LogBookEntryType
         {

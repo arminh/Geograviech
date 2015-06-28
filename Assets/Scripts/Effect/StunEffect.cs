@@ -2,14 +2,16 @@
 using System;
 using System.Collections;
 
-namespace Assets.Scripts
+using Assets.Scripts.FightCharacters;
+
+namespace Assets.Scripts.Effects
 {
     public class StunEffect : Effect
     {
         public StunEffect(int inflictChance)
             : base(inflictChance, 10, EffectType.STUN)
         {
-
+            inflictMsg = "confused";
         }
 
         public override IEnumerator execute(FightCharacter character)
@@ -20,6 +22,12 @@ namespace Assets.Scripts
             }
 
             yield break;
+        }
+
+
+        protected override void applyEffect(FightCharacter character)
+        {
+            character.CurrentEffect = new StunEffect(this.inflictChance);
         }
     }
 }

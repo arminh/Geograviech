@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 using Assets.Scripts;
 using Assets.Scripts.Utils;
+using Assets.Scripts.Effects;
 
 public class AnimationStatus : MonoBehaviour 
 {
@@ -42,7 +44,7 @@ public class AnimationStatus : MonoBehaviour
             {
                 case Effect.EffectType.BURN:
                     MonsterAnimator.SetTrigger("Burning");
-                    break;
+					break;
                 case Effect.EffectType.STUN:
                     MonsterAnimator.SetTrigger("Stunned");
                     break;

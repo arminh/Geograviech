@@ -5,10 +5,14 @@ using System.Text;
 using UnityEngine;
 using System.Threading;
 using UnityEngine.UI;
-using Assets.Scripts.Utils;
-using Assets.Scripts.Consumables;
-using Assets.Scripts.ArtificialIntelligence;
 using System.Collections;
+
+using Assets.Scripts.Utils;
+using Assets.Scripts.Items.Consumables;
+using Assets.Scripts.Effects;
+using Assets.Scripts.FightCharacters;
+using Assets.Scripts.ArtificialIntelligence;
+
 
 namespace Assets.Scripts
 {
@@ -48,7 +52,7 @@ namespace Assets.Scripts
                     instance = GameObject.FindObjectOfType<FightManager>();
 
                     //Tell unity not to destroy this object when loading a new scene!
-                    DontDestroyOnLoad(instance.gameObject);
+                    //DontDestroyOnLoad(instance.gameObject);
                 }
 
                 return instance;
@@ -141,7 +145,7 @@ namespace Assets.Scripts
 
                 if (executeFight)
                 {
-                    Debug.Log("executeFight");
+                    //Debug.Log("executeFight");
                     StartCoroutine(executeTurn());
                 }
             }
@@ -211,10 +215,9 @@ namespace Assets.Scripts
 
         private IEnumerator executeFSM()
         {
-            Debug.Log("executeFSM");
+            //Debug.Log("executeFSM");
             if (stateChanged)
             {
-                Debug.Log("playerHasChoosen " + state);
                 if (activeFighter == player)
                 {
                     switch (state)
@@ -267,7 +270,7 @@ namespace Assets.Scripts
                                 }
                                 else
                                 {
-                                    throw new NotImplementedException("Schould not be reached!");
+                                    throw new NotImplementedException("Should not be reached!");
                                 }
                                 break;
                             }
@@ -378,7 +381,7 @@ namespace Assets.Scripts
             activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().Attack();
             while (!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
-                Debug.Log("wait");
+                //Debug.Log("wait");
                 yield return null;
             }
 
@@ -390,6 +393,7 @@ namespace Assets.Scripts
                 switch (action)
                 {
                     case 1:
+                        Log.Instance.Info(activeFighter.Name + " attacks " + viech.Name + " with " + attack.Name);
                         viech.getAttacked(attack,activeFighter.Strength);
                         break;
                     case 2:
@@ -412,13 +416,13 @@ namespace Assets.Scripts
 
             while(!activeFighter.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
-                Debug.Log("wait");
+                //Debug.Log("wait");
                 yield return null;
             }
 
             while (!viech.Sprite.GetComponentInChildren<AnimationStatus>().areSpechialAnimationsFinished())
             {
-                Debug.Log("wait");
+                //Debug.Log("wait");
                 yield return null;
             }
 

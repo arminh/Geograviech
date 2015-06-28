@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+
+using Assets.Scripts;
 using Assets.Scripts.PlayerMenue;
-using Assets.Scripts.Consumables;
+using Assets.Scripts.Items.Consumables;
+using Assets.Scripts.Character;
 
 public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteraction
 {
@@ -50,6 +52,9 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         if(monsterImage != null)
         {
             var monsterView = Instantiate(monsterImage);
+            var size = getPrefabSize(monsterView.transform);
+            Debug.Log("Monstergröße");
+            Debug.Log(size);
             monsterView.transform.SetParent(MonsterPanel);
             monsterView.transform.position = new Vector3(0, 0, 0);
             monsterView.transform.localPosition = new Vector3(0, 0, -80);
@@ -71,7 +76,8 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
 
     public void ResetMonsterPanel()
     {
-        Destroy(MonsterPanel.GetChild(0).gameObject);
+        if(MonsterPanel.childCount > 0)
+            Destroy(MonsterPanel.GetChild(0).gameObject);
         Monster = null;
 
         Name.text = OriginalText[Name] as string;
@@ -85,7 +91,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
 
     public void OnBackToPlayerMenueClick()
     {
-        PlayerMenueManager.SwitchMonsterPlayerPanel();
+        PlayerMenueManager.SwitchToPlayerPanel();
     }
 
     public void OnFreeMonsterCkilck()
@@ -96,5 +102,25 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
     public void Consume(IConsumable item)
     {
         throw new System.NotImplementedException();
+    }
+
+    private Vector2 getPrefabSize(Transform monster)
+    {
+        List<SpriteRenderer> renderers = new List<SpriteRenderer>();
+        renderers.AddRange(monster.GetComponentsInChildren<SpriteRenderer>());
+        renderers.AddRange(monster.GetComponents<SpriteRenderer>());
+        var first = renderers.FirstOrDefault();
+        if(first != null)
+        {
+            Vector3 max = first.bounds.max;
+            Vector3 min = first.bounds.min;
+            foreach (var item in renderers)
+            {
+                max = Vector3.Max(max, item.bounds.max);
+                min = Vector3.Max(min, item.bounds.min);
+            }
+            return new Vector2(max.x - min.x, max.y - min.y);
+        }
+        return new Vector2();
     }
 }
