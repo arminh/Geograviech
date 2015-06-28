@@ -19,6 +19,7 @@ namespace Assets.Scripts
         private static GameManager instance;
 
         private Player player;
+		private FightCharacter enemy; 
 
         private static GameManager gameManager = null;
 
@@ -33,6 +34,14 @@ namespace Assets.Scripts
         {
 			Log.Instance.Info("Level loaded");
             levelWasLoaded = true;
+
+			if (iLevel == 1) 
+			{
+				Log.Instance.Info("Thread awoke");
+				FightPlayer hero = player.createHero();
+				
+				FightManager.Instance.fight(hero, enemy);
+			}
         }
 
         public void init()
@@ -42,6 +51,7 @@ namespace Assets.Scripts
             foreach (GameObject sprite in allCharactersPefabs)
             {
                 prefabs.Add(sprite.name, sprite);
+				Debug.Log(sprite.name);
             }
 
             icons = new Dictionary<string, Sprite>();
@@ -63,6 +73,8 @@ namespace Assets.Scripts
             //attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
             //attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
 
+
+
             //player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
 
             //Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", Enums.ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
@@ -75,7 +87,7 @@ namespace Assets.Scripts
 
             //StartCoroutine(executeFight(enemy));
 
-            List<Viech> activeViecher = new List<Viech>();
+                        List<Viech> activeViecher = new List<Viech>();
 
             List<Attack> attacks0 = new List<Attack>();
             List<Attack> attacks1 = new List<Attack>();
@@ -120,17 +132,13 @@ namespace Assets.Scripts
             Application.LoadLevel("PlayerMenue");
         }
 
-        public void showWorldMap()
-        {
-            Application.LoadLevel("WorldMap");
-        }
-
-        public IEnumerator executeFight(FightViech enemy)
+        public void executeFight(FightViech enemy)
         {
 			Log.Instance.Info("executeFight");
+			this.enemy = enemy;
             Application.LoadLevel("Fightscreen");
 
-            while (!levelWasLoaded)
+            /*while (!levelWasLoaded)
             {
 				Log.Instance.Info("Thread sleeps");
                 yield return null;
@@ -139,7 +147,7 @@ namespace Assets.Scripts
 			Log.Instance.Info("Thread awoke");
             FightPlayer hero = player.createHero();
 
-            FightManager.Instance.fight(hero, enemy);
+            FightManager.Instance.fight(hero, enemy);*/
         }
 
         public void fightFinished(FightCharacter winner, FightCharacter looser)
@@ -233,4 +241,4 @@ namespace Assets.Scripts
         }
     }
 }
-
+>>>>>>> 177c0350abae9fec173ea444989de2768f85d1b0

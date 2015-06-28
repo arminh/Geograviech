@@ -48,6 +48,11 @@ namespace Assets.Scripts.FightCharacters
             Attack root = new Attack("The root of evil", Enums.ElementType.EARTH, 3, 5, 3, null, null, level);
             Attack whining = new Attack("Unbearable Whining", Enums.ElementType.NORMAL, 5, 7, 5, null, null, level);
             Attack beam = new Attack("Poison seeds", Enums.ElementType.EARTH, 2, 4, 6, new PoisonEffect(50), null, level);
+			List<Attack> attacks = new List<Attack> ();
+			attacks.Add (scream);
+			attacks.Add (root);
+			attacks.Add (whining);
+			attacks.Add (beam);
 
             return new FightViech(level * 10 * 3, level * 2, level, "Alraune", null, Enums.ElementType.EARTH, 50, null, level * 50, "Alraune", "AlrauneIcon");
         }

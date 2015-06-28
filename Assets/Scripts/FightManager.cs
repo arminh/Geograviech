@@ -145,7 +145,7 @@ namespace Assets.Scripts
 
                 if (executeFight)
                 {
-                    //Debug.Log("executeFight");
+					Log.Instance.Info("executeTurn");
                     StartCoroutine(executeTurn());
                 }
             }
