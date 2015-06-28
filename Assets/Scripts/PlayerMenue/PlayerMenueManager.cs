@@ -37,18 +37,21 @@ public class PlayerMenueManager : MonoBehaviour
         player = GameManager.Instance.getPlayer();
 	}
 
-    public static void SwitchMonsterPlayerPanel()
+    public static void SwitchToMonsterPanel()
     {
-        if (manager.MonsterPanel.gameObject.activeSelf)
-        {
-            manager.MonsterPanel.ResetMonsterPanel();
-        }
-        manager.PlayerPanel.gameObject.SetActive(!manager.PlayerPanel.gameObject.activeSelf);
-        manager.MonsterPanel.gameObject.SetActive(!manager.MonsterPanel.gameObject.activeSelf);
+        manager.PlayerPanel.gameObject.SetActive(false);
+        manager.MonsterPanel.gameObject.SetActive(true);
+    }
+
+    public static void SwitchToPlayerPanel()
+    {
+        manager.PlayerPanel.gameObject.SetActive(true);
+        manager.MonsterPanel.gameObject.SetActive(false);
     }
 
     public static void SetMonsterPanelInformation(Viech monster)
     {
+        manager.MonsterPanel.ResetMonsterPanel();
 		manager.MonsterPanel.SetMonsterInfos(monster);
     }
 
@@ -56,7 +59,7 @@ public class PlayerMenueManager : MonoBehaviour
     {
         manager.Inventory.RemoveMonsterFromList(monster);
         manager.player.Viecher.Remove(monster);
-        SwitchMonsterPlayerPanel();
+        SwitchToPlayerPanel();
     }
 
     public static void SwapActiveMonster(Viech monster, int slotNumber)
@@ -92,5 +95,10 @@ public class PlayerMenueManager : MonoBehaviour
             manager.Inventory.AddWeaponToList(manager.player.ActiveWeapon);
         }
         manager.player.ActiveWeapon = weapon;
+    }
+
+    public void BackToMap()
+    {
+        GameManager.Instance.showWorldMap();
     }
 }

@@ -14,7 +14,8 @@ namespace Assets.Scripts.Items
 {
     class ItemFactory
     {
-        const int numConsumables = 7;
+        const int numConsumables = 9;
+        const int numWeapons = 5;
 
         System.Random rand = new System.Random();
 
@@ -26,7 +27,7 @@ namespace Assets.Scripts.Items
 
             for(int i = 0; i < amount-1; i++)
             {
-                roll = rand.Next(1, 100);
+                roll = rand.Next(1, 101);
 
                 if (roll <= 70)
                 {
@@ -49,9 +50,9 @@ namespace Assets.Scripts.Items
             return drops;
         } 
 
-        private IConsumable createRandomConsumable(int level) 
+        public IConsumable createRandomConsumable(int level) 
         {
-            int dropRoll = rand.Next(1, 100);
+            int dropRoll = rand.Next(1, 101);
             IConsumable drop = null;
 
             switch(rand.Next(1, numConsumables)) 
@@ -69,12 +70,15 @@ namespace Assets.Scripts.Items
                     drop = new FreezeHealer();
                     break;
                 case 5:
-                    drop = new HealPotion(level * 10);
+                    drop = new MinorHealPotion(level * 10);
                     break;
                 case 6:
-                    drop = new Reviver(level * 3);
+                    drop = new MajorHealPotion(level * 20);
                     break;
                 case 7:
+                    drop = new Reviver(level * 3);
+                    break;
+                case 8:
                     drop = new StunHealer();
                     break;
             }
@@ -89,21 +93,19 @@ namespace Assets.Scripts.Items
             }
         }
 
-        private Weapon createRandomWeapon(int level)
+        public Weapon createRandomWeapon(int level)
         {
             int minDamage = 0;
             int maxDamage = 0;
             double dropChance = 1.0;
             int coolDownRounds = 0;
             Effect effect = null;
-            Sprite icon = null;
 
-            string name = "Sword";
+            string name = "{0}";
             string namePrefix = "";
             string nameSuffix = "";
 
-
-            int power = rand.Next(1, 5);
+            int power = rand.Next(1, 6);
 
             switch(power) {
                 case 1:
@@ -140,8 +142,8 @@ namespace Assets.Scripts.Items
                     break;
             }
 
-            int effectRoll = rand.Next(1, 10);
-            int chance = rand.Next(1, 5);
+            int effectRoll = rand.Next(1, 11);
+            int chance = rand.Next(1, 6);
 
             switch(effectRoll) 
             {
@@ -196,10 +198,28 @@ namespace Assets.Scripts.Items
 
             name = namePrefix + name + nameSuffix;
 
-            int dropRoll = rand.Next(1, 100);
+            int dropRoll = rand.Next(1, 101);
 
-            if(dropRoll <= Math.Round(100*dropChance)) {
-                return new Weapon(name, new Attack(name, Enums.ElementType.NORMAL, minDamage, maxDamage, coolDownRounds, effect, null, level), icon);
+            if(dropRoll <= Math.Round(100*dropChance)) 
+            {
+                Weapon drop = null;
+                var attack = new Attack(name, Enums.ElementType.NORMAL, minDamage, maxDamage, coolDownRounds, effect, null, level);
+                switch (rand.Next(1, numWeapons))
+                {
+                    case 1:
+                        drop = new Ax(name, attack);
+                        break;
+                    case 2:
+                        drop = new Hammer(name, attack);
+                        break;
+                    case 3:
+                        drop = new Spear(name, attack);
+                        break;
+                    case 4:
+                        drop = new Sword(name, attack);
+                        break;
+                }
+                return drop;
             }
             else
             {

@@ -11,8 +11,9 @@ namespace Assets.Scripts.Items.Consumables
     class FreezeHealer : Item, IConsumable
     {
         public FreezeHealer()
-            : base("Heizdecke", null)
+            : base("Wärmeflasche")
         {
+            this.icon = GameManager.Instance.Icons["waermeflasche"];
         }
         public bool use(FightCharacter character)
         {

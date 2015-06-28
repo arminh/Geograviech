@@ -19,10 +19,9 @@ namespace Assets.Scripts.Items
         {
         }
 
-        public Item(string name, Sprite icon)
+        public Item(string name)
         {
             this.name = name;
-            this.icon = icon;
             this.quantity = 1;
         }
 

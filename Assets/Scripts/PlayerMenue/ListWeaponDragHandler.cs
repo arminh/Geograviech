@@ -24,6 +24,6 @@ public class ListWeaponDragHandler : ListItemDragHandler
         var image = transform.GetComponentInChildren<Image>();
         image.sprite = weapon.Icon;
         Name.text = string.Format(Name.text, weapon.Name);
-        Damage.text = string.Format(Damage.text, weapon.Attack.Damage);
+        Damage.text = string.Format(Damage.text, weapon.Attack.MinDamage, weapon.Attack.MaxDamage);
     }
 }

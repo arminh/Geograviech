@@ -11,8 +11,9 @@ namespace Assets.Scripts.Items.Consumables
     class Awakener : Item, IConsumable
     {
         public Awakener()
-            : base("Kaffee", null)
+            : base("Kaffee")
         {
+            this.icon = GameManager.Instance.Icons["coffee"];
         }
         public bool use(FightCharacter character)
         {

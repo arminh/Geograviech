@@ -11,9 +11,9 @@ namespace Assets.Scripts.Items.Consumables
     class StunHealer : Item, IConsumable
     {
         public StunHealer()
-            : base("Eiseimer", null)
+            : base("Eiseimer")
         {
-
+            //this.icon = GameManager.Instance.Icons[""];
         }
         public bool use(FightCharacter character)
         {

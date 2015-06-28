@@ -8,12 +8,12 @@ using Assets.Scripts.FightCharacters;
 
 namespace Assets.Scripts.Items.Consumables
 {
-    class Antidote : Item,IConsumable
+    class Antidote : Item ,IConsumable
     {
         public Antidote()
-            : base("Pfefferminz-Tee", null)
+            : base("Schnaps")
         {
-
+            this.icon = GameManager.Instance.Icons["schnaps"];
         }
         public bool use(FightCharacter character)
         {

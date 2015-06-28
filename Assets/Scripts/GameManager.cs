@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -62,8 +62,33 @@ namespace Assets.Scripts
 
             Debug.Log("Start");
             
-            List<Viech> activeViecher = new List<Viech>();
-            List<Viech> viecher = new List<Viech>();
+            //List<Viech> activeViecher = new List<Viech>();
+            //List<Viech> viecher = new List<Viech>();
+            //List<Attack> attacks0 = new List<Attack>();
+            //List<Attack> attacks1 = new List<Attack>();
+            //List<Attack> attacks2 = new List<Attack>();
+
+            //attacks1.Add(new Attack("Scream", Enums.ElementType.NORMAL, 3, 5, 7, new StunEffect(100), null));
+            //attacks1.Add(new Attack("Poison seeds", Enums.ElementType.EARTH, 2, 4, 6, new PoisonEffect(100), null));
+            //attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
+            //attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
+
+
+
+            //player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
+
+            //Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", Enums.ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
+
+            //player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
+
+            //player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
+
+            //FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, Enums.ElementType.FIRE, 40, new List<Item>(), 160, "Zerberwelpe", "ZerberwelpeIcon");
+
+            //StartCoroutine(executeFight(enemy));
+
+                        List<Viech> activeViecher = new List<Viech>();
+
             List<Attack> attacks0 = new List<Attack>();
             List<Attack> attacks1 = new List<Attack>();
             List<Attack> attacks2 = new List<Attack>();
@@ -73,19 +98,28 @@ namespace Assets.Scripts
             attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
             attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
 
+            activeViecher.Add(new Viech(10, 10, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
+            activeViecher.Add(null);
+            activeViecher.Add(new Viech(10, 10, 20, 4, "Nervenzwerg", 3, 500, attacks2, Enums.ElementType.WIND, "Imp", "ImpIcon"));
 
+            ItemFactory createItems = new ItemFactory();
+            List<Item> droppedItems = createItems.createRandomDrops(1, 10);
 
-            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
-
-            Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", Enums.ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
-
-            player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
-
+            var weapon = createItems.createRandomWeapon(1);
+            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), activeViecher, new List<Weapon>(), weapon, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
             player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
 
-            //FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, Enums.ElementType.FIRE, 40, new List<Item>(), 160, "Zerberwelpe", "ZerberwelpeIcon");
-
-            //StartCoroutine(executeFight(enemy));
+            foreach (Item item in droppedItems)
+            {
+                if (item is IConsumable)
+                {
+                    player.addConsumable(item);
+                }
+                else
+                {
+                    player.addWeapon((Weapon)item);
+                }
+            }
         }
 
         public Player getPlayer()
@@ -207,3 +241,4 @@ namespace Assets.Scripts
         }
     }
 }
+>>>>>>> 177c0350abae9fec173ea444989de2768f85d1b0

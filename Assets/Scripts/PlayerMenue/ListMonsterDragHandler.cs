@@ -31,7 +31,7 @@ public class ListMonsterDragHandler : ListItemDragHandler
 
     public void OnSingleShortClick()
     {
-        PlayerMenueManager.SwitchMonsterPlayerPanel();
+        PlayerMenueManager.SwitchToMonsterPanel();
         PlayerMenueManager.SetMonsterPanelInformation(this.Item as Viech);
     }
 }

@@ -194,6 +194,10 @@ namespace Assets.Scripts {
             wname.InnerText = weapon.Name;
             el.AppendChild(wname);
 
+            XmlElement iname = doc.CreateElement("icon");
+            iname.InnerText = weapon.Icon.name;
+            el.AppendChild(iname);
+
             XmlElement att = doc.CreateElement("attack");
             el.AppendChild(att);
 
@@ -443,11 +447,12 @@ namespace Assets.Scripts {
         private static Weapon getWeapon(XmlNode node)
         {
             string name = node.SelectSingleNode("name").InnerText;
+            string iconName = node.SelectSingleNode("icon").InnerText;
 
             XmlNode att = node.SelectSingleNode("attack");
             Attack attack = getAttack(att);
 
-            return new Weapon(name, attack, null);
+            return new Weapon(name, attack, GameManager.Instance.Icons[iconName]);
         }
 
         private static List<IConsumable> getItems(XmlNode node)

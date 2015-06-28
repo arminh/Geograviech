@@ -11,8 +11,9 @@ namespace Assets.Scripts.Items.Consumables
     class BurnHealer : Item, IConsumable
     {
         public BurnHealer()
-            : base("Bepanthen Wund und Heilsalbe", null)
+            : base("Bepanthen Wund und Heilsalbe")
         {
+            this.icon = GameManager.Instance.Icons["heilsalbe"];
         }
         public bool use(FightCharacter character)
         {
