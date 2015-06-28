@@ -14,6 +14,7 @@ namespace Assets.Scripts.Items.Consumables
             : base("Wärmeflasche")
         {
             this.icon = GameManager.Instance.Icons["waermeflasche"];
+            this.description = "Warms up.";
         }
         public bool use(FightCharacter character)
         {

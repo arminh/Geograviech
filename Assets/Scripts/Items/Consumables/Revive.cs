@@ -15,6 +15,7 @@ namespace Assets.Scripts.Items.Consumables
         {
             this.healAmount = healAmount;
             this.icon = GameManager.Instance.Icons["revive1"];
+            this.description = string.Format("Revives and heals {0} damage.", healAmount);
         }
 
         public bool use(FightCharacter character)

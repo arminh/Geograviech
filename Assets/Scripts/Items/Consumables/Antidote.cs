@@ -14,6 +14,7 @@ namespace Assets.Scripts.Items.Consumables
             : base("Schnaps")
         {
             this.icon = GameManager.Instance.Icons["schnaps"];
+            this.description = "Helps agains poison.";
         }
         public bool use(FightCharacter character)
         {
