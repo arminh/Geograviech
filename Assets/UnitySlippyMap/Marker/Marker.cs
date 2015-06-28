@@ -160,8 +160,6 @@ public class Marker : MonoBehaviour
 				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5);
 				GameManager.Instance.executeFight(enemy);
 
-				//FightViechFactory factory = new FightViechFactory ();
-				//GameManager.Instance.executeFight (factory.createFightViech());
 			}
 
 

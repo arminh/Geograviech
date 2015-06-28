@@ -13,7 +13,7 @@ GameObject:
   - 225: {fileID: 22587000}
   - 114: {fileID: 11404552}
   m_Layer: 5
-  m_Name: "W\xE4rmeflascheItem"
+  m_Name: "Wa\u0308rmeflascheItem"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
