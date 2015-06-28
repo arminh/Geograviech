@@ -233,8 +233,7 @@ public class TestMap : MonoBehaviour
 		map.ShowGUIControls = false;
 		
 		map.GUIDelegate += Toolbar;
-		map.Zoom(1.0f);
-		map.Zoom (1.0f);
+
 
 		layers = new List<Layer>();
 
