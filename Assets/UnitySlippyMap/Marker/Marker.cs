@@ -150,18 +150,16 @@ public class Marker : MonoBehaviour
 			if (string.Equals(this.name, "Imp")) {
 
 
-				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5);
+				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5, Enums.ViechName.Imp);
 				GameManager.Instance.executeFight(enemy);
 			}
 
 			if (string.Equals(this.name, "Alraune")) {
 				Log.Instance.Info("Alraune");
 
-				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5);
+				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5, Enums.ViechName.Alraune);
 				GameManager.Instance.executeFight(enemy);
 
-				//FightViechFactory factory = new FightViechFactory ();
-				//GameManager.Instance.executeFight (factory.createFightViech());
 			}
 
 

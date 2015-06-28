@@ -87,7 +87,7 @@ namespace Assets.Scripts
 
             //StartCoroutine(executeFight(enemy));
 
-            List<Viech> activeViecher = new List<Viech>();
+                        List<Viech> activeViecher = new List<Viech>();
 
             List<Attack> attacks0 = new List<Attack>();
             List<Attack> attacks1 = new List<Attack>();
@@ -131,6 +131,12 @@ namespace Assets.Scripts
         {
             Application.LoadLevel("PlayerMenue");
         }
+
+		public void showWorldMap()
+		{
+			Application.LoadLevel("WorldMap");
+		}
+
 
         public void executeFight(FightViech enemy)
         {
@@ -241,4 +247,4 @@ namespace Assets.Scripts
         }
     }
 }
->>>>>>> 177c0350abae9fec173ea444989de2768f85d1b0
+
