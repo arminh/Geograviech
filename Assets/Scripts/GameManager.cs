@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -98,9 +98,9 @@ namespace Assets.Scripts
             attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
             attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
 
-            activeViecher.Add(new Viech(10, 10, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
+			activeViecher.Add(new Viech(10, 10, 20, 4, "Garganton", 3, 500, attacks2, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
             activeViecher.Add(null);
-            activeViecher.Add(new Viech(10, 10, 20, 4, "Nervenzwerg", 3, 500, attacks2, Enums.ElementType.WIND, "Imp", "ImpIcon"));
+            activeViecher.Add(new Viech(10, 10, 20, 4, "Nervenzwerg", 3, 500, attacks1, Enums.ElementType.WIND, "Imp", "ImpIcon"));
 
             ItemFactory createItems = new ItemFactory();
             List<Item> droppedItems = createItems.createRandomDrops(1, 10);
