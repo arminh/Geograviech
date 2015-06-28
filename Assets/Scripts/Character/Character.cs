@@ -38,8 +38,10 @@ namespace Assets.Scripts.Character
             this.attacks = attacks;
             this.prefabId = prefabId;
             this.iconId = iconId;
-            this.prefab = GameManager.Instance.Prefabs[prefabId];
-            this.icon = GameManager.Instance.Icons[prefabId];
+			if(prefabId != null)
+            	this.prefab = GameManager.Instance.Prefabs[prefabId];
+			if(iconId != null)
+				this.icon = GameManager.Instance.Icons[iconId];
         }
 
 

@@ -31,7 +31,7 @@ namespace Assets.Scripts
         private bool levelWasLoaded = false;
         private void OnLevelWasLoaded(int iLevel)
         {
-            Debug.Log("Level loaded");
+			Log.Instance.Info("Level loaded");
             levelWasLoaded = true;
         }
 
@@ -42,6 +42,7 @@ namespace Assets.Scripts
             foreach (GameObject sprite in allCharactersPefabs)
             {
                 prefabs.Add(sprite.name, sprite);
+				Debug.Log(sprite.name);
             }
 
             icons = new Dictionary<string, Sprite>();
@@ -65,17 +66,17 @@ namespace Assets.Scripts
 
 
 
-            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), "Player", null);
+            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), new List<Viech>(), new List<Weapon>(), null, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
 
             Weapon weapon = new Weapon("IceSword", new Attack("TestAttack", Enums.ElementType.EARTH, 6, 8, 0, new FreezeEffect(80), null, player.Level), icons["normalAttack"]);
 
             player.addActiveViech(new Viech(100, 100, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
 
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraunmännlein", "AlrauneIcon"));
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
 
-            FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, Enums.ElementType.FIRE, 40, new List<Item>(), 160, "Zerberwelpe", "ZerberwelpeIcon");
+            //FightViech enemy = new FightViech(170, 20, 3, "Skeletor", attacks2, Enums.ElementType.FIRE, 40, new List<Item>(), 160, "Zerberwelpe", "ZerberwelpeIcon");
 
-            StartCoroutine(executeFight(enemy));
+            //StartCoroutine(executeFight(enemy));
         }
 
         public Player getPlayer()
@@ -90,16 +91,16 @@ namespace Assets.Scripts
 
         public IEnumerator executeFight(FightViech enemy)
         {
-            Debug.Log("executeFight");
+			Log.Instance.Info("executeFight");
             Application.LoadLevel("Fightscreen");
 
             while (!levelWasLoaded)
             {
-                Debug.Log("Thread sleeps");
+				Log.Instance.Info("Thread sleeps");
                 yield return null;
             }
             levelWasLoaded = false;
-            Debug.Log("Thread awoke");
+			Log.Instance.Info("Thread awoke");
             FightPlayer hero = player.createHero();
 
             FightManager.Instance.fight(hero, enemy);

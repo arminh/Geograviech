@@ -42,7 +42,7 @@ namespace Assets.Scripts.FightCharacters
             this.prefabId = prefabId;
             this.iconId = iconId;
             this.prefab = GameManager.Instance.Prefabs[prefabId];
-            this.icon = GameManager.Instance.Icons[prefabId];
+            this.icon = GameManager.Instance.Icons[iconId];
         }
        
 
