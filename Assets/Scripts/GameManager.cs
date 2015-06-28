@@ -19,6 +19,7 @@ namespace Assets.Scripts
         private static GameManager instance;
 
         private Player player;
+		private FightCharacter enemy; 
 
         private static GameManager gameManager = null;
 
@@ -33,6 +34,14 @@ namespace Assets.Scripts
         {
 			Log.Instance.Info("Level loaded");
             levelWasLoaded = true;
+
+			if (iLevel == 1) 
+			{
+				Log.Instance.Info("Thread awoke");
+				FightPlayer hero = player.createHero();
+				
+				FightManager.Instance.fight(hero, enemy);
+			}
         }
 
         public void init()
@@ -89,12 +98,13 @@ namespace Assets.Scripts
             Application.LoadLevel("PlayerMenue");
         }
 
-        public IEnumerator executeFight(FightViech enemy)
+        public void executeFight(FightViech enemy)
         {
 			Log.Instance.Info("executeFight");
+			this.enemy = enemy;
             Application.LoadLevel("Fightscreen");
 
-            while (!levelWasLoaded)
+            /*while (!levelWasLoaded)
             {
 				Log.Instance.Info("Thread sleeps");
                 yield return null;
@@ -103,7 +113,7 @@ namespace Assets.Scripts
 			Log.Instance.Info("Thread awoke");
             FightPlayer hero = player.createHero();
 
-            FightManager.Instance.fight(hero, enemy);
+            FightManager.Instance.fight(hero, enemy);*/
         }
 
         public void fightFinished(FightCharacter winner, FightCharacter looser)
