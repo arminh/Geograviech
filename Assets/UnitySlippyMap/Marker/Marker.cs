@@ -152,9 +152,37 @@ public class Marker : MonoBehaviour
 
 			if (string.Equals(this.name, "Alraune")) {
 
-				FightViech enemy = factory.createFightViech (Enums.ElementType.WIND, 5, Enums.ViechName.Alraune);
+				FightViech enemy = factory.createFightViech (Enums.ElementType.EARTH, 5, Enums.ViechName.Alraune);
 				GameManager.Instance.executeFight(enemy);
 
+			}
+
+			if (string.Equals(this.name, "Gargoyle")) {
+				
+				FightViech enemy = factory.createFightViech (Enums.ElementType.NORMAL, 5, Enums.ViechName.Gargoyle);
+				GameManager.Instance.executeFight(enemy);
+				
+			}
+
+			if (string.Equals(this.name, "Sirene")) {
+				
+				FightViech enemy = factory.createFightViech (Enums.ElementType.WATER, 5, Enums.ViechName.Sirene);
+				GameManager.Instance.executeFight(enemy);
+				
+			}
+
+			if (string.Equals(this.name, "Panther")) {
+				
+				FightViech enemy = factory.createFightViech (Enums.ElementType.FIRE, 5, Enums.ViechName.Panther);
+				GameManager.Instance.executeFight(enemy);
+				
+			}
+
+			if (string.Equals(this.name, "Zerber")) {
+				
+				FightViech enemy = factory.createFightViech (Enums.ElementType.FIRE, 5, Enums.ViechName.Zerber);
+				GameManager.Instance.executeFight(enemy);
+				
 			}
 
 	}

@@ -222,9 +222,9 @@ public class TestMap : MonoBehaviour
 		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard;
 		map.CurrentZoom = 17.0f;
 		// 9 rue Gentil, Lyon
-		map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
+		//map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
 		//WORKS!
-		//map.CenterWGS84 = new double[2] { Input.location.lastData.latitude, Input.location.lastData.longitude };
+		map.CenterWGS84 = new double[2] { Input.location.lastData.latitude, Input.location.lastData.longitude };
 
 		////Set-up Android SDK path to make Android remote work
 	
@@ -325,6 +325,8 @@ public class TestMap : MonoBehaviour
 		
 		#endif
 
+
+		//Imp Marker
 		GameObject go = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
 		go.GetComponent<Renderer>().material.mainTexture = MarkerImpTexture;
 		go.GetComponent<Renderer>().material.renderQueue = 4001;
@@ -337,10 +339,7 @@ public class TestMap : MonoBehaviour
 		map.CreateMarker<Marker>("Imp", new double[2] { 15.442552, 47.067243}, markerGO);
 		DestroyImmediate(go);
 
-
-
-
-
+		//AlraunenMarker
 		GameObject go2 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
 		go2.GetComponent<Renderer>().material.mainTexture = MarkerAlrauneTexture;
 		go2.GetComponent<Renderer>().material.renderQueue = 4001;
@@ -355,14 +354,64 @@ public class TestMap : MonoBehaviour
 		DestroyImmediate(go2);
 
 
+		//Gargoyle Marker
+		GameObject go3 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go3.GetComponent<Renderer>().material.mainTexture = MarkerGargoyleTexture;
+		go3.GetComponent<Renderer>().material.renderQueue = 4001;
+		go3.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+		go3.transform.localScale /= 3.0f;
+		go3.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
 		
-		//markerGO = Instantiate(go) as GameObject;
-		//map.CreateMarker<Marker>("test marker - 31 rue de la Bourse, Lyon", new double[2] { 4.83699, 45.76535 }, markerGO);
+		GameObject markerGO3;
+		markerGO3 = Instantiate(go3) as GameObject;
+		map.CreateMarker<Marker>("Gargoyle", new double[2] { 15.444552, 47.068143}, markerGO3);
 		
-		//markerGO = Instantiate(go) as GameObject;
-		//map.CreateMarker<Marker>("test marker - 1 place St Nizier, Lyon", new double[2] { 4.83295, 45.76468 }, markerGO);
+		DestroyImmediate(go3);
+
+
+		//Sirene Marker
+		GameObject go4 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go4.GetComponent<Renderer>().material.mainTexture = MarkerSireneTexture;
+		go4.GetComponent<Renderer>().material.renderQueue = 4001;
+		go4.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+		go4.transform.localScale /= 3.0f;
+		go4.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
 		
+		GameObject markerGO4;
+		markerGO4 = Instantiate(go4) as GameObject;
+		map.CreateMarker<Marker>("Sirene", new double[2] { 15.444752, 47.068443}, markerGO4);
 		
+		DestroyImmediate(go4);
+
+		//Panther Marker
+		GameObject go6 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go6.GetComponent<Renderer>().material.mainTexture = MarkerPantherTexture;
+		go6.GetComponent<Renderer>().material.renderQueue = 4001;
+		go6.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+		go6.transform.localScale /= 3.0f;
+		go6.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+		
+		GameObject markerGO6;
+		markerGO6 = Instantiate(go6) as GameObject;
+		map.CreateMarker<Marker>("Panther", new double[2] { 15.443752, 47.067553}, markerGO6);
+		
+		DestroyImmediate(go6);
+
+		//Zerber Marker
+		GameObject go7 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go7.GetComponent<Renderer>().material.mainTexture = MarkerZerberWelpeTexture;
+		go7.GetComponent<Renderer>().material.renderQueue = 4001;
+		go7.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+		go7.transform.localScale /= 3.0f;
+		go7.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+		
+		GameObject markerGO7;
+		markerGO7 = Instantiate(go7) as GameObject;
+		map.CreateMarker<Marker>("Zerber", new double[2] { 15.444963, 47.068573}, markerGO7);
+		
+		DestroyImmediate(go7);
+
+
 		// create the location marker
 		go = Tile.CreateTileTemplate().gameObject;
 		go.GetComponent<Renderer>().material.mainTexture = LocationTexture;
@@ -371,7 +420,7 @@ public class TestMap : MonoBehaviour
 		
 		markerGO = Instantiate(go) as GameObject;
 
-		markerGO.AddComponent<BoxCollider>();
+		//markerGO.AddComponent<BoxCollider>();
 
 		map.SetLocationMarker<LocationMarker>(markerGO);
 		
