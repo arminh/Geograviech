@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/WorldMap.unity
   - enabled: 1
     path: Assets/Scenes/FightScreen.unity
+  - enabled: 1
+    path: Assets/Scenes/PlayerMenue.unity

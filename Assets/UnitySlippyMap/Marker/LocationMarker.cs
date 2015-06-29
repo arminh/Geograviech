@@ -20,6 +20,9 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using UnityEngine;
+using Assets.Scripts;
+using Assets.Scripts.FightCharacters;
+using Assets.Scripts.Utils;
 
 namespace UnitySlippyMap
 {
@@ -50,7 +53,14 @@ public class LocationMarker : Marker
 #endif
             }
         }
-    }		
+    }
+
+		void OnMouseDown () 
+		{
+			Log.Instance.Info("HURRAAA");
+			GameManager.Instance.showMenu ();
+		}
+
 }
 
 }
