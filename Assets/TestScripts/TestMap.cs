@@ -209,10 +209,6 @@ public class TestMap : MonoBehaviour
 		//----------------------
 
 		GameManager.Instance.init();
-		FightViechFactory factory = new FightViechFactory ();
-		
-		FightViech enemy = factory.createFightViech ((Enums.ViechName)Enum.Parse(typeof(Enums.ViechName), "Alraune"));
-		GameManager.Instance.executeFight(enemy);
 
 		// setup the gui scale according to the screen resolution
 		guiXScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
