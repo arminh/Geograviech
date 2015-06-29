@@ -90,7 +90,7 @@ GameObject:
   - 65: {fileID: 6549922}
   - 114: {fileID: 11400062}
   m_Layer: 0
-  m_Name: "Alraunma\u0308nnleinHead"
+  m_Name: "Alraunm\xE4nnleinHead"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
