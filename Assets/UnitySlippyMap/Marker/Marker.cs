@@ -23,6 +23,7 @@ using UnityEngine;
 using Assets.Scripts;
 using Assets.Scripts.FightCharacters;
 using Assets.Scripts.Utils;
+using System;
 
 namespace UnitySlippyMap
 {
@@ -142,49 +143,9 @@ public class Marker : MonoBehaviour
 
 	void OnMouseDown () 
 	{
-			FightViechFactory factory = new FightViechFactory ();
-			
-			if (string.Equals(this.name, "Imp")) {
-
-				FightViech enemy = factory.createFightViech (Enums.ViechName.Imp);
-				GameManager.Instance.executeFight(enemy);
-			}
-
-			if (string.Equals(this.name, "Alraune")) {
-
-				FightViech enemy = factory.createFightViech (Enums.ViechName.Alraune);
-				GameManager.Instance.executeFight(enemy);
-
-			}
-
-			if (string.Equals(this.name, "Gargoyle")) {
-				
-				FightViech enemy = factory.createFightViech (Enums.ViechName.Gargoyle);
-				GameManager.Instance.executeFight(enemy);
-				
-			}
-
-			if (string.Equals(this.name, "Sirene")) {
-				
-				FightViech enemy = factory.createFightViech (Enums.ViechName.Sirene);
-				GameManager.Instance.executeFight(enemy);
-				
-			}
-
-			if (string.Equals(this.name, "Panther")) {
-				
-				FightViech enemy = factory.createFightViech (Enums.ViechName.Panther);
-				GameManager.Instance.executeFight(enemy);
-				
-			}
-
-			if (string.Equals(this.name, "Zerber")) {
-				
-				FightViech enemy = factory.createFightViech (Enums.ViechName.Zerber);
-				GameManager.Instance.executeFight(enemy);
-				
-			}
-
+		FightViechFactory factory = new FightViechFactory ();
+		FightViech enemy = factory.createFightViech ((Enums.ViechName)Enum.Parse(typeof(Enums.ViechName), this.name));
+		GameManager.Instance.executeFight(enemy);
 	}
 
 	
