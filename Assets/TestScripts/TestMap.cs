@@ -209,7 +209,7 @@ public class TestMap : MonoBehaviour
 		//----------------------
 
 		GameManager.Instance.init();
-
+		
 		// setup the gui scale according to the screen resolution
 		guiXScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.width : Screen.height) / 480.0f;
 		guiYScale = (Screen.orientation == ScreenOrientation.Landscape ? Screen.height : Screen.width) / 640.0f;
