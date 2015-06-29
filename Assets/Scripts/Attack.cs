@@ -29,7 +29,8 @@ namespace Assets.Scripts
 		{
 			this.name = copy.Name;
 			this.type = copy.Type;
-            this.minDamage = copy.Damage;
+            this.minDamage = copy.MinDamage;
+			this.maxDamage = copy.MaxDamage;
 			this.cooldownRounds = copy.cooldownRounds;
 			this.effect = copy.Effect;
 			this.icon = copy.Icon;
