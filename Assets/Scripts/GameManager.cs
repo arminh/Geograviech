@@ -19,6 +19,7 @@ namespace Assets.Scripts
     {
         private static GameManager instance;
 
+        private bool wasInitialized = false;
         private Player player;
 		private FightCharacter enemy; 
 
@@ -47,6 +48,10 @@ namespace Assets.Scripts
 
         public void init()
         {
+            if (wasInitialized)
+                return;
+            wasInitialized = true;
+
             //TODO: Read Savefile
             prefabs = new Dictionary<string, GameObject>();
             foreach (GameObject sprite in allCharactersPefabs)

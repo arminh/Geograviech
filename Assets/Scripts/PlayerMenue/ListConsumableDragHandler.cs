@@ -13,6 +13,11 @@ public class ListConsumableDragHandler : ListItemDragHandler
     public Text Name;
     public Text Effect;
 
+    public override void OnPlaceInSlot(ItemSlot slot) 
+    {
+        //TODO Something
+    }
+
     public override void OnItemCreated(object item)
     {
         this.Item = item;
