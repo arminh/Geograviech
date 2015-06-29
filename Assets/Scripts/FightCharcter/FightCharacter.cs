@@ -124,7 +124,11 @@ namespace Assets.Scripts.FightCharacters
 
             if (!dead)
             {
-                attack.Effect.inflict(this);
+                if (attack.Effect != null)
+                {
+                    attack.Effect.inflict(this);
+                }
+                   
             }
         }
 
