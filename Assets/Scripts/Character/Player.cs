@@ -92,6 +92,18 @@ namespace Assets.Scripts.Character
         {
             weapons.Remove(weapon);
         }
+
+        public void setActiveWeapon(Weapon weapon)
+        {
+            activeWeapon = weapon;
+        }
+        
+        public void removeActiveWeapon()
+        {
+            ItemFactory fact = new ItemFactory();
+            activeWeapon = fact.getFistWeapon();
+        }
+
         
         public void addConsumable(Item consumable)
         {

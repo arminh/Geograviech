@@ -110,8 +110,8 @@ public class PlayerMenueManager : MonoBehaviour
         Debug.Log("SetActiveWeapon");
         Debug.Log(weapon);
 
-        manager.player.Weapons.Remove(weapon);
-        manager.player.ActiveWeapon = weapon;        
+        manager.player.removeWeapon(weapon);
+        manager.player.setActiveWeapon(weapon);
     }
 
     public static void RemoveActiveWeapon(Weapon weapon)
@@ -119,9 +119,9 @@ public class PlayerMenueManager : MonoBehaviour
         Debug.Log("RemoveActiveWeapon");
         Debug.Log(weapon);
 
-        manager.player.Weapons.Add(weapon);
+        manager.player.addWeapon(weapon);
         manager.Inventory.AddWeaponToList(weapon);
-        manager.player.ActiveWeapon = null;
+        manager.player.removeActiveWeapon();
     }
 
     public void BackToMap()
