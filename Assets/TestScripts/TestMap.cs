@@ -233,7 +233,9 @@ public class TestMap : MonoBehaviour
 		map.ShowGUIControls = false;
 		
 		map.GUIDelegate += Toolbar;
-		
+		map.Zoom(1.0f);
+		map.Zoom (1.0f);
+
 		layers = new List<Layer>();
 
 
@@ -369,6 +371,9 @@ public class TestMap : MonoBehaviour
 		go.transform.localScale /= 3.0f;
 		
 		markerGO = Instantiate(go) as GameObject;
+
+		markerGO.AddComponent<BoxCollider>();
+
 		map.SetLocationMarker<LocationMarker>(markerGO);
 		
 		DestroyImmediate(go);

@@ -36,7 +36,10 @@ namespace Assets.Scripts.Character
 
             foreach (Viech viech in activeViecher)
             {
-                fightViecher.Add(viech.createFightViech());
+				if(viech != null)
+				{
+                	fightViecher.Add(viech.createFightViech());
+				}
             }
 
 
