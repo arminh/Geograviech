@@ -48,6 +48,11 @@ namespace Assets.Scripts.FightCharacters
 
         protected void applyDamage(int damage)
         {
+			if(damage < 0)
+			{
+				damage = 0;
+			}
+
             prefab.GetComponentInChildren<AnimationStatus>().PlayNormalDamageEffect();
 
             Log.Instance.Info(name + " suffers " + damage + " damage.");
