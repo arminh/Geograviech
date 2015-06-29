@@ -223,13 +223,9 @@ namespace Assets.Scripts {
                 XmlElement i = doc.CreateElement("item");
                 el.AppendChild(i);
                
-                XmlElement attName = doc.CreateElement("name");
-                attName.InnerText = item.Name;
-                i.AppendChild(attName);
-
-                XmlElement description = doc.CreateElement("description");
-                description.InnerText = item.Description.ToString();
-                i.AppendChild(description);
+                XmlElement type = doc.CreateElement("type");
+                type.InnerText = item.GetType().Name;
+                i.AppendChild(type);
 
                 XmlElement quantity = doc.CreateElement("quantity");
                 quantity.InnerText = item.Quantity.ToString();
@@ -465,15 +461,16 @@ namespace Assets.Scripts {
 
             foreach (XmlNode i in node.ChildNodes)
             {
-                string name = i.SelectSingleNode("name").InnerText;
-                string description = i.SelectSingleNode("description").InnerText;
-
                 int quantity = 0;
                 if (!int.TryParse(i.SelectSingleNode("quantity").InnerText, out quantity))
                 {
                     //Savefile corrupt
                 }
 
+                string type = node.SelectSingleNode("type").InnerText;
+
+                Type elementType = Type.GetType(type);
+                IConsumable instance = (IConsumable)Activator.CreateInstance(elementType, new object[quantity]);
 
             }
             return null;

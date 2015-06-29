@@ -100,22 +100,22 @@ namespace Assets.Scripts
 
             attacks1.Add(new Attack("Scream", Enums.ElementType.NORMAL, 3, 5, 7, new StunEffect(100), null));
             attacks1.Add(new Attack("Poison seeds", Enums.ElementType.EARTH, 2, 4, 6, new PoisonEffect(100), null));
-            attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
-            attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
+            attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 3, 5, 3, new BurnEffect(100), null));
+            attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 4, 8, 3, new SleepEffect(100), null));
 
-            activeViecher.Add(0, new Viech(10, 10, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
-            activeViecher.Add(2, new Viech(10, 10, 20, 4, "Nervenzwerg", 3, 500, attacks2, Enums.ElementType.WIND, "Imp", "ImpIcon"));
+            activeViecher.Add(0, new Viech(10, 10, 3, 2, "Garganton", 1, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
+            activeViecher.Add(2, new Viech(20, 20, 1, 3, "Nervenzwerg", 1, 500, attacks2, Enums.ElementType.WIND, "Imp", "ImpIcon"));
 
             ItemFactory createItems = new ItemFactory();
             List<Item> droppedItems = createItems.createRandomDrops(1, 10);
 
-            var weapon = createItems.createRandomWeapon(1);
-            player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), activeViecher, new List<Weapon>(), weapon, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.NORMAL, "SteirischerPanther", "PantherIcon"));
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.WATER, "GefrorenePelikane", "PelikaneIcon"));
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.WATER, "Siren", "SirenIcon"));
-            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.FIRE, "Zerberwelpe", "ZerberwelpeIcon"));
+			var weapon = new Weapon("Basic Sword", new Attack("Basic Sword", Enums.ElementType.NORMAL, 2, 4, 0, null, null));
+            player = new Player(20, 20, 20, 1, "TestPlayer", 500, 1, new List<Viech>(), activeViecher, new List<Weapon>(), weapon, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
+            player.addViech(new Viech(30, 30, 2, 1, "Wurzelgemüse", 1, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
+            player.addViech(new Viech(30, 30, 1, 2, "Wurzelgemüse", 1, 500, attacks0, Enums.ElementType.NORMAL, "SteirischerPanther", "PantherIcon"));
+            player.addViech(new Viech(20, 20, 3, 1, "Wurzelgemüse", 1, 500, attacks0, Enums.ElementType.WATER, "GefrorenePelikane", "PelikaneIcon"));
+            player.addViech(new Viech(20, 20, 3, 1, "Wurzelgemüse", 1, 500, attacks0, Enums.ElementType.WATER, "Siren", "SirenIcon"));
+            player.addViech(new Viech(10, 10, 3, 2, "Wurzelgemüse", 1, 500, attacks0, Enums.ElementType.FIRE, "Zerberwelpe", "ZerberwelpeIcon"));
 
             foreach (Item item in droppedItems)
             {
@@ -209,7 +209,7 @@ namespace Assets.Scripts
                 }
             }
 
-            Application.LoadLevel("MainScreen");
+            Application.LoadLevel("WorldMap");
         }
 
         public Dictionary<string, GameObject> Prefabs

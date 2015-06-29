@@ -57,7 +57,6 @@ public class LocationMarker : Marker
 
 		void OnMouseDown () 
 		{
-			Log.Instance.Info("HURRAAA");
 			GameManager.Instance.showMenu ();
 		}
 

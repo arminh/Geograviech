@@ -16,6 +16,7 @@ PlayerSettings:
   cloudProjectId: 
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
+  m_ShowUnitySplashScreen: 1
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
   defaultScreenWidthWeb: 960
@@ -118,6 +119,7 @@ PlayerSettings:
     serializedVersion: 2
     rgba: 0
   iOSLaunchScreenFillPct: 1
+  iOSLaunchScreenSize: 100
   iOSLaunchScreenCustomXibPath: 
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
@@ -125,17 +127,32 @@ PlayerSettings:
   AndroidKeyaliasName: 
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
-  androidEnableBanner: 1
+  androidEnableBanner: 0
   m_AndroidBanners:
   - width: 320
     height: 180
     banner: {fileID: 0}
+  androidGamepadSupportLevel: 0
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
     - m_Icon: {fileID: 0}
       m_Size: 128
+  - m_BuildTarget: Android
+    m_Icons:
+    - m_Icon: {fileID: 2800000, guid: 808262727c5ea4f479268f1f2ba53b67, type: 3}
+      m_Size: 192
+    - m_Icon: {fileID: 2800000, guid: 808262727c5ea4f479268f1f2ba53b67, type: 3}
+      m_Size: 144
+    - m_Icon: {fileID: 2800000, guid: 808262727c5ea4f479268f1f2ba53b67, type: 3}
+      m_Size: 96
+    - m_Icon: {fileID: 2800000, guid: 808262727c5ea4f479268f1f2ba53b67, type: 3}
+      m_Size: 72
+    - m_Icon: {fileID: 2800000, guid: 808262727c5ea4f479268f1f2ba53b67, type: 3}
+      m_Size: 48
+    - m_Icon: {fileID: 2800000, guid: 808262727c5ea4f479268f1f2ba53b67, type: 3}
+      m_Size: 36
   m_BuildTargetBatching:
   - m_BuildTarget: Android
     m_StaticBatching: 1
@@ -383,7 +400,7 @@ PlayerSettings:
   WebGL::audioCompressionFormat: 4
   WebGL::exceptionSupport: 0
   WebGL::memorySize: 256
-  iOS::Architecture: 2
+  iOS::Architecture: 0
   iOS::ScriptingBackend: 0
   boolPropertyNames:
   - WebGL::dataCaching
