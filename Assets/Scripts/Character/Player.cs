@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using Assets.Scripts.Items;
 using Assets.Scripts.Items.Consumables;
@@ -11,14 +12,14 @@ namespace Assets.Scripts.Character
     public class Player : Character
     {
         private List<Viech> viecher;
-        private List<Viech> activeViecher;
+        private Dictionary<int, Viech> activeViecher;
         
         private List<Weapon> weapons;
         private Weapon activeWeapon;
 
         private List<IConsumable> items;
 
-        public Player(int maxHealth, int currentHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, List<Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, string prefabId, string iconId)
+        public Player(int maxHealth, int currentHealth, int speed, int strength, string name, int xp, int level, List<Viech> viecher, Dictionary<int, Viech> activeViecher, List<Weapon> weapons, Weapon activeWeapon, List<IConsumable> items, List<Attack> attacks, string prefabId, string iconId)
             : base(maxHealth, currentHealth, speed, strength, name, level, xp, attacks, prefabId, iconId)
         {
            
@@ -34,7 +35,8 @@ namespace Assets.Scripts.Character
             // public FightPlayer(int maxHealth, int speed, int strength, List<FightViech> activeViecher, Weapon activeWeapon, List<Attack> attacks, List<IItem> items)
             List<FightViech> fightViecher = new List<FightViech>();
 
-            foreach (Viech viech in activeViecher)
+            var query = from slot in activeViecher select slot.Value;
+            foreach (Viech viech in query)
             {
 				if(viech != null)
 				{
@@ -62,15 +64,23 @@ namespace Assets.Scripts.Character
             viecher.Remove(viech);
         }
 
-        public void addActiveViech(Viech viech)
+        public void addActiveViech(int slot, Viech viech)
         {
-            activeViecher.Add(viech);
+            if (!activeViecher.ContainsKey(slot))
+            {
+                activeViecher.Add(slot, viech);
+            }
+            else
+            {
+                activeViecher[slot] = viech;
+            }
             viech.setOwner(this);
         }
 
-        public void removeActiveViech(Viech viech)
+        public void removeActiveViech(int slot, Viech viech)
         {
-            activeViecher.Remove(viech);
+            if(activeViecher.ContainsKey(slot))
+                activeViecher.Remove(slot);
         }
 
         public void addWeapon(Weapon weapon)
@@ -113,7 +123,7 @@ namespace Assets.Scripts.Character
             get { return viecher; }
         }
 
-        public List<Viech> ActiveViecher
+        public Dictionary<int, Viech> ActiveViecher
         {
             get { return activeViecher; }
         }

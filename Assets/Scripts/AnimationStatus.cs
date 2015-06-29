@@ -35,7 +35,7 @@ public class AnimationStatus : MonoBehaviour
 
     public void PlaySpecialDamageEffect(Effect.EffectType effectType)
     {
-        if (Status != Enums.MonsterStatus.IsSleeping && Status != Enums.MonsterStatus.IsDead)
+        if (Status != Enums.MonsterStatus.IsSleeping && Status != Enums.MonsterStatus.IsDead && effectType != Effect.EffectType.SLEEP)
         {
             SpecialDamageStatus = effectType;
             Status = Enums.MonsterStatus.IsSpecial;
@@ -71,22 +71,16 @@ public class AnimationStatus : MonoBehaviour
 
     public void FallAsleep()
     {
-        if (Status == Enums.MonsterStatus.IsIdle)
-        {
-            Status = Enums.MonsterStatus.IsSpecial;
-            TriggerCount++;
-            MonsterAnimator.SetBool("Sleeping", true);
-        }
+        Status = Enums.MonsterStatus.IsSpecial;
+        TriggerCount++;
+        MonsterAnimator.SetBool("Sleeping", true);
     }
 
     public void WakeUp()
     {
-        if (Status == Enums.MonsterStatus.IsSleeping)
-        {
-            Status = Enums.MonsterStatus.IsSpecial;
-            TriggerCount++;
-            MonsterAnimator.SetBool("Sleeping", false);
-        }
+        Status = Enums.MonsterStatus.IsSpecial;
+        TriggerCount++;
+        MonsterAnimator.SetBool("Sleeping", false);
     }
 
     public void Die()

@@ -9,10 +9,20 @@ using Assets.Scripts.Character;
 
 public class DragMonsterHandler : DragItemHandler  
 {
-	protected override void OnPlaceInSlot(ItemSlot slot)
+    public override void OnPlaceInSlot(ItemSlot slot)
 	{
-        PlayerMenueManager.SwapActiveMonster(null, slot.SlotNumber);
+        PlayerMenueManager.AddActiveMonster(Item as Viech, slot.SlotNumber);
 	}
+
+    public override void OnRemoveFromSlot(ItemSlot slot)
+    {
+        PlayerMenueManager.RemoveActiveMonster(Item as Viech, slot.SlotNumber);
+    }
+
+    public override void OnChangeSlot(ItemSlot fromSlot, ItemSlot toSlot)
+    {
+        PlayerMenueManager.ChangeSlotActiveMonster(fromSlot.SlotNumber, toSlot.SlotNumber, Item as Viech);
+    }
 
     public override void OnItemCreated(object item)
     {

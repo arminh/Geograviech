@@ -62,39 +62,66 @@ public class PlayerMenueManager : MonoBehaviour
         SwitchToPlayerPanel();
     }
 
-    public static void SwapActiveMonster(Viech monster, int slotNumber)
+    public static void RemoveActiveMonster(Viech monster, int slotNumber)
     {
-        Debug.Log("SwapActiveMonster");
-        Debug.Log(monster);
-        Debug.Log(slotNumber);
-        manager.player.Viecher.Remove(monster);
-        Debug.Log(manager.player.ActiveViecher.Count);
-        try
-        {
-            var prev_monster = manager.player.ActiveViecher.ElementAt(slotNumber);
-            if (prev_monster != null)
-            {
-                Debug.Log(prev_monster);
-                manager.player.Viecher.Add(prev_monster);
-                manager.Inventory.AddMonsterToList(prev_monster);
-            }
-            manager.player.ActiveViecher[slotNumber] = monster;
-        }
-        catch(Exception ex)
-        {
-            manager.player.ActiveViecher.Insert(slotNumber, monster);
-        }
+        Debug.Log("RemoveActiveMonster");
+
+        manager.player.removeActiveViech(slotNumber, monster);
+        manager.player.addViech(monster);
+        manager.Inventory.AddMonsterToList(monster);
     }
 
-    public static void SwapActiveWeapon(Weapon weapon)
+    public static void AddActiveMonster(Viech monster, int slotNumber)
     {
+        Debug.Log("AddActiveMonster");
+
+        manager.player.removeViech(monster);
+        Debug.Log(slotNumber);
+        manager.player.addActiveViech(slotNumber, monster);
+
+        //if (manager.player.ActiveViecher.ContainsKey(slotNumber))
+        //{
+        //    Debug.Log("ContainsKey");
+        //    var prev_monster = manager.player.ActiveViecher[slotNumber];
+        //    manager.player.ActiveViecher.Remove(slotNumber);
+        //    Debug.Log(prev_monster);
+        //    manager.player.Viecher.Add(prev_monster);
+        //    manager.Inventory.AddMonsterToList(prev_monster);
+        //}
+
+        //else if (monster != null)
+        //{
+        //    Debug.Log("Add ActiveViech");
+        //    manager.player.Viecher.Remove(monster);
+        //    manager.player.ActiveViecher.Add(slotNumber, monster);
+        //}
+    }
+
+    public static void ChangeSlotActiveMonster(int fromSlot, int toSlot, Viech monster)
+    {
+        Debug.Log("ChangeSlotActiveMonster");
+
+        manager.player.ActiveViecher.Remove(fromSlot);
+        manager.player.ActiveViecher.Add(toSlot, monster);
+    }
+
+    public static void SetActiveWeapon(Weapon weapon)
+    {
+        Debug.Log("SetActiveWeapon");
+        Debug.Log(weapon);
+
         manager.player.Weapons.Remove(weapon);
-        if (manager.player.ActiveWeapon != null)
-        {
-            manager.player.Weapons.Add(manager.player.ActiveWeapon);
-            manager.Inventory.AddWeaponToList(manager.player.ActiveWeapon);
-        }
-        manager.player.ActiveWeapon = weapon;
+        manager.player.ActiveWeapon = weapon;        
+    }
+
+    public static void RemoveActiveWeapon(Weapon weapon)
+    {
+        Debug.Log("RemoveActiveWeapon");
+        Debug.Log(weapon);
+
+        manager.player.Weapons.Add(weapon);
+        manager.Inventory.AddWeaponToList(weapon);
+        manager.player.ActiveWeapon = null;
     }
 
     public void BackToMap()

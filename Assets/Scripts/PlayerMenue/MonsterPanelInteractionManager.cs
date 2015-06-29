@@ -49,14 +49,18 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         if(monsterImage != null)
         {
             var monsterView = Instantiate(monsterImage);
-            var size = getPrefabSize(monsterView.transform);
-            Debug.Log("Monstergröße");
+            Vector2 size = new Vector2(), middle = new Vector2();
+            getPrefabSize(monsterView.transform, ref size, ref middle);
+            float factor = 200 / size.y;
             Debug.Log(size);
+            Debug.Log(factor);
+            Debug.Log(middle);
             monsterView.transform.SetParent(MonsterPanel);
             monsterView.transform.position = new Vector3(0, 0, 0);
-            monsterView.transform.localPosition = new Vector3(0, 0, -80);
+            monsterView.transform.localPosition = new Vector3(-1*middle.x, middle.y, -80);
             var s = monsterView.transform.localScale;
-            monsterView.transform.localScale = new Vector3(s.x * 30, s.y * 30, 1);
+            monsterView.transform.localScale = new Vector3(s.x * factor, s.y * factor, 1);
+            Debug.Log(monsterView.transform.position);
         }
         Name.text = string.Format(Name.text, Monster.Name);
         Type.text = string.Format(Type.text, Monster.Type.ToString());
@@ -64,11 +68,8 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         LevelXp.text = string.Format(LevelXp.text, Monster.Level, Monster.Xp);
         Damage.text = string.Format(Damage.text, Monster.Strength);
         Speed.text = string.Format(Speed.text, Monster.Speed);
-        Debug.Log(Attacks.text);
-        Monster.Attacks.ForEach(a => { string.Format(Attacks.text, a.Name, ", {0}{1}"); Debug.Log(Attacks.text); });
-        Debug.Log(Attacks.text);
+        Monster.Attacks.ForEach(a => Attacks.text = string.Format(Attacks.text, a.Name, ", {0}{1}"));
         Attacks.text = string.Format(Attacks.text, "", "");
-        Debug.Log(Attacks.text);
     }
 
     public void ResetMonsterPanel()
@@ -101,7 +102,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
         throw new System.NotImplementedException();
     }
 
-    private Vector2 getPrefabSize(Transform monster)
+    private void getPrefabSize(Transform monster, ref Vector2 size, ref Vector2 middle)
     {
         List<SpriteRenderer> renderers = new List<SpriteRenderer>();
         renderers.AddRange(monster.GetComponentsInChildren<SpriteRenderer>());
@@ -114,10 +115,10 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
             foreach (var item in renderers)
             {
                 max = Vector3.Max(max, item.bounds.max);
-                min = Vector3.Max(min, item.bounds.min);
+                min = Vector3.Min(min, item.bounds.min);
             }
-            return new Vector2(max.x - min.x, max.y - min.y);
+            size = new Vector2(max.x - min.x, max.y - min.y);
+            middle = new Vector2((max.x + min.x) / 2, (max.y + min.y) / 2);
         }
-        return new Vector2();
     }
 }

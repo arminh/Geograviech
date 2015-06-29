@@ -14,6 +14,7 @@ namespace Assets.Scripts.Items.Consumables
             : base("Bepanthen Wund und Heilsalbe")
         {
             this.icon = GameManager.Instance.Icons["heilsalbe"];
+            this.description = "Helps for burnings.";
         }
         public bool use(FightCharacter character)
         {

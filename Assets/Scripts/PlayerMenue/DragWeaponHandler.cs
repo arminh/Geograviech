@@ -10,10 +10,20 @@ using Assets.Scripts.Items;
 
 public class DragWeaponHandler : DragItemHandler  
 {
-	protected override void OnPlaceInSlot(ItemSlot slot)
+    public override void OnPlaceInSlot(ItemSlot slot)
 	{
-        PlayerMenueManager.SwapActiveWeapon(null);
+        PlayerMenueManager.SetActiveWeapon(Item as Weapon);
 	}
+
+    public override void OnRemoveFromSlot(ItemSlot slot)
+    {
+        PlayerMenueManager.RemoveActiveWeapon(Item as Weapon);
+    }
+
+    public override void OnChangeSlot(ItemSlot fromSlot, ItemSlot toSlot)
+    {
+        //TODO something
+    }
 
     public override void OnItemCreated(object item)
     {

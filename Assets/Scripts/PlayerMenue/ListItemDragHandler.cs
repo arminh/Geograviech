@@ -15,6 +15,8 @@ public abstract class ListItemDragHandler : DragItemHandler
     {
         ItemToBeDragged = Instantiate(DraggedPrefab).GetComponent<DragItemHandler>();
 
+        Debug.Log("ListItemDragHandler - OnBeginDrag");
+
         var root = GameObject.Find("DragDropSlot");
         var rectTrans = ItemToBeDragged.transform as RectTransform;
         if (rectTrans && root)
@@ -35,13 +37,21 @@ public abstract class ListItemDragHandler : DragItemHandler
 	
 	public override void OnEndDrag(PointerEventData eventData)
 	{
+        Debug.Log("ListItemDragHandler - OnEndDrag");
+
 		var slot = ItemToBeDragged.transform.parent.GetComponent<ItemSlot>();
         base.OnEndDrag(eventData);
 
 		if (slot && slot.type == this.type)
         {
-            OnPlaceInSlot(slot);
-            Destroy(gameObject);
+            Debug.Log("ListItemDragHandler - Destroy");
+            Destroy(this.gameObject);
 		}
 	}
+
+    public override void OnPlaceInSlot(ItemSlot slot) { }
+
+    public override void OnChangeSlot(ItemSlot fromSlot, ItemSlot toSlot) { }
+
+    public override void OnRemoveFromSlot(ItemSlot slot) { }
 }

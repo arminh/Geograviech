@@ -1,8 +1,9 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 
 using Assets.Scripts.Utils;
 using Assets.Scripts.Items;
@@ -51,7 +52,6 @@ namespace Assets.Scripts
             foreach (GameObject sprite in allCharactersPefabs)
             {
                 prefabs.Add(sprite.name, sprite);
-				Debug.Log(sprite.name);
             }
 
             icons = new Dictionary<string, Sprite>();
@@ -87,7 +87,7 @@ namespace Assets.Scripts
 
             //StartCoroutine(executeFight(enemy));
 
-                        List<Viech> activeViecher = new List<Viech>();
+            Dictionary<int, Viech> activeViecher = new Dictionary<int, Viech>();
 
             List<Attack> attacks0 = new List<Attack>();
             List<Attack> attacks1 = new List<Attack>();
@@ -98,9 +98,8 @@ namespace Assets.Scripts
             attacks2.Add(new Attack("TestAttack", Enums.ElementType.EARTH, 15, 20, 3, new BurnEffect(100), null));
             attacks2.Add(new Attack("Sleep", Enums.ElementType.EARTH, 15, 20, 3, new SleepEffect(100), null));
 
-            activeViecher.Add(new Viech(10, 10, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
-            activeViecher.Add(null);
-            activeViecher.Add(new Viech(10, 10, 20, 4, "Nervenzwerg", 3, 500, attacks2, Enums.ElementType.WIND, "Imp", "ImpIcon"));
+            activeViecher.Add(0, new Viech(10, 10, 20, 4, "Garganton", 3, 500, attacks1, Enums.ElementType.EARTH, "Gargoyles", "GargoyleIcon"));
+            activeViecher.Add(2, new Viech(10, 10, 20, 4, "Nervenzwerg", 3, 500, attacks2, Enums.ElementType.WIND, "Imp", "ImpIcon"));
 
             ItemFactory createItems = new ItemFactory();
             List<Item> droppedItems = createItems.createRandomDrops(1, 10);
@@ -108,6 +107,10 @@ namespace Assets.Scripts
             var weapon = createItems.createRandomWeapon(1);
             player = new Player(15, 15, 15, 5, "TestPlayer", 500, 5, new List<Viech>(), activeViecher, new List<Weapon>(), weapon, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
             player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.NORMAL, "SteirischerPanther", "PantherIcon"));
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.WATER, "GefrorenePelikane", "PelikaneIcon"));
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.WATER, "Siren", "SirenIcon"));
+            player.addViech(new Viech(10, 10, 20, 4, "Wurzelgemüse", 3, 500, attacks0, Enums.ElementType.FIRE, "Zerberwelpe", "ZerberwelpeIcon"));
 
             foreach (Item item in droppedItems)
             {
@@ -173,7 +176,8 @@ namespace Assets.Scripts
                 int xpPerChar = (int)Mathf.Round((float)gainXp / (float)numChars);
                 player.gainXp(xpPerChar);
 
-                foreach (Viech viech in player.ActiveViecher)
+                var query = from slot in player.ActiveViecher select slot.Value;
+                foreach (Viech viech in query)
                 {
                     viech.gainXp(xpPerChar);
                 }
