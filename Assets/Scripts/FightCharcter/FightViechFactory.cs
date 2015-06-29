@@ -35,7 +35,7 @@ namespace Assets.Scripts.FightCharacters
                     monster = createImp(GameManager.Instance.getPlayer().Level);
                     break;
                 case Enums.ViechName.Gargoyle:
-                    monster = createSirene(GameManager.Instance.getPlayer().Level);
+                    monster = createGargoyle(GameManager.Instance.getPlayer().Level);
                     break;
                 case Enums.ViechName.Panther:
                     monster = createPanther(GameManager.Instance.getPlayer().Level);
