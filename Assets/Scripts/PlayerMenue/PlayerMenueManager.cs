@@ -24,8 +24,6 @@ public class PlayerMenueManager : MonoBehaviour
         if (manager != null)
             Destroy(this);
         manager = this;
-
-        GameManager.Instance.init();
     }
 
 	// Use this for initialization
