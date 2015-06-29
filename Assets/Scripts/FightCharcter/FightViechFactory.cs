@@ -46,17 +46,87 @@ namespace Assets.Scripts.FightCharacters
 
         public FightViech createImp(int level)
         {
-            return null;
+			/* INFO: Base stats:
+             * maxHealth = level *10
+             * speed = level;
+             * strength = level;
+             * 
+             * Einer dieser stats wird mit 3 multipliziert, einer mit 2 und einer mit 1
+             */
+			
+			
+			//string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, int catchChance, List<Item> drops, int xpAmount
+			Attack swipe = new Attack("Swipe", Enums.ElementType.NORMAL, 1, 3, 2, null, null, level);
+			Attack claw = new Attack("Beware of my claws", Enums.ElementType.EARTH, 2, 4, 4, null, null, level);
+			Attack leer = new Attack("Leer", Enums.ElementType.NORMAL, 1, 2, 5, new StunEffect(50), null, level);
+			Attack explode = new Attack("BOOM", Enums.ElementType.EARTH, 5, 7, 10, null, null, level);
+			List<Attack> attacks = new List<Attack> ();
+			attacks.Add (swipe);
+			attacks.Add (claw);
+			attacks.Add (leer);
+			attacks.Add (explode);
+			
+			String name = rand.Next(0, 5) == 0 ? "Tobby" : "Imp";
+			
+			return new FightViech(level * 10 , level * 3, level *2, name, attacks, Enums.ElementType.EARTH, 50, null, level * 50, "Imp", "ImpIcon");
+
+
         }
 
         public FightViech createGargoyle(int level)
         {
-            return null;
+			/* INFO: Base stats:
+             * maxHealth = level *10
+             * speed = level;
+             * strength = level;
+             * 
+             * Einer dieser stats wird mit 3 multipliziert, einer mit 2 und einer mit 1
+             */
+			
+			
+			//string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, int catchChance, List<Item> drops, int xpAmount
+			Attack gust = new Attack("Gust", Enums.ElementType.WIND, 3, 5, 2, null, null, level);
+			Attack stonefist = new Attack("Slam!", Enums.ElementType.NORMAL, 2, 5, 4, new StunEffect(20), null, level);
+			Attack wingslam = new Attack("Wingslam", Enums.ElementType.WIND, 3, 5, 6, null, null, level);
+			Attack crush = new Attack("YOU WILL BE CRUSHED!", Enums.ElementType.EARTH, 5, 7, 10, new StunEffect(30), null, level);
+			List<Attack> attacks = new List<Attack> ();
+			attacks.Add (gust);
+			attacks.Add (stonefist);
+			attacks.Add (wingslam);
+			attacks.Add (crush);
+			
+			String name = rand.Next(0, 5) == 0 ? "Goliath" : "Gargoyle";
+			
+			return new FightViech(level * 10 * 3, level, level*2, name, attacks, Enums.ElementType.EARTH, 50, null, level * 50, "Gargoyle", "GargoyleIcon");
+
         }
 
         public FightViech createPanther(int level)
         {
-            return null;
+			/* INFO: Base stats:
+             * maxHealth = level *10
+             * speed = level;
+             * strength = level;
+             * 
+             * Einer dieser stats wird mit 3 multipliziert, einer mit 2 und einer mit 1
+             */
+			
+			
+			//string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, int catchChance, List<Item> drops, int xpAmount
+			Attack stomp = new Attack("Get stomped!", Enums.ElementType.NORMAL, 2, 4, 2, null, null, level);
+			Attack bodyslam = new Attack("Bodyslam", Enums.ElementType.NORMAL, 2, 5, 4, null, null, level);
+			Attack flametongue = new Attack("By fire be purged", Enums.ElementType.FIRE, 3, 5, 7, new BurnEffect(50), null, level);
+			Attack firebreath = new Attack("BURN MORTAL!", Enums.ElementType.FIRE, 5, 7, 10, new BurnEffect(80), null, level);
+			List<Attack> attacks = new List<Attack> ();
+			attacks.Add (stomp);
+			attacks.Add (flametongue);
+			attacks.Add (bodyslam);
+			attacks.Add (firebreath);
+			
+			String name = rand.Next(0, 5) == 0 ? "Protector" : "Panther";
+			
+			return new FightViech(level * 10 * 3, level * 2, level, name, attacks, Enums.ElementType.FIRE, 50, null, level * 50, "Panther", "PantherIcon");
+
         }
 
         public FightViech createAlraune(int level)

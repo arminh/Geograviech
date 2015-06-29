@@ -885,6 +885,10 @@ public class Map : MonoBehaviour
 		
 		T marker = markerObject.AddComponent<T>();
 		markerObject.AddComponent<BoxCollider>();
+		BoxCollider bc = markerObject.GetComponent<BoxCollider> ();
+		bc.center = Vector3.zero;
+		bc.size /= 3; 
+
 
 		
 		locationGo.transform.parent = markerObject.transform;
@@ -952,6 +956,11 @@ public class Map : MonoBehaviour
 		// create a GameObject and add the templated Marker component to it
         GameObject markerObject = new GameObject(name);
 		markerObject.AddComponent<BoxCollider>();
+		
+		BoxCollider bc = markerObject.GetComponent<BoxCollider> ();
+		bc.center = Vector3.zero;
+		bc.size /= 3; 
+
 		markerObject.transform.parent = this.gameObject.transform;
 		
 		//go.name = "go - " + name;

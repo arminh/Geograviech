@@ -144,7 +144,6 @@ public class Marker : MonoBehaviour
 	void OnMouseDown () 
 	{
 		FightViechFactory factory = new FightViechFactory ();
-
 		FightViech enemy = factory.createFightViech ((Enums.ViechName)Enum.Parse(typeof(Enums.ViechName), this.name));
 		GameManager.Instance.executeFight(enemy);
 	}
