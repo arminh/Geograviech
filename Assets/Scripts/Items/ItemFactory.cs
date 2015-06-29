@@ -19,6 +19,11 @@ namespace Assets.Scripts.Items
 
         System.Random rand = new System.Random();
 
+        public Weapon getFistWeapon()
+        {
+            return new Weapon("Fists", new Attack("Fists", Enums.ElementType.NORMAL, 1, 2, 0, null, null));
+        }
+
         public List<Item> createRandomDrops(int level, int amount)
         {
             List<Item> drops = new List<Item>();

@@ -17,19 +17,46 @@ namespace Assets.Scripts.FightCharacters
         {
         }
 
-        public FightViech createFightViech(Enums.ElementType type, int level, Enums.ViechName viech)
+        public FightViech createFightViech(Enums.ViechName viech)
         {
             FightViech monster = null;
-            switch (rand.Next(1, 3))
+            switch (viech)
             {
-                case 1:
+                case Enums.ViechName.Alraune:
                     monster = createAlraune (GameManager.Instance.getPlayer().Level);
                     break;
-                case 2:
+                case Enums.ViechName.Zerber:
                     monster = createZerberwelpe(GameManager.Instance.getPlayer().Level);
+                    break;
+                case Enums.ViechName.Sirene:
+                    monster = createSirene(GameManager.Instance.getPlayer().Level);
+                    break;
+                case Enums.ViechName.Imp:
+                    monster = createImp(GameManager.Instance.getPlayer().Level);
+                    break;
+                case Enums.ViechName.Gargoyle:
+                    monster = createSirene(GameManager.Instance.getPlayer().Level);
+                    break;
+                case Enums.ViechName.Panther:
+                    monster = createPanther(GameManager.Instance.getPlayer().Level);
                     break;
             }
             return monster;
+        }
+
+        public FightViech createImp(int level)
+        {
+            return null;
+        }
+
+        public FightViech createGargoyle(int level)
+        {
+            return null;
+        }
+
+        public FightViech createPanther(int level)
+        {
+            return null;
         }
 
         public FightViech createAlraune(int level)
