@@ -225,7 +225,6 @@ public class TestMap : MonoBehaviour
 		//map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
 		//WORKS!
 		map.CenterWGS84 = new double[2] { Input.location.lastData.latitude, Input.location.lastData.longitude };
-
 		////Set-up Android SDK path to make Android remote work
 	
 		map.UseLocation = true;
@@ -451,9 +450,11 @@ public class TestMap : MonoBehaviour
 				currentAngle = 0.0f;
 				map.IsDirty = true;
 			}
-			
+
 			map.HasMoved = true;
 		}
+        map.UpdateCenterWithLocation = true;
+
 	}
 	
 	#if DEBUG_PROFILE
