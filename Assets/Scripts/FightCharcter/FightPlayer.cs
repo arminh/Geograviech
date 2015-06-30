@@ -23,7 +23,17 @@ namespace Assets.Scripts.FightCharacters
             : base(maxHealth, speed, strength, name, attacks, prefabId, iconId)
         {
             this.activeViecher = activeViecher;
-            this.activeWeapon = activeWeapon;
+
+            if (activeWeapon == null)
+            {
+                ItemFactory fact = new ItemFactory();
+                this.activeWeapon = fact.getFistWeapon();
+            }
+            else
+            {
+                this.activeWeapon = activeWeapon;
+            }
+
             this.items = items;
         }
 
