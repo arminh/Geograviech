@@ -29,8 +29,6 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
     public virtual void OnDrag(PointerEventData eventData)
     {
         ItemToBeDragged.transform.position += new Vector3(eventData.delta.x, eventData.delta.y, 0);
-        Debug.Log("-----------------");
-        Debug.Log(Input.mousePosition);
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)

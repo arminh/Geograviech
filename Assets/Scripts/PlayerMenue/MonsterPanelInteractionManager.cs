@@ -55,7 +55,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
             Debug.Log(size);
             Debug.Log(factor);
             Debug.Log(middle);
-            monsterView.transform.SetParent(MonsterPanel);
+            monsterView.transform.SetParent(MonsterPanel, true);
             var s = monsterView.transform.localScale;
             monsterView.transform.localScale = new Vector3(s.x * factor, s.y * factor, 1);
             monsterView.transform.localPosition = new Vector3(-1 * middle.x, -1 * middle.y, -80);
