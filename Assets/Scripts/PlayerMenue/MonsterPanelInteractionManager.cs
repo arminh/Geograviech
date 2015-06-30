@@ -55,11 +55,10 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
             Debug.Log(size);
             Debug.Log(factor);
             Debug.Log(middle);
-            monsterView.transform.SetParent(MonsterPanel);
-            monsterView.transform.position = new Vector3(0, 0, 0);
-            monsterView.transform.localPosition = new Vector3(-1*middle.x, middle.y, -80);
+            monsterView.transform.SetParent(MonsterPanel, true);
             var s = monsterView.transform.localScale;
             monsterView.transform.localScale = new Vector3(s.x * factor, s.y * factor, 1);
+            monsterView.transform.localPosition = new Vector3(-1 * middle.x, -1 * middle.y, -80);
             Debug.Log(monsterView.transform.position);
         }
         Name.text = string.Format(Name.text, Monster.Name);
@@ -118,7 +117,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
                 min = Vector3.Min(min, item.bounds.min);
             }
             size = new Vector2(max.x - min.x, max.y - min.y);
-            middle = new Vector2((max.x + min.x) / 2, (max.y + min.y) / 2);
+            middle = new Vector2(monster.position.x - min.x + (size.x / 2), monster.position.y - min.y + (size.y / 2));
         }
     }
 }

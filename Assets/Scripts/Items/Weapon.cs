@@ -10,7 +10,8 @@ namespace Assets.Scripts.Items
     {
         private Attack attack;
 
-        public Weapon(string name, Attack attack) : base(name)
+        public Weapon(string name, Attack attack)
+            : base(name)
         {
             this.attack = attack;
         }
