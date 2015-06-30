@@ -100,8 +100,7 @@ namespace Assets.Scripts.Character
         
         public void removeActiveWeapon()
         {
-            ItemFactory fact = new ItemFactory();
-            activeWeapon = fact.getFistWeapon();
+            activeWeapon = null;
         }
 
         
