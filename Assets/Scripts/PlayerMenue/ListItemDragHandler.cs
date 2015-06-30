@@ -49,9 +49,18 @@ public abstract class ListItemDragHandler : DragItemHandler
 		}
 	}
 
-    public override void OnPlaceInSlot(ItemSlot slot) { }
+    public override void OnPlaceInSlot(ItemSlot slot) 
+    {
+        Debug.Log("ListItemDragHandler - OnPlaceInSlot"); 
+    }
 
-    public override void OnChangeSlot(ItemSlot fromSlot, ItemSlot toSlot) { }
+    public override void OnChangeSlot(ItemSlot fromSlot, ItemSlot toSlot) 
+    {
+        Debug.Log("ListItemDragHandler - OnChangeSlot"); 
+    }
 
-    public override void OnRemoveFromSlot(ItemSlot slot) { }
+    public override void OnRemoveFromSlot(ItemSlot slot) 
+    {
+        Debug.Log("ListItemDragHandler - OnRemoveFromSlot"); 
+    }
 }

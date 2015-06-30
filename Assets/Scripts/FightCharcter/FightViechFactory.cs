@@ -38,9 +38,10 @@ namespace Assets.Scripts.FightCharacters
                     monster = createGargoyle(GameManager.Instance.getPlayer().Level);
                     break;
                 case Enums.ViechName.Panther:
-                    monster = createPanther(GameManager.Instance.getPlayer().Level);
+					monster = createPanther(GameManager.Instance.getPlayer().Level);
                     break;
             }
+
             return monster;
         }
 
@@ -97,7 +98,7 @@ namespace Assets.Scripts.FightCharacters
 			
 			String name = rand.Next(0, 5) == 0 ? "Goliath" : "Gargoyle";
 			
-			return new FightViech(level * 10 * 3, level, level*2, name, attacks, Enums.ElementType.EARTH, 50, null, level * 50, "Gargoyle", "GargoyleIcon");
+			return new FightViech(level * 10 * 3, level, level*2, name, attacks, Enums.ElementType.EARTH, 50, null, level * 50, "Gargoyles", "GargoyleIcon");
 
         }
 
@@ -125,7 +126,7 @@ namespace Assets.Scripts.FightCharacters
 			
 			String name = rand.Next(0, 5) == 0 ? "Protector" : "Panther";
 			
-			return new FightViech(level * 10 * 3, level * 2, level, name, attacks, Enums.ElementType.FIRE, 50, null, level * 50, "Panther", "PantherIcon");
+			return new FightViech(level * 10 * 3, level * 2, level, name, attacks, Enums.ElementType.FIRE, 50, null, level * 50, "SteirischerPanther", "PantherIcon");
 
         }
 
@@ -138,7 +139,6 @@ namespace Assets.Scripts.FightCharacters
              * 
              * Einer dieser stats wird mit 3 multipliziert, einer mit 2 und einer mit 1
              */
-
 
             //string identifier, int maxHealth, int speed, int strength, string name, List<Attack> attacks, ElementType type, int catchChance, List<Item> drops, int xpAmount
             Attack scream = new Attack("Scream", Enums.ElementType.NORMAL, 2, 5, 7, new StunEffect(70), null, level);

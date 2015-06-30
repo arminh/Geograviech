@@ -14,6 +14,12 @@ public class ListMonsterDragHandler : ListItemDragHandler
     public Text Name;
     public Text TypeLvl;
 
+    public override void OnPlaceInSlot(ItemSlot slot)
+    {
+        Debug.Log("ListMonsterDragHandler - OnPlaceInSlot");
+        PlayerMenueManager.AddActiveMonster(Item as Viech, slot.SlotNumber);
+    }
+
     public override void OnItemCreated(object item)
     {
         this.Item = item;

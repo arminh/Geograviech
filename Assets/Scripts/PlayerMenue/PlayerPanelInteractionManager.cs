@@ -9,12 +9,14 @@ using Assets.Scripts;
 using Assets.Scripts.PlayerMenue;
 using Assets.Scripts.Items.Consumables;
 using Assets.Scripts.Character;
+using Assets.Scripts.Items;
 
 public class PlayerPanelInteractionManager : MonoBehaviour, IConsumableInteraction
 {
     public Transform ActiveWeaponSlot;
     public List<Transform> ActiveMonsterSlots;
 	public Player player;
+    public HoldWeapon WeaponArm;
 
     void Start()
     {
@@ -46,6 +48,18 @@ public class PlayerPanelInteractionManager : MonoBehaviour, IConsumableInteracti
                 monsterItem.transform.localScale = new Vector3(1, 1, 1);
             }
         }
+
+        WeaponArm = GetComponentInChildren<HoldWeapon>();
+    }
+
+    public void RemoveWeaponFromHand()
+    {
+        WeaponArm.RemoveWeapon();
+    }
+
+    public void AddWeaponToHand(Weapon weapon)
+    {
+        WeaponArm.AddWeapon(weapon.Icon);
     }
 
     public void Consume(IConsumable item)

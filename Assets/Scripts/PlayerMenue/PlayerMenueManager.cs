@@ -74,27 +74,10 @@ public class PlayerMenueManager : MonoBehaviour
     public static void AddActiveMonster(Viech monster, int slotNumber)
     {
         Debug.Log("AddActiveMonster");
+        Debug.Log(slotNumber);
 
         manager.player.removeViech(monster);
-        Debug.Log(slotNumber);
         manager.player.addActiveViech(slotNumber, monster);
-
-        //if (manager.player.ActiveViecher.ContainsKey(slotNumber))
-        //{
-        //    Debug.Log("ContainsKey");
-        //    var prev_monster = manager.player.ActiveViecher[slotNumber];
-        //    manager.player.ActiveViecher.Remove(slotNumber);
-        //    Debug.Log(prev_monster);
-        //    manager.player.Viecher.Add(prev_monster);
-        //    manager.Inventory.AddMonsterToList(prev_monster);
-        //}
-
-        //else if (monster != null)
-        //{
-        //    Debug.Log("Add ActiveViech");
-        //    manager.player.Viecher.Remove(monster);
-        //    manager.player.ActiveViecher.Add(slotNumber, monster);
-        //}
     }
 
     public static void ChangeSlotActiveMonster(int fromSlot, int toSlot, Viech monster)
@@ -110,8 +93,9 @@ public class PlayerMenueManager : MonoBehaviour
         Debug.Log("SetActiveWeapon");
         Debug.Log(weapon);
 
-        manager.player.removeWeapon(weapon);
-        manager.player.setActiveWeapon(weapon);
+        manager.player.Weapons.Remove(weapon);
+        manager.player.ActiveWeapon = weapon;
+        manager.PlayerPanel.AddWeaponToHand(weapon);
     }
 
     public static void RemoveActiveWeapon(Weapon weapon)
@@ -119,9 +103,10 @@ public class PlayerMenueManager : MonoBehaviour
         Debug.Log("RemoveActiveWeapon");
         Debug.Log(weapon);
 
-        manager.player.addWeapon(weapon);
+        manager.player.Weapons.Add(weapon);
         manager.Inventory.AddWeaponToList(weapon);
-        manager.player.removeActiveWeapon();
+        manager.PlayerPanel.RemoveWeaponFromHand();
+        manager.player.ActiveWeapon = null;
     }
 
     public void BackToMap()
