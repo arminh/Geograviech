@@ -118,7 +118,7 @@ public class MonsterPanelInteractionManager : MonoBehaviour, IConsumableInteract
                 min = Vector3.Min(min, item.bounds.min);
             }
             size = new Vector2(max.x - min.x, max.y - min.y);
-            middle = new Vector2((max.x + min.x) / 2, (max.y + min.y) / 2);
+            middle = new Vector2(min.x + (size.x/2), min.y + (size.y/2));
         }
     }
 }

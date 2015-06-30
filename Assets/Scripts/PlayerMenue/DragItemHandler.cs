@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler 
 {
+    public string Name;
     public Enums.ItemType type;
 	public object Item;
 

@@ -31,5 +31,6 @@ public class DragWeaponHandler : DragItemHandler
         var weapon = this.Item as Weapon;
         var image = transform.GetComponentInChildren<Image>();
         image.sprite = weapon.Icon;
+        Name = weapon.Name;
     }
 }
