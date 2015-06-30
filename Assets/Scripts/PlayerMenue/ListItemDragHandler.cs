@@ -21,10 +21,11 @@ public abstract class ListItemDragHandler : DragItemHandler
         var rectTrans = ItemToBeDragged.transform as RectTransform;
         if (rectTrans && root)
         {
-            rectTrans.position = Input.mousePosition;
             rectTrans.SetParent(root.transform);
             ItemOriginalSlot = root.transform;
             rectTrans.localScale = new Vector3(1, 1, 1);
+            startPositionSlot = rectTrans.localPosition;
+            startPositionMouse = Vector3.zero;
         }
 
         var itemHandl = ItemToBeDragged.GetComponent<DragItemHandler>();

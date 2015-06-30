@@ -12,6 +12,9 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
     public static DragItemHandler ItemToBeDragged;
     public static Transform ItemOriginalSlot;
 
+    protected Vector3 startPositionMouse;
+    protected Vector3 startPositionSlot;
+
     protected CanvasGroup ItemCanvasGroup;
 
     public virtual void OnBeginDrag(PointerEventData eventData)
@@ -23,11 +26,16 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
         ItemCanvasGroup = GetComponent<CanvasGroup>();
         if (ItemCanvasGroup != null)
             ItemCanvasGroup.blocksRaycasts = false;
+
+        startPositionMouse = Input.mousePosition;
+        startPositionSlot = ItemToBeDragged.transform.localPosition;
+
     }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
-        ItemToBeDragged.transform.position = Input.mousePosition;
+        ItemToBeDragged.transform.localPosition = startPositionSlot + (Input.mousePosition - startPositionMouse);
+        //Debug.Log(Input.mousePosition - startPositionMouse);
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
