@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e92f3135a6dc6074aba2c5a887f40b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
   type: 1
   DraggedPrefab: {fileID: 196708, guid: edd74dab883fe5d489681cae1090a89a, type: 2}
   Name: {fileID: 11421908}
@@ -188,7 +189,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Sprite: {fileID: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

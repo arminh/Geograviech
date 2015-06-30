@@ -21,7 +21,7 @@ public abstract class ListItemDragHandler : DragItemHandler
         var rectTrans = ItemToBeDragged.transform as RectTransform;
         if (rectTrans && root)
         {
-            rectTrans.position = Input.mousePosition;
+            root.transform.position = transform.position;
             rectTrans.SetParent(root.transform);
             ItemOriginalSlot = root.transform;
             rectTrans.localScale = new Vector3(1, 1, 1);

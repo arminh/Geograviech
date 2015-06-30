@@ -34,7 +34,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Sprite: {fileID: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705e08b6c6a87974293d95eeafb6ef04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
   type: 0
 --- !u!222 &22285616
 CanvasRenderer:
