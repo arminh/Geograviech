@@ -54,6 +54,11 @@ namespace Assets.Scripts.Utils
             var entry = string.Format("{0}{1}\n{2}", error, message, exMessage);
 
             logBook.Add(entry);
+
+            if (logBook.Count > 10)
+            {
+                logBook.RemoveRange(0, 5);
+            }
         }
 
 
@@ -93,7 +98,9 @@ namespace Assets.Scripts.Utils
 			Instance.print();
             //GUI.BeginGroup(new Rect(Screen.width/2, Screen.height/2, 110, 130));  //note the 250 width and 305 height compared to the scrollview size
             //GUILayout.BeginScrollView(new Vector2(0, 0), GUILayout.Width(100), GUILayout.Height(100));
-            GUI.Label(new Rect(Screen.width * (1.0f / 3.0f), Screen.height * (3.0f / 4.0f), Screen.width * (1.0f / 3.0f), Screen.height * (1.0f / 4.0f)), logBookAsText, GUI.skin.textArea);
+            var style = GUI.skin.textArea;
+            style.fontSize = 24;
+            GUI.Label(new Rect(Screen.width * (1.0f / 4.0f), Screen.height * (11.0f / 12.0f), Screen.width * (1.0f / 2.0f), Screen.height * (1.0f / 12.0f)), logBookAsText, style);
             //GUILayout.EndScrollView();
             //GUI.EndGroup();
 
