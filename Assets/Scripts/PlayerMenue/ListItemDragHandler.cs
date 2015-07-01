@@ -24,6 +24,8 @@ public abstract class ListItemDragHandler : DragItemHandler
             rectTrans.SetParent(root.transform);
             ItemOriginalSlot = root.transform;
             rectTrans.localScale = new Vector3(1, 1, 1);
+            startPositionSlot = rectTrans.localPosition;
+            startPositionMouse = Vector3.zero;
         }
 
         var itemHandl = ItemToBeDragged.GetComponent<DragItemHandler>();
