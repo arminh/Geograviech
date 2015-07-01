@@ -34,12 +34,10 @@ namespace Assets.Scripts
         private bool levelWasLoaded = false;
         private void OnLevelWasLoaded(int iLevel)
         {
-			Log.Instance.Info("Level loaded");
             levelWasLoaded = true;
 
 			if (iLevel == 1) 
 			{
-				Log.Instance.Info("Thread awoke");
 				FightPlayer hero = player.createHero();
 				
 				FightManager.Instance.fight(hero, enemy);
@@ -148,7 +146,6 @@ namespace Assets.Scripts
 
         public void executeFight(FightViech enemy)
         {
-			Log.Instance.Info("executeFight");
 			this.enemy = enemy;
             Application.LoadLevel("Fightscreen");
 

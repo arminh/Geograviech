@@ -40,13 +40,18 @@ namespace Assets.Scripts.Utils
         private void makeEntry(Enums.LogBookEntryType type, string message, Exception e)
         {
             var exMessage = "";
+            var error = "";
 
             if (e != null)
             {
                 exMessage = string.Format("{0}\n", e.ToString());
             }
 
-            var entry = string.Format("{0}: {1}\n{2}", Enum.GetName(typeof(Enums.LogBookEntryType), type), message, exMessage);
+            if(type == Enums.LogBookEntryType.ERROR)
+            {
+                error = string.Format("{0}: ", Enum.GetName(typeof(Enums.LogBookEntryType), type));
+            }
+            var entry = string.Format("{0}{1}\n{2}", error, message, exMessage);
 
             logBook.Add(entry);
         }

@@ -20,6 +20,7 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
+        Log.Instance.Info("OnBeginDrag");
         ItemToBeDragged = this;
         ItemOriginalSlot = transform.parent;
 
@@ -36,11 +37,13 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
     {
         ItemToBeDragged.transform.localPosition = startPositionSlot + (Input.mousePosition - startPositionMouse);
         //Debug.Log(Input.mousePosition - startPositionMouse);
+        Log.Instance.Info(string.Format("{0}",Input.mousePosition - startPositionMouse));
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag");
+        Log.Instance.Info("OnEndDrag");
         if (ItemCanvasGroup != null)
             ItemCanvasGroup.blocksRaycasts = true;
 
