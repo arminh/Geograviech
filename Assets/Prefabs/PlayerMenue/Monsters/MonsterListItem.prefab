@@ -169,7 +169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e92f3135a6dc6074aba2c5a887f40b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
   type: 1
   DraggedPrefab: {fileID: 196708, guid: edd74dab883fe5d489681cae1090a89a, type: 2}
   Name: {fileID: 11421908}
