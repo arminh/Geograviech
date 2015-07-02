@@ -17,6 +17,7 @@ public class HoldWeapon : MonoBehaviour
 
     public void AddWeapon(Sprite weapon) 
     {
+        Debug.Log("AddWeapon");
         var query = from pref in weaponPrefabs
                     where pref.GetComponent<SpriteRenderer>().sprite.Equals(weapon) 
                     select pref;
@@ -24,7 +25,11 @@ public class HoldWeapon : MonoBehaviour
         if(Weapon)
         {
             RemoveWeapon();
+            Debug.Log(Weapon.transform.position);
+            Debug.Log(Weapon.transform.localPosition);
             Weapon.transform.SetParent(transform, false);
+            Debug.Log(Weapon.transform.position);
+            Debug.Log(Weapon.transform.localPosition);
         }
 	}
 

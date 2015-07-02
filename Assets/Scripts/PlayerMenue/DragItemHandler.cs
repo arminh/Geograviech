@@ -29,13 +29,11 @@ public abstract class DragItemHandler : MonoBehaviour, IBeginDragHandler, IDragH
 
         startPositionMouse = Input.mousePosition;
         startPositionSlot = ItemToBeDragged.transform.localPosition;
-
     }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
         ItemToBeDragged.transform.localPosition = startPositionSlot + (Input.mousePosition - startPositionMouse);
-        //Debug.Log(Input.mousePosition - startPositionMouse);
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
