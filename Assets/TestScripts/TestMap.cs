@@ -440,9 +440,13 @@ public class TestMap : MonoBehaviour
 	
 	void Update()
 	{
-        if (lastTime - Time.time > 5.0f)
+        if (Time.time - lastTime > 5.0f)
         {
-            map.UseLocation = true;
+            if (Input.location.status != LocationServiceStatus.Running)
+            {
+                map.UseLocation = false;
+                map.UseLocation = true;
+            }
             lastTime = Time.time;
         }
 

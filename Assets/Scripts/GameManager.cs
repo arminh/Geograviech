@@ -109,7 +109,7 @@ namespace Assets.Scripts
             List<Item> droppedItems = createItems.createRandomDrops(1, 10);
 
             var weapon = new Sword("Basic Sword", new Attack("Basic Sword", Enums.ElementType.NORMAL, 2, 4, 0, null, null));
-            player = new Player(20, 20, 20, 1, "TestPlayer", 500, 1, new List<Viech>(), activeViecher, new List<Weapon>(), weapon, new List<IConsumable>(), new List<Attack>(), "Player", "PlayerIcon");
+            player = new Player(20, 20, 20, 1, "TestPlayer", 500, 1, new List<Viech>(), activeViecher, new List<Weapon>(), weapon, new List<IConsumable>(), new List<Attack>(), "PlayerCW", "PlayerIcon");
             player.addViech(new Viech(30, 30, 2, 1, "Wurzelgemüse", 1, 500, attacks0, Enums.ElementType.EARTH, "Alraune", "AlrauneIcon"));
             player.addViech(new Viech(30, 30, 1, 2, "Katze", 1, 500, attacks0, Enums.ElementType.NORMAL, "SteirischerPanther", "PantherIcon"));
             player.addViech(new Viech(20, 20, 3, 1, "Steifer Vogel", 1, 500, attacks0, Enums.ElementType.WATER, "GefrorenePelikane", "PelikaneIcon"));
