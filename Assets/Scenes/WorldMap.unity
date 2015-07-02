@@ -123,7 +123,7 @@ MonoBehaviour:
   - {fileID: 197998, guid: 8857adf1f9eb6d4419127a092e9c65a0, type: 2}
   - {fileID: 199638, guid: 7b9097094c85cef43bca0e3149112b4d, type: 2}
   - {fileID: 165050, guid: c3e7b693bb565864fb62793d77cf11bd, type: 2}
-  - {fileID: 102038, guid: c4cc7c82f98a8f54ca77a67560a41285, type: 2}
+  - {fileID: 146842, guid: 558c0e1d8bbca014584da65b5928768b, type: 2}
   allCharactersIcons:
   - {fileID: 21300000, guid: 72f8e8b5e4b759f4784ba22d879c53b7, type: 3}
   - {fileID: 21300000, guid: 6a19b62972de6534fb34078cc965da1a, type: 3}
