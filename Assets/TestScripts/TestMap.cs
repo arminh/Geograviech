@@ -434,27 +434,33 @@ public class TestMap : MonoBehaviour
 	
 	void Update()
 	{
-		if (destinationAngle != 0.0f)
-		{
-			Vector3 cameraLeft = Quaternion.AngleAxis(-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
-			if ((Time.time - animationStartTime) < animationDuration)
-			{
-				float angle = Mathf.LerpAngle(0.0f, destinationAngle, (Time.time - animationStartTime) / animationDuration);
-				Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, angle - currentAngle);
-				currentAngle= angle;
-			}
-			else
-			{
-				Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, destinationAngle - currentAngle);
-				destinationAngle = 0.0f;
-				currentAngle = 0.0f;
-				map.IsDirty = true;
-			}
+        try
+        {
+		    if (destinationAngle != 0.0f)
+		    {
+			    Vector3 cameraLeft = Quaternion.AngleAxis(-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
+			    if ((Time.time - animationStartTime) < animationDuration)
+			    {
+				    float angle = Mathf.LerpAngle(0.0f, destinationAngle, (Time.time - animationStartTime) / animationDuration);
+				    Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, angle - currentAngle);
+				    currentAngle= angle;
+			    }
+			    else
+			    {
+				    Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, destinationAngle - currentAngle);
+				    destinationAngle = 0.0f;
+				    currentAngle = 0.0f;
+				    map.IsDirty = true;
+			    }
 
-			map.HasMoved = true;
-		}
-        map.UpdateCenterWithLocation = true;
+			    map.HasMoved = true;
+		    }
+            map.UpdateCenterWithLocation = true;
+        }
+        catch (Exception)
+        {
 
+        }
 	}
 	
 	#if DEBUG_PROFILE

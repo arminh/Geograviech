@@ -26,7 +26,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             if (IsOccupied())
             {
                 var item = GetContainedItem();
-                DragItemHandler dragItem = item.GetComponent<DragItemHandler>();
+                DragItemHandler dragItem = item.GetComponentInChildren<DragItemHandler>();
                 if (dragItem)
                 {
                     dragItem.OnRemoveFromSlot(this);

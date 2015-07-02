@@ -28,8 +28,9 @@ public class HoldWeapon : MonoBehaviour
             Debug.Log(Weapon.transform.position);
             Debug.Log(Weapon.transform.localPosition);
             Weapon.transform.SetParent(transform, false);
+            var lP = Weapon.transform.localPosition;
+            Weapon.transform.localPosition = new Vector3(lP.x, lP.y, 0.0f);
             Debug.Log(Weapon.transform.position);
-            Debug.Log(Weapon.transform.localPosition);
         }
 	}
 

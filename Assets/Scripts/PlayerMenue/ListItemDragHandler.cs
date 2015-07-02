@@ -21,11 +21,12 @@ public abstract class ListItemDragHandler : DragItemHandler
         var rectTrans = ItemToBeDragged.transform as RectTransform;
         if (rectTrans && root)
         {
+            root.transform.position = transform.position;
             rectTrans.SetParent(root.transform);
             ItemOriginalSlot = root.transform;
             rectTrans.localScale = new Vector3(1, 1, 1);
-            startPositionSlot = rectTrans.localPosition;
-            startPositionMouse = Vector3.zero;
+            //startPositionSlot = rectTrans.localPosition;
+            //startPositionMouse = Vector3.zero;
         }
 
         var itemHandl = ItemToBeDragged.GetComponent<DragItemHandler>();
@@ -46,7 +47,7 @@ public abstract class ListItemDragHandler : DragItemHandler
 		if (slot && slot.type == this.type)
         {
             Debug.Log("ListItemDragHandler - Destroy");
-            Destroy(this.gameObject);
+            Destroy(transform.parent.gameObject);
 		}
 	}
 

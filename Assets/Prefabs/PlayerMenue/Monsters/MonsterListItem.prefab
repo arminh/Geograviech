@@ -27,6 +27,7 @@ GameObject:
   - 224: {fileID: 22480436}
   - 222: {fileID: 22288032}
   - 114: {fileID: 11490394}
+  - 114: {fileID: 11499460}
   m_Layer: 5
   m_Name: Infos
   m_TagString: Untagged
@@ -61,6 +62,7 @@ GameObject:
   - 224: {fileID: 22444258}
   - 222: {fileID: 22257202}
   - 114: {fileID: 11481402}
+  - 114: {fileID: 11411234}
   m_Layer: 5
   m_Name: Picture
   m_TagString: Untagged
@@ -77,7 +79,6 @@ GameObject:
   m_Component:
   - 224: {fileID: 22462186}
   - 222: {fileID: 22280206}
-  - 114: {fileID: 11467416}
   - 225: {fileID: 22598050}
   - 114: {fileID: 11409084}
   - 114: {fileID: 11483176}
@@ -106,6 +107,21 @@ MonoBehaviour:
   m_PreferredHeight: 80
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+--- !u!114 &11411234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92f3135a6dc6074aba2c5a887f40b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  DraggedPrefab: {fileID: 196708, guid: edd74dab883fe5d489681cae1090a89a, type: 2}
+  Name: {fileID: 11421908}
+  TypeLvl: {fileID: 11448292}
 --- !u!114 &11421908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,21 +174,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Type: {0} Lvl: {1}'
---- !u!114 &11467416
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 199316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e92f3135a6dc6074aba2c5a887f40b3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
-  DraggedPrefab: {fileID: 196708, guid: edd74dab883fe5d489681cae1090a89a, type: 2}
-  Name: {fileID: 11421908}
-  TypeLvl: {fileID: 11448292}
 --- !u!114 &11481402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,7 +211,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11467416}
+        - m_Target: {fileID: 11411234}
           m_MethodName: OnSingleShortClick
           m_Mode: 1
           m_Arguments:
@@ -244,6 +245,17 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+--- !u!114 &11499460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da7df92ca842f84ab3afa5b5ad795d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &22232654
 CanvasRenderer:
   m_ObjectHideFlags: 1
