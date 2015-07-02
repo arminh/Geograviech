@@ -62,24 +62,24 @@ public class FightScreenManager : MonoBehaviour {
     public void init(int friendCount, int enemyCount)
     {
         playerPositions = new List<Vector3>();
-            enemyPositions = new List<Vector3>();
+        enemyPositions = new List<Vector3>();
 
-           List<Vector3> positions = Util.getFightScreenPostitions(friendCount,enemyCount);
-           foreach (Vector3 pos in positions)
-           {
-               Debug.Log("pos:" + pos);
-           }
-           for (int i = 0; i < positions.Count; i++)
-           {
-               if(i < friendCount)
-               {
-                   playerPositions.Add(positions[i]);
-               }
-               else
-               {
-                   enemyPositions.Add(positions[i]);
-               }
-           }
+        List<Vector3> positions = Util.getFightScreenPostitions(friendCount,enemyCount);
+        foreach (Vector3 pos in positions)
+        {
+            Debug.Log("pos:" + pos);
+        }
+        for (int i = 0; i < positions.Count; i++)
+        {
+            if(i < friendCount)
+            {
+                playerPositions.Add(positions[i]);
+            }
+            else
+            {
+                enemyPositions.Add(positions[i]);
+            }
+        }
     }
 
     public void setPositions(List<FightCharacter> fighters)
@@ -393,89 +393,45 @@ public class FightScreenManager : MonoBehaviour {
     private Vector2 calculateButtonSize(Vector2 panelSize, int buttonCount)
     {
         Vector2 buttonSize = Vector2.zero;
-        buttonSize.x = panelSize.x / 2 - panelSize.x * 0.05f;
-        switch (buttonCount)
-        {
-            case 2:
-                {
-
-                    buttonSize.y = panelSize.y/2;
-                    break;
-                }
-            case 3:
-            case 4:
-                {
-                    buttonSize.y = panelSize.y / 2 - panelSize.y * 0.05f;
-                    break;
-                }
-            default:
-                {
-                    buttonSize.x = panelSize.x;
-                    buttonSize.y = panelSize.y / 3;
-                    break;
-                }
-        }
+        buttonSize.x = panelSize.x / 2.0f - panelSize.x * 0.1f;
+        buttonSize.y = panelSize.y / 2.0f - panelSize.y * 0.1f;
         return buttonSize;
     }
 
     private List<Vector2> calculateButtonPositions(Vector2 panelPosition, Vector2 panelSize, int buttonCount)
     {
-        panelPosition.x = panelPosition.x - panelSize.x / 2;
-        panelPosition.y = panelPosition.y - panelSize.y / 2;
         List<Vector2> buttonPositions = new List<Vector2>();
-        switch (buttonCount)
+        var buttonSizeHalf = (panelSize.x / 2.0f - panelSize.x * 0.1f) / 2.0f;
+        var pseudoMiddleXPos = panelPosition.x - buttonSizeHalf;
+        var rowCount = (int)((buttonCount - 1) / 2);
+        var yStep = panelSize.y / 2.0f;
+        var firstYPos = rowCount * yStep / 2.0f + panelPosition.y - buttonSizeHalf;
+         
+        for (int i = 0; i < buttonCount; i++)
         {
-            case 2:
+            float x;
+
+            if (((i+1) % 2) == 1)
+	        {
+                if ((i+1) == buttonCount)
                 {
-                    float x = panelPosition.x;
-                    float y = panelPosition.y + panelSize.y / 4;
-                    buttonPositions.Add(new Vector2(x, y));
-
-                     x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
-                    buttonPositions.Add(new Vector2(x, y));
-                    break;
+                    x = pseudoMiddleXPos;
                 }
-            case 3:
+                else
                 {
-                    float x = panelPosition.x;
-                    float y = panelPosition.y + panelSize.y / 2 + panelSize.y * 0.05f;
-                    buttonPositions.Add(new Vector2(x, y));
-
-                    x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
-                    buttonPositions.Add(new Vector2(x, y));
-
-                    x = panelPosition.x+ (panelSize.x - calculateButtonSize(panelSize, 3).x) / 2;
-                    y = panelPosition.y;
-                    buttonPositions.Add(new Vector2(x, y));
-                    break;
+                    x = pseudoMiddleXPos - panelSize.x / 4.0f;
                 }
-            case 4:
-                {
-                    float x = panelPosition.x;
-                    float y = panelPosition.y;
-                    buttonPositions.Add(new Vector2(x, y));
+	        }
+            else
+            {
+                x = pseudoMiddleXPos + panelSize.x / 4.0f;
+            }
 
-                    x = panelPosition.x + panelSize.x / 2 + panelSize.x * 0.05f;
-                    buttonPositions.Add(new Vector2(x, y));
+            float y = firstYPos - yStep * (int)(i / 2);
 
-                    y = panelPosition.y + panelSize.y / 2 + panelSize.y * 0.05f;
-                    buttonPositions.Add(new Vector2(x, y));
-
-                    x = panelPosition.x;
-                    buttonPositions.Add(new Vector2(x, y));
-                    break;
-                }
-            default:
-                {
-                    float firstY = panelPosition.y + 2 * panelSize.y / 3;
-
-                    for (int i = 0; i < buttonCount; i++)
-                    {
-                        buttonPositions.Add(new Vector2(panelPosition.x, firstY - (i * panelSize.y / 3)));
-                    }
-                    break;
-                }
+            buttonPositions.Add(new Vector2(x, y));
         }
+
         return buttonPositions;
     }
 }

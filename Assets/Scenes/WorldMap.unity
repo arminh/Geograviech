@@ -146,6 +146,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1459c0fb86456c2498eb3f04e181a15f, type: 3}
   - {fileID: 21300000, guid: 3e7dc904efbfb874bb83b52b290afe33, type: 3}
   - {fileID: 21300000, guid: 0982cc9cc98097d4ebf1ceb567ce9e01, type: 3}
+  - {fileID: 21300000, guid: 330d5df4ebdd345c886e417be2877bfd, type: 3}
 --- !u!4 &75750158
 Transform:
   m_ObjectHideFlags: 0
@@ -373,7 +374,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2077069542}
-  - 114: {fileID: 2077069543}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -393,14 +393,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
---- !u!114 &2077069543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2077069540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b686f6c14b23aa4091eebc1a5421e60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

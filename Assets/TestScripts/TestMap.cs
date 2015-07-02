@@ -61,6 +61,8 @@ public class TestMap : MonoBehaviour
 	private List<Layer> layers;
 	private int     currentLayerIndex = 0;
 
+    private float lastTime;
+
 
 	bool Toolbar(Map map)
 	{
@@ -220,7 +222,7 @@ public class TestMap : MonoBehaviour
 		map = Map.Instance;
 		map.CurrentCamera = Camera.main;
 		map.InputDelegate += UnitySlippyMap.Input.MapInput.BasicTouchAndKeyboard;
-		map.CurrentZoom = 17.0f;
+		map.CurrentZoom = 18.0f;
 		// 9 rue Gentil, Lyon
 		//map.CenterWGS84 = new double[2] { 15.442552, 47.067243 };
 		//WORKS!
@@ -415,7 +417,7 @@ public class TestMap : MonoBehaviour
 		go = Tile.CreateTileTemplate().gameObject;
 		go.GetComponent<Renderer>().material.mainTexture = LocationTexture;
 		go.GetComponent<Renderer>().material.renderQueue = 4000;
-		go.transform.localScale /= 3.0f;
+		go.transform.localScale /= 1.5f;
 		
 		markerGO = Instantiate(go) as GameObject;
 
@@ -424,8 +426,12 @@ public class TestMap : MonoBehaviour
 		map.SetLocationMarker<LocationMarker>(markerGO);
 		
 		DestroyImmediate(go);
+        lastTime = Time.time;
 
-	}
+        map.MaxZoom = 18.0f;
+        map.MinZoom = 18.0f;
+        map.CurrentZoom = 18.0f;
+    }
 	
 	void OnApplicationQuit()
 	{
@@ -434,33 +440,33 @@ public class TestMap : MonoBehaviour
 	
 	void Update()
 	{
-        try
+        if (lastTime - Time.time > 5.0f)
         {
-		    if (destinationAngle != 0.0f)
-		    {
-			    Vector3 cameraLeft = Quaternion.AngleAxis(-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
-			    if ((Time.time - animationStartTime) < animationDuration)
-			    {
-				    float angle = Mathf.LerpAngle(0.0f, destinationAngle, (Time.time - animationStartTime) / animationDuration);
-				    Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, angle - currentAngle);
-				    currentAngle= angle;
-			    }
-			    else
-			    {
-				    Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, destinationAngle - currentAngle);
-				    destinationAngle = 0.0f;
-				    currentAngle = 0.0f;
-				    map.IsDirty = true;
-			    }
-
-			    map.HasMoved = true;
-		    }
-            map.UpdateCenterWithLocation = true;
+            map.UseLocation = true;
+            lastTime = Time.time;
         }
-        catch (Exception)
-        {
 
-        }
+        map.CenterOnLocation();
+
+		if (destinationAngle != 0.0f)
+		{
+			Vector3 cameraLeft = Quaternion.AngleAxis(-90.0f, Camera.main.transform.up) * Camera.main.transform.forward;
+			if ((Time.time - animationStartTime) < animationDuration)
+			{
+				float angle = Mathf.LerpAngle(0.0f, destinationAngle, (Time.time - animationStartTime) / animationDuration);
+				Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, angle - currentAngle);
+				currentAngle= angle;
+			}
+			else
+			{
+				Camera.main.transform.RotateAround(Vector3.zero, cameraLeft, destinationAngle - currentAngle);
+				destinationAngle = 0.0f;
+				currentAngle = 0.0f;
+				map.IsDirty = true;
+			}
+
+			map.HasMoved = true;
+		}
 	}
 	
 	#if DEBUG_PROFILE

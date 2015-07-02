@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfe786e47e63c240b2b3b73790e9030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 20
+  Speed: 40
   MaxDistanceToGoal: .100000001
   started: 0
 --- !u!114 &11462552
