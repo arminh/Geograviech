@@ -412,6 +412,40 @@ public class TestMap : MonoBehaviour
 		
 		DestroyImmediate(go7);
 
+		//----------------------------------------------------------------
+		//--------------- create Marker at Inffeldgasse ------------------
+		//----------------------------------------------------------------
+		//Gargoyle Marker
+		GameObject go8 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go8.GetComponent<Renderer>().material.mainTexture = MarkerGargoyleTexture;
+		go8.GetComponent<Renderer>().material.renderQueue = 4001;
+		go8.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+		go8.transform.localScale /= 3.0f;
+		go8.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+		
+		GameObject markerGO8;
+		markerGO8 = Instantiate(go8) as GameObject;
+		map.CreateMarker<Marker>("Gargoyle", new double[2] { 15.4599803, 47.0585921}, markerGO8);
+		
+		DestroyImmediate(go8);
+
+
+		//Zerber Marker
+		GameObject go9 = Tile.CreateTileTemplate(Tile.AnchorPoint.BottomCenter).gameObject;
+		go9.GetComponent<Renderer>().material.mainTexture = MarkerZerberWelpeTexture;
+		go9.GetComponent<Renderer>().material.renderQueue = 4001;
+		go9.transform.localScale = new Vector3(0.70588235294118f, 1.0f, 1.0f);
+		go9.transform.localScale /= 3.0f;
+		go9.AddComponent<CameraFacingBillboard>().Axis = Vector3.up;
+		
+		GameObject markerGO9;
+		markerGO9 = Instantiate(go9) as GameObject;
+		map.CreateMarker<Marker>("Zerber", new double[2] {15.4602803, 47.0582921}, markerGO9);
+		
+		DestroyImmediate(go9);
+		//----------------------------------------------------------------
+		//----------------------------------------------------------------
+
 
 		// create the location marker
 		go = Tile.CreateTileTemplate().gameObject;
