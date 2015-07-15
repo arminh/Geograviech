@@ -408,7 +408,7 @@ public class TestMap : MonoBehaviour
 		
 		GameObject markerGO7;
 		markerGO7 = Instantiate(go7) as GameObject;
-		map.CreateMarker<Marker>("Zerber", new double[2] { 15.444963, 47.068573}, markerGO7);
+        map.CreateMarker<Marker>("Zerber", new double[2] { 15.45782804, 47.07704883 }, markerGO7);
 		
 		DestroyImmediate(go7);
 
